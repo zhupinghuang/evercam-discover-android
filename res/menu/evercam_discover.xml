@@ -1,0 +1,58 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/action_refresh"
+        android:orderInCategory="1"
+        android:showAsAction="always"
+        android:icon="@drawable/ic_menu_refresh"
+        android:title="@string/action_refresh"/>
+    <!--  
+    <item
+        android:id="@+id/action_router"
+        android:orderInCategory="2"
+        android:showAsAction="never"
+        android:title="@string/action_router"/>
+
+        <item
+        android:id="@+id/action_showcameraonly"
+        android:orderInCategory="3"
+        android:showAsAction="never"
+        android:title="@string/action_showcameraonly"/>
+
+<item
+        android:id="@+id/action_showall"
+        android:orderInCategory="3"
+        android:showAsAction="never"
+        android:title="@string/action_showall"/>
+
+<item
+        android:id="@+id/action_support"
+        android:orderInCategory="3"
+        android:showAsAction="never"
+        android:title="@string/action_support"/>
+
+    <item
+        android:id="@+id/action_version"
+        android:orderInCategory="3"
+        android:showAsAction="never"
+        android:title="@string/action_version"/>
+ -->
+        <item
+        android:id="@+id/action_signIn"
+        android:orderInCategory="3"
+        android:showAsAction="never"
+        android:title="@string/action_signIn"/>
+        
+         <item
+        android:id="@+id/action_signOut"
+        android:orderInCategory="3"
+        android:showAsAction="never"
+        android:title="@string/action_signOut"/>
+         
+         <item android:id="@+id/action_settings" 
+             android:title="@string/action_settings" 
+             android:orderInCategory="2"
+             android:icon="@drawable/ic_menu_manage"
+             android:showAsAction="never"></item>
+
+</menu>

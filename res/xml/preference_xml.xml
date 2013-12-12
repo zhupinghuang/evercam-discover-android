@@ -1,0 +1,47 @@
+<PreferenceScreen
+        xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+ <PreferenceCategory
+            android:title="Network">
+        <ListPreference
+                android:key="listInterface_preference"
+                android:title="Network Interface"
+                android:summary="Choose the network interface for discovery"
+
+                android:dialogTitle="Choose the network interface for discovery" />
+        <Preference
+            android:key="networkpage_preference"
+                android:title="Network Infomation"
+                android:summary="View network details"
+            />
+  
+ </PreferenceCategory>
+  <PreferenceCategory
+            android:title="Options">       
+        <CheckBoxPreference
+                android:key="checkbox_showcameraonly"
+                android:title="Show Cameras Only"
+                android:defaultValue="checked"
+                android:summary="Display discovered cameras only." />
+ </PreferenceCategory>
+ 
+    <PreferenceCategory
+            android:title="About">  
+            <Preference
+            android:key="version_preference"
+                android:title="App version"
+            />
+            <Preference
+            android:key="contact_preference"
+                android:title="Contact"
+                android:summary="support@evercam.io"
+            />
+            <CheckBoxPreference
+                android:key="checkbox_userdata_preference"
+                android:title="Send User Data"
+                android:defaultValue="true"
+                android:summary="Send us discovered results to help improve Evercam Connect." />
+            </PreferenceCategory>
+
+</PreferenceScreen>
