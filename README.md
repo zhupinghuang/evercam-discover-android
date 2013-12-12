@@ -31,3 +31,5 @@ Import project into Eclipse and add google service dependency:
 3. `File > Import > Android > Existing Android Code Into Workspace` and click Next. 
 4. Select `Browse....` Enter <android-sdk-folder>/extras/google/google_play_services/libproject.
 
+## Published App
+[![Google Play](http://developer.android.com/images/brand/en_generic_rgb_wo_45.png)](https://play.google.com/store/apps/details?id=io.evercam.connect&hl=en)
