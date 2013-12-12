@@ -1,21 +1,18 @@
 # Evercam Connect
 
-Evercam Connect is an Android app to find local camera devices, get all possible details for each camera, and make it easier to add to Evercam.
+Evercam Connect is an Android app, scan local network, recognize cameras, get details of each camera, make it easier to add to Evercam.io and provide easy access for camera live view.
 
 ## Features
 
-* Porform IP scan, port scan, Bonjour and UPnP Discovery
+* IP scan, port scan, Bonjour and UPnP discovery
 * Support both WiFi and Ethernet scanning on Android device
-* Easy approach of camera default username & password, webpage, thumnail, RTSP stream
+* Easy approach of camera default username & password, snapshot, webpage, thumnail, RTSP stream
 * UPnP portforwarding on UPnP enabld routers
 * Fast access to router/network infomation
-* Sign in with Google+ account
-* Edit functions to help complete camera details
+* Sign in with Evercam/Google+ account
 
-## Todo
-
-* Sign in with Evercam
-* Queries using Evercam API
+## Published App
+[![Google Play](http://developer.android.com/images/brand/en_generic_rgb_wo_45.png)](https://play.google.com/store/apps/details?id=io.evercam.connect&hl=en)
 
 ## Build
 
@@ -31,5 +28,4 @@ Import project into Eclipse and add google service dependency:
 3. `File > Import > Android > Existing Android Code Into Workspace` and click Next. 
 4. Select `Browse....` Enter <android-sdk-folder>/extras/google/google_play_services/libproject.
 
-## Published App
-[![Google Play](http://developer.android.com/images/brand/en_generic_rgb_wo_45.png)](https://play.google.com/store/apps/details?id=io.evercam.connect&hl=en)
+
