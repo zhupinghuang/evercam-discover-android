@@ -12,10 +12,20 @@ Evercam Connect is an Android app to find local camera devices, get all possible
 * Sign in with Google+ account
 * Edit functions to help complete camera details
 
+## Todo
+
+* Sign in with Evercam
+* Queries using Evercam API
+
 ## Build
 
     # Checkout from Git
     git clone https://github.com/evercam/android.connect.git
 
-    
+### With Eclipse
+
+Import project into Eclipse and add google service dependency:
+
+1. Eclipse > Window > Android SDK Manager or run android from the command line. Scroll to the bottom of the package list and select Extras > Google Play services. The package is downloaded to your computer and installed in your SDK environment at <android-sdk-folder>/extras/google/google_play_services.
+2. File > Import > Android > Existing Android Code Into Workspace and click Next. Select Browse.... Enter <android-sdk-folder>/extras/google/google_play_services/libproject.
 
