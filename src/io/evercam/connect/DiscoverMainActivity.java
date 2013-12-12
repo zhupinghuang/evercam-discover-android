@@ -638,12 +638,14 @@ public class DiscoverMainActivity extends Activity
 		// display http/rtsp if not empty
 		if (!(http == 0))
 		{
-			deviceMap.put("device_http", "HTTP✓");
+			//deviceMap.put("device_http", "HTTP✓");
+			deviceMap.put("device_http", "HTTP\u2713");
+		
 
 		}
 		if (!(rtsp == 0))
 		{
-			deviceMap.put("device_rtsp", "RTSP✓");
+			deviceMap.put("device_rtsp", "RTSP\u2713");
 
 		}
 
