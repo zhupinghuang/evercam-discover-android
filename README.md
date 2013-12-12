@@ -1,6 +1,6 @@
 # Evercam Connect
 
-Evercam Connect is a Android app to find local camera devices, get all possible details for each camera, and make it easier to add to Evercam.
+Evercam Connect is an Android app to find local camera devices, get all possible details for each camera, and make it easier to add to Evercam.
 
 ## Features
 
