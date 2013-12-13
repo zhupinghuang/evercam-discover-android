@@ -120,7 +120,7 @@
     <string name="confirmSignOutMsg">Are you sure you want to sign out?</string>
     <string name="unknown">Unknown</string>
     <string name="title_activity_settings">Settings</string>
-    <string name="notAvaliable">Not avaliable</string>
+    <string name="notAvaliable">Not available</string>
     <string name="next">Next</string>
     <string name="dialogMsgMustConnect">You must connect to the internet before scanning.</string>
     <string name="wifiSettings">Wi-Fi settings</string>
@@ -133,5 +133,7 @@
     <string name="titleManualForward">Manual Forwarding</string>
     <string name="titleUpnpForward">UPnP Forwarding</string>
     <string name="forwardGuideMsg">1. If UPnP is enabled on your router, \'UPnP Forwarding\' helps forward your camera without log into the router.\n\n2. If you\'ve forworded the camera in your router, \'Manual Forwarding\' helps fill up forwarded ports and make it easier to add to Evercam.</string>
-    
+    <string name="userGuide">User Guide</string>
+    <string name="userGuideMsg">Send a feedback to let us know this is a camera or not.</string>
+    <string name="checkInternetConnection">Please check your INTERNET connection.</string>
 </resources>
