@@ -6,6 +6,12 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+/**
+ * CameraOperation
+ * 
+ * Interact with local SQLite database with discovered results.
+ */
+
 public class CameraOperation
 {
 

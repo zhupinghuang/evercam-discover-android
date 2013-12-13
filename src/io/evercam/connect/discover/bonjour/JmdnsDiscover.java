@@ -20,6 +20,7 @@ public class JmdnsDiscover
 
 	JmDNS jmdns;
 	private String axisVideoService = "_axis-video._tcp.local.";
+	//for Axis camera only
 	private Camera camera;
 	private ServiceInfo info;
 	private CameraOperation cameraOperation;
@@ -44,7 +45,6 @@ public class JmdnsDiscover
 
 					final String serviceName = e.getName();
 					camera = getCameraFromBonjour(axisVideoService, serviceName);
-					// check if exists in database or not
 					if (cameraOperation.isExisting(camera.getIP(),
 							netInfo.getSsid()))
 					{

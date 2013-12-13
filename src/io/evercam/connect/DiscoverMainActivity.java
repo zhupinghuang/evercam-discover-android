@@ -53,6 +53,12 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/**
+ * DiscoverMainActivity
+ * 
+ * App Entry page, start scan and show discovered devices.
+ */
+
 public class DiscoverMainActivity extends Activity
 {
 
@@ -110,7 +116,7 @@ public class DiscoverMainActivity extends Activity
 		
 		netInfo = new NetInfo(ctxt);
 
-		// new device list
+		// discovered device list
 		final ListView deviceList = (ListView) findViewById(R.id.device_list);
 		deviceList.addHeaderView(LayoutInflater.from(this).inflate(
 				R.layout.header_layout, null));
@@ -152,7 +158,6 @@ public class DiscoverMainActivity extends Activity
 			}
 		});
 
-		// device click listener new entry
 		deviceList.setOnItemClickListener(new OnItemClickListener(){
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1,
@@ -493,12 +498,11 @@ public class DiscoverMainActivity extends Activity
 		igdDiscoveryTask.execute();
 	}
 
-	// format discovered devices into cameras and display in listView
+	// convert discovered devices into camera objects and add to list
 	public void addHost(Host host)
 	{
 		if (!host.hardwareAddress.equals(NetInfo.EMPTY_MAC))
 		{
-			// is camera
 			if (host.deviceType == Constants.TYPE_CAMERA)
 			{
 				camera = getDeviceFromScan(host, Constants.TYPE_CAMERA);
@@ -518,7 +522,7 @@ public class DiscoverMainActivity extends Activity
 						ctxt);
 				addToDeviceList(camera);
 			}
-			// not a camera, but still record device info
+			// not a camera, but record device info
 			else
 			{
 				camera = getDeviceFromScan(host, Constants.TYPE_OTHERS);
@@ -603,8 +607,6 @@ public class DiscoverMainActivity extends Activity
 		String listIP = camera.getIP();
 		String listMAC = camera.getMAC().toUpperCase();
 		String listVendor = camera.getVendor();
-		int http = camera.getHttp();
-		int rtsp = camera.getRtsp();
 		final HashMap<String, Object> deviceMap = new HashMap<String, Object>();
 
 		deviceMap.put("device_name", listIP);
@@ -636,17 +638,13 @@ public class DiscoverMainActivity extends Activity
 		}
 
 		// display http/rtsp if not empty
-		if (!(http == 0))
+		if (camera.hasHTTP())
 		{
-			//deviceMap.put("device_http", "HTTP✓");
 			deviceMap.put("device_http", "HTTP\u2713");
-		
-
 		}
-		if (!(rtsp == 0))
+		if (camera.hasRTSP())
 		{
 			deviceMap.put("device_rtsp", "RTSP\u2713");
-
 		}
 
 		deviceArraylist.add(deviceMap);
@@ -671,7 +669,7 @@ public class DiscoverMainActivity extends Activity
 					}
 					else
 					{
-						makeToast("Please check your INTERNET connection.");
+						makeToast(getResources().getString(R.string.checkInternetConnection));
 					}
 				}
 				else if (isEthernetConnected)
@@ -685,7 +683,7 @@ public class DiscoverMainActivity extends Activity
 					}
 					else
 					{
-						makeToast("Please check your INTERNET connection.");
+						makeToast(getResources().getString(R.string.checkInternetConnection));
 					}
 				}
 
@@ -695,7 +693,7 @@ public class DiscoverMainActivity extends Activity
 
 	}
 
-	// display all devices into list from database
+	// show all devices in database
 	private void displayAll()
 	{
 		deviceArraylist.clear();

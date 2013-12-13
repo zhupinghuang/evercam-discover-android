@@ -9,6 +9,12 @@ import net.sbbi.upnp.impls.InternetGatewayDevice;
 import net.sbbi.upnp.messages.ActionResponse;
 import net.sbbi.upnp.messages.UPNPResponseException;
 
+/**
+ * IGDDiscovery
+ * 
+ * Searching for Gateway device using UPnP and get NAT table.
+ */
+
 public class IGDDiscovery
 {
 	int discoveryTiemout = 5000; // 5 secs

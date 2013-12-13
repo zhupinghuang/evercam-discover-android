@@ -74,13 +74,13 @@ public class SimpleDBConnect
 			if (!response.getItems().isEmpty())
 			{
 				int size = response.getItems().get(0).getAttributes().size();
-				// no alias info
+				// no alias
 				if (size == 1)
 				{
 					vendor = response.getItems().get(0).getAttributes().get(0)
 							.getValue();
 				}
-				// has alias info
+				// has alias
 				else if (size == 2)
 				{
 					vendor = response.getItems().get(0).getAttributes().get(1)

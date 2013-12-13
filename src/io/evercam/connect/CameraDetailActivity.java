@@ -10,6 +10,7 @@ import io.evercam.connect.net.NetInfo;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Field;
+import java.util.Locale;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -41,6 +42,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+/**
+ * CameraDetailActivity
+ *
+ * Camera detail page, show camera thumnails, model , ports info, live view etc. 
+ */
 
 public class CameraDetailActivity extends Activity
 {
@@ -339,7 +346,7 @@ public class CameraDetailActivity extends Activity
 	{
 		camera = cameraOperation.getCamera(ipstring, ssid);
 		ctxt = getApplicationContext();
-		// set texts
+
 		TextView ip = (TextView) findViewById(R.id.ipvalue_detail);
 		TextView mac = (TextView) findViewById(R.id.macvalue_detail);
 		TextView vendor = (TextView) findViewById(R.id.vendorvalue_detail);
@@ -431,7 +438,7 @@ public class CameraDetailActivity extends Activity
 		}
 
 		ip.setText(camera.getIP());
-		mac.setText(camera.getMAC().toUpperCase());
+		mac.setText(camera.getMAC().toUpperCase(Locale.UK));
 		vendor.setText(camera.getVendor());
 
 		// If is demo camera
@@ -454,7 +461,7 @@ public class CameraDetailActivity extends Activity
 				}
 			}, 1000);
 		}
-		// Display snapshot
+		// Show snapshot
 		else if (camera.isSupportedCamera() && camera.getHttp() != 0)
 		{
 			snapshot.setVisibility(View.VISIBLE);
@@ -547,7 +554,7 @@ public class CameraDetailActivity extends Activity
 			rtsp_button.setVisibility(View.GONE);
 		}
 		// display http if not null
-		if (camera.getHttp() != 0)
+		if (camera.hasHTTP())
 		{
 			http_layout.setVisibility(View.VISIBLE);
 			http_button.setVisibility(View.VISIBLE);
@@ -560,7 +567,7 @@ public class CameraDetailActivity extends Activity
 		}
 
 		// display internal https if exists
-		if (camera.getHttps() != 0)
+		if (camera.hasHTTPS())
 		{
 			https_layout.setVisibility(View.VISIBLE);
 			https.setText(String.valueOf(camera.getHttps()));
@@ -570,7 +577,7 @@ public class CameraDetailActivity extends Activity
 			https_layout.setVisibility(View.GONE);
 		}
 		// display internal ftp if exists
-		if (camera.getFtp() != 0)
+		if (camera.hasFTP())
 		{
 			ftp_layout.setVisibility(View.VISIBLE);
 			ftp.setText(String.valueOf(camera.getFtp()));
@@ -581,7 +588,7 @@ public class CameraDetailActivity extends Activity
 		}
 
 		// display internal ssh if exists
-		if (camera.getSsh() != 0)
+		if (camera.hasSSH())
 		{
 			ssh_layout.setVisibility(View.VISIBLE);
 			ssh.setText(String.valueOf(camera.getSsh()));
@@ -592,7 +599,7 @@ public class CameraDetailActivity extends Activity
 		}
 
 		// display external http if not null
-		if (camera.getExthttp() != 0)
+		if (camera.hasExternalHttp())
 		{
 			exthttp_layout.setVisibility(View.VISIBLE);
 			exthttp.setText(String.valueOf(camera.getExthttp()));
@@ -609,7 +616,7 @@ public class CameraDetailActivity extends Activity
 		}
 
 		// display external rtsp if not equals 0
-		if (camera.getExtrtsp() != 0)
+		if (camera.hasExternalRtsp())
 		{
 			extrtsp_layout.setVisibility(View.VISIBLE);
 			extrtsp.setText(String.valueOf(camera.getExtrtsp()));
@@ -983,9 +990,9 @@ public class CameraDetailActivity extends Activity
 	{
 		AlertDialog.Builder alertDialog = new AlertDialog.Builder(
 				CameraDetailActivity.this);
-		alertDialog.setTitle("User Guide");
+		alertDialog.setTitle(R.string.userGuide);
 		alertDialog
-				.setMessage("Send a feedback to let us know this is a camera or not.");
+				.setMessage(R.string.userGuideMsg);
 		alertDialog.setPositiveButton(R.string.ok,
 				new DialogInterface.OnClickListener(){
 
