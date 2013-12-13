@@ -20,6 +20,12 @@ import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 
+/**
+ * AwsS3Uploader
+ * 
+ * Upload user data to AWS s3
+ */
+
 public class AwsS3Uploader
 {
 	private AmazonS3Client s3Client;

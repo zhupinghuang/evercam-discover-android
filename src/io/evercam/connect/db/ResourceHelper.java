@@ -14,7 +14,7 @@ public class ResourceHelper
 	public int getImageId(String name)
 	{
 		return ctxt.getResources().getIdentifier(name, "drawable",
-				"io.evercam.connect");
+				ctxt.getPackageName());
 	}
 
 	public int getCameraImageId(Camera camera)

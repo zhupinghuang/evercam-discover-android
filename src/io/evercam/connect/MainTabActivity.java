@@ -10,6 +10,12 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 
+/**
+ * MainTabActivity
+ * 
+ * Tab page, switch between manual and UPnP port forwarding page.
+ */
+
 public class MainTabActivity extends FragmentActivity
 {
 	private static final String STATE_SELECTED_NAVIGATION_ITEM = "selected_navigation_item";

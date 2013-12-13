@@ -127,8 +127,6 @@ public class ManuallyForwardingTab extends Fragment
 			titleLayout.setVisibility(View.GONE);
 			warningLayout.setVisibility(View.VISIBLE);
 		}
-
-		// If internal port exists
 		else
 		{
 			saveBtn.setVisibility(View.VISIBLE);

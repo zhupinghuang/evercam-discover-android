@@ -13,6 +13,12 @@ import net.sbbi.upnp.messages.UPNPResponseException;
 import android.content.Context;
 import android.os.AsyncTask;
 
+/**
+ * IGDDiscoveryTask
+ * 
+ * AsyncTask using IGDDiscovery, along with database operations.
+ */
+
 public class IGDDiscoveryTask extends AsyncTask<Void, Void, Void>
 {
 

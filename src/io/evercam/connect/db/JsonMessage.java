@@ -9,6 +9,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * JsonMessage
+ * 
+ * Convert local camera objects to JSON for data collection.
+ */
+
 public class JsonMessage
 {
 
