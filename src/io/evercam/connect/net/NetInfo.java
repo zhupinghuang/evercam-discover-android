@@ -208,27 +208,12 @@ public class NetInfo
 
 			HttpGet httpget = new HttpGet(Constants.URL_GET_EXTERNAL_ADDR);
 			HttpResponse response;
-
 			response = httpclient.execute(httpget);
-
 			HttpEntity entity = response.getEntity();
 			if (entity != null)
 			{
-				long len = entity.getContentLength();
-				if (len != -1 && len < 1024)
-				{
-					extIP = EntityUtils.toString(entity);
-				}
+				extIP = EntityUtils.toString(entity);
 			}
-		}
-		catch (ConnectTimeoutException e)
-		{
-			Log.e("Network", "External IP address not responding");
-
-		}
-		catch (ClientProtocolException e)
-		{
-			e.printStackTrace();
 		}
 		catch (IOException e)
 		{
