@@ -660,7 +660,7 @@ public class DiscoverMainActivity extends Activity
 			public void run()
 			{
 
-				if (isWifiConnected)
+				if (isWifiConnected || isEthernetConnected)
 				{
 					if (NetInfo.getExternalIP() != null)
 					{
@@ -672,21 +672,6 @@ public class DiscoverMainActivity extends Activity
 						makeToast(getResources().getString(R.string.checkInternetConnection));
 					}
 				}
-				else if (isEthernetConnected)
-
-				{
-					if (NetInfo.getExternalIP() != null)
-					{
-
-						setScanRange();
-						startDiscovery();
-					}
-					else
-					{
-						makeToast(getResources().getString(R.string.checkInternetConnection));
-					}
-				}
-
 			}
 
 		}, 1000);
