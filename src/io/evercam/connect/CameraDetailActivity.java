@@ -438,9 +438,24 @@ public class CameraDetailActivity extends Activity
 		}
 
 		ip.setText(camera.getIP());
-		mac.setText(camera.getMAC().toUpperCase(Locale.UK));
-		vendor.setText(camera.getVendor());
-
+		if(camera.hasMac())
+		{
+			mac.setText(camera.getMAC().toUpperCase(Locale.UK));
+		}
+		else
+		{
+			mac.setText(R.string.unknown);
+	    }
+		
+		if(camera.hasVendor())
+		{
+			vendor.setText(camera.getVendor());
+		}
+		else
+		{
+			mac.setText(R.string.unknown);
+	    }
+		
 		// If is demo camera
 		if (camera.getSsid().equals("sample"))
 		{

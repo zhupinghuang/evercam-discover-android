@@ -1,6 +1,7 @@
 package io.evercam.connect.db;
 
 import io.evercam.connect.Constants;
+import io.evercam.connect.net.NetInfo;
 
 public class Camera
 {
@@ -434,10 +435,25 @@ public class Camera
 		{
 			return true;
 		}
-		else
-		{
 			return false;
+	}
+	
+	public boolean hasMac()
+	{
+		if(getMAC()!=null && !getMAC().equals("") && !getMAC().equals(NetInfo.EMPTY_MAC))
+		{
+			return true;
 		}
+		return false;
+	}
+	
+	public boolean hasVendor()
+	{
+		if(getVendor()!=null && !getVendor().equals(""))
+		{
+			return true;
+		}
+		return false;
 	}
 
 }
