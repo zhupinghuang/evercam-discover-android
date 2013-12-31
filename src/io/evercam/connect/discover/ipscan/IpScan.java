@@ -160,7 +160,7 @@ public class IpScan extends AsyncTask<Void, Host, Void>
 				discover.stopDiscovery();
 				
 				//Evercam data collection, only enabled if property 'EnableDataCollection' exists in property file.
-				startEvercamDataConnection();
+				startEvercamDataCollection();
 			}
 		}
 	}
@@ -312,7 +312,7 @@ public class IpScan extends AsyncTask<Void, Host, Void>
 
 	}
 	
-	private void startEvercamDataConnection()
+	private void startEvercamDataCollection()
 	{
 		SharedPreferences sharedPrefs = PreferenceManager
 				.getDefaultSharedPreferences(mainDiscover.get()
