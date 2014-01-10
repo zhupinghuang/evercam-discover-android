@@ -568,7 +568,8 @@ public class CameraDetailActivity extends Activity
 			rtsp_layout.setVisibility(View.GONE);
 			rtsp_button.setVisibility(View.GONE);
 		}
-		// display http if not null
+		
+		// display http port
 		if (camera.hasHTTP())
 		{
 			http_layout.setVisibility(View.VISIBLE);
@@ -577,6 +578,7 @@ public class CameraDetailActivity extends Activity
 		}
 		else
 		{
+			cameraOperation.updateAttributeInt(camera.getIP(), ssid, "http", 0);
 			http_layout.setVisibility(View.GONE);
 			http_button.setVisibility(View.GONE);
 		}
