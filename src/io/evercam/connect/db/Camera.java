@@ -341,7 +341,7 @@ public class Camera
 
 	public boolean hasHTTP()
 	{
-		if (getHttp() != 0)
+		if (getHttp() > 0)
 		{
 			return true;
 		}
