@@ -2,9 +2,9 @@ package io.evercam.connect.scan;
 
 public class ScanRange
 {
-	private long networkIp = 0;
-	private long networkStart = 0;
-	private long networkEnd = 0;
+	private long networkIp;
+	private long networkStart;
+	private long networkEnd;
 	
 	public ScanRange(String ip, String subnetMask)
 	{
@@ -22,6 +22,11 @@ public class ScanRange
 			networkStart = (networkIp >> shift << shift);
 			networkEnd = (networkStart | ((1 << shift) - 1));
 		}
+	}
+	
+	public int countSize()
+	{
+		return (int) (networkEnd - networkStart + 1);
 	}
 	
 	public long getNetworkIp()
