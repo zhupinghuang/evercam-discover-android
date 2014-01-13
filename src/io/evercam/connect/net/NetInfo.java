@@ -1,26 +1,20 @@
 package io.evercam.connect.net;
 
 import io.evercam.connect.Constants;
+import io.evercam.connect.scan.IpTranslator;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.net.Inet6Address;
 import java.net.InetAddress;
-import java.net.NetworkInterface;
-import java.net.SocketException;
 import java.net.UnknownHostException;
-import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.conn.ConnectTimeoutException;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.CoreConnectionPNames;
 import org.apache.http.util.EntityUtils;
@@ -75,35 +69,6 @@ public class NetInfo
 		}
 	}
 
-	// int ip to string(16885952 to 192.168.1.1)
-	public String getIpFromIntSigned(int ip_int)
-	{
-		String ip = "";
-		for (int k = 0; k < 4; k++)
-		{
-			ip = ip + ((ip_int >> k * 8) & 0xFF) + ".";
-		}
-		return ip.substring(0, ip.length() - 1);
-	}
-
-	public static String getIpFromLongUnsigned(long ip_long)
-	{
-		String ip = "";
-		for (int k = 3; k > -1; k--)
-		{
-			ip = ip + ((ip_long >> k * 8) & 0xFF) + ".";
-		}
-		return ip.substring(0, ip.length() - 1);
-	}
-
-	public static long getUnsignedLongFromIp(String ip_addr)
-	{
-
-		String[] a = ip_addr.split("\\.");
-		return (Integer.parseInt(a[0]) * 16777216 + Integer.parseInt(a[1])
-				* 65536 + Integer.parseInt(a[2]) * 256 + Integer.parseInt(a[3]));
-	}
-
 	// get wifi information
 	private void setWifiInfo()
 	{
@@ -114,8 +79,8 @@ public class NetInfo
 			wifiInfo = wifi.getConnectionInfo();
 			ssid = wifiInfo.getSSID();
 			macAddress = wifiInfo.getMacAddress();
-			gatewayIp = getIpFromIntSigned(wifi.getDhcpInfo().gateway);
-			netmaskIp = getIpFromIntSigned(wifi.getDhcpInfo().netmask);
+			gatewayIp = IpTranslator.getIpFromIntSigned(wifi.getDhcpInfo().gateway);
+			netmaskIp = IpTranslator.getIpFromIntSigned(wifi.getDhcpInfo().netmask);
 		}
 	}
 
@@ -139,47 +104,7 @@ public class NetInfo
 			return false;
 		}
 	}
-
-	public CharSequence[] getNetworkInterfaceNames()
-	{
-		Enumeration<NetworkInterface> networkInterfaces = null;
-		ArrayList<String> interfaceNameArrayList = new ArrayList<String>();
-		try
-		{
-			networkInterfaces = NetworkInterface.getNetworkInterfaces();
-			for (Enumeration<NetworkInterface> networkInterfaceEnum = networkInterfaces; networkInterfaces
-					.hasMoreElements();)
-			{
-				NetworkInterface networkInterface = networkInterfaceEnum
-						.nextElement();
-				for (Enumeration<InetAddress> nis = networkInterface
-						.getInetAddresses(); nis.hasMoreElements();)
-				{
-					InetAddress thisInetAddress = nis.nextElement();
-					if (!thisInetAddress.isLoopbackAddress())
-					{
-						if (thisInetAddress instanceof Inet6Address)
-						{
-							continue;
-						}
-						else
-						{
-							interfaceNameArrayList.add(networkInterface
-									.getName());
-						}
-					}
-				}
-			}
-		}
-		catch (SocketException e)
-		{
-			e.printStackTrace();
-		}
-		CharSequence[] chars = interfaceNameArrayList
-				.toArray(new CharSequence[interfaceNameArrayList.size()]);
-		return chars;
-	}
-
+	
 	// check wifi connection
 	public boolean isWifiConnected(Context context)
 	{

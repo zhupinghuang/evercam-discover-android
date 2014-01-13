@@ -9,6 +9,7 @@ import io.evercam.connect.db.CameraOperation;
 import io.evercam.connect.db.JsonMessage;
 import io.evercam.connect.db.SimpleDBConnect;
 import io.evercam.connect.net.NetInfo;
+import io.evercam.connect.scan.IpTranslator;
 
 import java.io.IOException;
 import java.lang.ref.WeakReference;
@@ -24,7 +25,7 @@ import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
-public class IpScan extends AsyncTask<Void, Host, Void>
+public class IpScanTask extends AsyncTask<Void, Host, Void>
 {
 	private ExecutorService pool;
 	final protected WeakReference<DiscoverMainActivity> mainDiscover;
@@ -34,7 +35,7 @@ public class IpScan extends AsyncTask<Void, Host, Void>
 	protected long size = 0;
 	private int pt_move = 2; // 1=backward 2=forward
 
-	public IpScan(DiscoverMainActivity ipmainDiscover)
+	public IpScanTask(DiscoverMainActivity ipmainDiscover)
 	{
 		mainDiscover = new WeakReference<DiscoverMainActivity>(ipmainDiscover);
 	}
@@ -182,7 +183,7 @@ public class IpScan extends AsyncTask<Void, Host, Void>
 	{
 		if (!pool.isShutdown())
 		{
-			pool.execute(new CheckRunnable(NetInfo.getIpFromLongUnsigned(i)));
+			pool.execute(new CheckRunnable(IpTranslator.getIpFromLongUnsigned(i)));
 		}
 	}
 
