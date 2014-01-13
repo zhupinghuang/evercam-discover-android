@@ -9,7 +9,10 @@ import io.evercam.connect.db.CameraOperation;
 import io.evercam.connect.db.JsonMessage;
 import io.evercam.connect.db.SimpleDBConnect;
 import io.evercam.connect.net.NetInfo;
+import io.evercam.connect.scan.IpScan;
 import io.evercam.connect.scan.IpTranslator;
+import io.evercam.connect.scan.ScanRange;
+import io.evercam.connect.scan.ScanResult;
 
 import java.io.IOException;
 import java.lang.ref.WeakReference;
@@ -40,15 +43,13 @@ public class IpScanTask extends AsyncTask<Void, Host, Void>
 		mainDiscover = new WeakReference<DiscoverMainActivity>(ipmainDiscover);
 	}
 
-	public void setNetwork(long ip, long start, long end)
+	public void setNetwork(ScanRange scanRange)
 	{
-		this.ip = ip;
-		this.start = start;
-		this.end = end;
+		this.ip = scanRange.getNetworkIp();
+		this.start = scanRange.getNetworkStart();
+		this.end = scanRange.getNetworkEnd();
 	}
-
-	private final static String TAG = "IP Scan";
-
+	
 	@Override
 	protected void onPreExecute()
 	{
@@ -65,7 +66,7 @@ public class IpScanTask extends AsyncTask<Void, Host, Void>
 			{
 				if (!isCancelled())
 				{
-					if (host[0]!= null)
+					if (host[0] != null)
 					{
 						discover.addHost(host[0]);
 					}
@@ -134,7 +135,7 @@ public class IpScanTask extends AsyncTask<Void, Host, Void>
 						pool.shutdownNow();
 						if (!pool.awaitTermination(10, TimeUnit.SECONDS))
 						{
-							Log.e(TAG, "Pool did not terminate");
+							Log.e("IP Scan", "Pool did not terminate");
 						}
 					}
 				}
@@ -145,9 +146,7 @@ public class IpScanTask extends AsyncTask<Void, Host, Void>
 				}
 			}
 		}
-
 		return null;
-
 	}
 
 	@Override
@@ -159,8 +158,9 @@ public class IpScanTask extends AsyncTask<Void, Host, Void>
 			if (discover != null)
 			{
 				discover.stopDiscovery();
-				
-				//Evercam data collection, only enabled if property 'EnableDataCollection' exists in property file.
+
+				// Evercam data collection, only enabled if property
+				// 'EnableDataCollection' exists in property file.
 				startEvercamDataCollection();
 			}
 		}
@@ -183,11 +183,12 @@ public class IpScanTask extends AsyncTask<Void, Host, Void>
 	{
 		if (!pool.isShutdown())
 		{
-			pool.execute(new CheckRunnable(IpTranslator.getIpFromLongUnsigned(i)));
+			pool.execute(new CheckRunnable(IpTranslator
+					.getIpFromLongUnsigned(i)));
 		}
 	}
 
-	private class CheckRunnable implements Runnable
+	private class CheckRunnable implements Runnable,ScanResult
 	{
 		private String addr;
 
@@ -199,39 +200,36 @@ public class IpScanTask extends AsyncTask<Void, Host, Void>
 		@Override
 		public void run()
 		{
-			final Host host = new Host();
+			Host host = new Host();
 			host.ipAddress = addr;
-			try
-			{
-				InetAddress h = InetAddress.getByName(addr);
 
-				// Arp Check #1
-				host.hardwareAddress = NetInfo.getHardwareAddress(addr);
-				if (!host.hardwareAddress.equals(NetInfo.EMPTY_MAC))
-				{
-					publish(host);
-					return;
-				}
-				// Native InetAddress check (PING)
-				if (h.isReachable(2500))
-				{
-					host.hardwareAddress = NetInfo.getHardwareAddress(addr);
-					publish(host);
-					return;
-				}
-				// Arp Check #2
-				host.hardwareAddress = NetInfo.getHardwareAddress(addr);
-				if (!host.hardwareAddress.equals(NetInfo.EMPTY_MAC))
-				{
-					publish(host);
-					return;
-				}
-
-			}
-			catch (IOException e)
+			// Arp Check
+			host.hardwareAddress = NetInfo.getHardwareAddress(addr);
+			if (!host.hardwareAddress.equals(NetInfo.EMPTY_MAC))
 			{
-				Log.e(TAG, e.getMessage());
+				publish(host);
+				return;
 			}
+			// Ping
+			IpScan ipScan = new IpScan(this);
+			ipScan.scanSingleIp(addr, 2500);
+
+		}
+
+		@Override
+		public void onActiveIp()
+		{
+			Host host = new Host();
+			host.ipAddress = addr;
+			host.hardwareAddress = NetInfo.getHardwareAddress(addr);
+			publish(host);
+		}
+
+		@Override
+		public void onNotActiveIp()
+		{
+			// TODO Auto-generated method stub
+			
 		}
 	}
 
@@ -312,7 +310,7 @@ public class IpScanTask extends AsyncTask<Void, Host, Void>
 				.getApplicationContext());
 
 	}
-	
+
 	private void startEvercamDataCollection()
 	{
 		SharedPreferences sharedPrefs = PreferenceManager
@@ -320,9 +318,11 @@ public class IpScanTask extends AsyncTask<Void, Host, Void>
 						.getApplicationContext());
 		boolean isDataCollectionAllowed = sharedPrefs.getBoolean(
 				Constants.KEY_USER_DATA, true);
-		PropertyReader propertyReader = new PropertyReader(mainDiscover.get().getApplicationContext());
+		PropertyReader propertyReader = new PropertyReader(mainDiscover.get()
+				.getApplicationContext());
 		if (isDataCollectionAllowed
-				&& propertyReader.isPropertyExist(Constants.PROPERTY_KEY_DATA_COLLECTION))
+				&& propertyReader
+						.isPropertyExist(Constants.PROPERTY_KEY_DATA_COLLECTION))
 		{
 			sendFeedBack();
 		}

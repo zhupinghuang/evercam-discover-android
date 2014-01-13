@@ -56,7 +56,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 /**
- * DiscoverMainActivity
+ * DiscoverMainActivitysetScanRange()
  * 
  * App Entry page, start scan and show discovered devices.
  */
@@ -453,17 +453,13 @@ public class DiscoverMainActivity extends Activity
 		return false;
 	}
 
-	public void setScanRange()
-	{
-		scanRange = new ScanRange(netInfo.getLocalIp(), IpTranslator.cidrToMask(netInfo.getCidr()));
-	}
-
 	// start ip scan
 	public void startDiscovery()
 	{
 		cancelTasks();
+		scanRange = new ScanRange(netInfo.getLocalIp(), IpTranslator.cidrToMask(netInfo.getCidr()));
 		ipScanTask = new IpScanTask(DiscoverMainActivity.this);
-		ipScanTask.setNetwork(scanRange.getNetworkIp(), scanRange.getNetworkStart(), scanRange.getNetworkEnd());
+		ipScanTask.setNetwork(scanRange);
 		ipScanTask.execute();
 
 		showProgress(true);
@@ -650,7 +646,6 @@ public class DiscoverMainActivity extends Activity
 				{
 					if (NetInfo.getExternalIP() != null)
 					{
-						setScanRange();
 						startDiscovery();
 					}
 					else
