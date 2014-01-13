@@ -5,11 +5,13 @@ import io.evercam.connect.db.CameraOperation;
 import io.evercam.connect.db.ResourceHelper;
 import io.evercam.connect.discover.bonjour.JmdnsDiscover;
 import io.evercam.connect.discover.ipscan.Host;
-import io.evercam.connect.discover.ipscan.IpScan;
+import io.evercam.connect.discover.ipscan.IpScanTask;
 import io.evercam.connect.discover.ipscan.PortScan;
 import io.evercam.connect.discover.upnp.IGDDiscoveryTask;
 import io.evercam.connect.discover.upnp.UpnpDiscoveryTask;
 import io.evercam.connect.net.NetInfo;
+import io.evercam.connect.scan.IpTranslator;
+import io.evercam.connect.scan.ScanRange;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -69,10 +71,7 @@ public class DiscoverMainActivity extends Activity
 	private Context ctxt;
 	private TextView scanning_text;
 	private ProgressBar progressbar;
-	private IpScan ipScanTask = null;
-	private long network_ip = 0;
-	private long network_start = 0;
-	private long network_end = 0;
+	private IpScanTask ipScanTask = null;
 	private ArrayList<Camera> cameraList;
 	private CameraOperation cameraOperation;
 	private Camera camera;
@@ -86,6 +85,7 @@ public class DiscoverMainActivity extends Activity
 	private boolean isEthernetConnected = false;
 	private boolean isShowCameraOnly;
 	private PropertyReader propertyReader;
+	ScanRange scanRange;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -455,29 +455,15 @@ public class DiscoverMainActivity extends Activity
 
 	public void setScanRange()
 	{
-		network_ip = NetInfo.getUnsignedLongFromIp(netInfo.getLocalIp());
-
-		int cidr = netInfo.getCidr();
-		int shift = (32 - cidr);
-		if (cidr < 31)
-		{
-			network_start = (network_ip >> shift << shift) + 1;
-			network_end = (network_start | ((1 << shift) - 1)) - 1;
-		}
-		else
-		{
-			network_start = (network_ip >> shift << shift);
-			network_end = (network_start | ((1 << shift) - 1));
-		}
-
+		scanRange = new ScanRange(netInfo.getLocalIp(), IpTranslator.cidrToMask(netInfo.getCidr()));
 	}
 
 	// start ip scan
 	public void startDiscovery()
 	{
 		cancelTasks();
-		ipScanTask = new IpScan(DiscoverMainActivity.this);
-		ipScanTask.setNetwork(network_ip, network_start, network_end);
+		ipScanTask = new IpScanTask(DiscoverMainActivity.this);
+		ipScanTask.setNetwork(scanRange.getNetworkIp(), scanRange.getNetworkStart(), scanRange.getNetworkEnd());
 		ipScanTask.execute();
 
 		showProgress(true);

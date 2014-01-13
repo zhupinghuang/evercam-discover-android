@@ -1,6 +1,9 @@
 package io.evercam.connect;
 
+import java.util.ArrayList;
+
 import io.evercam.connect.net.NetInfo;
+import io.evercam.connect.scan.NetworkInfo;
 import io.evercam.connect.R;
 
 import android.app.ActionBar;
@@ -99,8 +102,9 @@ public class SettingsActivity extends Activity
 
 		private void setUpNetworkInterfacePrefs()
 		{
-			CharSequence[] charInterfaceNames = netInfo
-					.getNetworkInterfaceNames();
+			ArrayList<String> interfaceNameArrayList = NetworkInfo.getNetworkInterfaceNames();
+			CharSequence[] charInterfaceNames = interfaceNameArrayList
+					.toArray(new CharSequence[interfaceNameArrayList.size()]);
 			interfaceList = (ListPreference) getPreferenceManager()
 					.findPreference(Constants.KEY_NETWORK_INTERFACE);
 			interfaceList.setEntries(charInterfaceNames);
