@@ -17,4 +17,46 @@ public class Host
 		hardwareAddress = NetInfo.EMPTY_MAC;
 		vendor = "Unknown";
 	}
+
+	public int getDeviceType()
+	{
+		return deviceType;
+	}
+
+	public String getIpAddress()
+	{
+		return ipAddress;
+	}
+
+	public String getHardwareAddress()
+	{
+		return hardwareAddress;
+	}
+
+	public String getVendor()
+	{
+		return vendor;
+	}
+
+	public void setDeviceType(int deviceType)
+	{
+		this.deviceType = deviceType;
+	}
+
+	public void setIpAddress(String ipAddress)
+	{
+		this.ipAddress = ipAddress;
+	}
+
+	public void setHardwareAddress(String hardwareAddress)
+	{
+		this.hardwareAddress = hardwareAddress;
+	}
+
+	public void setVendor(String vendor)
+	{
+		this.vendor = vendor;
+	}
+	
+	
 }

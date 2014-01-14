@@ -10,54 +10,30 @@ import io.evercam.connect.db.JsonMessage;
 import io.evercam.connect.db.SimpleDBConnect;
 import io.evercam.connect.net.NetInfo;
 import io.evercam.connect.scan.IpScan;
-import io.evercam.connect.scan.IpTranslator;
 import io.evercam.connect.scan.ScanRange;
 import io.evercam.connect.scan.ScanResult;
 
-import java.io.IOException;
 import java.lang.ref.WeakReference;
-import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
-import android.util.Log;
 
 public class IpScanTask extends AsyncTask<Void, Host, Void>
 {
 	private ExecutorService pool;
 	final protected WeakReference<DiscoverMainActivity> mainDiscover;
-	protected long ip;
-	protected long start = 0;
-	protected long end = 0;
-	protected long size = 0;
-	private int pt_move = 2; // 1=backward 2=forward
 	ScanRange scanRange;
 
-	public IpScanTask(DiscoverMainActivity ipmainDiscover)
+	public IpScanTask(DiscoverMainActivity ipmainDiscover, ScanRange scanRange)
 	{
 		mainDiscover = new WeakReference<DiscoverMainActivity>(ipmainDiscover);
-	}
-
-	public void setNetwork(ScanRange scanRange)
-	{
 		this.scanRange = scanRange;
-		this.ip = scanRange.getNetworkIp();
-		this.start = scanRange.getNetworkStart();
-		this.end = scanRange.getNetworkEnd();
 	}
 	
-	@Override
-	protected void onPreExecute()
-	{
-		size = (int) (end - start + 1);
-	}
-
 	@Override
 	protected void onProgressUpdate(Host... host)
 	{
@@ -88,15 +64,15 @@ public class IpScanTask extends AsyncTask<Void, Host, Void>
 				final IpScan ipScan = new IpScan(new ScanResult(){
 
 					@Override
-					public void onActiveIp(Host host)
+					public void onActiveIp(String ip)
 					{
-						publish(host);
-					}
-
-					@Override
-					public void onActiveIp()
-					{
-						// TODO Auto-generated method stub
+						Host host = new Host();
+						host.setIpAddress(ip);
+						host.setHardwareAddress(NetInfo.getHardwareAddress(ip));
+						if (!host.hardwareAddress.equals(NetInfo.EMPTY_MAC))
+						{
+							publish(host);
+						}
 						
 					}});
 				this.pool = ipScan.pool;
