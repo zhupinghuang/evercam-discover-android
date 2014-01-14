@@ -6,7 +6,7 @@ import io.evercam.connect.db.ResourceHelper;
 import io.evercam.connect.discover.bonjour.JmdnsDiscover;
 import io.evercam.connect.discover.ipscan.Host;
 import io.evercam.connect.discover.ipscan.IpScanTask;
-import io.evercam.connect.discover.ipscan.PortScan;
+import io.evercam.connect.discover.ipscan.EvercamPortScan;
 import io.evercam.connect.discover.upnp.IGDDiscoveryTask;
 import io.evercam.connect.discover.upnp.UpnpDiscoveryTask;
 import io.evercam.connect.net.NetInfo;
@@ -499,7 +499,7 @@ public class DiscoverMainActivity extends Activity
 					cameraOperation.insertScanCamera(camera, netInfo.getSsid());
 				}
 
-				new PortScan(camera.getIP(), netInfo.getSsid(),
+				new EvercamPortScan(camera.getIP(), netInfo.getSsid(),
 						ctxt);
 				addToDeviceList(camera);
 			}
