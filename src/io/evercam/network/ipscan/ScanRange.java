@@ -1,4 +1,4 @@
-package io.evercam.connect.scan;
+package io.evercam.network.ipscan;
 
 public class ScanRange
 {
@@ -24,37 +24,37 @@ public class ScanRange
 		}
 	}
 	
-	public int countSize()
+	protected int countSize()
 	{
 		return (int) (networkEnd - networkStart + 1);
 	}
 	
-	public long getNetworkIp()
+	protected long getNetworkIp()
 	{
 		return networkIp;
 	}
 
-	public long getNetworkStart()
+	protected long getNetworkStart()
 	{
 		return networkStart;
 	}
 
-	public long getNetworkEnd()
+	protected long getNetworkEnd()
 	{
 		return networkEnd;
 	}
 
-	public void setNetworkIp(long networkIp)
+	protected void setNetworkIp(long networkIp)
 	{
 		this.networkIp = networkIp;
 	}
 
-	public void setNetworkStart(long networkStart)
+	protected void setNetworkStart(long networkStart)
 	{
 		this.networkStart = networkStart;
 	}
 
-	public void setNetworkEnd(long networkEnd)
+	protected void setNetworkEnd(long networkEnd)
 	{
 		this.networkEnd = networkEnd;
 	}

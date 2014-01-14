@@ -9,9 +9,9 @@ import io.evercam.connect.db.CameraOperation;
 import io.evercam.connect.db.JsonMessage;
 import io.evercam.connect.db.SimpleDBConnect;
 import io.evercam.connect.net.NetInfo;
-import io.evercam.connect.scan.IpScan;
-import io.evercam.connect.scan.ScanRange;
-import io.evercam.connect.scan.ScanResult;
+import io.evercam.network.ipscan.IpScan;
+import io.evercam.network.ipscan.ScanRange;
+import io.evercam.network.ipscan.ScanResult;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -61,7 +61,7 @@ public class IpScanTask extends AsyncTask<Void, Host, Void>
 			final DiscoverMainActivity discover = mainDiscover.get();
 			if (discover != null)
 			{
-				final IpScan ipScan = new IpScan(new ScanResult(){
+				IpScan ipScan = new IpScan(new ScanResult(){
 
 					@Override
 					public void onActiveIp(String ip)

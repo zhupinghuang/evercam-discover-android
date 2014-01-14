@@ -4,20 +4,18 @@ import io.evercam.connect.DiscoverMainActivity;
 import io.evercam.connect.db.Camera;
 import io.evercam.connect.db.CameraOperation;
 import io.evercam.connect.net.NetInfo;
-
-import java.io.IOException;
+import io.evercam.network.upnp.UpnpDiscovery;
+import io.evercam.network.upnp.UpnpResult;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
-import net.sbbi.upnp.Discovery;
 import net.sbbi.upnp.devices.UPNPRootDevice;
 
 public class UpnpDiscoveryTask extends AsyncTask<Void, Void, Void>
 {
-	private UPNPRootDevice[] devices = null;
 	private CameraOperation cameraOperation;
 	private NetInfo netInfo;
+	private UpnpDiscovery upnpDiscovery;
 
 	public UpnpDiscoveryTask(Context ctxt)
 	{
@@ -28,20 +26,18 @@ public class UpnpDiscoveryTask extends AsyncTask<Void, Void, Void>
 	@Override
 	protected Void doInBackground(Void... arg0)
 	{
-		discoverAll();
+		upnpDiscover();
 		return null;
 	}
-
-	public void discoverAll()
+	
+	private void upnpDiscover()
 	{
-		try
-		{
-			devices = Discovery.discover(Discovery.DEFAULT_TIMEOUT,
-					Discovery.DEFAULT_TTL, Discovery.DEFAULT_MX,
-					"upnp:rootdevice", null);
-			if (devices.length != 0) for (int i = 0; i < devices.length; i++)
+		upnpDiscovery = new UpnpDiscovery(new UpnpResult(){
+
+			@Override
+			public void onUpnpDeviceFound(UPNPRootDevice upnpDevice)
 			{
-				Camera deviceFromUPNP = getDeviceFromUpnp(getDevices()[i]);
+				Camera deviceFromUPNP = getDeviceFromUpnp(upnpDevice);
 				if (deviceFromUPNP != null)
 				{
 					if (cameraOperation.isExisting(deviceFromUPNP.getIP(),
@@ -56,63 +52,19 @@ public class UpnpDiscoveryTask extends AsyncTask<Void, Void, Void>
 								netInfo.getSsid());
 					}
 				}
-
 			}
-			else
-			{
-			}
-		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
-		}
-		catch (NullPointerException e)
-		{
-			Log.e("UPnPDiscovery", "no upnp device");
-		}
-
-	}
-
-	public String getIPFromUpnp(UPNPRootDevice upnpDevice)
-	{
-		if (upnpDevice.getPresentationURL() != null)
-		{
-			return upnpDevice.getPresentationURL().getHost();
-		}
-		else
-		{
-			return null;
-		}
-	}
-
-	public int getPortFromUpnp(UPNPRootDevice upnpDevice)
-	{
-		if (upnpDevice.getPresentationURL() != null)
-		{
-			return upnpDevice.getPresentationURL().getPort();
-		}
-
-		return 0;
-	}
-
-	public String getModelFromUpnp(UPNPRootDevice upnpDevice)
-	{
-		String modelName = upnpDevice.getModelName();
-		return modelName;
-	}
-
-	public UPNPRootDevice[] getDevices()
-	{
-		return devices;
+			
+		});
+		upnpDiscovery.discoverAll();
 	}
 
 	public Camera getDeviceFromUpnp(UPNPRootDevice upnpDevice)
 	{
-		if (getIPFromUpnp(upnpDevice) != null)
+		if (upnpDiscovery.getIPFromUpnp(upnpDevice) != null)
 		{
-			Camera camera = new Camera(getIPFromUpnp(upnpDevice));
-			camera.setModel(getModelFromUpnp(upnpDevice));
-			camera.setHttp(getPortFromUpnp(upnpDevice));
+			Camera camera = new Camera(upnpDiscovery.getIPFromUpnp(upnpDevice));
+			camera.setModel(upnpDiscovery.getModelFromUpnp(upnpDevice));
+			camera.setHttp(upnpDiscovery.getPortFromUpnp(upnpDevice));
 			camera.setUpnp(1);
 			camera.setFirstSeen(DiscoverMainActivity.getSystemTime());
 			camera.setLastSeen(DiscoverMainActivity.getSystemTime());
