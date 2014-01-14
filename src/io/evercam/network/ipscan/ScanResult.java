@@ -1,4 +1,4 @@
-package io.evercam.connect.scan;
+package io.evercam.network.ipscan;
 
 public interface ScanResult
 {

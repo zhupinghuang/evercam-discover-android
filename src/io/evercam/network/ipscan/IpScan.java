@@ -1,4 +1,4 @@
-package io.evercam.connect.scan;
+package io.evercam.network.ipscan;
 
 import java.io.IOException;
 import java.net.InetAddress;
@@ -86,12 +86,12 @@ public class IpScan
 	{
 		if (!pool.isShutdown())
 		{
-			pool.execute(new CheckRunnable(IpTranslator
+			pool.execute(new SingleRunnable(IpTranslator
 					.getIpFromLongUnsigned(i),scanResult));
 		}
 	}
 	
-	public boolean scanSingleIp(String ip, int timeout)
+	public void scanSingleIp(String ip, int timeout)
 	{
 		try
 		{
@@ -99,7 +99,6 @@ public class IpScan
 			if (h.isReachable(timeout))
 			{
 				scanResult.onActiveIp(ip);
-				return true;
 			}
 		}
 		catch (UnknownHostException e)
@@ -110,40 +109,21 @@ public class IpScan
 		{
 			e.printStackTrace();
 		}
-		return false;
 	}
 
-	private class CheckRunnable implements Runnable
+	private class SingleRunnable implements Runnable
 	{
 		private String ip;
-		private ScanResult scanResult;
 
-		CheckRunnable(String ip, ScanResult scanResult)
+		SingleRunnable(String ip, ScanResult scanResult)
 		{
 			this.ip = ip;
-			this.scanResult = scanResult;
 		}
 
 		@Override
 		public void run()
 		{
-			//Ping
-			try
-			{
-				InetAddress h = InetAddress.getByName(ip);
-				if (h.isReachable(2500))
-				{
-					scanResult.onActiveIp(ip);
-				}
-			}
-			catch (UnknownHostException e)
-			{
-				e.printStackTrace();
-			}
-			catch (IOException e)
-			{
-				e.printStackTrace();
-			}
+			scanSingleIp(ip, DEFAULT_TIME_OUT);
 		}
 
 	}

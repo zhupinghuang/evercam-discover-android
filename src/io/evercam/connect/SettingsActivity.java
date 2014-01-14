@@ -3,8 +3,8 @@ package io.evercam.connect;
 import java.util.ArrayList;
 
 import io.evercam.connect.net.NetInfo;
-import io.evercam.connect.scan.NetworkInfo;
 import io.evercam.connect.R;
+import io.evercam.network.ipscan.NetworkInfo;
 
 import android.app.ActionBar;
 import android.app.Activity;

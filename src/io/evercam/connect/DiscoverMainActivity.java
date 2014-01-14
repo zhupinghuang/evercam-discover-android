@@ -10,8 +10,6 @@ import io.evercam.connect.discover.ipscan.PortScan;
 import io.evercam.connect.discover.upnp.IGDDiscoveryTask;
 import io.evercam.connect.discover.upnp.UpnpDiscoveryTask;
 import io.evercam.connect.net.NetInfo;
-import io.evercam.connect.scan.IpTranslator;
-import io.evercam.connect.scan.ScanRange;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -25,6 +23,8 @@ import java.util.Iterator;
 import com.bugsense.trace.BugSenseHandler;
 
 import io.evercam.connect.R;
+import io.evercam.network.ipscan.IpTranslator;
+import io.evercam.network.ipscan.ScanRange;
 
 import android.app.ActionBar;
 import android.app.Activity;
