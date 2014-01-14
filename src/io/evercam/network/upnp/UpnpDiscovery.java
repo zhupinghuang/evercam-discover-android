@@ -10,6 +10,14 @@ public class UpnpDiscovery
 	private UpnpResult upnpResult;
 	private UPNPRootDevice[] devices = null;
 	public static final String DEFAULT_DEVICE_TYPE = "upnp:rootdevice";
+	
+	// UPnP keys
+	public static final String UPNP_KEY_INTERNAL_PORT = "NewInternalPort";
+	public static final String UPNP_KEY_EXTERNAL_PORT = "NewExternalPort";
+	public static final String UPNP_KEY_DESCRIPTION = "NewPortMappingDescription";
+	public static final String UPNP_KEY_PROTOCOL = "NewProtocol";
+	public static final String UPNP_KEY_INTERNAL_CLIENT = "NewInternalClient";
+
 
 	public UpnpDiscovery(UpnpResult upnpResult)
 	{

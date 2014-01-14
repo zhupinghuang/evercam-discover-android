@@ -39,13 +39,6 @@ public final class Constants
 	public static final String KEY_USER_FIRST_NAME = "UserFirstName";
 	public static final String KEY_USER_LAST_NAME = "UserLastName";
 
-	// UPnP keys
-	public static final String UPNP_KEY_INTERNAL_PORT = "NewInternalPort";
-	public static final String UPNP_KEY_EXTERNAL_PORT = "NewExternalPort";
-	public static final String UPNP_KEY_DESCRIPTION = "NewPortMappingDescription";
-	public static final String UPNP_KEY_PROTOCOL = "NewProtocol";
-	public static final String UPNP_KEY_INTERNAL_CLIENT = "NewInternalClient";
-
 	// Property keys
 	public static final String PROPERTY_KEY_BUG_SENSE = "BugSenseCode";
 	public static final String PROPERTY_KEY_ACCESS_KEY = "AwsAccessKeyId";
