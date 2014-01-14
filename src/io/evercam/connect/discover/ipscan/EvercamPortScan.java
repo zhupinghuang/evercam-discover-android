@@ -1,21 +1,18 @@
 package io.evercam.connect.discover.ipscan;
 
 import io.evercam.connect.db.CameraOperation;
-
-import java.io.IOException;
-import java.net.InetAddress;
-import java.net.Socket;
+import io.evercam.network.ipscan.PortScan;
 
 import android.content.Context;
 
-public class PortScan
+public class EvercamPortScan
 {
 
 	String ssid;
 	public final int[] STANDARD_PORTS = { 20, 21, 22, 80, 443, 554 };
 	CameraOperation cameraOperation;
 
-	public PortScan(String ip, String ssid, Context ctxt)
+	public EvercamPortScan(String ip, String ssid, Context ctxt)
 	{
 		this.ssid = ssid;
 		cameraOperation = new CameraOperation(ctxt);
@@ -42,22 +39,6 @@ public class PortScan
 		return commonPorts;
 	}
 
-	// scan port range
-	public void scanBySequence(int start, int end, String ip)
-	{
-		for (int port = 1; port <= end; port++)
-		{
-			if (isPortReachable(ip, port))
-			{
-
-			}
-			else
-			{
-
-			}
-		}
-	}
-
 	public void scanByStandard(String ip, int[] ports, int type)
 	{
 		// type = 0: stantard port
@@ -66,7 +47,7 @@ public class PortScan
 		for (int i = 0; i < ports.length; i++)
 		{
 			port = ports[i];
-			if (isPortReachable(ip, port))
+			if (PortScan.isPortReachable(ip, port))
 			{
 				String port_s = String.valueOf(port);
 				switch (type)
@@ -98,26 +79,8 @@ public class PortScan
 					break;
 				}
 			}
-			else
-			{
-
-			}
 		}
 	}
 
-	// check ip:port is reachable or not, using socket connection
-	public static boolean isPortReachable(String ip, int port)
-	{
-		try
-		{
-			InetAddress ip_net = InetAddress.getByName(ip);
-			new Socket(ip_net, port);
-			return true;
 
-		}
-		catch (IOException e)
-		{
-			return false;
-		}
-	}
 }
