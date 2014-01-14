@@ -458,8 +458,7 @@ public class DiscoverMainActivity extends Activity
 	{
 		cancelTasks();
 		scanRange = new ScanRange(netInfo.getLocalIp(), IpTranslator.cidrToMask(netInfo.getCidr()));
-		ipScanTask = new IpScanTask(DiscoverMainActivity.this);
-		ipScanTask.setNetwork(scanRange);
+		ipScanTask = new IpScanTask(DiscoverMainActivity.this, scanRange);
 		ipScanTask.execute();
 
 		showProgress(true);

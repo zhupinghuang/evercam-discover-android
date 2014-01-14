@@ -1,8 +1,5 @@
 package io.evercam.connect.scan;
 
-import io.evercam.connect.discover.ipscan.Host;
-import io.evercam.connect.net.NetInfo;
-
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -10,12 +7,11 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-import android.util.Log;
-
 public class IpScan
 {
 	private ScanResult scanResult;
 	public static final int DEFAULT_TIME_OUT = 2500;
+	public static final int DEFAULT_FIXED_POOL = 100;
 	public ExecutorService pool;
 	private int pt_move = 2; // 1=backward 2=forward
 	
@@ -29,12 +25,11 @@ public class IpScan
 		long ip = scanRange.getNetworkIp();
 		long start = scanRange.getNetworkStart();
 		long end = scanRange.getNetworkEnd();
-		pool = Executors.newFixedThreadPool(10);
+		pool = Executors.newFixedThreadPool(DEFAULT_FIXED_POOL);
 		if (ip <= end && ip >= start)
 		{
 			launch(start);
 
-			// hosts
 			long pt_backward = ip;
 			long pt_forward = ip + 1;
 			long size_hosts = scanRange.countSize() - 1;
@@ -71,7 +66,6 @@ public class IpScan
 			{
 				launch(i);
 			}
-
 		}
 		pool.shutdown();
 		try
@@ -104,7 +98,7 @@ public class IpScan
 			InetAddress h = InetAddress.getByName(ip);
 			if (h.isReachable(timeout))
 			{
-				scanResult.onActiveIp();
+				scanResult.onActiveIp(ip);
 				return true;
 			}
 		}
@@ -121,33 +115,25 @@ public class IpScan
 
 	private class CheckRunnable implements Runnable
 	{
-		private String addr;
+		private String ip;
 		private ScanResult scanResult;
 
-		CheckRunnable(String addr, ScanResult scanResult)
+		CheckRunnable(String ip, ScanResult scanResult)
 		{
-			this.addr = addr;
+			this.ip = ip;
 			this.scanResult = scanResult;
 		}
 
 		@Override
 		public void run()
 		{
-			Host host = new Host();
-			host.ipAddress = addr;
-			
-			// Arp Check
-			if(arpCheck(host))
-			{
-				return;
-			}
-			// Ping
+			//Ping
 			try
 			{
-				InetAddress h = InetAddress.getByName(addr);
+				InetAddress h = InetAddress.getByName(ip);
 				if (h.isReachable(2500))
 				{
-					arpCheck(host);
+					scanResult.onActiveIp(ip);
 				}
 			}
 			catch (UnknownHostException e)
@@ -158,17 +144,6 @@ public class IpScan
 			{
 				e.printStackTrace();
 			}
-		}
-		
-		private boolean arpCheck(Host host)
-		{
-			host.hardwareAddress = NetInfo.getHardwareAddress(addr);
-			if (!host.hardwareAddress.equals(NetInfo.EMPTY_MAC))
-			{
-				scanResult.onActiveIp(host);
-				return true;
-			}
-			return false;
 		}
 
 	}
