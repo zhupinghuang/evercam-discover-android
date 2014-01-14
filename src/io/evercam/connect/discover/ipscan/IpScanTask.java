@@ -37,6 +37,7 @@ public class IpScanTask extends AsyncTask<Void, Host, Void>
 	protected long end = 0;
 	protected long size = 0;
 	private int pt_move = 2; // 1=backward 2=forward
+	ScanRange scanRange;
 
 	public IpScanTask(DiscoverMainActivity ipmainDiscover)
 	{
@@ -45,6 +46,7 @@ public class IpScanTask extends AsyncTask<Void, Host, Void>
 
 	public void setNetwork(ScanRange scanRange)
 	{
+		this.scanRange = scanRange;
 		this.ip = scanRange.getNetworkIp();
 		this.start = scanRange.getNetworkStart();
 		this.end = scanRange.getNetworkEnd();
@@ -83,67 +85,22 @@ public class IpScanTask extends AsyncTask<Void, Host, Void>
 			final DiscoverMainActivity discover = mainDiscover.get();
 			if (discover != null)
 			{
-				pool = Executors.newFixedThreadPool(10);
-				if (ip <= end && ip >= start)
-				{
-					launch(start);
+				final IpScan ipScan = new IpScan(new ScanResult(){
 
-					// hosts
-					long pt_backward = ip;
-					long pt_forward = ip + 1;
-					long size_hosts = size - 1;
-
-					for (int i = 0; i < size_hosts; i++)
+					@Override
+					public void onActiveIp(Host host)
 					{
-						// Set pointer if of limits
-						if (pt_backward <= start)
-						{
-							pt_move = 2;
-						}
-						else if (pt_forward > end)
-						{
-							pt_move = 1;
-						}
-						// Move back and forth
-						if (pt_move == 1)
-						{
-							launch(pt_backward);
-							pt_backward--;
-							pt_move = 2;
-						}
-						else if (pt_move == 2)
-						{
-							launch(pt_forward);
-							pt_forward++;
-							pt_move = 1;
-						}
-					}
-				}
-				else
-				{
-					for (long i = start; i <= end; i++)
-					{
-						launch(i);
+						publish(host);
 					}
 
-				}
-				pool.shutdown();
-				try
-				{
-					if (!pool.awaitTermination(3600, TimeUnit.SECONDS))
+					@Override
+					public void onActiveIp()
 					{
-						pool.shutdownNow();
-						if (!pool.awaitTermination(10, TimeUnit.SECONDS))
-						{
-							Log.e("IP Scan", "Pool did not terminate");
-						}
-					}
-				}
-				catch (InterruptedException e)
-				{
-					pool.shutdownNow();
-					Thread.currentThread().interrupt();
-				}
+						// TODO Auto-generated method stub
+						
+					}});
+				this.pool = ipScan.pool;
+				ipScan.scanAll(scanRange);
 			}
 		}
 		return null;
@@ -177,60 +134,6 @@ public class IpScanTask extends AsyncTask<Void, Host, Void>
 			}
 		}
 		super.onCancelled();
-	}
-
-	private void launch(long i)
-	{
-		if (!pool.isShutdown())
-		{
-			pool.execute(new CheckRunnable(IpTranslator
-					.getIpFromLongUnsigned(i)));
-		}
-	}
-
-	private class CheckRunnable implements Runnable,ScanResult
-	{
-		private String addr;
-
-		CheckRunnable(String addr)
-		{
-			this.addr = addr;
-		}
-
-		@Override
-		public void run()
-		{
-			Host host = new Host();
-			host.ipAddress = addr;
-
-			// Arp Check
-			host.hardwareAddress = NetInfo.getHardwareAddress(addr);
-			if (!host.hardwareAddress.equals(NetInfo.EMPTY_MAC))
-			{
-				publish(host);
-				return;
-			}
-			// Ping
-			IpScan ipScan = new IpScan(this);
-			ipScan.scanSingleIp(addr, 2500);
-
-		}
-
-		@Override
-		public void onActiveIp()
-		{
-			Host host = new Host();
-			host.ipAddress = addr;
-			host.hardwareAddress = NetInfo.getHardwareAddress(addr);
-			publish(host);
-		}
-
-		@Override
-		public void onNotActiveIp()
-		{
-			// TODO Auto-generated method stub
-			
-		}
 	}
 
 	private void publish(final Host host)

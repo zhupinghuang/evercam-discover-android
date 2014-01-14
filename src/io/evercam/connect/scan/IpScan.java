@@ -16,7 +16,7 @@ public class IpScan
 {
 	private ScanResult scanResult;
 	public static final int DEFAULT_TIME_OUT = 2500;
-	private ExecutorService pool;
+	public ExecutorService pool;
 	private int pt_move = 2; // 1=backward 2=forward
 	
 	public IpScan(ScanResult scanResult)
@@ -79,10 +79,6 @@ public class IpScan
 			if (!pool.awaitTermination(3600, TimeUnit.SECONDS))
 			{
 				pool.shutdownNow();
-				if (!pool.awaitTermination(10, TimeUnit.SECONDS))
-				{
-					Log.e("IP Scan", "Pool did not terminate");
-				}
 			}
 		}
 		catch (InterruptedException e)
@@ -141,20 +137,17 @@ public class IpScan
 			host.ipAddress = addr;
 			
 			// Arp Check
-			host.hardwareAddress = NetInfo.getHardwareAddress(addr);
-			if (!host.hardwareAddress.equals(NetInfo.EMPTY_MAC))
+			if(arpCheck(host))
 			{
-				scanResult.onActiveIp();
 				return;
 			}
 			// Ping
-			InetAddress h;
 			try
 			{
-				h = InetAddress.getByName(addr);
+				InetAddress h = InetAddress.getByName(addr);
 				if (h.isReachable(2500))
 				{
-					scanResult.onActiveIp();
+					arpCheck(host);
 				}
 			}
 			catch (UnknownHostException e)
@@ -165,8 +158,17 @@ public class IpScan
 			{
 				e.printStackTrace();
 			}
-			
-
+		}
+		
+		private boolean arpCheck(Host host)
+		{
+			host.hardwareAddress = NetInfo.getHardwareAddress(addr);
+			if (!host.hardwareAddress.equals(NetInfo.EMPTY_MAC))
+			{
+				scanResult.onActiveIp(host);
+				return true;
+			}
+			return false;
 		}
 
 	}
