@@ -1,6 +1,4 @@
-package io.evercam.connect.discover.upnp;
-
-import io.evercam.connect.Constants;
+package io.evercam.network.upnp;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -17,11 +15,11 @@ import net.sbbi.upnp.messages.UPNPResponseException;
 
 public class IGDDiscovery
 {
-	int discoveryTiemout = 5000; // 5 secs
+	int discoveryTimeout = 5000; // 5 secs
 	String routerIP;
 	InternetGatewayDevice[] IGDs;
 	public InternetGatewayDevice IGD = null;
-	int tableSize = 0;;
+	public int tableSize = 0;;
 	public boolean isRouterIGD;
 
 	public IGDDiscovery(String routerIP)
@@ -29,14 +27,14 @@ public class IGDDiscovery
 		this.routerIP = routerIP;
 		try
 		{
-			IGDs = InternetGatewayDevice.getDevices(discoveryTiemout);
+			IGDs = InternetGatewayDevice.getDevices(discoveryTimeout);
 			if (IGDs != null)
 			{
 				for (int i = 0; i < IGDs.length; i++)
 				{
 					String url = null;
 					InternetGatewayDevice testIGD = IGDs[i];
-					// try{
+
 					url = testIGD.getIGDRootDevice().getPresentationURL()
 							.toString();
 					if (url.contains(routerIP))
@@ -49,7 +47,6 @@ public class IGDDiscovery
 					{
 						isRouterIGD = false;
 					}
-
 				}
 			}
 		}
@@ -92,7 +89,7 @@ public class IGDDiscovery
 				ActionResponse mapEntry = IGD
 						.getGenericPortMappingEntry(sizeIndex);
 				String natIP = mapEntry
-						.getOutActionArgumentValue(Constants.UPNP_KEY_INTERNAL_CLIENT);
+						.getOutActionArgumentValue(UpnpDiscovery.UPNP_KEY_INTERNAL_CLIENT);
 				if (natIP.equals(ip))
 				{
 					matchedEntrys.add(mapEntry);

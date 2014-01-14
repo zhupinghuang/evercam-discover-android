@@ -1,9 +1,10 @@
 package io.evercam.connect.discover.upnp;
 
-import io.evercam.connect.Constants;
 import io.evercam.connect.db.Camera;
 import io.evercam.connect.db.CameraOperation;
 import io.evercam.connect.net.NetInfo;
+import io.evercam.network.upnp.IGDDiscovery;
+import io.evercam.network.upnp.UpnpDiscovery;
 
 import java.io.IOException;
 
@@ -64,13 +65,13 @@ public class IGDDiscoveryTask extends AsyncTask<Void, Void, Void>
 				ActionResponse mapEntry = igdDiscovery.IGD
 						.getGenericPortMappingEntry(sizeIndex);
 				String natIP = mapEntry
-						.getOutActionArgumentValue(Constants.UPNP_KEY_INTERNAL_CLIENT);
+						.getOutActionArgumentValue(UpnpDiscovery.UPNP_KEY_INTERNAL_CLIENT);
 				int natInternalPort = Integer
 						.parseInt(mapEntry
-								.getOutActionArgumentValue(Constants.UPNP_KEY_INTERNAL_PORT));
+								.getOutActionArgumentValue(UpnpDiscovery.UPNP_KEY_INTERNAL_PORT));
 				int natExternalPort = Integer
 						.parseInt(mapEntry
-								.getOutActionArgumentValue(Constants.UPNP_KEY_EXTERNAL_PORT));
+								.getOutActionArgumentValue(UpnpDiscovery.UPNP_KEY_EXTERNAL_PORT));
 				if (cameraOperation.isExisting(natIP, netInfo.getSsid()))
 				{
 					Camera camera = cameraOperation.getCamera(natIP,

@@ -2,7 +2,6 @@ package io.evercam.connect;
 
 import io.evercam.connect.db.Camera;
 import io.evercam.connect.db.CameraOperation;
-import io.evercam.connect.discover.upnp.IGDDiscovery;
 import io.evercam.connect.net.NetInfo;
 
 import java.io.IOException;
@@ -14,6 +13,8 @@ import net.sbbi.upnp.messages.ActionResponse;
 import net.sbbi.upnp.messages.UPNPResponseException;
 
 import io.evercam.connect.R;
+import io.evercam.network.upnp.IGDDiscovery;
+import io.evercam.network.upnp.UpnpDiscovery;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -347,10 +348,10 @@ public class UpnpForwardingTab extends Fragment
 				{
 					String internalPort = forwardedList.get(i)
 							.getOutActionArgumentValue(
-									Constants.UPNP_KEY_INTERNAL_PORT);
+									UpnpDiscovery.UPNP_KEY_INTERNAL_PORT);
 					String externalPort = forwardedList.get(i)
 							.getOutActionArgumentValue(
-									Constants.UPNP_KEY_EXTERNAL_PORT);
+									UpnpDiscovery.UPNP_KEY_EXTERNAL_PORT);
 					if (camera.getHttp() != 0
 							&& internalPort.equals(String.valueOf(camera
 									.getHttp())))
@@ -441,16 +442,16 @@ public class UpnpForwardingTab extends Fragment
 					String number = (i + 1) + "";
 					String description = forwardedList.get(i)
 							.getOutActionArgumentValue(
-									Constants.UPNP_KEY_DESCRIPTION);
+									UpnpDiscovery.UPNP_KEY_DESCRIPTION);
 					String internalPort = forwardedList.get(i)
 							.getOutActionArgumentValue(
-									Constants.UPNP_KEY_INTERNAL_PORT);
+									UpnpDiscovery.UPNP_KEY_INTERNAL_PORT);
 					String externalPort = forwardedList.get(i)
 							.getOutActionArgumentValue(
-									Constants.UPNP_KEY_EXTERNAL_PORT);
+									UpnpDiscovery.UPNP_KEY_EXTERNAL_PORT);
 					String protocol = forwardedList.get(i)
 							.getOutActionArgumentValue(
-									Constants.UPNP_KEY_PROTOCOL);
+									UpnpDiscovery.UPNP_KEY_PROTOCOL);
 					String thisEntry = number + "." + "\n" + "Description: "
 							+ description + "\n" + "Internal Port: "
 							+ internalPort + "\n" + "External Port: "
@@ -724,13 +725,13 @@ public class UpnpForwardingTab extends Fragment
 		for (int i = 0; i < forwardedList.size(); i++)
 		{
 			spinnerList.add(forwardedList.get(i).getOutActionArgumentValue(
-					Constants.UPNP_KEY_EXTERNAL_PORT)
+					UpnpDiscovery.UPNP_KEY_EXTERNAL_PORT)
 					+ " - "
 					+ forwardedList.get(i).getOutActionArgumentValue(
-							Constants.UPNP_KEY_PROTOCOL)
+							UpnpDiscovery.UPNP_KEY_PROTOCOL)
 					+ " - "
 					+ forwardedList.get(i).getOutActionArgumentValue(
-							Constants.UPNP_KEY_DESCRIPTION));
+							UpnpDiscovery.UPNP_KEY_DESCRIPTION));
 		}
 
 		return spinnerList;
