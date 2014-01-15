@@ -1,7 +1,15 @@
 <PreferenceScreen
         xmlns:android="http://schemas.android.com/apk/res/android">
 
-
+<PreferenceCategory
+            android:title="Account">
+        <Preference
+            android:key="accountname_preference"
+                android:title="Not Signed In"
+                android:summary="Click to sign in with Evercam"
+            />
+  
+ </PreferenceCategory>
  <PreferenceCategory
             android:title="Network">
         <ListPreference
