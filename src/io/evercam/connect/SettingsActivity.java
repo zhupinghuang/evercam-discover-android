@@ -2,6 +2,7 @@ package io.evercam.connect;
 
 import java.util.ArrayList;
 
+import io.evercam.connect.db.SharedPrefsManager;
 import io.evercam.connect.net.NetInfo;
 import io.evercam.connect.R;
 import io.evercam.network.ipscan.NetworkInfo;
@@ -10,6 +11,7 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
@@ -29,13 +31,22 @@ public class SettingsActivity extends Activity
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		getFragmentManager().beginTransaction()
-				.replace(android.R.id.content, new PrefsFragement()).commit();
-
+		initFragment();
 		final ActionBar actionBar = getActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
 		actionBar.setDisplayHomeAsUpEnabled(true);
 	}
+	
+	
+
+	@Override
+	protected void onResume()
+	{
+		super.onResume();
+		initFragment();
+	}
+
+
 
 	@Override
 	public Intent getParentActivityIntent()
@@ -44,6 +55,12 @@ public class SettingsActivity extends Activity
 		return super.getParentActivityIntent();
 
 	}
+	
+	private void initFragment()
+	{
+		getFragmentManager().beginTransaction()
+		.replace(android.R.id.content, new PrefsFragement()).commit();
+	}
 
 	public static class PrefsFragement extends PreferenceFragment
 	{
@@ -51,7 +68,9 @@ public class SettingsActivity extends Activity
 		NetInfo netInfo;
 		ListPreference interfaceList;
 		Preference netInfoPrefs;
+		Preference accountPrefs;
 		SharedPreferences sharedPrefs;
+		private boolean isSigned = false;
 
 		@Override
 		public void onCreate(Bundle savedInstanceState)
@@ -63,6 +82,7 @@ public class SettingsActivity extends Activity
 			sharedPrefs = PreferenceManager
 					.getDefaultSharedPreferences(getActivity());
 
+			setUpAccount();
 			setUpNetworkInterfacePrefs();
 			setNetInfoPrefs();
 			setVersionPrefs();
@@ -78,6 +98,50 @@ public class SettingsActivity extends Activity
 						}
 					});
 
+			accountPrefs.setOnPreferenceClickListener(new OnPreferenceClickListener(){
+
+				@Override
+				public boolean onPreferenceClick(Preference preference)
+				{
+					if(isSigned)
+					{
+						AlertDialog.Builder logoutDialog = new AlertDialog.Builder(
+								getActivity());
+						logoutDialog.setMessage(R.string.signOutAlert);
+						logoutDialog.setNegativeButton(R.string.no, new OnClickListener(){
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which)
+							{
+								return;			
+							}
+							
+						});
+						logoutDialog.setPositiveButton(R.string.yes, new OnClickListener(){
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which)
+							{
+								SharedPrefsManager.clearUserInfo(sharedPrefs);
+								isSigned = false;
+								accountPrefs.setTitle("Not Signed In");
+								accountPrefs.setSummary("Click to sign in with Evercam");
+								return;			
+							}
+							
+						});
+						logoutDialog.show();
+					}
+					else
+					{
+						Intent intentSignIn = new Intent();
+						intentSignIn.setClass(getActivity(),LoginActivity.class);
+						startActivity(intentSignIn);
+					}
+					return false;
+				}				
+			});
+			
 			netInfoPrefs
 					.setOnPreferenceClickListener(new OnPreferenceClickListener(){
 
@@ -100,6 +164,22 @@ public class SettingsActivity extends Activity
 					});
 		}
 
+		
+		
+		private void setUpAccount()
+		{
+			accountPrefs = (Preference)getPreferenceManager().findPreference(Constants.KEY_ACCOUNT);
+			String userEmail = sharedPrefs.getString(Constants.KEY_USER_EMAIL, null);
+			String userFirstName = sharedPrefs.getString(Constants.KEY_USER_FIRST_NAME, null);
+			String userLastName = sharedPrefs.getString(Constants.KEY_USER_LAST_NAME, null);
+			if (userEmail != null)
+			{
+				isSigned = true;
+				accountPrefs.setTitle(userFirstName + " " + userLastName);
+				accountPrefs.setSummary(userEmail);
+			}
+		}
+		
 		private void setUpNetworkInterfacePrefs()
 		{
 			ArrayList<String> interfaceNameArrayList = NetworkInfo.getNetworkInterfaceNames();
