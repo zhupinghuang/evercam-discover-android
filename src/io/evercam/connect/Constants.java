@@ -29,6 +29,7 @@ public final class Constants
 
 	// preference
 	public static final String KEY_NETWORK_INTERFACE = "listInterface_preference";
+	public static final String KEY_ACCOUNT = "accountname_preference";
 	public static final String KEY_NETWORK_INFO = "networkpage_preference";
 	public static final String KEY_VERSION = "version_preference";
 	public static final String KEY_CONTACT = "contact_preference";

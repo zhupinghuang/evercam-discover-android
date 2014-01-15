@@ -3,6 +3,7 @@ package io.evercam.connect;
 import io.evercam.connect.db.Camera;
 import io.evercam.connect.db.CameraOperation;
 import io.evercam.connect.db.ResourceHelper;
+import io.evercam.connect.db.SharedPrefsManager;
 import io.evercam.connect.discover.bonjour.JmdnsDiscover;
 import io.evercam.connect.discover.ipscan.Host;
 import io.evercam.connect.discover.ipscan.IpScanTask;
@@ -56,7 +57,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 /**
- * DiscoverMainActivitysetScanRange()
+ * MainActivity
  * 
  * App Entry page, start scan and show discovered devices.
  */
@@ -354,7 +355,7 @@ public class DiscoverMainActivity extends Activity
 		menuSignIn.setVisible(false);
 		menuSignOut.setVisible(false);
 
-		if (sharedPrefs.getString("UserEmail", null) != null)
+		if (sharedPrefs.getString(Constants.KEY_USER_EMAIL, null) != null)
 		{
 			menuSignIn.setVisible(false);
 			menuSignOut.setVisible(true);
@@ -419,15 +420,7 @@ public class DiscoverMainActivity extends Activity
 								public void onClick(DialogInterface dialog,
 										int which)
 								{
-									SharedPreferences.Editor editor = sharedPrefs
-											.edit();
-									editor.putString(Constants.KEY_USER_EMAIL,
-											null);
-									editor.putString(
-											Constants.KEY_USER_FIRST_NAME, null);
-									editor.putString(
-											Constants.KEY_USER_LAST_NAME, null);
-									editor.commit();
+									SharedPrefsManager.clearUserInfo(sharedPrefs);
 									menuSignIn.setVisible(true);
 									menuSignOut.setVisible(false);
 								}
