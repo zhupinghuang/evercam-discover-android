@@ -8,7 +8,7 @@ Evercam Connect is an Android app, scan local network, recognize cameras, get de
 * Support both WiFi and Ethernet scanning on Android device
 * Easy approach of camera default username & password, snapshot, webpage, thumnail, RTSP stream
 * UPnP portforwarding on UPnP enabld routers
-* Fast access to router/network infomation
+* Fast access to router/network information
 * Sign in with Evercam/Google+ account
 
 ## Published App
