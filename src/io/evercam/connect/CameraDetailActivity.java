@@ -63,6 +63,7 @@ public class CameraDetailActivity extends Activity
 	private Button portForwardBtn;
 	private Button setDeviceBtn;
 	private Button setCameraBtn;
+	private Button addEvercamButton;
 	private Context ctxt;
 
 	private NetInfo netInfo;
@@ -201,7 +202,7 @@ public class CameraDetailActivity extends Activity
 
 				AlertDialog.Builder alertDialog = new AlertDialog.Builder(
 						CameraDetailActivity.this);
-				alertDialog.setTitle(R.string.title_activity_main_tab);
+				alertDialog.setTitle(R.string.portForwarding);
 				alertDialog
 						.setMessage(R.string.forwardGuideMsg);
 
@@ -324,6 +325,17 @@ public class CameraDetailActivity extends Activity
 			}
 
 		});
+		
+		addEvercamButton.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v)
+			{
+
+				
+			}
+
+		});
 	}
 
 	@Override
@@ -392,6 +404,7 @@ public class CameraDetailActivity extends Activity
 		portForwardBtn = (Button) findViewById(R.id.portForwardButton);
 		setDeviceBtn = (Button) findViewById(R.id.setAsDeviceButton);
 		setCameraBtn = (Button) findViewById(R.id.setAsCameraButton);
+		addEvercamButton = (Button) findViewById(R.id.addToEvercamBtn);
 
 		// Is a camera
 		if (camera.getFlag() == Constants.TYPE_CAMERA)
@@ -413,6 +426,7 @@ public class CameraDetailActivity extends Activity
 			setDeviceBtn.setVisibility(View.VISIBLE);
 			setCameraBtn.setVisibility(View.GONE);
 			editBtn.setVisibility(View.VISIBLE);
+			addEvercamButton.setVisibility(View.VISIBLE);
 		}
 		// Is not a camera
 		else
@@ -423,6 +437,7 @@ public class CameraDetailActivity extends Activity
 
 			http_button.setVisibility(View.GONE);
 			rtsp_button.setVisibility(View.GONE);
+			addEvercamButton.setVisibility(View.GONE);
 		}
 
 		// set images

@@ -73,7 +73,7 @@
     <string name="email_support">support@evercam.io</string>
     <string name="axisVideoService">_axis-video._tcp.local.</string>
     <string name="alertNoCamera">No camera found. If any camera is not recognized correctly, please in Device detail page -> Edit to set as a camera and send us a feedback. </string>
-    <string name="title_activity_main_tab">Port Forwarding</string>
+    <string name="portForwarding">Port Forwarding</string>
     <string name="searchingRouter">Searching for UPnP router......</string>
     <string name="routerAvaliable">UPnP port forwarding is available.</string>
     <string name="routerNotAvaliable">UPnP is not avaliable.</string>
@@ -138,4 +138,11 @@
     <string name="checkInternetConnection">Please check your INTERNET connection.</string>
     <string name="signOutAlert">Would you like to sign out?</string>
     <string name="login_progress_signing_in">Signing in</string>
+    <string name="addToEvercam">Add to Evercam</string>
+    <string name="isEvercam">Is Evercam? </string>
+    <string name="viewWebsite">View Website</string>
+    <string name="viewRtspStream">View RTSP Stream</string>
+    <string name="editDetails">Edit Details</string>
+    <string name="thisisNotcamera">This is NOT a camera</string>
+    <string name="thisiscamera">This is a CAMERA</string>
 </resources>

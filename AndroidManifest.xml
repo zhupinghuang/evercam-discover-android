@@ -60,7 +60,7 @@ android:parentActivityName="io.evercam.connect.SettingsActivity" >
 
         <activity
             android:name="io.evercam.connect.MainTabActivity"
-            android:label="@string/title_activity_main_tab"
+            android:label="@string/portForwarding"
             android:screenOrientation="portrait" >
         </activity>
         <activity
