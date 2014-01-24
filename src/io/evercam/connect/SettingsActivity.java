@@ -122,7 +122,7 @@ public class SettingsActivity extends Activity
 							public void onClick(DialogInterface dialog,
 									int which)
 							{
-								SharedPrefsManager.clearUserInfo(sharedPrefs);
+								SharedPrefsManager.clearGoogleUserInfo(sharedPrefs);
 								isSigned = false;
 								accountPrefs.setTitle("Not Signed In");
 								accountPrefs.setSummary("Click to sign in with Evercam");

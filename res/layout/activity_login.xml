@@ -1,4 +1,39 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".LoginActivity" >
+
+    <!-- Login progress -->
+
+    <LinearLayout
+        android:id="@+id/login_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:visibility="gone" >
+
+        <ProgressBar
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:id="@+id/login_status_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:fontFamily="sans-serif-light"
+            android:text="@string/login_progress_signing_in"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+    </LinearLayout>
+    
+    
+    <!-- Login form -->
+    
+    <LinearLayout 
+        android:id="@+id/login_form"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical" >
@@ -17,58 +52,35 @@
         android:id="@+id/login_layout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+                    android:layout_marginLeft="30sp"
+            android:layout_marginRight="30sp"
         android:orientation="vertical" >
 
-        <LinearLayout
-            android:id="@+id/loginUsername_layout"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="30sp"
-            android:layout_marginRight="30sp"
-            android:layout_marginTop="50sp"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:orientation="horizontal" >
-
             <EditText
-                android:id="@+id/loginUsernamevalue_detail"
+                android:id="@+id/loginUsername"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:hint="Email"
+                android:layout_marginTop="50sp"
+                android:hint="Email/Username"
                 android:inputType="text"
                 android:singleLine="true"
                 android:textSize="17sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/loginPassword_layout"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="30sp"
-            android:layout_marginRight="30sp"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:orientation="horizontal" >
-
+            
             <EditText
-                android:id="@+id/loginPasswordvalue_detail"
+                android:id="@+id/loginPassword"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:hint="Password"
                 android:inputType="textPassword"
                 android:singleLine="true"
                 android:textSize="17sp" />
-        </LinearLayout>
+
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/signInEvercamBtn"
             android:layout_width="fill_parent"
             android:layout_height="40dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginLeft="30sp"
-            android:layout_marginRight="30sp"
             android:layout_marginTop="30dp"
             android:background="@drawable/btn_selector"
             android:text="Log In"
@@ -78,7 +90,6 @@
             android:id="@+id/signupLink"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="30dip"
             android:layout_marginTop="10dip"
             android:text="Sign Up For Evercam"
             android:textColor="@drawable/text_color_selector"
@@ -235,3 +246,5 @@
     </LinearLayout>
 
 </LinearLayout>
+
+</merge>
