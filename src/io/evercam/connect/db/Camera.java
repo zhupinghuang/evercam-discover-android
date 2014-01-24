@@ -33,6 +33,8 @@ public class Camera
 	private String password;
 	private int portForwarded = 0; // 1:yes 0:no
 	private int evercamConnected = 0; // 1:yes 0:no
+	
+	private String snapshotJpgUrl = null;
 
 	public Camera(String ip)
 	{
@@ -455,5 +457,26 @@ public class Camera
 		}
 		return false;
 	}
+	
+	public boolean isReadyForEvercam()
+	{
+		if(hasExternalHttp() && getSnapshotJpgUrl()!=null)
+		{
+			return true;
+		}
+		return false;
+	}
+
+	public String getSnapshotJpgUrl()
+	{
+		return snapshotJpgUrl;
+	}
+
+	public void setSnapshotJpgUrl(String snapshotJpgUrl)
+	{
+		this.snapshotJpgUrl = snapshotJpgUrl;
+	}
+	
+	
 
 }
