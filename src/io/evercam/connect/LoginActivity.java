@@ -31,11 +31,9 @@ import android.widget.Toast;
 public class LoginActivity extends Activity
 {
 
-	private static final int REQUEST_CODE_RESOLVE_ERR = 9000;
-
-	private ProgressDialog mConnectionProgressDialog;
-	private PlusClient mPlusClient;
-	private ConnectionResult mConnectionResult;
+	protected ProgressDialog mConnectionProgressDialog;
+	protected PlusClient mPlusClient;
+	protected ConnectionResult mConnectionResult;
 	SignInButton signInButton;
 	TextView alreadySigned;
 	LinearLayout loginLayout;
@@ -108,7 +106,7 @@ public class LoginActivity extends Activity
 							{
 								mConnectionResult.startResolutionForResult(
 										LoginActivity.this,
-										REQUEST_CODE_RESOLVE_ERR);
+										GoogleSignIn.REQUEST_CODE_RESOLVE_ERR);
 							}
 							catch (SendIntentException e)
 							{
@@ -185,7 +183,7 @@ public class LoginActivity extends Activity
 					try
 					{
 						mConnectionResult.startResolutionForResult(
-								LoginActivity.this, REQUEST_CODE_RESOLVE_ERR);
+								LoginActivity.this, GoogleSignIn.REQUEST_CODE_RESOLVE_ERR);
 					}
 					catch (SendIntentException e)
 					{
@@ -211,81 +209,4 @@ public class LoginActivity extends Activity
 		return super.getParentActivityIntent();
 
 	}
-
-	private class GoogleSignIn implements ConnectionCallbacks,
-			OnConnectionFailedListener
-	{
-		LoginActivity loginActivity;
-
-		GoogleSignIn(LoginActivity loginActivity)
-		{
-			this.loginActivity = loginActivity;
-			mPlusClient = new PlusClient.Builder(getApplicationContext(), this,
-					this).setActions("http://schemas.google.com/AddActivity",
-					"http://schemas.google.com/BuyActivity").build();
-
-			mConnectionProgressDialog = new ProgressDialog(loginActivity);
-			mConnectionProgressDialog.setMessage("Signing in...");
-
-			mPlusClient.connect();
-
-		}
-
-		@Override
-		public void onConnected(Bundle connectionHint)
-		{
-
-			mConnectionProgressDialog.dismiss();
-			Toast.makeText(
-					loginActivity,
-					"Hi, " + mPlusClient.getCurrentPerson().getDisplayName()
-							+ " :)", Toast.LENGTH_LONG).show();
-
-			SharedPreferences sharedPrefs = PreferenceManager
-					.getDefaultSharedPreferences(LoginActivity.this);
-			SharedPreferences.Editor editor = sharedPrefs.edit();
-			editor.putString(Constants.KEY_USER_EMAIL,
-					mPlusClient.getAccountName());
-			editor.putString(Constants.KEY_USER_FIRST_NAME, mPlusClient
-					.getCurrentPerson().getDisplayName().split(" ")[0]);
-			editor.putString(Constants.KEY_USER_LAST_NAME, mPlusClient
-					.getCurrentPerson().getDisplayName().split(" ")[1]);
-			editor.commit();
-
-			launchConfirmPage();
-		}
-
-		@Override
-		public void onDisconnected()
-		{
-
-		}
-
-		@Override
-		public void onConnectionFailed(ConnectionResult result)
-		{
-
-			// The user clicked the sign-in button already. Start to resolve
-			// connection errors. Wait until onConnected() to dismiss the
-			// connection dialog.
-			if (result.hasResolution())
-			{
-				try
-				{
-					result.startResolutionForResult(loginActivity,
-							REQUEST_CODE_RESOLVE_ERR);
-				}
-				catch (SendIntentException e)
-				{
-					mPlusClient.disconnect();
-					mPlusClient.connect();
-				}
-			}
-			// Save the result and resolve the connection failure upon a user
-			// click.
-			mConnectionResult = result;
-			Log.v("Error","Connection failed!");
-		}
-	}
-
 }

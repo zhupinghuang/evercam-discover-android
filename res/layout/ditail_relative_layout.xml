@@ -16,6 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_marginTop="5dip"
+        android:layout_centerVertical="true"
         android:layout_toRightOf="@+id/device_img"
         android:orientation="vertical" >
 
