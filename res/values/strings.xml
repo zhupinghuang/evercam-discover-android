@@ -137,4 +137,5 @@
     <string name="userGuideMsg">Send a feedback to let us know this is a camera or not.</string>
     <string name="checkInternetConnection">Please check your INTERNET connection.</string>
     <string name="signOutAlert">Would you like to sign out?</string>
+    <string name="login_progress_signing_in">Signing in</string>
 </resources>

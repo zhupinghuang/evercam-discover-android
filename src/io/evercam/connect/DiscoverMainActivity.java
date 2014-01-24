@@ -355,7 +355,7 @@ public class DiscoverMainActivity extends Activity
 		menuSignIn.setVisible(false);
 		menuSignOut.setVisible(false);
 
-		if (sharedPrefs.getString(Constants.KEY_USER_EMAIL, null) != null)
+		if (SharedPrefsManager.isSigned(sharedPrefs))
 		{
 			menuSignIn.setVisible(false);
 			menuSignOut.setVisible(true);
@@ -420,7 +420,7 @@ public class DiscoverMainActivity extends Activity
 								public void onClick(DialogInterface dialog,
 										int which)
 								{
-									SharedPrefsManager.clearUserInfo(sharedPrefs);
+									SharedPrefsManager.clearGoogleUserInfo(sharedPrefs);
 									menuSignIn.setVisible(true);
 									menuSignOut.setVisible(false);
 								}

@@ -1,15 +1,25 @@
 package io.evercam.connect;
 
+import io.evercam.API;
 import io.evercam.connect.R;
+import io.evercam.connect.db.SharedPrefsManager;
+
 import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesClient.ConnectionCallbacks;
-import com.google.android.gms.common.GooglePlayServicesClient.OnConnectionFailedListener;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.plus.PlusClient;
+import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.JsonNode;
+import com.mashape.unirest.http.Unirest;
+import com.mashape.unirest.http.exceptions.UnirestException;
 
+import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.annotation.TargetApi;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -18,8 +28,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.IntentSender.SendIntentException;
 import android.text.SpannableString;
+import android.text.TextUtils;
 import android.text.style.UnderlineSpan;
-import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -34,10 +45,19 @@ public class LoginActivity extends Activity
 	protected ProgressDialog mConnectionProgressDialog;
 	protected PlusClient mPlusClient;
 	protected ConnectionResult mConnectionResult;
+	private View loginFormView;
+	private View loginStatusView;
+	private EditText usernameEdit;
+	private EditText passwordEdit;
+	private String username;
+	private String password;
+	private Button btnEvercamSignIn;
 	SignInButton signInButton;
 	TextView alreadySigned;
 	LinearLayout loginLayout;
 	LinearLayout confirmLayout;
+	private UserLoginTask loginTask = null;
+	private SharedPreferences sharedPrefs;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -45,13 +65,23 @@ public class LoginActivity extends Activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
 
+		sharedPrefs = PreferenceManager
+				.getDefaultSharedPreferences(LoginActivity.this);
+		
 		ActionBar actionBar = getActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
 		actionBar.setDisplayHomeAsUpEnabled(true);
 
 		loginLayout = (LinearLayout) findViewById(R.id.login_layout);
 		confirmLayout = (LinearLayout) findViewById(R.id.confirm_layout);
+		
+		loginFormView = findViewById(R.id.login_form);
+		loginStatusView = findViewById(R.id.login_status);
+		
+		usernameEdit = (EditText) findViewById(R.id.loginUsername);
+		passwordEdit = (EditText) findViewById(R.id.loginPassword);
 
+		btnEvercamSignIn = (Button) findViewById(R.id.signInEvercamBtn);
 		TextView signUpLink = (TextView) findViewById(R.id.signupLink);
 		SpannableString spanString = new SpannableString(this.getResources()
 				.getString(R.string.signUpForEvercam));
@@ -68,60 +98,101 @@ public class LoginActivity extends Activity
 			}
 
 		});
+		
+		btnEvercamSignIn.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v)
+			{
+				attemptLogin();
+			}
+			
+		});
 
 		signInButton = (SignInButton) findViewById(R.id.sign_in_button);
 		signInButton.setStyle(SignInButton.SIZE_WIDE, SignInButton.COLOR_LIGHT);
 
-		/*
-		 * check google plus application available or not in device
-		 */
-		int errorCode = GooglePlayServicesUtil
-				.isGooglePlayServicesAvailable(getApplicationContext());
-		if (errorCode != ConnectionResult.SUCCESS)
+		checkGoogle();
+	}
+	
+	public void attemptLogin()
+	{
+		if (loginTask != null)
 		{
-			GooglePlayServicesUtil.getErrorDialog(errorCode, this, 0).show();
-			Toast.makeText(this, "Google+ is not installed!", Toast.LENGTH_LONG)
-					.show();
+			return;
+		}
+
+		usernameEdit.setError(null);
+		passwordEdit.setError(null);
+
+		username = usernameEdit.getText().toString();
+		password = passwordEdit.getText().toString();
+
+		boolean cancel = false;
+		View focusView = null;
+
+		if (TextUtils.isEmpty(password))
+		{
+			passwordEdit.setError("Password Required");
+			focusView = passwordEdit;
+			cancel = true;
+		}
+
+		if (TextUtils.isEmpty(username))
+		{
+			usernameEdit.setError("Username Required");
+			focusView = usernameEdit;
+			cancel = true;
+		}
+
+		if (cancel)
+		{
+			focusView.requestFocus();
 		}
 		else
 		{
+			showProgress(true);
+			loginTask = new UserLoginTask();
+			loginTask.execute((Void) null);
+		}
+	}
 
-			signInButton.setOnClickListener(new OnClickListener(){
+	@TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
+	private void showProgress(final boolean show)
+	{
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2)
+		{
+			int shortAnimTime = getResources().getInteger(
+					android.R.integer.config_shortAnimTime);
 
-				@Override
-				public void onClick(View v)
-				{
-
-					new GoogleSignIn(LoginActivity.this);
-					if (!mPlusClient.isConnected())
-					{
-						if (mConnectionResult == null)
+			loginStatusView.setVisibility(View.VISIBLE);
+			loginStatusView.animate().setDuration(shortAnimTime)
+					.alpha(show ? 1 : 0)
+					.setListener(new AnimatorListenerAdapter(){
+						@Override
+						public void onAnimationEnd(Animator animation)
 						{
-							mConnectionProgressDialog.show();
-
+							loginStatusView.setVisibility(show ? View.VISIBLE
+									: View.GONE);
 						}
-						else
+					});
+
+			loginFormView.setVisibility(View.VISIBLE);
+			loginFormView.animate().setDuration(shortAnimTime)
+					.alpha(show ? 0 : 1)
+					.setListener(new AnimatorListenerAdapter(){
+						@Override
+						public void onAnimationEnd(Animator animation)
 						{
-							try
-							{
-								mConnectionResult.startResolutionForResult(
-										LoginActivity.this,
-										GoogleSignIn.REQUEST_CODE_RESOLVE_ERR);
-							}
-							catch (SendIntentException e)
-							{
-								// Try connecting again.
-								mConnectionResult = null;
-								mPlusClient.connect();
-
-							}
+							loginFormView.setVisibility(show ? View.GONE
+									: View.VISIBLE);
 						}
-
-					}
-
-				}
-
-			});
+					});
+		}
+		else
+		{
+			loginStatusView.setVisibility(show ? View.VISIBLE : View.GONE);
+			loginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
 		}
 	}
 
@@ -208,5 +279,116 @@ public class LoginActivity extends Activity
 		this.finish();
 		return super.getParentActivityIntent();
 
+	}
+	
+	private void checkGoogle()
+	{
+		/*
+		 * check google plus application available or not in device
+		 */
+		int errorCode = GooglePlayServicesUtil
+				.isGooglePlayServicesAvailable(getApplicationContext());
+		if (errorCode != ConnectionResult.SUCCESS)
+		{
+			GooglePlayServicesUtil.getErrorDialog(errorCode, this, 0).show();
+			Toast.makeText(this, "Google+ is not installed!", Toast.LENGTH_LONG)
+					.show();
+		}
+		else
+		{
+
+			signInButton.setOnClickListener(new OnClickListener(){
+
+				@Override
+				public void onClick(View v)
+				{
+
+					new GoogleSignIn(LoginActivity.this);
+					if (!mPlusClient.isConnected())
+					{
+						if (mConnectionResult == null)
+						{
+							mConnectionProgressDialog.show();
+
+						}
+						else
+						{
+							try
+							{
+								mConnectionResult.startResolutionForResult(
+										LoginActivity.this,
+										GoogleSignIn.REQUEST_CODE_RESOLVE_ERR);
+							}
+							catch (SendIntentException e)
+							{
+								// Try connecting again.
+								mConnectionResult = null;
+								mPlusClient.connect();
+
+							}
+						}
+					}
+				}
+			});
+		}
+	}
+	
+	public class UserLoginTask extends AsyncTask<Void, Void, Boolean>
+	{
+		@Override
+		protected Boolean doInBackground(Void... params)
+		{
+			try
+			{
+				HttpResponse<JsonNode> response = Unirest
+						.post(API.URL + "cameras")
+						.header("accept", "application/json")
+						.basicAuth(username, password).asJson();
+				if (response.getCode() == 401)
+				{
+					return false;
+				}
+				else
+				{
+					return true;
+				}
+			}
+			catch (UnirestException e)
+			{
+				e.printStackTrace();
+			}
+			return true;
+		}
+
+		@Override
+		protected void onPostExecute(final Boolean success)
+		{
+			loginTask = null;
+			showProgress(false);
+
+			if (success)
+			{
+				SharedPrefsManager.saveEvercamCredential(sharedPrefs, username, password);
+				Toast toast = Toast.makeText(getApplicationContext(),
+						"Success", Toast.LENGTH_SHORT);
+				toast.show();
+				finish();
+			}
+			else
+			{
+				Toast toast = Toast.makeText(getApplicationContext(),
+						"Invalid username/password!", Toast.LENGTH_SHORT);
+				toast.setGravity(Gravity.CENTER, 0, 0);
+				toast.show();
+				passwordEdit.setText(null);
+			}
+		}
+
+		@Override
+		protected void onCancelled()
+		{
+			loginTask = null;
+			showProgress(false);
+		}
 	}
 }
