@@ -36,8 +36,6 @@ public class SettingsActivity extends Activity
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
 		actionBar.setDisplayHomeAsUpEnabled(true);
 	}
-	
-	
 
 	@Override
 	protected void onResume()
@@ -46,8 +44,6 @@ public class SettingsActivity extends Activity
 		initFragment();
 	}
 
-
-
 	@Override
 	public Intent getParentActivityIntent()
 	{
@@ -55,11 +51,11 @@ public class SettingsActivity extends Activity
 		return super.getParentActivityIntent();
 
 	}
-	
+
 	private void initFragment()
 	{
 		getFragmentManager().beginTransaction()
-		.replace(android.R.id.content, new PrefsFragement()).commit();
+				.replace(android.R.id.content, new PrefsFragement()).commit();
 	}
 
 	public static class PrefsFragement extends PreferenceFragment
@@ -98,50 +94,59 @@ public class SettingsActivity extends Activity
 						}
 					});
 
-			accountPrefs.setOnPreferenceClickListener(new OnPreferenceClickListener(){
+			accountPrefs
+					.setOnPreferenceClickListener(new OnPreferenceClickListener(){
 
-				@Override
-				public boolean onPreferenceClick(Preference preference)
-				{
-					if(isSigned)
-					{
-						AlertDialog.Builder logoutDialog = new AlertDialog.Builder(
-								getActivity());
-						logoutDialog.setMessage(R.string.signOutAlert);
-						logoutDialog.setNegativeButton(R.string.no, new OnClickListener(){
-							@Override
-							public void onClick(DialogInterface dialog,
-									int which)
+						@Override
+						public boolean onPreferenceClick(Preference preference)
+						{
+							if (isSigned)
 							{
-								return;			
+								AlertDialog.Builder logoutDialog = new AlertDialog.Builder(
+										getActivity());
+								logoutDialog.setMessage(R.string.signOutAlert);
+								logoutDialog.setNegativeButton(R.string.no,
+										new OnClickListener(){
+											@Override
+											public void onClick(
+													DialogInterface dialog,
+													int which)
+											{
+												return;
+											}
+
+										});
+								logoutDialog.setPositiveButton(R.string.yes,
+										new OnClickListener(){
+											@Override
+											public void onClick(
+													DialogInterface dialog,
+													int which)
+											{
+												SharedPrefsManager
+														.clearAllUserInfo(sharedPrefs);
+												isSigned = false;
+												accountPrefs
+														.setTitle("Not Signed In");
+												accountPrefs
+														.setSummary("Click to sign in with Evercam");
+												return;
+											}
+
+										});
+								logoutDialog.show();
 							}
-							
-						});
-						logoutDialog.setPositiveButton(R.string.yes, new OnClickListener(){
-							@Override
-							public void onClick(DialogInterface dialog,
-									int which)
+							else
 							{
-								SharedPrefsManager.clearGoogleUserInfo(sharedPrefs);
-								isSigned = false;
-								accountPrefs.setTitle("Not Signed In");
-								accountPrefs.setSummary("Click to sign in with Evercam");
-								return;			
+								Intent intentSignIn = new Intent();
+								intentSignIn.setClass(getActivity(),
+										LoginActivity.class);
+								startActivity(intentSignIn);
 							}
-							
-						});
-						logoutDialog.show();
-					}
-					else
-					{
-						Intent intentSignIn = new Intent();
-						intentSignIn.setClass(getActivity(),LoginActivity.class);
-						startActivity(intentSignIn);
-					}
-					return false;
-				}				
-			});
-			
+							return false;
+						}
+					});
+
 			netInfoPrefs
 					.setOnPreferenceClickListener(new OnPreferenceClickListener(){
 
@@ -164,25 +169,37 @@ public class SettingsActivity extends Activity
 					});
 		}
 
-		
-		
 		private void setUpAccount()
 		{
-			accountPrefs = (Preference)getPreferenceManager().findPreference(Constants.KEY_ACCOUNT);
-			String userEmail = sharedPrefs.getString(Constants.KEY_USER_EMAIL, null);
-			String userFirstName = sharedPrefs.getString(Constants.KEY_USER_FIRST_NAME, null);
-			String userLastName = sharedPrefs.getString(Constants.KEY_USER_LAST_NAME, null);
-			if (userEmail != null)
+			accountPrefs = (Preference) getPreferenceManager().findPreference(
+					Constants.KEY_ACCOUNT);
+			if (SharedPrefsManager.isSignedWithGoogle(sharedPrefs))
+			{
+				String[] googleInfos = SharedPrefsManager
+						.getGoogle(sharedPrefs);
+				String userEmail = googleInfos[0];
+				String userFirstName = googleInfos[1];
+
+				isSigned = true;
+				accountPrefs.setTitle(userFirstName + " - " + userEmail);
+				accountPrefs.setSummary("Signed with Google");
+			}
+			else if (SharedPrefsManager.isSignedWithEvercam(sharedPrefs))
 			{
 				isSigned = true;
-				accountPrefs.setTitle(userFirstName + " " + userLastName);
-				accountPrefs.setSummary(userEmail);
+				String[] evercamInfos = SharedPrefsManager
+						.getEvercam(sharedPrefs);
+				String username = evercamInfos[0];
+				accountPrefs.setTitle(username);
+				accountPrefs.setSummary("Signed with Evercam");
 			}
+
 		}
-		
+
 		private void setUpNetworkInterfacePrefs()
 		{
-			ArrayList<String> interfaceNameArrayList = NetworkInfo.getNetworkInterfaceNames();
+			ArrayList<String> interfaceNameArrayList = NetworkInfo
+					.getNetworkInterfaceNames();
 			CharSequence[] charInterfaceNames = interfaceNameArrayList
 					.toArray(new CharSequence[interfaceNameArrayList.size()]);
 			interfaceList = (ListPreference) getPreferenceManager()
@@ -216,7 +233,7 @@ public class SettingsActivity extends Activity
 					Constants.KEY_VERSION);
 			netInfoPrefs.setSummary(getVersion());
 		}
-		
+
 		private void showWifiNotConnectDialog()
 		{
 			AlertDialog.Builder connectDialogBuilder = new AlertDialog.Builder(

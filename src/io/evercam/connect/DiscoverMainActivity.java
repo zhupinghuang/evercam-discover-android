@@ -420,9 +420,10 @@ public class DiscoverMainActivity extends Activity
 								public void onClick(DialogInterface dialog,
 										int which)
 								{
-									SharedPrefsManager.clearGoogleUserInfo(sharedPrefs);
+									SharedPrefsManager.clearAllUserInfo(sharedPrefs);
 									menuSignIn.setVisible(true);
 									menuSignOut.setVisible(false);
+									Toast.makeText(getApplicationContext(), "Success logged out!", Toast.LENGTH_SHORT).show();
 								}
 							})
 					.setNegativeButton(R.string.no,
