@@ -354,7 +354,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dip"
-                android:text="Yes"
+                android:text="@string/yes"
                 android:textSize="17sp" />
         </LinearLayout>
 
@@ -467,7 +467,7 @@
                 android:layout_width="120sp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
-                android:text="Is Evercam? "
+                android:text="@string/isEvercam"
                 android:textColor="#778899"
                 android:textSize="18sp" />
 
@@ -543,7 +543,7 @@
             android:visibility="gone" />
 
         <LinearLayout
-            android:id="@+id/password_layout"
+            android:id="@+id/buttons_layout"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dip"
@@ -557,7 +557,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="40dip"
                 android:background="@drawable/detail_btn_selector"
-                android:text="View Website"
+                android:text="@string/viewWebsite"
                 android:textColor="@drawable/detail_btn_txt_selector"
                 android:visibility="gone" >
             </Button>
@@ -568,7 +568,7 @@
                 android:layout_height="40dip"
                 android:layout_marginTop="5dip"
                 android:background="@drawable/detail_btn_selector"
-                android:text="View RTSP Stream"
+                android:text="@string/viewRtspStream"
                 android:textColor="@drawable/detail_btn_txt_selector"
                 android:visibility="gone" >
             </Button>
@@ -579,7 +579,7 @@
                 android:layout_height="40dip"
                 android:layout_marginTop="5dip"
                 android:background="@drawable/detail_btn_selector"
-                android:text="Edit Details"
+                android:text="@string/editDetails"
                 android:textColor="@drawable/detail_btn_txt_selector" >
             </Button>
 
@@ -589,8 +589,20 @@
                 android:layout_height="40dip"
                 android:layout_marginTop="5dip"
                 android:background="@drawable/detail_btn_selector"
-                android:text="Port Forwarding"
+                android:text="@string/portForwarding"
                 android:textColor="@drawable/detail_btn_txt_selector" >
+            </Button>
+            
+            
+            <Button
+                android:id="@+id/addToEvercamBtn"
+                android:layout_width="fill_parent"
+                android:layout_height="40dip"
+                android:layout_marginTop="5dip"
+                android:background="@drawable/detail_btn_selector"
+                android:text="@string/addToEvercam"
+                android:textColor="@drawable/detail_btn_txt_selector"
+                android:visibility="gone" >    
             </Button>
 
             <Button
@@ -599,18 +611,19 @@
                 android:layout_height="40dip"
                 android:layout_marginTop="5dip"
                 android:background="@drawable/detail_btn_selector"
-                android:text="This is NOT a camera"
+                android:text="@string/thisisNotcamera"
                 android:textColor="@drawable/detail_btn_txt_selector"
                 android:visibility="gone" >
             </Button>
 
+            
             <Button
                 android:id="@+id/setAsCameraButton"
                 android:layout_width="fill_parent"
                 android:layout_height="40dip"
                 android:layout_marginTop="5dip"
                 android:background="@drawable/detail_btn_selector"
-                android:text="This is a CAMERA"
+                android:text="@string/thisiscamera"
                 android:textColor="@drawable/detail_btn_txt_selector"
                 android:visibility="gone" >
             </Button>
