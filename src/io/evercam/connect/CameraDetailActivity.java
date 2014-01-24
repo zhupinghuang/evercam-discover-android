@@ -309,6 +309,7 @@ public class CameraDetailActivity extends Activity
 							snapshot.setImageBitmap(getSnapshot(
 									getSnapshotURL(), camera.getUsername(),
 									camera.getPassword()));
+							camera.setSnapshotJpgUrl(getSnapshotURL());
 						}
 					}
 				}, 1000);
@@ -331,8 +332,33 @@ public class CameraDetailActivity extends Activity
 			@Override
 			public void onClick(View v)
 			{
-
-				
+				if(camera.isReadyForEvercam())
+				{
+					
+					AlertDialog alertDialog = new AlertDialog.Builder(
+							CameraDetailActivity.this)
+					.setTitle("Complete Camera Detail")
+							.setMessage("id,name,ispublic")
+							.setPositiveButton(R.string.yes,
+									new DialogInterface.OnClickListener(){
+										@Override
+										public void onClick(DialogInterface dialog,
+												int which)
+										{
+											
+										}
+									}).setNegativeButton(R.string.no, null).create();
+					alertDialog.show();
+				}
+				else
+				{
+					AlertDialog alertDialog = new AlertDialog.Builder(
+							CameraDetailActivity.this)
+					.setTitle("More Details Required")
+							.setMessage("Please edit to complete camera details and try again.")
+							.setNegativeButton(R.string.ok, null).create();
+					alertDialog.show();
+				}
 			}
 
 		});
@@ -1087,4 +1113,5 @@ public class CameraDetailActivity extends Activity
 			exception.printStackTrace();
 		}
 	}
+	
 }
