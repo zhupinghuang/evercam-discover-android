@@ -145,4 +145,14 @@
     <string name="editDetails">Edit Details</string>
     <string name="thisisNotcamera">This is NOT a camera</string>
     <string name="thisiscamera">This is a CAMERA</string>
+    <string name="cameraIp">Camera IP:</string>
+    <string name="internalPort:">Internal Port:</string>
+    <string name="externalPort:">External Port:</string>
+    <string name="internalPort">Internal Port</string>
+    <string name="externalPort">External Port</string>
+    <string name="protocol:">Protocol:</string>
+    <string name="tcp">TCP</string>
+    <string name="udp">UDP</string>
+    <string name="description:">Description:</string>
+    <string name="description">Description</string>
 </resources>
