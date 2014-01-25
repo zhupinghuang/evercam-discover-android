@@ -40,7 +40,7 @@
             android:id="@+id/cameraip_txt"
             android:layout_width="90sp"
             android:layout_height="20sp"
-            android:text="Camera IP:"
+            android:text="@string/cameraIp"
             android:textColor="#000000"
             android:textSize="14sp" />
 
@@ -63,7 +63,7 @@
             android:id="@+id/internal_txt"
             android:layout_width="85sp"
             android:layout_height="20sp"
-            android:text="Internal Port:"
+            android:text="@string/internalPort:"
             android:textColor="#000000"
             android:textSize="14sp" />
 
@@ -71,7 +71,7 @@
             android:id="@+id/internal_edit"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:hint="Internal Port"
+            android:hint="@string/internalPort"
             android:inputType="number"
             android:singleLine="true"
             android:textColor="#778899"
@@ -89,7 +89,7 @@
             android:id="@+id/external_txt"
             android:layout_width="85sp"
             android:layout_height="20sp"
-            android:text="External Port:"
+            android:text="@string/externalPort:"
             android:textColor="#000000"
             android:textSize="14sp" />
 
@@ -97,7 +97,7 @@
             android:id="@+id/external_edit"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:hint="External Port"
+            android:hint="@string/externalPort"
             android:inputType="number"
             android:singleLine="true"
             android:textColor="#778899"
@@ -116,7 +116,7 @@
             android:layout_width="85sp"
             android:layout_height="20sp"
             android:layout_marginTop="6sp"
-            android:text="Protocol:"
+            android:text="@string/protocol"
             android:textColor="#000000"
             android:textSize="14sp" />
 
@@ -132,7 +132,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="true"
-                android:text="TCP"
+                android:text="@string/tcp"
                 android:textColor="#778899" >
             </RadioButton>
 
@@ -140,7 +140,7 @@
                 android:id="@+id/radio_udp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="UDP"
+                android:text="@string/udp"
                 android:textColor="#778899" >
             </RadioButton>
         </RadioGroup>
@@ -157,7 +157,7 @@
             android:id="@+id/portDescription_txt"
             android:layout_width="85sp"
             android:layout_height="20sp"
-            android:text="Discription:"
+            android:text="@string/description:"
             android:textColor="#000000"
             android:textSize="14sp" />
 
@@ -165,7 +165,7 @@
             android:id="@+id/portDiscription_edit"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:hint="Discription"
+            android:hint="@string/description"
             android:inputType="text"
             android:singleLine="true"
             android:textColor="#778899"
