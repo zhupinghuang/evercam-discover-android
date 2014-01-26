@@ -76,7 +76,7 @@
     <string name="portForwarding">Port Forwarding</string>
     <string name="searchingRouter">Searching for UPnP router......</string>
     <string name="routerAvaliable">UPnP port forwarding is available.</string>
-    <string name="routerNotAvaliable">UPnP is not avaliable.</string>
+    <string name="routerNotAvaliable">UPnP is not available.</string>
     <string name="helpNoInternalPort">Please try to add internal ports information manually and try again later. </string>
     <string name="helpNotAvailiable">Please make sure UPnP on your router is enabled. </string>
     <string name="action_setAsCamera">Set As Camera</string>
@@ -155,4 +155,11 @@
     <string name="udp">UDP</string>
     <string name="description:">Description:</string>
     <string name="description">Description</string>
+    <string name="portType:">Port Type:</string>
+    <string name="noInternalPortExists">No internal port exists.</string>
+    <string name="internalCapital">INTERNAL</string>
+    <string name="externalCapital">EXTERNAL</string>
+    <string name="addPort">Add Port</string>
+    <string name="save">Save</string>
+    
 </resources>

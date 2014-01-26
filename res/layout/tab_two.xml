@@ -20,7 +20,7 @@
             android:layout_marginLeft="15sp"
             android:layout_marginRight="15sp"
             android:layout_marginTop="2sp"
-            android:text="No internal port exists."
+            android:text="@string/noInternalPortExists"
             android:textColor="#778899"
             android:textSize="18sp" />
 
@@ -64,7 +64,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="3sp"
-                android:text="INTERNAL"
+                android:text="@string/internalCapital"
                 android:textColor="#778899"
                 android:textSize="14sp" />
 
@@ -75,7 +75,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginTop="3sp"
                 android:paddingLeft="5sp"
-                android:text="EXTERNAL"
+                android:text="@string/externalCapital"
                 android:textColor="#778899"
                 android:textSize="14sp" />
         </RelativeLayout>
@@ -301,63 +301,6 @@
             android:singleLine="true"
             android:textSize="16sp" />
     </RelativeLayout>
-    <!--
-    <LinearLayout
-        android:id="@+id/pleaseSelect_layout"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10sp"
-        android:layout_marginRight="10sp"
-        android:layout_marginTop="25sp"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:orientation="horizontal" >
-
-        <TextView
-            android:id="@+id/pleaseSelect"
-            android:layout_width="120sp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="3sp"
-            android:text="Internal port:"
-            android:textColor="#778899"
-            android:textSize="16sp" />
-
-        <Spinner
-            android:id="@+id/selectPort_spinner"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content" >
-        </Spinner>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/pleaseSpecify_layout"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10sp"
-        android:layout_marginRight="10sp"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:orientation="horizontal" >
-
-        <TextView
-            android:id="@+id/pleaseSpecify"
-            android:layout_width="120sp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="3sp"
-            android:text="External port:"
-            android:textColor="#778899"
-            android:textSize="16sp" />
-
-        <EditText
-            android:id="@+id/specifyPort"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/unknown"
-            android:inputType="number"
-            android:singleLine="true"
-            android:textSize="16sp" />
-    </LinearLayout>
-    -->
 
     <Button
         android:id="@+id/buttonAdd"
@@ -367,7 +310,7 @@
         android:layout_marginRight="10sp"
         android:layout_marginTop="5dp"
         android:background="@drawable/detail_btn_selector"
-        android:text="Add Port"
+        android:text="@string/addPort"
         android:textColor="@drawable/detail_btn_txt_selector" />
 
     <View
@@ -384,7 +327,7 @@
         android:layout_marginRight="10sp"
         android:layout_marginTop="35dp"
         android:background="@drawable/btn_selector"
-        android:text="Save"
+        android:text="@string/save"
         android:textColor="#ffffff" />
 
 </LinearLayout>
