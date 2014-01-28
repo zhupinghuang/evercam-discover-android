@@ -104,7 +104,7 @@
     <string name="manualDeleteSuccessMsg">Port Successfully Deleted!\n\nLoading Mapped Ports......</string>
     <string name="portForwardFailed">Port Forwarding Failed!</string>
     <string name="deleteForwardFailed">Failed To Delete Port!</string>
-    <string name="portRangeMsg">Port Range must between 1 and 65535!</string>
+    <string name="portRangeMsg">Port must be number between 1 and 65535!</string>
     <string name="portRangeMsg1">Port Range must between 0 and 65535!</string>
     <string name="fillInAllMsg">Please fill in ALL details first!</string>
     <string name="addPortForward">Add Port Forwarding</string>
@@ -163,11 +163,12 @@
     <string name="save">Save</string>
     <string name="title_activity_add_to_evercam">Complete Camera Details</string>
     <string name="cameraId:">Camera ID:</string>
-    <string name="cameraName:">Camera Name:</string>
+    <string name="cameraName:">Name:</string>
     <string name="snapshotJpgPath:">Snapshot Path:</string>
     <string name="isPublic">Is Public?</string>
     <string name="Public">Public</string>
     <string name="Private">Private</string>
     <string name="optional:">Optional:</string>
+    <string name="myCamera">My Camera</string>
 
 </resources>
