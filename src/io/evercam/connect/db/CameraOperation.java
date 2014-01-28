@@ -195,6 +195,7 @@ public class CameraOperation
 	public void updateAttributeString(String ip, String ssid, String attribute,
 			String value)
 	{
+		db = database.getWritableDatabase();
 		db.execSQL("update cameralist set " + attribute
 				+ "=?  where ip=? and ssid=?", new Object[] { value, ip, ssid });
 		db.close();

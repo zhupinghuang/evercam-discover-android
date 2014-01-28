@@ -744,37 +744,34 @@ public class CameraDetailActivity extends Activity
 		if (camera.getVendor().equals(Constants.VENDOR_HIKVISION)
 				&& camera.getHttp() != 0)
 		{
-			return "http://" + this.ipstring + ":" + camera.getHttp()
-					+ "/Streaming/channels/1/picture";
+			camera.setSnapshotJpgUrl("/Streaming/channels/1/picture");
 		}
 		else if (camera.getVendor().equals(Constants.VENDOR_AXIS)
 				&& camera.getHttp() != 0)
 		{
-			return "http://" + this.ipstring + ":" + camera.getHttp()
-					+ "/jpg/image.jpg";
+			camera.setSnapshotJpgUrl("/jpg/image.jpg");
 		}
 		else if (camera.getVendor().equals(Constants.VENDOR_UBIQUITI)
 				&& camera.getHttp() != 0)
 		{
-			return "http://" + this.ipstring + ":" + camera.getHttp()
-					+ "/snapshot.cgi";
+			camera.setSnapshotJpgUrl("/snapshot.cgi");
 		}
 		else if (camera.getVendor().equals(Constants.VENDOR_YCAM)
 				&& camera.getHttp() != 0)
 		{
-			return "http://" + this.ipstring + ":" + camera.getHttp()
-					+ "/snapshot.jpg";
+			camera.setSnapshotJpgUrl("/snapshot.jpg");
 		}
 		else if (camera.getVendor().equals(Constants.VENDOR_TPLINK)
 				&& camera.getHttp() != 0)
 		{
-			return "http://" + this.ipstring + ":" + camera.getHttp()
-					+ "/jpg/image.jpg";
+			camera.setSnapshotJpgUrl("/jpg/image.jpg");
 		}
 		else
 		{
 			return null;
 		}
+		return "http://" + this.ipstring + ":" + camera.getHttp()
+				+ camera.getSnapshotJpgUrl();
 	}
 
 	private void showSetAsCameraDialog()

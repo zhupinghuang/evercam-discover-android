@@ -23,11 +23,9 @@ public class AddToEvercamActivity extends Activity
 	private EditText exthttpEdit;
 	private EditText modelEdit;
 	private EditText vendorEdit;
-//	private RadioGroup publicRadioGroup;
 	private RadioButton publicRadioBtn;
-//	private RadioButton privateRadioBtn;
 	private Button addBtn;
-	private AddToEvercamTask addEvercamTask;
+	private CreateCameraTask addEvercamTask;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -35,7 +33,7 @@ public class AddToEvercamActivity extends Activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_add_to_evercam);
 		
-		addEvercamTask = new AddToEvercamTask();
+		addEvercamTask = new CreateCameraTask();
 		
 		camera = (Camera) getIntent().getSerializableExtra("camera");
 		initPage();
@@ -61,9 +59,7 @@ public class AddToEvercamActivity extends Activity
 		exthttpEdit = (EditText)findViewById(R.id.addExtHttp_edit);
 		modelEdit = (EditText)findViewById(R.id.addModel_value);
 		vendorEdit = (EditText)findViewById(R.id.addVendor_value);
-//		publicRadioGroup = (RadioGroup)findViewById(R.id.radioGroup_isPublic);
 		publicRadioBtn = (RadioButton)findViewById(R.id.publicRadio);
-//		privateRadioBtn = (RadioButton)findViewById(R.id.privateRadio);
 		addBtn = (Button)findViewById(R.id.button_creatCamera);
 	}
 	
@@ -77,7 +73,7 @@ public class AddToEvercamActivity extends Activity
 		vendorEdit.setText(camera.getVendor());
 	}
 	
-	private class AddToEvercamTask extends AsyncTask<Void,Void,Void>
+	private class CreateCameraTask extends AsyncTask<Void,Void,Void>
 	{
 	
 		@Override
