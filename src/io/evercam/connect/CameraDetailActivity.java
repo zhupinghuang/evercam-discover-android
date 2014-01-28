@@ -82,7 +82,7 @@ public class CameraDetailActivity extends Activity
 		actionBar.setDisplayHomeAsUpEnabled(true);
 
 		netInfo = new NetInfo(ctxt);
-		// get camera infos
+
 		Bundle extras = getIntent().getExtras();
 		ipstring = extras.getString("IP");
 		ssid = extras.getString("SSID");
@@ -334,21 +334,10 @@ public class CameraDetailActivity extends Activity
 			{
 				if(camera.isReadyForEvercam())
 				{
-					
-					AlertDialog alertDialog = new AlertDialog.Builder(
-							CameraDetailActivity.this)
-					.setTitle("Complete Camera Detail")
-							.setMessage("id,name,ispublic")
-							.setPositiveButton(R.string.yes,
-									new DialogInterface.OnClickListener(){
-										@Override
-										public void onClick(DialogInterface dialog,
-												int which)
-										{
-											
-										}
-									}).setNegativeButton(R.string.no, null).create();
-					alertDialog.show();
+					Intent addToEvercamIntent = new Intent();
+					addToEvercamIntent.setClass(CameraDetailActivity.this,AddToEvercamActivity.class);
+					addToEvercamIntent.putExtra("camera",camera);
+					startActivity(addToEvercamIntent);
 				}
 				else
 				{

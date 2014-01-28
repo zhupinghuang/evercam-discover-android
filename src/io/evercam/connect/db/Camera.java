@@ -1,11 +1,13 @@
 package io.evercam.connect.db;
 
+import java.io.Serializable;
+
 import io.evercam.connect.Constants;
 import io.evercam.connect.net.NetInfo;
 
-public class Camera
+public class Camera implements Serializable
 {
-
+	private static final long serialVersionUID = 1L;
 	private Integer id;
 	private String ip = "";
 	private String mac = "";
@@ -460,7 +462,7 @@ public class Camera
 	
 	public boolean isReadyForEvercam()
 	{
-		if(hasExternalHttp() && getSnapshotJpgUrl()!=null)
+		if(hasExternalHttp())
 		{
 			return true;
 		}
