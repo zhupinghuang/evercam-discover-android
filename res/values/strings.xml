@@ -161,5 +161,13 @@
     <string name="externalCapital">EXTERNAL</string>
     <string name="addPort">Add Port</string>
     <string name="save">Save</string>
-    
+    <string name="title_activity_add_to_evercam">Complete Camera Details</string>
+    <string name="cameraId:">Camera ID:</string>
+    <string name="cameraName:">Camera Name:</string>
+    <string name="snapshotJpgPath:">Snapshot Path:</string>
+    <string name="isPublic">Is Public?</string>
+    <string name="Public">Public</string>
+    <string name="Private">Private</string>
+    <string name="optional:">Optional:</string>
+
 </resources>

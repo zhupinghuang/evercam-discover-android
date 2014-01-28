@@ -17,7 +17,7 @@
 
     <uses-sdk
         android:minSdkVersion="13"
-        android:targetSdkVersion="18"/>
+        android:targetSdkVersion="19" />
 
     <application
         android:allowBackup="true"
@@ -42,12 +42,13 @@
         <activity
             android:name="io.evercam.connect.RouterActivity"
             android:icon="@drawable/icon_192x192"
-            android:label="@string/title_activity_router" 
-android:parentActivityName="io.evercam.connect.SettingsActivity" >
-        <!-- Parent activity meta-data to support API level 7+ -->
-        <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value="com.evercamconnect.discover.SettingsActivity" />
+            android:label="@string/title_activity_router"
+            android:parentActivityName="io.evercam.connect.SettingsActivity" >
+
+            <!-- Parent activity meta-data to support API level 7+ -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.evercamconnect.discover.SettingsActivity" />
         </activity>
         <activity
             android:name="io.evercam.connect.CameraDetailActivity"
@@ -73,8 +74,12 @@ android:parentActivityName="io.evercam.connect.SettingsActivity" >
         </activity>
         <activity
             android:name="io.evercam.connect.SettingsActivity"
-            android:label="@string/title_activity_settings" 
-            android:icon="@drawable/icon_192x192">
+            android:icon="@drawable/icon_192x192"
+            android:label="@string/title_activity_settings" >
+        </activity>
+        <activity
+            android:name="io.evercam.connect.AddToEvercamActivity"
+            android:label="@string/title_activity_add_to_evercam" >
         </activity>
     </application>
 
