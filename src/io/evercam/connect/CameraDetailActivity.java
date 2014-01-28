@@ -335,8 +335,8 @@ public class CameraDetailActivity extends Activity
 			@Override
 			public void onClick(View v)
 			{
-				SharedPreferences sharedPrerfs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-				if(SharedPrefsManager.isSignedWithEvercam(sharedPrerfs))
+				SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+				if(SharedPrefsManager.isSignedWithEvercam(sharedPrefs))
 				{
 					Intent addToEvercamIntent = new Intent();
 					addToEvercamIntent.setClass(CameraDetailActivity.this,AddToEvercamActivity.class);

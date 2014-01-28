@@ -13,10 +13,10 @@
 
         <TextView
             android:id="@+id/addCameraId_txt"
-            android:layout_width="115sp"
+            android:layout_width="112sp"
             android:layout_height="20sp"
             android:text="@string/cameraId:"
-            android:textColor="#000000"
+            android:textColor="#778899"
             android:textSize="16sp" />
 
         <EditText
@@ -26,7 +26,7 @@
             android:hint="@string/unknown"
             android:inputType="text"
             android:singleLine="true"
-            android:textColor="#778899"
+            android:textColor="#000000"
             android:textSize="16sp" />
     </LinearLayout>
     
@@ -39,10 +39,10 @@
 
         <TextView
             android:id="@+id/addCameraName_txt"
-            android:layout_width="115sp"
+            android:layout_width="112sp"
             android:layout_height="20sp"
             android:text="@string/cameraName:"
-            android:textColor="#000000"
+            android:textColor="#778899"
             android:textSize="16sp" />
 
         <EditText
@@ -52,7 +52,7 @@
             android:hint="@string/unknown"
             android:inputType="text"
             android:singleLine="true"
-            android:textColor="#778899"
+            android:textColor="#000000"
             android:textSize="16sp" />
     </LinearLayout>
        <LinearLayout
@@ -64,11 +64,11 @@
 
         <TextView
             android:id="@+id/isPublic_txt"
-            android:layout_width="115sp"
+            android:layout_width="112sp"
             android:layout_height="20sp"
             android:layout_gravity="center"
             android:text="@string/isPublic"
-            android:textColor="#000000"
+            android:textColor="#778899"
             android:textSize="16sp" />
 
         <RadioGroup
@@ -82,7 +82,7 @@
                 android:layout_height="wrap_content"
                 android:checked="true"
                 android:text="@string/Public"
-                android:textColor="#778899" >
+                android:textColor="#000000" >
             </RadioButton>
 
             <RadioButton
@@ -90,7 +90,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/Private"
-                android:textColor="#778899" >
+                android:textColor="#000000" >
             </RadioButton>
         </RadioGroup>
     </LinearLayout>
@@ -103,10 +103,10 @@
 
         <TextView
             android:id="@+id/addCameraJpg_txt"
-            android:layout_width="115sp"
+            android:layout_width="112sp"
             android:layout_height="20sp"
             android:text="@string/snapshotJpgPath:"
-            android:textColor="#000000"
+            android:textColor="#778899"
             android:textSize="16sp" />
 
         <EditText
@@ -116,7 +116,7 @@
             android:hint="@string/unknown"
             android:inputType="text"
             android:singleLine="true"
-            android:textColor="#778899"
+            android:textColor="#000000"
             android:textSize="16sp" />
     </LinearLayout>
     
@@ -129,10 +129,10 @@
 
         <TextView
             android:id="@+id/addExtHttp_txt"
-            android:layout_width="115sp"
+            android:layout_width="112sp"
             android:layout_height="20sp"
             android:text="@string/externalhttp"
-            android:textColor="#000000"
+            android:textColor="#778899"
             android:textSize="16sp" />
 
         <EditText
@@ -142,7 +142,7 @@
             android:hint="@string/unknown"
             android:inputType="number"
             android:singleLine="true"
-            android:textColor="#778899"
+            android:textColor="#000000"
             android:textSize="16sp" />
     </LinearLayout>
 
@@ -155,10 +155,10 @@
 
         <TextView
             android:id="@+id/addUsername_txt"
-            android:layout_width="115sp"
+            android:layout_width="112sp"
             android:layout_height="20sp"
             android:text="@string/username"
-            android:textColor="#000000"
+            android:textColor="#778899"
             android:textSize="16sp" />
 
         <EditText
@@ -168,7 +168,7 @@
             android:hint="@string/unknown"
             android:inputType="text"
             android:singleLine="true"
-            android:textColor="#778899"
+            android:textColor="#000000"
             android:textSize="16sp" />
     </LinearLayout>
 
@@ -181,10 +181,10 @@
 
         <TextView
             android:id="@+id/addPassword_txt"
-            android:layout_width="115sp"
+            android:layout_width="112sp"
             android:layout_height="20sp"
             android:text="@string/password"
-            android:textColor="#000000"
+            android:textColor="#778899"
             android:textSize="16sp" />
 
         <EditText
@@ -194,7 +194,7 @@
             android:hint="@string/unknown"
             android:inputType="text"
             android:singleLine="true"
-            android:textColor="#778899"
+            android:textColor="#000000"
             android:textSize="16sp" />
     </LinearLayout>
     
@@ -206,14 +206,14 @@
         android:layout_marginLeft="5dip"
         android:layout_marginTop="10dip"
         android:text="@string/optional:"
-        android:textColor="#778899"
-        android:textSize="16sp" />
+        android:textColor="#808080"
+        android:textSize="14sp" />
 
     <View
         android:layout_width="fill_parent"
         android:layout_height="1dp"
         android:layout_marginTop="1dp"
-        android:background="#778899" />
+        android:background="#808080" />
     
     <LinearLayout
         android:layout_width="fill_parent"
@@ -225,10 +225,10 @@
 
         <TextView
             android:id="@+id/addModel_txt"
-            android:layout_width="115sp"
+            android:layout_width="112sp"
             android:layout_height="20sp"
             android:text="@string/model"
-            android:textColor="#000000"
+            android:textColor="#778899"
             android:textSize="16sp" />
 
         <EditText
@@ -238,7 +238,7 @@
             android:hint="@string/unknown"
             android:inputType="text"
             android:singleLine="true"
-            android:textColor="#778899"
+            android:textColor="#000000"
             android:textSize="16sp" />
     </LinearLayout>
     
@@ -251,10 +251,10 @@
 
         <TextView
             android:id="@+id/addVendor_txt"
-            android:layout_width="115sp"
+            android:layout_width="112sp"
             android:layout_height="20sp"
             android:text="@string/vendor"
-            android:textColor="#000000"
+            android:textColor="#778899"
             android:textSize="16sp" />
 
         <EditText
@@ -264,7 +264,7 @@
             android:hint="@string/unknown"
             android:inputType="text"
             android:singleLine="true"
-            android:textColor="#778899"
+            android:textColor="#000000"
             android:textSize="16sp" />
     </LinearLayout>
     

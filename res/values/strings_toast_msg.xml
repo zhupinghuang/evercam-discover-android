@@ -7,5 +7,6 @@
     <string name="exthttpEmpty">External HTTP can NOT be empty!</string>
     <string name="usernameEmpty">Camera username can NOT be empty!</string>
     <string name="passwordEmpty">Camera password can NOT be empty!</string>
+    <string name="snapshotInvalid">Snapshot should starts with \'/\'.</string>
     
 </resources>
