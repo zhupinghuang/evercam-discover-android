@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pleaseSignInBeforeAddCamera">Please sign in with Evercam before add a camera into your Evercam account.</string>
+</resources>

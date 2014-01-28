@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 import android.app.Activity;
@@ -22,7 +23,9 @@ public class AddToEvercamActivity extends Activity
 	private EditText exthttpEdit;
 	private EditText modelEdit;
 	private EditText vendorEdit;
-	private RadioGroup publicRadioGroup;
+//	private RadioGroup publicRadioGroup;
+	private RadioButton publicRadioBtn;
+//	private RadioButton privateRadioBtn;
 	private Button addBtn;
 	private AddToEvercamTask addEvercamTask;
 
@@ -58,7 +61,9 @@ public class AddToEvercamActivity extends Activity
 		exthttpEdit = (EditText)findViewById(R.id.addExtHttp_edit);
 		modelEdit = (EditText)findViewById(R.id.addModel_value);
 		vendorEdit = (EditText)findViewById(R.id.addVendor_value);
-		publicRadioGroup = (RadioGroup)findViewById(R.id.radioGroup_isPublic);
+//		publicRadioGroup = (RadioGroup)findViewById(R.id.radioGroup_isPublic);
+		publicRadioBtn = (RadioButton)findViewById(R.id.publicRadio);
+//		privateRadioBtn = (RadioButton)findViewById(R.id.privateRadio);
 		addBtn = (Button)findViewById(R.id.button_creatCamera);
 	}
 	
@@ -104,6 +109,7 @@ public class AddToEvercamActivity extends Activity
 		String passwordStr = passwordEdit.getText().toString();
 		String modelStr = modelEdit.getText().toString();
 		String vendorStr = vendorEdit.getText().toString();
+		Boolean isPublic = publicRadioBtn.isChecked();
 		
 		if(idStr.length()== 0)
 		{
@@ -118,18 +124,22 @@ public class AddToEvercamActivity extends Activity
 		else if(snapshotStr.length()== 0)
 		{
 			showErrorToast(R.string.snapshotEmpty);
+			snapshotEdit.requestFocus();
 		}
 		else if(exthttpStr.length()== 0)
 		{
 			showErrorToast(R.string.exthttpEmpty);
+			exthttpEdit.requestFocus();
 		}
 		else if(usernameStr.length()== 0)
 		{
 			showErrorToast(R.string.usernameEmpty);
+			usernameEdit.requestFocus();
 		}
 		else if(passwordStr.length()== 0)
 		{
 			showErrorToast(R.string.passwordEmpty);
+			passwordEdit.requestFocus();
 		}
 	}
 }
