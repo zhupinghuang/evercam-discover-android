@@ -459,15 +459,6 @@ public class Camera implements Serializable
 		}
 		return false;
 	}
-	
-	public boolean isReadyForEvercam()
-	{
-		if(hasExternalHttp())
-		{
-			return true;
-		}
-		return false;
-	}
 
 	public String getSnapshotJpgUrl()
 	{

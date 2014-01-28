@@ -4,6 +4,7 @@ import io.evercam.connect.R;
 import io.evercam.connect.db.Camera;
 import io.evercam.connect.db.CameraOperation;
 import io.evercam.connect.db.ResourceHelper;
+import io.evercam.connect.db.SharedPrefsManager;
 import io.evercam.connect.db.SimpleDBConnect;
 import io.evercam.connect.net.NetInfo;
 
@@ -24,12 +25,14 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.StrictMode;
+import android.preference.PreferenceManager;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.Gravity;
@@ -332,7 +335,8 @@ public class CameraDetailActivity extends Activity
 			@Override
 			public void onClick(View v)
 			{
-				if(camera.isReadyForEvercam())
+				SharedPreferences sharedPrerfs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+				if(SharedPrefsManager.isSignedWithEvercam(sharedPrerfs))
 				{
 					Intent addToEvercamIntent = new Intent();
 					addToEvercamIntent.setClass(CameraDetailActivity.this,AddToEvercamActivity.class);
@@ -341,12 +345,7 @@ public class CameraDetailActivity extends Activity
 				}
 				else
 				{
-					AlertDialog alertDialog = new AlertDialog.Builder(
-							CameraDetailActivity.this)
-					.setTitle("More Details Required")
-							.setMessage("Please edit to complete camera details and try again.")
-							.setNegativeButton(R.string.ok, null).create();
-					alertDialog.show();
+					showComfirmLoginDialog();
 				}
 			}
 
@@ -1101,6 +1100,24 @@ public class CameraDetailActivity extends Activity
 		{
 			exception.printStackTrace();
 		}
+	}
+	
+	private void showComfirmLoginDialog()
+	{
+		AlertDialog alertDialog = new AlertDialog.Builder(
+				CameraDetailActivity.this)
+				.setMessage(R.string.pleaseSignInBeforeAddCamera)
+				.setPositiveButton(R.string.action_signIn,new DialogInterface.OnClickListener(){
+					@Override
+					public void onClick(DialogInterface dialog,
+							int which)
+					{
+						Intent loginIntent = new Intent();
+						loginIntent.setClass(CameraDetailActivity.this,LoginActivity.class);
+						startActivity(loginIntent);		
+					}})
+				.setNegativeButton(R.string.notNow, null).create();
+		alertDialog.show();
 	}
 	
 }
