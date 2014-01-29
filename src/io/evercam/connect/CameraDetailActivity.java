@@ -36,9 +36,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.style.ImageSpan;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -395,10 +392,6 @@ public class CameraDetailActivity extends Activity
 		setDeviceBtn = (Button) findViewById(R.id.setAsDeviceButton);
 		setCameraBtn = (Button) findViewById(R.id.setAsCameraButton);
 		addEvercamButton = (Button) findViewById(R.id.addToEvercamBtn);
-//		Spannable buttonLabel = new SpannableString("  Add to Evercam");
-//		buttonLabel.setSpan(new ImageSpan(getApplicationContext(), R.drawable.icon_50x50,      
-//		    ImageSpan.ALIGN_BOTTOM), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-//		addEvercamButton.setText(buttonLabel);
 
 		// Is a camera
 		if (camera.getFlag() == Constants.TYPE_CAMERA)

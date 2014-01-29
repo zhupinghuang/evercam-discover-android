@@ -199,7 +199,6 @@ public class AddToEvercamActivity extends Activity
 	{
 		CameraDetail cameraDetail = new CameraDetail();
 		String errorMsg = "Failed!";
-	
 		@Override
 		protected void onPreExecute()
 		{
@@ -217,6 +216,7 @@ public class AddToEvercamActivity extends Activity
 			if(success)
 			{
 				showShortToast("Success!");	
+				AddToEvercamActivity.this.finish();
 			}
 			else
 			{

@@ -601,7 +601,10 @@
                 android:layout_height="40dip"
                 android:layout_marginTop="5dip"
                 android:background="@drawable/detail_btn_selector"
-                android:drawableStart="@drawable/icon_50x50"
+                android:drawableLeft="@drawable/icon_50x50"
+                android:drawablePadding="35sp"
+                android:paddingLeft="35dip"
+                android:gravity="left|center"
                 android:text="@string/addToEvercam"
                 android:textColor="@drawable/detail_btn_txt_selector" >
             </Button>
