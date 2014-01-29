@@ -536,10 +536,12 @@
 
         <ImageView
             android:id="@+id/snapshot_img"
-            android:layout_width="310dip"
-            android:layout_height="250dip"
+            android:layout_width="fill_parent"
+            android:layout_height="205dip"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="20dp"
+            android:layout_marginLeft="15sp"
+            android:layout_marginRight="15sp"
+            android:layout_marginTop="15dip"
             android:visibility="gone" />
 
         <LinearLayout
@@ -547,8 +549,8 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dip"
-            android:layout_marginLeft="25sp"
-            android:layout_marginRight="25sp"
+            android:layout_marginLeft="15sp"
+            android:layout_marginRight="15sp"
             android:layout_marginTop="15dip"
             android:orientation="vertical" >
 
@@ -592,17 +594,16 @@
                 android:text="@string/portForwarding"
                 android:textColor="@drawable/detail_btn_txt_selector" >
             </Button>
-            
-            
+
             <Button
                 android:id="@+id/addToEvercamBtn"
                 android:layout_width="fill_parent"
                 android:layout_height="40dip"
                 android:layout_marginTop="5dip"
                 android:background="@drawable/detail_btn_selector"
+                android:drawableStart="@drawable/icon_50x50"
                 android:text="@string/addToEvercam"
-                android:textColor="@drawable/detail_btn_txt_selector"
-                android:visibility="gone" >    
+                android:textColor="@drawable/detail_btn_txt_selector" >
             </Button>
 
             <Button
@@ -616,7 +617,6 @@
                 android:visibility="gone" >
             </Button>
 
-            
             <Button
                 android:id="@+id/setAsCameraButton"
                 android:layout_width="fill_parent"
