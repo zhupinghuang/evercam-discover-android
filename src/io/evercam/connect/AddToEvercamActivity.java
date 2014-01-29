@@ -2,6 +2,7 @@ package io.evercam.connect;
 
 import java.util.TimeZone;
 
+import io.evercam.API;
 import io.evercam.CameraDetail;
 import io.evercam.EvercamException;
 import io.evercam.connect.db.Camera;
@@ -10,7 +11,6 @@ import io.evercam.connect.net.NetInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -119,6 +119,11 @@ public class AddToEvercamActivity extends Activity
 		Toast.makeText(this, id, Toast.LENGTH_SHORT).show();
 	}
 	
+	private void showShortToast(String msg)
+	{
+		Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+	}
+	
 	private boolean detailsChecked()
 	{
 		String idStr = idEdit.getText().toString();
@@ -131,14 +136,9 @@ public class AddToEvercamActivity extends Activity
 		try
 		{
 			exthttp = Integer.parseInt(exthttpStr);
-			if (exthttp >= 0 && exthttp <= 65535)
-			{
-				return true;
-			}
-			else
+			if (!(exthttp > 0 && exthttp <= 65535))
 			{
 				showErrorToast(R.string.portRangeMsg);
-				return false;
 			}
 		}
 		catch (NumberFormatException e)
@@ -195,9 +195,10 @@ public class AddToEvercamActivity extends Activity
 		return false;
 	}
 	
-	private class CreateCameraTask extends AsyncTask<Void,Void,Void>
+	private class CreateCameraTask extends AsyncTask<Void,Void,Boolean>
 	{
 		CameraDetail cameraDetail = new CameraDetail();
+		String errorMsg = "Failed!";
 	
 		@Override
 		protected void onPreExecute()
@@ -207,45 +208,49 @@ public class AddToEvercamActivity extends Activity
 		}
 
 		@Override
-		protected void onPostExecute(Void result)
+		protected void onPostExecute(Boolean success)
 		{
 			if (progressDialog.isShowing())
 			{
 				progressDialog.dismiss();
 			}
+			if(success)
+			{
+				showShortToast("Success!");	
+			}
+			else
+			{
+				showShortToast(errorMsg);
+			}
 		}
 
-
 		@Override
-		protected Void doInBackground(Void... arg0)
+		protected Boolean doInBackground(Void... arg0)
 		{
-//			initialDetailObject();
-//			try
-//			{
-//				io.evercam.Camera.create(cameraDetail);
-//				Log.v("evercamconnect", "success");
-//			}
-//			catch (EvercamException e)
-//			{
-//				e.printStackTrace();
-//				Log.v("evercamconnect", "failure");
-//			}
+			initialDetailObject();
 			try
 			{
-				Thread.sleep(5000);
+				String[] account = SharedPrefsManager.getEvercam(sharedPrefs);
+				API.setAuth(account[0], account[1]);
+				io.evercam.Camera camera = io.evercam.Camera.create(cameraDetail);
+				if(camera.getId().equals(cameraId))
+				{
+					return true;
+				}
+				return false;
 			}
-			catch (InterruptedException e)
+			catch (EvercamException e)
 			{
 				e.printStackTrace();
+				errorMsg = e.getMessage();
+				return false;
 			}
-			return null;
 		}
 		
 		private void initialDetailObject()
 		{
 			String externalIp = NetInfo.getExternalIP();
 			String timezoneID = TimeZone.getDefault().getID();
-			Log.v("evercamconnect", timezoneID);
 			cameraDetail.setId(cameraId);
 			cameraDetail.setName(cameraName);
 			cameraDetail.setBasicAuth(cameraUsername, cameraPassword);
@@ -253,13 +258,19 @@ public class AddToEvercamActivity extends Activity
 			cameraDetail.setPublic(isPublic);
 			cameraDetail.setEndpoints(new String[]{"http://" + externalIp});
 			cameraDetail.setTimezone(timezoneID);
+			if(cameraVendor!=null)
+			{
 			if(!cameraVendor.equals("Unknown Vendor") && cameraVendor.length()!=0)
 			{
 				cameraDetail.setVendor(cameraVendor);
 			}
+			}
+			if(cameraModel!=null)
+			{
 			if(cameraModel.length()!=0)
 			{
 				cameraDetail.setModel(cameraModel);
+			}
 			}
 		}
 	}
