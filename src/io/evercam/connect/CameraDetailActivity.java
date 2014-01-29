@@ -22,8 +22,9 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import android.net.Uri;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.StrictMode;
 import android.preference.PreferenceManager;
 import android.app.ActionBar;
@@ -35,6 +36,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ImageSpan;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,8 +52,8 @@ import android.widget.Toast;
 
 /**
  * CameraDetailActivity
- *
- * Camera detail page, show camera thumnails, model , ports info, live view etc. 
+ * 
+ * Camera detail page, show camera thumnails, model , ports info, live view etc.
  */
 
 public class CameraDetailActivity extends Activity
@@ -71,7 +75,7 @@ public class CameraDetailActivity extends Activity
 
 	private NetInfo netInfo;
 	private ImageView snapshot;
-	private Handler handler = new Handler();
+	private GetSnapshotTask snapshotTask;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -161,8 +165,7 @@ public class CameraDetailActivity extends Activity
 					{
 						for (int i = 11; i >= 1; i--)
 						{
-							Toast toast = Toast.makeText(
-									ctxt,
+							Toast toast = Toast.makeText(ctxt,
 									"Loading video stream..." + i,
 									Toast.LENGTH_SHORT);
 							toast.setGravity(Gravity.CENTER, 0, 0);
@@ -174,8 +177,7 @@ public class CameraDetailActivity extends Activity
 					{
 						for (int i = 4; i >= 1; i--)
 						{
-							Toast toast = Toast.makeText(
-									ctxt,
+							Toast toast = Toast.makeText(ctxt,
 									"Loading video stream..." + i,
 									Toast.LENGTH_SHORT);
 							toast.setGravity(Gravity.CENTER, 0, 0);
@@ -206,26 +208,15 @@ public class CameraDetailActivity extends Activity
 				AlertDialog.Builder alertDialog = new AlertDialog.Builder(
 						CameraDetailActivity.this);
 				alertDialog.setTitle(R.string.portForwarding);
-				alertDialog
-						.setMessage(R.string.forwardGuideMsg);
+				alertDialog.setMessage(R.string.forwardGuideMsg);
 
 				if (camera.isDemoCamera())
 				{
 
-					alertDialog.setPositiveButton(R.string.ok,
-							new DialogInterface.OnClickListener(){
-
-								@Override
-								public void onClick(DialogInterface dialog,
-										int which)
-								{
-
-								}
-							}).show();
+					alertDialog.setPositiveButton(R.string.ok, null).show();
 				}
 				else
 				{
-
 					alertDialog.setPositiveButton(R.string.next,
 							new DialogInterface.OnClickListener(){
 
@@ -233,7 +224,6 @@ public class CameraDetailActivity extends Activity
 								public void onClick(DialogInterface dialog,
 										int which)
 								{
-
 									Intent intentForward = new Intent();
 									intentForward.setClass(
 											CameraDetailActivity.this,
@@ -244,7 +234,6 @@ public class CameraDetailActivity extends Activity
 									startActivity(intentForward);
 								}
 							}).show();
-
 				}
 
 			}
@@ -265,7 +254,6 @@ public class CameraDetailActivity extends Activity
 					showSetAsCameraDialog();
 				}
 			}
-
 		});
 
 		setDeviceBtn.setOnClickListener(new OnClickListener(){
@@ -281,9 +269,7 @@ public class CameraDetailActivity extends Activity
 				{
 					showSetAsDeviceDialog();
 				}
-
 			}
-
 		});
 
 		snapshot.setOnClickListener(new OnClickListener(){
@@ -292,30 +278,21 @@ public class CameraDetailActivity extends Activity
 			public void onClick(View v)
 			{
 
-				Toast toast = Toast.makeText(ctxt,
-						"Refreshing snapshot...", Toast.LENGTH_SHORT);
+				Toast toast = Toast.makeText(ctxt, "Refreshing snapshot...",
+						Toast.LENGTH_SHORT);
 				toast.setGravity(Gravity.CENTER, 0, 0);
 				toast.show();
-				handler.postDelayed(new Runnable(){
-
-					@Override
-					public void run()
-					{
-						if (camera.getSsid().equals("sample"))
-						{
-							snapshot.setImageBitmap(getSnapshot(
-									"http://89.101.225.158:8101/Streaming/channels/1/picture",
-									camera.getUsername(), camera.getPassword()));
-						}
-						else
-						{
-							snapshot.setImageBitmap(getSnapshot(
-									getSnapshotURL(), camera.getUsername(),
-									camera.getPassword()));
-							camera.setSnapshotJpgUrl(getSnapshotURL());
-						}
-					}
-				}, 1000);
+				if (camera.getSsid().equals("sample"))
+				{
+					launchSnapshot(
+							"http://89.101.225.158:8101/Streaming/channels/1/picture",
+							camera.getUsername(), camera.getPassword(), true);
+				}
+				else
+				{
+					launchSnapshot(getSnapshotURL(), camera.getUsername(),
+							camera.getPassword(), false);
+				}
 			}
 		});
 
@@ -329,18 +306,20 @@ public class CameraDetailActivity extends Activity
 			}
 
 		});
-		
+
 		addEvercamButton.setOnClickListener(new OnClickListener(){
 
 			@Override
 			public void onClick(View v)
 			{
-				SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-				if(SharedPrefsManager.isSignedWithEvercam(sharedPrefs))
+				SharedPreferences sharedPrefs = PreferenceManager
+						.getDefaultSharedPreferences(getApplicationContext());
+				if (SharedPrefsManager.isSignedWithEvercam(sharedPrefs))
 				{
 					Intent addToEvercamIntent = new Intent();
-					addToEvercamIntent.setClass(CameraDetailActivity.this,AddToEvercamActivity.class);
-					addToEvercamIntent.putExtra("camera",camera);
+					addToEvercamIntent.setClass(CameraDetailActivity.this,
+							AddToEvercamActivity.class);
+					addToEvercamIntent.putExtra("camera", camera);
 					startActivity(addToEvercamIntent);
 				}
 				else
@@ -348,7 +327,6 @@ public class CameraDetailActivity extends Activity
 					showComfirmLoginDialog();
 				}
 			}
-
 		});
 	}
 
@@ -357,7 +335,6 @@ public class CameraDetailActivity extends Activity
 	{
 		super.onResume();
 		setUpPage();
-
 	}
 
 	@Override
@@ -365,7 +342,6 @@ public class CameraDetailActivity extends Activity
 	{
 		this.finish();
 		return super.getParentActivityIntent();
-
 	}
 
 	public void setUpPage()
@@ -419,6 +395,10 @@ public class CameraDetailActivity extends Activity
 		setDeviceBtn = (Button) findViewById(R.id.setAsDeviceButton);
 		setCameraBtn = (Button) findViewById(R.id.setAsCameraButton);
 		addEvercamButton = (Button) findViewById(R.id.addToEvercamBtn);
+//		Spannable buttonLabel = new SpannableString("  Add to Evercam");
+//		buttonLabel.setSpan(new ImageSpan(getApplicationContext(), R.drawable.icon_50x50,      
+//		    ImageSpan.ALIGN_BOTTOM), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+//		addEvercamButton.setText(buttonLabel);
 
 		// Is a camera
 		if (camera.getFlag() == Constants.TYPE_CAMERA)
@@ -426,8 +406,7 @@ public class CameraDetailActivity extends Activity
 			// if username and password not exist in database
 			if (camera.getUsername() == null)
 			{
-				SimpleDBConnect simpleDB = new SimpleDBConnect(
-						ctxt);
+				SimpleDBConnect simpleDB = new SimpleDBConnect(ctxt);
 				simpleDB.queryDefaultPassword(camera.getVendor());
 				cameraOperation.updateAttributeString(camera.getIP(),
 						camera.getSsid(), "username", simpleDB.username);
@@ -463,28 +442,28 @@ public class CameraDetailActivity extends Activity
 		}
 		else
 		{
-			img.setImageResource(R.drawable.question_img_trans);			
+			img.setImageResource(R.drawable.question_img_trans);
 		}
 
 		ip.setText(camera.getIP());
-		if(camera.hasMac())
+		if (camera.hasMac())
 		{
 			mac.setText(camera.getMAC().toUpperCase(Locale.UK));
 		}
 		else
 		{
 			mac.setText(R.string.unknown);
-	    }
-		
-		if(camera.hasVendor())
+		}
+
+		if (camera.hasVendor())
 		{
 			vendor.setText(camera.getVendor());
 		}
 		else
 		{
 			mac.setText(R.string.unknown);
-	    }
-		
+		}
+
 		// If is demo camera
 		if (camera.getSsid().equals("sample"))
 		{
@@ -494,31 +473,17 @@ public class CameraDetailActivity extends Activity
 			editBtn.setVisibility(View.VISIBLE);
 			portForwardBtn.setVisibility(View.VISIBLE);
 
-			handler.postDelayed(new Runnable(){
-
-				@Override
-				public void run()
-				{
-					snapshot.setImageBitmap(getSnapshot(
-							"http://89.101.225.158:8101/Streaming/channels/1/picture",
-							camera.getUsername(), camera.getPassword()));
-				}
-			}, 1000);
+			launchSnapshot(
+					"http://89.101.225.158:8101/Streaming/channels/1/picture",
+					camera.getUsername(), camera.getPassword(), true);
 		}
 		// Show snapshot
 		else if (camera.isSupportedCamera() && camera.getHttp() != 0)
 		{
 			snapshot.setVisibility(View.VISIBLE);
 
-			handler.postDelayed(new Runnable(){
-
-				@Override
-				public void run()
-				{
-					snapshot.setImageBitmap(getSnapshot(getSnapshotURL(),
-							camera.getUsername(), camera.getPassword()));
-				}
-			}, 1000);
+			launchSnapshot(getSnapshotURL(), camera.getUsername(),
+					camera.getPassword(), false);
 		}
 		else if (camera.getHttp() == 0)
 		{
@@ -590,14 +555,13 @@ public class CameraDetailActivity extends Activity
 			{
 				rtsp_button.setVisibility(View.GONE);
 			}
-
 		}
 		else
 		{
 			rtsp_layout.setVisibility(View.GONE);
 			rtsp_button.setVisibility(View.GONE);
 		}
-		
+
 		// display http port
 		if (camera.hasHTTP())
 		{
@@ -1034,8 +998,7 @@ public class CameraDetailActivity extends Activity
 		AlertDialog.Builder alertDialog = new AlertDialog.Builder(
 				CameraDetailActivity.this);
 		alertDialog.setTitle(R.string.userGuide);
-		alertDialog
-				.setMessage(R.string.userGuideMsg);
+		alertDialog.setMessage(R.string.userGuideMsg);
 		alertDialog.setPositiveButton(R.string.ok,
 				new DialogInterface.OnClickListener(){
 
@@ -1078,8 +1041,8 @@ public class CameraDetailActivity extends Activity
 
 	private void showPortNotInRange()
 	{
-		Toast toast = Toast.makeText(ctxt,
-				R.string.portRangeMsg1, Toast.LENGTH_SHORT);
+		Toast toast = Toast.makeText(ctxt, R.string.portRangeMsg1,
+				Toast.LENGTH_SHORT);
 		toast.setGravity(Gravity.CENTER, 0, 0);
 		toast.show();
 	}
@@ -1098,23 +1061,89 @@ public class CameraDetailActivity extends Activity
 			exception.printStackTrace();
 		}
 	}
-	
+
 	private void showComfirmLoginDialog()
 	{
 		AlertDialog alertDialog = new AlertDialog.Builder(
 				CameraDetailActivity.this)
 				.setMessage(R.string.pleaseSignInBeforeAddCamera)
-				.setPositiveButton(R.string.action_signIn,new DialogInterface.OnClickListener(){
-					@Override
-					public void onClick(DialogInterface dialog,
-							int which)
-					{
-						Intent loginIntent = new Intent();
-						loginIntent.setClass(CameraDetailActivity.this,LoginActivity.class);
-						startActivity(loginIntent);		
-					}})
-				.setNegativeButton(R.string.notNow, null).create();
+				.setPositiveButton(R.string.action_signIn,
+						new DialogInterface.OnClickListener(){
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which)
+							{
+								Intent loginIntent = new Intent();
+								loginIntent.setClass(CameraDetailActivity.this,
+										LoginActivity.class);
+								startActivity(loginIntent);
+							}
+						}).setNegativeButton(R.string.notNow, null).create();
 		alertDialog.show();
 	}
-	
+
+	private void launchSnapshot(String url, String username, String password,
+			boolean isSample)
+	{
+		if (snapshotTask != null)
+		{
+			snapshotTask = null;
+		}
+		snapshotTask = new GetSnapshotTask(url, username, password, isSample);
+
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
+		{
+			snapshotTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+		}
+		else
+		{
+			snapshotTask.execute();
+		}
+	}
+
+	private class GetSnapshotTask extends AsyncTask<Void, Void, Bitmap>
+	{
+		String url;
+		String username;
+		String password;
+		boolean isSample;; // 0:sample 1:other
+
+		GetSnapshotTask(String url, String username, String password,
+				boolean isSample)
+		{
+			this.url = url;
+			this.username = username;
+			this.password = password;
+			this.isSample = isSample;
+		}
+
+		@Override
+		protected Bitmap doInBackground(Void... arg0)
+		{
+			Bitmap bitmap = getSnapshot(url, username, password);
+			return bitmap;
+		}
+
+		@Override
+		protected void onPostExecute(Bitmap bitmap)
+		{
+			if (!isSample)
+			{
+				if (bitmap != null)
+				{
+					snapshot.setImageBitmap(bitmap);
+					setDeviceBtn.setVisibility(View.GONE);
+				}
+				else
+				{
+					snapshot.setImageResource(R.drawable.fuzz);
+				}
+			}
+			else
+			{
+				snapshot.setImageBitmap(bitmap);
+			}
+		}
+	}
+
 }
