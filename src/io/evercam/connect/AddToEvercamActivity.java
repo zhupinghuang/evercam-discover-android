@@ -6,6 +6,7 @@ import io.evercam.API;
 import io.evercam.CameraDetail;
 import io.evercam.EvercamException;
 import io.evercam.connect.db.Camera;
+import io.evercam.connect.db.CameraOperation;
 import io.evercam.connect.db.SharedPrefsManager;
 import io.evercam.connect.net.NetInfo;
 import android.os.AsyncTask;
@@ -221,6 +222,8 @@ public class AddToEvercamActivity extends Activity
 			if(success)
 			{
 				showShortToast("Success!");	
+				CameraOperation cameraOperation = new CameraOperation(AddToEvercamActivity.this);
+				cameraOperation.updateAttributeInt(camera.getIP(), camera.getSsid(), "evercam", 1);
 				AddToEvercamActivity.this.finish();
 			}
 			else

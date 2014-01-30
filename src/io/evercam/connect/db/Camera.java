@@ -470,6 +470,13 @@ public class Camera implements Serializable
 		this.snapshotJpgUrl = snapshotJpgUrl;
 	}
 	
-	
+	public boolean isEvercam()
+	{
+		if(getEvercamConnected() == 1)
+		{
+			return true;
+		}
+		return false;
+	}
 
 }

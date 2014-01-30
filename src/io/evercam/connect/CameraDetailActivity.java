@@ -382,6 +382,7 @@ public class CameraDetailActivity extends Activity
 
 		TextView username_value = (TextView) findViewById(R.id.usernamevalue_detail);
 		TextView password_value = (TextView) findViewById(R.id.passwordvalue_detail);
+		TextView evercam_value = (TextView) findViewById(R.id.isevercamvalue_detail);
 
 		snapshot = (ImageView) findViewById(R.id.snapshot_img);
 
@@ -413,6 +414,7 @@ public class CameraDetailActivity extends Activity
 			setCameraBtn.setVisibility(View.GONE);
 			editBtn.setVisibility(View.VISIBLE);
 			addEvercamButton.setVisibility(View.VISIBLE);
+			evercam_layout.setVisibility(View.VISIBLE);
 		}
 		// Is not a camera
 		else
@@ -424,6 +426,7 @@ public class CameraDetailActivity extends Activity
 			http_button.setVisibility(View.GONE);
 			rtsp_button.setVisibility(View.GONE);
 			addEvercamButton.setVisibility(View.GONE);
+			evercam_layout.setVisibility(View.GONE);
 		}
 
 		// set images
@@ -458,7 +461,7 @@ public class CameraDetailActivity extends Activity
 		}
 
 		// If is demo camera
-		if (camera.getSsid().equals("sample"))
+		if (camera.isDemoCamera())
 		{
 			snapshot.setVisibility(View.VISIBLE);
 			setDeviceBtn.setVisibility(View.VISIBLE);
@@ -608,14 +611,11 @@ public class CameraDetailActivity extends Activity
 			exthttp.setText(String.valueOf(camera.getExthttp()));
 			// show port forward
 			portforward_layout.setVisibility(View.VISIBLE);
-			evercam_layout.setVisibility(View.VISIBLE);
-
 		}
 		else
 		{
 			exthttp_layout.setVisibility(View.GONE);
 			portforward_layout.setVisibility(View.GONE);
-			evercam_layout.setVisibility(View.GONE);
 		}
 
 		// display external rtsp if not equals 0
@@ -625,13 +625,11 @@ public class CameraDetailActivity extends Activity
 			extrtsp.setText(String.valueOf(camera.getExtrtsp()));
 			// show port forward
 			portforward_layout.setVisibility(View.VISIBLE);
-			evercam_layout.setVisibility(View.VISIBLE);
 		}
 		else
 		{
 			extrtsp_layout.setVisibility(View.GONE);
 			portforward_layout.setVisibility(View.GONE);
-			evercam_layout.setVisibility(View.GONE);
 		}
 
 		// username and password
@@ -654,7 +652,6 @@ public class CameraDetailActivity extends Activity
 				username_layout.setVisibility(View.GONE);
 				password_layout.setVisibility(View.GONE);
 			}
-
 		}
 		else
 		{
@@ -663,6 +660,15 @@ public class CameraDetailActivity extends Activity
 		}
 		firstseen.setText(camera.getFirstSeen());
 		lastseen.setText(camera.getLastSeen());
+		
+		if(camera.isEvercam())
+		{
+			evercam_value.setText(R.string.yes);
+		}
+		else
+		{
+			evercam_value.setText(R.string.no);
+		}
 	}
 
 	public Bitmap getSnapshot(String URL, String username, String password)

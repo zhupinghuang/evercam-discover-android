@@ -476,7 +476,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dip"
-                android:text="@string/no"
                 android:textSize="17sp" />
         </LinearLayout>
 

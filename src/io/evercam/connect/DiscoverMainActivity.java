@@ -129,10 +129,10 @@ public class DiscoverMainActivity extends Activity
 				R.layout.ditail_relative_layout, new String[] { "device_img",
 						"device_name", "device_mac", "device_vendor",
 						"device_model", "device_http", "device_rtsp",
-						"device_timediff" }, new int[] { R.id.device_img,
+						"device_timediff", "evercamlogo" }, new int[] { R.id.device_img,
 						R.id.device_name, R.id.device_mac, R.id.device_vendor,
 						R.id.device_model, R.id.device_http, R.id.device_rtsp,
-						R.id.time_diff });
+						R.id.time_diff, R.id.evercamglobe_img });
 		deviceList.setAdapter(deviceAdapter);
 
 		LinearLayout sampleLayout = (LinearLayout) findViewById(R.id.sample_layout);
@@ -620,6 +620,10 @@ public class DiscoverMainActivity extends Activity
 		if (camera.hasRTSP())
 		{
 			deviceMap.put("device_rtsp", "RTSP\u2713");
+		}
+		if(camera.isEvercam())
+		{
+			deviceMap.put("evercamlogo", R.drawable.icon_50x50);
 		}
 
 		deviceArraylist.add(deviceMap);

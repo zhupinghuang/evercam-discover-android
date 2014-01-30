@@ -178,6 +178,8 @@ public class CameraOperation
 			int onvif = c.getInt(c.getColumnIndex("onvif"));
 			camera.setOnvif(onvif);
 			camera.setSsid(ssid);
+			int evercam = c.getInt(c.getColumnIndex("evercam"));
+			camera.setEvercamConnected(evercam);
 		}
 		db.close();
 		return camera;
