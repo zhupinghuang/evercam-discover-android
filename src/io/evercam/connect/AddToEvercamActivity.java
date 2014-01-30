@@ -93,7 +93,10 @@ public class AddToEvercamActivity extends Activity
 	
 	private void fillPage()
 	{
-		exthttpEdit.setText(String.valueOf(camera.getExthttp()));
+		if(camera.getExthttp() > 0)
+		{
+			exthttpEdit.setText(String.valueOf(camera.getExthttp()));
+		}
 		snapshotEdit.setText(camera.getSnapshotJpgUrl());
 		usernameEdit.setText(camera.getUsername());
 		passwordEdit.setText(camera.getPassword());
@@ -139,11 +142,13 @@ public class AddToEvercamActivity extends Activity
 			if (!(exthttp > 0 && exthttp <= 65535))
 			{
 				showErrorToast(R.string.portRangeMsg);
+				return false;
 			}
 		}
 		catch (NumberFormatException e)
 		{
 			showErrorToast(R.string.portRangeMsg);
+			return false;
 		}
 		
 		if(idStr.length()== 0)

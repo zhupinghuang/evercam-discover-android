@@ -47,9 +47,9 @@
             />
             <CheckBoxPreference
                 android:key="checkbox_userdata_preference"
-                android:title="Send User Data"
+                android:title="Send user data to Evercam"
                 android:defaultValue="true"
-                android:summary="Send us discovered results to help improve Evercam Connect." />
+                android:summary="Help improve Evercam Connect." />
             </PreferenceCategory>
 
 </PreferenceScreen>

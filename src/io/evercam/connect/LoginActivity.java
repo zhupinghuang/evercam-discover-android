@@ -230,51 +230,6 @@ public class LoginActivity extends Activity
 	}
 
 	@Override
-	protected void onStart()
-	{
-		super.onStart();
-
-		SharedPreferences sharedPrefs = PreferenceManager
-				.getDefaultSharedPreferences(LoginActivity.this);
-		if (sharedPrefs.contains("Logged"))
-		{
-
-		}
-		else
-		{
-
-			new GoogleSignIn(LoginActivity.this);
-			if (!mPlusClient.isConnected())
-			{
-				if (mConnectionResult == null)
-				{
-
-				}
-				else
-				{
-					try
-					{
-						mConnectionResult.startResolutionForResult(
-								LoginActivity.this, GoogleSignIn.REQUEST_CODE_RESOLVE_ERR);
-					}
-					catch (SendIntentException e)
-					{
-						// Try connecting again.
-						mConnectionResult = null;
-						mPlusClient.connect();
-
-					}
-				}
-			}
-
-			SharedPreferences.Editor editor = sharedPrefs.edit();
-
-			editor.putInt("Logged", 0);
-			editor.commit();
-		}
-	}
-
-	@Override
 	public Intent getParentActivityIntent()
 	{
 		this.finish();
