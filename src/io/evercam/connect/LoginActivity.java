@@ -113,7 +113,47 @@ public class LoginActivity extends Activity
 		signInButton = (SignInButton) findViewById(R.id.sign_in_button);
 		signInButton.setStyle(SignInButton.SIZE_WIDE, SignInButton.COLOR_LIGHT);
 
-		checkGoogle();
+		signInButton.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v)
+			{
+				int errorCode = GooglePlayServicesUtil
+						.isGooglePlayServicesAvailable(getApplicationContext());
+				if (errorCode != ConnectionResult.SUCCESS)
+				{
+					GooglePlayServicesUtil.getErrorDialog(errorCode, LoginActivity.this, 0).show();
+					Toast.makeText(LoginActivity.this, "Google+ is not installed!", Toast.LENGTH_LONG)
+							.show();
+				}
+				else
+				{
+					new GoogleSignIn(LoginActivity.this);
+					if (!mPlusClient.isConnected())
+					{
+						if (mConnectionResult == null)
+						{
+							mConnectionProgressDialog.show();
+						}
+						else
+						{
+							try
+							{
+								mConnectionResult.startResolutionForResult(
+										LoginActivity.this,
+										GoogleSignIn.REQUEST_CODE_RESOLVE_ERR);
+							}
+							catch (SendIntentException e)
+							{
+								// Try connecting again.
+								mConnectionResult = null;
+								mPlusClient.connect();
+							}
+						}
+					}
+				}
+			}
+		});
 	}
 	
 	public void attemptLogin()
@@ -235,58 +275,6 @@ public class LoginActivity extends Activity
 		this.finish();
 		return super.getParentActivityIntent();
 
-	}
-	
-	private void checkGoogle()
-	{
-		/*
-		 * check google plus application available or not in device
-		 */
-		int errorCode = GooglePlayServicesUtil
-				.isGooglePlayServicesAvailable(getApplicationContext());
-		if (errorCode != ConnectionResult.SUCCESS)
-		{
-			GooglePlayServicesUtil.getErrorDialog(errorCode, this, 0).show();
-			Toast.makeText(this, "Google+ is not installed!", Toast.LENGTH_LONG)
-					.show();
-		}
-		else
-		{
-
-			signInButton.setOnClickListener(new OnClickListener(){
-
-				@Override
-				public void onClick(View v)
-				{
-
-					new GoogleSignIn(LoginActivity.this);
-					if (!mPlusClient.isConnected())
-					{
-						if (mConnectionResult == null)
-						{
-							mConnectionProgressDialog.show();
-
-						}
-						else
-						{
-							try
-							{
-								mConnectionResult.startResolutionForResult(
-										LoginActivity.this,
-										GoogleSignIn.REQUEST_CODE_RESOLVE_ERR);
-							}
-							catch (SendIntentException e)
-							{
-								// Try connecting again.
-								mConnectionResult = null;
-								mPlusClient.connect();
-
-							}
-						}
-					}
-				}
-			});
-		}
 	}
 	
 	public class UserLoginTask extends AsyncTask<Void, Void, Boolean>
