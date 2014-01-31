@@ -8,5 +8,7 @@
     <string name="usernameEmpty">Camera username can NOT be empty!</string>
     <string name="passwordEmpty">Camera password can NOT be empty!</string>
     <string name="snapshotInvalid">Snapshot should starts with \'/\'.</string>
+    <string name="extPortNotOpen">External port is not opened.</string>
+    <string name="Success">Success!</string>
     
 </resources>

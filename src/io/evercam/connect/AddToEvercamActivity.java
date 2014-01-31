@@ -9,11 +9,16 @@ import io.evercam.connect.db.Camera;
 import io.evercam.connect.db.CameraOperation;
 import io.evercam.connect.db.SharedPrefsManager;
 import io.evercam.connect.net.NetInfo;
+import io.evercam.network.ipscan.PortScan;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnFocusChangeListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -21,6 +26,7 @@ import android.widget.Toast;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 
 public class AddToEvercamActivity extends Activity
 {
@@ -47,87 +53,127 @@ public class AddToEvercamActivity extends Activity
 	private String cameraModel;
 	private String cameraVendor;
 	private ProgressDialog progressDialog;
+	private String externalIp = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_add_to_evercam);
-		
-		sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-		
+
+		sharedPrefs = PreferenceManager
+				.getDefaultSharedPreferences(getApplicationContext());
+
 		camera = (Camera) getIntent().getSerializableExtra("camera");
 		initPage();
 		fillPage();
-		
+
 		addBtn.setOnClickListener(new OnClickListener(){
 
 			@Override
 			public void onClick(View v)
 			{
-				if(detailsChecked())
+				if(isPassed())
 				{
-					if(createCameraTask != null)
+				if (detailsChecked())
+				{
+					if (createCameraTask != null)
 					{
 						createCameraTask = null;
 					}
 					createCameraTask = new CreateCameraTask();
 					createCameraTask.execute();
 				}
-			}			
+				}
+				else
+				{
+					showShortToast(R.string.extPortNotOpen);
+				}
+			}
+		});
+
+		exthttpEdit.addTextChangedListener(new TextWatcher(){
+
+			@Override
+			public void afterTextChanged(Editable arg0)
+			{
+				exthttpEdit.setCompoundDrawablesWithIntrinsicBounds(null, null,null, null);
+			}
+
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,int after){}
+
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before,int count){}
+		});
+
+		exthttpEdit.setOnFocusChangeListener(new OnFocusChangeListener(){
+
+			public void onFocusChange(View v, boolean hasFocus)
+			{
+				if (!hasFocus)
+				{
+					if (extHttpChecked())
+					{
+						portCheck(exthttp);
+					}
+				}
+			}
 		});
 	}
-	
-	private void  initPage()
+
+	private void initPage()
 	{
-		idEdit = (EditText)findViewById(R.id.addCameraId_edit);
-		nameEdit = (EditText)findViewById(R.id.addCameraName_edit);
-		snapshotEdit = (EditText)findViewById(R.id.addCameraJpg_edit);
-		usernameEdit = (EditText)findViewById(R.id.addUsername_edit);
-		passwordEdit = (EditText)findViewById(R.id.addPassword_edit);
-		exthttpEdit = (EditText)findViewById(R.id.addExtHttp_edit);
-		modelEdit = (EditText)findViewById(R.id.addModel_value);
-		vendorEdit = (EditText)findViewById(R.id.addVendor_value);
-		publicRadioBtn = (RadioButton)findViewById(R.id.publicRadio);
-		addBtn = (Button)findViewById(R.id.button_creatCamera);
+		idEdit = (EditText) findViewById(R.id.addCameraId_edit);
+		nameEdit = (EditText) findViewById(R.id.addCameraName_edit);
+		snapshotEdit = (EditText) findViewById(R.id.addCameraJpg_edit);
+		usernameEdit = (EditText) findViewById(R.id.addUsername_edit);
+		passwordEdit = (EditText) findViewById(R.id.addPassword_edit);
+		exthttpEdit = (EditText) findViewById(R.id.addExtHttp_edit);
+		modelEdit = (EditText) findViewById(R.id.addModel_value);
+		vendorEdit = (EditText) findViewById(R.id.addVendor_value);
+		publicRadioBtn = (RadioButton) findViewById(R.id.publicRadio);
+		addBtn = (Button) findViewById(R.id.button_creatCamera);
 	}
-	
+
 	private void fillPage()
 	{
-		if(camera.getExthttp() > 0)
+		if (camera.getExthttp() > 0)
 		{
+			portCheck(camera.getExthttp());
 			exthttpEdit.setText(String.valueOf(camera.getExthttp()));
 		}
 		snapshotEdit.setText(camera.getSnapshotJpgUrl());
 		usernameEdit.setText(camera.getUsername());
 		passwordEdit.setText(camera.getPassword());
-		if(camera.hasModel())
+		if (camera.hasModel())
 		{
-			if(camera.getModel().startsWith(camera.getVendor()))
+			if (camera.getModel().startsWith(camera.getVendor()))
 			{
-				camera.setModel(camera.getModel().substring(camera.getVendor().length()+1).trim());
+				camera.setModel(camera.getModel()
+						.substring(camera.getVendor().length() + 1).trim());
 			}
-		modelEdit.setText(camera.getModel().toLowerCase());
+			modelEdit.setText(camera.getModel().toLowerCase());
 		}
-		if(camera.hasVendor())
+		if (camera.hasVendor())
 		{
-		vendorEdit.setText(camera.getVendor().toLowerCase());
+			vendorEdit.setText(camera.getVendor().toLowerCase());
 		}
 		String[] evercamAccount = SharedPrefsManager.getEvercam(sharedPrefs);
 		idEdit.setText(evercamAccount[0] + camera.getMAC());
 		nameEdit.setText(R.string.myCamera);
 	}
-	
-	private void showErrorToast(int id)
+
+	private void showShortToast(int id)
 	{
 		Toast.makeText(this, id, Toast.LENGTH_SHORT).show();
 	}
-	
+
 	private void showShortToast(String msg)
 	{
 		Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
 	}
-	
+
 	private boolean detailsChecked()
 	{
 		String idStr = idEdit.getText().toString();
@@ -136,80 +182,148 @@ public class AddToEvercamActivity extends Activity
 		String exthttpStr = exthttpEdit.getText().toString();
 		String usernameStr = usernameEdit.getText().toString();
 		String passwordStr = passwordEdit.getText().toString();
-		
+
+		if (extHttpChecked())
+		{
+			if (idStr.length() == 0)
+			{
+				showShortToast(R.string.idEmpty);
+				idEdit.requestFocus();
+			}
+			else if (nameStr.length() == 0)
+			{
+				showShortToast(R.string.nameEmpty);
+				nameEdit.requestFocus();
+			}
+			else if (snapshotStr.length() == 0)
+			{
+				showShortToast(R.string.snapshotEmpty);
+				snapshotEdit.requestFocus();
+			}
+			else if (!snapshotStr.startsWith("/"))
+			{
+				showShortToast(R.string.snapshotInvalid);
+			}
+			else if (exthttpStr.length() == 0)
+			{
+				showShortToast(R.string.exthttpEmpty);
+				exthttpEdit.requestFocus();
+			}
+			else if (usernameStr.length() == 0)
+			{
+				showShortToast(R.string.usernameEmpty);
+				usernameEdit.requestFocus();
+			}
+			else if (passwordStr.length() == 0)
+			{
+				showShortToast(R.string.passwordEmpty);
+				passwordEdit.requestFocus();
+			}
+			else
+			{
+				cameraId = idStr;
+				cameraName = nameStr;
+				snapshotPath = snapshotStr;
+				isPublic = publicRadioBtn.isChecked();
+				cameraUsername = usernameStr;
+				cameraPassword = passwordStr;
+				cameraModel = modelEdit.getText().toString();
+				cameraVendor = vendorEdit.getText().toString();
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private boolean extHttpChecked()
+	{
+		String exthttpStr = exthttpEdit.getText().toString();
 		try
 		{
 			exthttp = Integer.parseInt(exthttpStr);
 			if (!(exthttp > 0 && exthttp <= 65535))
 			{
-				showErrorToast(R.string.portRangeMsg);
+				showShortToast(R.string.portRangeMsg);
 				return false;
+			}
+			else
+			{
+				return true;
 			}
 		}
 		catch (NumberFormatException e)
 		{
-			showErrorToast(R.string.portRangeMsg);
+			showShortToast(R.string.portRangeMsg);
 			return false;
 		}
-		
-		if(idStr.length()== 0)
-		{
-			showErrorToast(R.string.idEmpty);
-			idEdit.requestFocus();
-		}
-		else if(nameStr.length()== 0)
-		{
-			showErrorToast(R.string.nameEmpty);
-			nameEdit.requestFocus();
-		}
-		else if(snapshotStr.length()== 0)
-		{
-			showErrorToast(R.string.snapshotEmpty);
-			snapshotEdit.requestFocus();
-		}
-		else if (!snapshotStr.startsWith("/"))
-		{
-			showErrorToast(R.string.snapshotInvalid);
-		}
-		else if(exthttpStr.length()== 0)
-		{
-			showErrorToast(R.string.exthttpEmpty);
-			exthttpEdit.requestFocus();
-		}
-		else if(usernameStr.length()== 0)
-		{
-			showErrorToast(R.string.usernameEmpty);
-			usernameEdit.requestFocus();
-		}
-		else if(passwordStr.length()== 0)
-		{
-			showErrorToast(R.string.passwordEmpty);
-			passwordEdit.requestFocus();
-		}
-		else
-		{
-			cameraId = idStr;
-			cameraName = nameStr;
-			snapshotPath = snapshotStr;
-			isPublic = publicRadioBtn.isChecked();
-			cameraUsername = usernameStr;
-			cameraPassword = passwordStr;
-			cameraModel= modelEdit.getText().toString();
-			cameraVendor = vendorEdit.getText().toString();			
-			return true;
-		}
-		return false;
+	}
+
+	private void showTick()
+	{
+		Drawable tick = getResources().getDrawable(R.drawable.tick);
+		exthttpEdit.setCompoundDrawablesWithIntrinsicBounds(null, null, tick,
+				null);
+	}
+
+	private void showCross()
+	{
+		Drawable cross = getResources().getDrawable(R.drawable.cross);
+		exthttpEdit.setCompoundDrawablesWithIntrinsicBounds(null, null, cross,
+				null);
 	}
 	
-	private class CreateCameraTask extends AsyncTask<Void,Void,Boolean>
+	private boolean isPassed()
+	{
+		Drawable[] drawables = exthttpEdit.getCompoundDrawables();
+		for(Drawable drawable: drawables)
+		{
+			if(drawable!=null)
+			{
+			if(drawable.equals(getResources().getDrawable(R.drawable.tick)));
+			return true;
+			}
+		}		
+		return false;
+	}
+
+	private void portCheck(final int port)
+	{
+		Handler handler = new Handler();
+
+		handler.postDelayed(new Runnable(){
+			@Override
+			public void run()
+			{
+				if (externalIp != null)
+				{
+					if (PortScan.isPortReachable(externalIp, port))
+					{
+						showTick();
+					}
+					else
+					{
+						showCross();
+					}
+				}
+				else
+				{
+					externalIp = NetInfo.getExternalIP();
+					portCheck(port);
+				}
+			}
+		}, 1000);
+	}
+
+	private class CreateCameraTask extends AsyncTask<Void, Void, Boolean>
 	{
 		CameraDetail cameraDetail = new CameraDetail();
 		String errorMsg = "Failed!";
+
 		@Override
 		protected void onPreExecute()
 		{
-			progressDialog = ProgressDialog.show(AddToEvercamActivity.this,
-					"", "Creating camera...", true);
+			progressDialog = ProgressDialog.show(AddToEvercamActivity.this, "",
+					"Creating camera...", true);
 		}
 
 		@Override
@@ -219,11 +333,13 @@ public class AddToEvercamActivity extends Activity
 			{
 				progressDialog.dismiss();
 			}
-			if(success)
+			if (success)
 			{
-				showShortToast("Success!");	
-				CameraOperation cameraOperation = new CameraOperation(AddToEvercamActivity.this);
-				cameraOperation.updateAttributeInt(camera.getIP(), camera.getSsid(), "evercam", 1);
+				showShortToast(R.string.Success);
+				CameraOperation cameraOperation = new CameraOperation(
+						AddToEvercamActivity.this);
+				cameraOperation.updateAttributeInt(camera.getIP(),
+						camera.getSsid(), "evercam", 1);
 				AddToEvercamActivity.this.finish();
 			}
 			else
@@ -240,8 +356,9 @@ public class AddToEvercamActivity extends Activity
 			{
 				String[] account = SharedPrefsManager.getEvercam(sharedPrefs);
 				API.setAuth(account[0], account[1]);
-				io.evercam.Camera camera = io.evercam.Camera.create(cameraDetail);
-				if(camera.getId().equals(cameraId))
+				io.evercam.Camera camera = io.evercam.Camera
+						.create(cameraDetail);
+				if (camera.getId().equals(cameraId))
 				{
 					return true;
 				}
@@ -254,31 +371,35 @@ public class AddToEvercamActivity extends Activity
 				return false;
 			}
 		}
-		
+
 		private void initialDetailObject()
 		{
-			String externalIp = NetInfo.getExternalIP();
+			if(externalIp == null)
+			{
+				externalIp = NetInfo.getExternalIP();
+			}
 			String timezoneID = TimeZone.getDefault().getID();
 			cameraDetail.setId(cameraId);
 			cameraDetail.setName(cameraName);
 			cameraDetail.setBasicAuth(cameraUsername, cameraPassword);
 			cameraDetail.setSnapshotJPG(snapshotPath);
 			cameraDetail.setPublic(isPublic);
-			cameraDetail.setEndpoints(new String[]{"http://" + externalIp});
+			cameraDetail.setEndpoints(new String[] { "http://" + externalIp });
 			cameraDetail.setTimezone(timezoneID);
-			if(cameraVendor!=null)
+			if (cameraVendor != null)
 			{
-			if(!cameraVendor.equals("Unknown Vendor") && cameraVendor.length()!=0)
-			{
-				cameraDetail.setVendor(cameraVendor);
+				if (!cameraVendor.equals("Unknown Vendor")
+						&& cameraVendor.length() != 0)
+				{
+					cameraDetail.setVendor(cameraVendor);
+				}
 			}
-			}
-			if(cameraModel!=null)
+			if (cameraModel != null)
 			{
-			if(cameraModel.length()!=0)
-			{
-				cameraDetail.setModel(cameraModel);
-			}
+				if (cameraModel.length() != 0)
+				{
+					cameraDetail.setModel(cameraModel);
+				}
 			}
 		}
 	}
