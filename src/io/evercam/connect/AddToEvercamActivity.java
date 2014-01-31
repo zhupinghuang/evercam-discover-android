@@ -16,6 +16,7 @@ import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
@@ -318,7 +319,7 @@ public class AddToEvercamActivity extends Activity
 	{
 		CameraDetail cameraDetail = new CameraDetail();
 		String errorMsg = "Failed!";
-
+		
 		@Override
 		protected void onPreExecute()
 		{
@@ -360,6 +361,7 @@ public class AddToEvercamActivity extends Activity
 						.create(cameraDetail);
 				if (camera.getId().equals(cameraId))
 				{
+					Log.v("evercamconnect", camera.toString());
 					return true;
 				}
 				return false;
@@ -374,7 +376,7 @@ public class AddToEvercamActivity extends Activity
 
 		private void initialDetailObject()
 		{
-			if(externalIp == null)
+			while(externalIp == null)
 			{
 				externalIp = NetInfo.getExternalIP();
 			}
@@ -384,7 +386,7 @@ public class AddToEvercamActivity extends Activity
 			cameraDetail.setBasicAuth(cameraUsername, cameraPassword);
 			cameraDetail.setSnapshotJPG(snapshotPath);
 			cameraDetail.setPublic(isPublic);
-			cameraDetail.setEndpoints(new String[] { "http://" + externalIp });
+			cameraDetail.setEndpoints(new String[] { "http://" + externalIp + ":" + exthttp });
 			cameraDetail.setTimezone(timezoneID);
 			if (cameraVendor != null)
 			{
