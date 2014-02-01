@@ -69,22 +69,23 @@ public class AddToEvercamActivity extends Activity
 		initPage();
 		fillPage();
 
-		addBtn.setOnClickListener(new OnClickListener(){
+		addBtn.setOnClickListener(new OnClickListener()
+		{
 
 			@Override
 			public void onClick(View v)
 			{
-				if(isPassed())
+				if (isPassed())
 				{
-				if (detailsChecked())
-				{
-					if (createCameraTask != null)
+					if (detailsChecked())
 					{
-						createCameraTask = null;
+						if (createCameraTask != null)
+						{
+							createCameraTask = null;
+						}
+						createCameraTask = new CreateCameraTask();
+						createCameraTask.execute();
 					}
-					createCameraTask = new CreateCameraTask();
-					createCameraTask.execute();
-				}
 				}
 				else
 				{
@@ -93,23 +94,33 @@ public class AddToEvercamActivity extends Activity
 			}
 		});
 
-		exthttpEdit.addTextChangedListener(new TextWatcher(){
+		exthttpEdit.addTextChangedListener(new TextWatcher()
+		{
 
 			@Override
 			public void afterTextChanged(Editable arg0)
 			{
-				exthttpEdit.setCompoundDrawablesWithIntrinsicBounds(null, null,null, null);
+				exthttpEdit.setCompoundDrawablesWithIntrinsicBounds(null, null,
+						null, null);
 			}
 
 			@Override
-			public void beforeTextChanged(CharSequence s, int start, int count,int after){}
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after)
+			{
+			}
 
 			@Override
-			public void onTextChanged(CharSequence s, int start, int before,int count){}
+			public void onTextChanged(CharSequence s, int start, int before,
+					int count)
+			{
+			}
 		});
 
-		exthttpEdit.setOnFocusChangeListener(new OnFocusChangeListener(){
+		exthttpEdit.setOnFocusChangeListener(new OnFocusChangeListener()
+		{
 
+			@Override
 			public void onFocusChange(View v, boolean hasFocus)
 			{
 				if (!hasFocus)
@@ -272,18 +283,20 @@ public class AddToEvercamActivity extends Activity
 		exthttpEdit.setCompoundDrawablesWithIntrinsicBounds(null, null, cross,
 				null);
 	}
-	
+
 	private boolean isPassed()
 	{
 		Drawable[] drawables = exthttpEdit.getCompoundDrawables();
-		for(Drawable drawable: drawables)
+		for (Drawable drawable : drawables)
 		{
-			if(drawable!=null)
+			if (drawable != null)
 			{
-			if(drawable.equals(getResources().getDrawable(R.drawable.tick)));
-			return true;
+				if (drawable
+						.equals(getResources().getDrawable(R.drawable.tick)))
+					;
+				return true;
 			}
-		}		
+		}
 		return false;
 	}
 
@@ -291,7 +304,8 @@ public class AddToEvercamActivity extends Activity
 	{
 		Handler handler = new Handler();
 
-		handler.postDelayed(new Runnable(){
+		handler.postDelayed(new Runnable()
+		{
 			@Override
 			public void run()
 			{
@@ -319,7 +333,7 @@ public class AddToEvercamActivity extends Activity
 	{
 		CameraDetail cameraDetail = new CameraDetail();
 		String errorMsg = "Failed!";
-		
+
 		@Override
 		protected void onPreExecute()
 		{
@@ -376,7 +390,7 @@ public class AddToEvercamActivity extends Activity
 
 		private void initialDetailObject()
 		{
-			while(externalIp == null)
+			while (externalIp == null)
 			{
 				externalIp = NetInfo.getExternalIP();
 			}
@@ -386,7 +400,8 @@ public class AddToEvercamActivity extends Activity
 			cameraDetail.setBasicAuth(cameraUsername, cameraPassword);
 			cameraDetail.setSnapshotJPG(snapshotPath);
 			cameraDetail.setPublic(isPublic);
-			cameraDetail.setEndpoints(new String[] { "http://" + externalIp + ":" + exthttp });
+			cameraDetail.setEndpoints(new String[]
+			{ "http://" + externalIp + ":" + exthttp });
 			cameraDetail.setTimezone(timezoneID);
 			if (cameraVendor != null)
 			{

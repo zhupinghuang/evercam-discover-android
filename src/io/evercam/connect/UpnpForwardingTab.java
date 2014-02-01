@@ -131,7 +131,8 @@ public class UpnpForwardingTab extends Fragment
 
 		// listener for use upnp or not
 		useUpnpCheckbox
-				.setOnCheckedChangeListener(new OnCheckedChangeListener(){
+				.setOnCheckedChangeListener(new OnCheckedChangeListener()
+				{
 
 					@Override
 					public void onCheckedChanged(CompoundButton buttonView,
@@ -164,7 +165,8 @@ public class UpnpForwardingTab extends Fragment
 
 		// listener for manually or automatically
 		autoOrManuRadioGroup
-				.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener(){
+				.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
+				{
 
 					@Override
 					public void onCheckedChanged(RadioGroup group, int checkedId)
@@ -179,7 +181,8 @@ public class UpnpForwardingTab extends Fragment
 							bottomLabel.setText("");
 							httpLabel.setText("");
 							rtspLabel.setText("");
-							handler.postDelayed(new Runnable(){
+							handler.postDelayed(new Runnable()
+							{
 								@Override
 								public void run()
 								{
@@ -193,7 +196,8 @@ public class UpnpForwardingTab extends Fragment
 							manualUpnpLayout.setVisibility(View.VISIBLE);
 							useUpnpLayout.setVisibility(View.GONE);
 							natList.setText(R.string.loadingMsg);
-							handler.postDelayed(new Runnable(){
+							handler.postDelayed(new Runnable()
+							{
 								@Override
 								public void run()
 								{
@@ -206,7 +210,8 @@ public class UpnpForwardingTab extends Fragment
 				});
 
 		// clicking forward button
-		saveBtn.setOnClickListener(new OnClickListener(){
+		saveBtn.setOnClickListener(new OnClickListener()
+		{
 			@Override
 			public void onClick(View arg0)
 			{
@@ -236,7 +241,8 @@ public class UpnpForwardingTab extends Fragment
 					// what if only one of them is successful?
 					if (httpMapped || rtspMapped)
 					{
-						handler.postDelayed(new Runnable(){
+						handler.postDelayed(new Runnable()
+						{
 							@Override
 							public void run()
 							{
@@ -269,7 +275,8 @@ public class UpnpForwardingTab extends Fragment
 		});
 
 		// clicking add button
-		addBtn.setOnClickListener(new OnClickListener(){
+		addBtn.setOnClickListener(new OnClickListener()
+		{
 			@Override
 			public void onClick(View v)
 			{
@@ -278,7 +285,8 @@ public class UpnpForwardingTab extends Fragment
 		});
 
 		// clicking remove button
-		removeBtn.setOnClickListener(new OnClickListener(){
+		removeBtn.setOnClickListener(new OnClickListener()
+		{
 
 			@Override
 			public void onClick(View v)
@@ -499,7 +507,8 @@ public class UpnpForwardingTab extends Fragment
 		udpRadioButton = (RadioButton) forwardView.findViewById(R.id.radio_udp);
 
 		forwardBuilder.setPositiveButton(R.string.add,
-				new DialogInterface.OnClickListener(){
+				new DialogInterface.OnClickListener()
+				{
 					@Override
 					public void onClick(DialogInterface dialog, int which)
 					{
@@ -544,7 +553,8 @@ public class UpnpForwardingTab extends Fragment
 								if (manualUpnpMapped)
 								{
 									natList.setText(R.string.manualForwardSuccessMsg);
-									handler.postDelayed(new Runnable(){
+									handler.postDelayed(new Runnable()
+									{
 										@Override
 										public void run()
 										{
@@ -628,7 +638,8 @@ public class UpnpForwardingTab extends Fragment
 					}
 				});
 		forwardBuilder.setNegativeButton(R.string.cancel,
-				new DialogInterface.OnClickListener(){
+				new DialogInterface.OnClickListener()
+				{
 
 					@Override
 					public void onClick(DialogInterface dialog, int which)
@@ -671,7 +682,8 @@ public class UpnpForwardingTab extends Fragment
 		spinnerRemovePort.setAdapter(removePortAdapter);
 
 		removeBuilder.setPositiveButton(R.string.remove,
-				new DialogInterface.OnClickListener(){
+				new DialogInterface.OnClickListener()
+				{
 					@Override
 					public void onClick(DialogInterface dialog, int which)
 					{
@@ -680,7 +692,8 @@ public class UpnpForwardingTab extends Fragment
 						if (unmapped)
 						{
 							natList.setText(R.string.manualDeleteSuccessMsg);
-							handler.postDelayed(new Runnable(){
+							handler.postDelayed(new Runnable()
+							{
 								@Override
 								public void run()
 								{
@@ -704,7 +717,8 @@ public class UpnpForwardingTab extends Fragment
 				});
 
 		removeBuilder.setNegativeButton(R.string.cancel,
-				new DialogInterface.OnClickListener(){
+				new DialogInterface.OnClickListener()
+				{
 					@Override
 					public void onClick(DialogInterface dialog, int which)
 					{

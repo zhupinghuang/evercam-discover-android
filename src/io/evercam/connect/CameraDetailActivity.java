@@ -96,7 +96,8 @@ public class CameraDetailActivity extends Activity
 		cameraOperation = new CameraOperation(ctxt);
 		setUpPage();
 
-		http_button.setOnClickListener(new OnClickListener(){
+		http_button.setOnClickListener(new OnClickListener()
+		{
 
 			@Override
 			public void onClick(View arg0)
@@ -120,7 +121,8 @@ public class CameraDetailActivity extends Activity
 
 		});
 
-		rtsp_button.setOnClickListener(new OnClickListener(){
+		rtsp_button.setOnClickListener(new OnClickListener()
+		{
 
 			@Override
 			public void onClick(View arg0)
@@ -196,7 +198,8 @@ public class CameraDetailActivity extends Activity
 			}
 		});
 
-		portForwardBtn.setOnClickListener(new OnClickListener(){
+		portForwardBtn.setOnClickListener(new OnClickListener()
+		{
 
 			@Override
 			public void onClick(View arg0)
@@ -215,7 +218,8 @@ public class CameraDetailActivity extends Activity
 				else
 				{
 					alertDialog.setPositiveButton(R.string.next,
-							new DialogInterface.OnClickListener(){
+							new DialogInterface.OnClickListener()
+							{
 
 								@Override
 								public void onClick(DialogInterface dialog,
@@ -237,7 +241,8 @@ public class CameraDetailActivity extends Activity
 
 		});
 
-		setCameraBtn.setOnClickListener(new OnClickListener(){
+		setCameraBtn.setOnClickListener(new OnClickListener()
+		{
 
 			@Override
 			public void onClick(View v)
@@ -253,7 +258,8 @@ public class CameraDetailActivity extends Activity
 			}
 		});
 
-		setDeviceBtn.setOnClickListener(new OnClickListener(){
+		setDeviceBtn.setOnClickListener(new OnClickListener()
+		{
 
 			@Override
 			public void onClick(View v)
@@ -269,7 +275,8 @@ public class CameraDetailActivity extends Activity
 			}
 		});
 
-		snapshot.setOnClickListener(new OnClickListener(){
+		snapshot.setOnClickListener(new OnClickListener()
+		{
 
 			@Override
 			public void onClick(View v)
@@ -293,7 +300,8 @@ public class CameraDetailActivity extends Activity
 			}
 		});
 
-		editBtn.setOnClickListener(new OnClickListener(){
+		editBtn.setOnClickListener(new OnClickListener()
+		{
 
 			@Override
 			public void onClick(View v)
@@ -304,7 +312,8 @@ public class CameraDetailActivity extends Activity
 
 		});
 
-		addEvercamButton.setOnClickListener(new OnClickListener(){
+		addEvercamButton.setOnClickListener(new OnClickListener()
+		{
 
 			@Override
 			public void onClick(View v)
@@ -660,8 +669,8 @@ public class CameraDetailActivity extends Activity
 		}
 		firstseen.setText(camera.getFirstSeen());
 		lastseen.setText(camera.getLastSeen());
-		
-		if(camera.isEvercam())
+
+		if (camera.isEvercam())
 		{
 			evercam_value.setText(R.string.yes);
 		}
@@ -743,7 +752,8 @@ public class CameraDetailActivity extends Activity
 				CameraDetailActivity.this)
 				.setMessage(R.string.confirmIsCamera)
 				.setPositiveButton(R.string.yes,
-						new DialogInterface.OnClickListener(){
+						new DialogInterface.OnClickListener()
+						{
 							@Override
 							public void onClick(DialogInterface dialog,
 									int which)
@@ -763,7 +773,8 @@ public class CameraDetailActivity extends Activity
 				CameraDetailActivity.this)
 				.setMessage(R.string.confirmNotCamera)
 				.setPositiveButton(R.string.yes,
-						new DialogInterface.OnClickListener(){
+						new DialogInterface.OnClickListener()
+						{
 							@Override
 							public void onClick(DialogInterface dialog,
 									int which)
@@ -785,7 +796,8 @@ public class CameraDetailActivity extends Activity
 
 				.setMessage(R.string.reportwarning)
 				.setPositiveButton(R.string.yes,
-						new DialogInterface.OnClickListener(){
+						new DialogInterface.OnClickListener()
+						{
 							@Override
 							public void onClick(DialogInterface dialog,
 									int which)
@@ -880,7 +892,8 @@ public class CameraDetailActivity extends Activity
 			editPassword.setText("");
 		}
 		editBuilder.setPositiveButton(R.string.save,
-				new DialogInterface.OnClickListener(){
+				new DialogInterface.OnClickListener()
+				{
 					@Override
 					public void onClick(DialogInterface dialog, int which)
 					{
@@ -980,7 +993,8 @@ public class CameraDetailActivity extends Activity
 					}
 				});
 		editBuilder.setNegativeButton(R.string.cancel,
-				new DialogInterface.OnClickListener(){
+				new DialogInterface.OnClickListener()
+				{
 					@Override
 					public void onClick(DialogInterface dialog, int which)
 					{
@@ -999,7 +1013,8 @@ public class CameraDetailActivity extends Activity
 		alertDialog.setTitle(R.string.userGuide);
 		alertDialog.setMessage(R.string.userGuideMsg);
 		alertDialog.setPositiveButton(R.string.ok,
-				new DialogInterface.OnClickListener(){
+				new DialogInterface.OnClickListener()
+				{
 
 					@Override
 					public void onClick(DialogInterface dialog, int which)
@@ -1067,7 +1082,8 @@ public class CameraDetailActivity extends Activity
 				CameraDetailActivity.this)
 				.setMessage(R.string.pleaseSignInBeforeAddCamera)
 				.setPositiveButton(R.string.action_signIn,
-						new DialogInterface.OnClickListener(){
+						new DialogInterface.OnClickListener()
+						{
 							@Override
 							public void onClick(DialogInterface dialog,
 									int which)

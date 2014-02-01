@@ -104,7 +104,8 @@ public class DiscoverMainActivity extends Activity
 		// Bug Sense
 		if (propertyReader.isPropertyExist(Constants.PROPERTY_KEY_BUG_SENSE))
 		{
-			String bugSenseCode = propertyReader.getPropertyStr(Constants.PROPERTY_KEY_BUG_SENSE);
+			String bugSenseCode = propertyReader
+					.getPropertyStr(Constants.PROPERTY_KEY_BUG_SENSE);
 			BugSenseHandler.initAndStartSession(DiscoverMainActivity.this,
 					bugSenseCode);
 		}
@@ -114,7 +115,7 @@ public class DiscoverMainActivity extends Activity
 		StrictMode.setThreadPolicy(policy);
 
 		sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-		
+
 		netInfo = new NetInfo(ctxt);
 
 		// discovered device list
@@ -126,19 +127,21 @@ public class DiscoverMainActivity extends Activity
 		progressbar = (ProgressBar) findViewById(R.id.processBar1);
 		deviceArraylist = new ArrayList<HashMap<String, Object>>();
 		deviceAdapter = new SimpleAdapter(this, deviceArraylist,
-				R.layout.ditail_relative_layout, new String[] { "device_img",
-						"device_name", "device_mac", "device_vendor",
+				R.layout.ditail_relative_layout, new String[]
+				{ "device_img", "device_name", "device_mac", "device_vendor",
 						"device_model", "device_http", "device_rtsp",
-						"device_timediff", "evercamlogo" }, new int[] { R.id.device_img,
-						R.id.device_name, R.id.device_mac, R.id.device_vendor,
-						R.id.device_model, R.id.device_http, R.id.device_rtsp,
-						R.id.time_diff, R.id.evercamglobe_img });
+						"device_timediff", "evercamlogo" }, new int[]
+				{ R.id.device_img, R.id.device_name, R.id.device_mac,
+						R.id.device_vendor, R.id.device_model,
+						R.id.device_http, R.id.device_rtsp, R.id.time_diff,
+						R.id.evercamglobe_img });
 		deviceList.setAdapter(deviceAdapter);
 
 		LinearLayout sampleLayout = (LinearLayout) findViewById(R.id.sample_layout);
 		sampleLayout.setFocusable(true);
 		sampleLayout.setClickable(true);
-		sampleLayout.setOnClickListener(new OnClickListener(){
+		sampleLayout.setOnClickListener(new OnClickListener()
+		{
 			@Override
 			public void onClick(View v)
 			{
@@ -152,14 +155,16 @@ public class DiscoverMainActivity extends Activity
 					Intent intent = new Intent();
 					intent.setClass(DiscoverMainActivity.this,
 							CameraDetailActivity.class);
-					intent.putExtra("IP", propertyReader.getPropertyStr(Constants.PROPERTY_KEY_SAMPLE_IP));
+					intent.putExtra("IP", propertyReader
+							.getPropertyStr(Constants.PROPERTY_KEY_SAMPLE_IP));
 					intent.putExtra("SSID", "sample");
 					startActivity(intent);
 				}
 			}
 		});
 
-		deviceList.setOnItemClickListener(new OnItemClickListener(){
+		deviceList.setOnItemClickListener(new OnItemClickListener()
+		{
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1,
 					int position, long arg3)
@@ -199,7 +204,8 @@ public class DiscoverMainActivity extends Activity
 
 		scanning_text.setClickable(true);
 		scanning_text.setFocusable(true);
-		scanning_text.setOnClickListener(new OnClickListener(){
+		scanning_text.setOnClickListener(new OnClickListener()
+		{
 			@Override
 			public void onClick(View v)
 			{
@@ -208,7 +214,8 @@ public class DiscoverMainActivity extends Activity
 
 						.setMessage(R.string.confirmStopScan)
 						.setPositiveButton(R.string.yes,
-								new DialogInterface.OnClickListener(){
+								new DialogInterface.OnClickListener()
+								{
 									@Override
 									public void onClick(DialogInterface dialog,
 											int which)
@@ -217,7 +224,8 @@ public class DiscoverMainActivity extends Activity
 									}
 								})
 						.setNegativeButton(R.string.no,
-								new DialogInterface.OnClickListener(){
+								new DialogInterface.OnClickListener()
+								{
 									@Override
 									public void onClick(DialogInterface dialog,
 											int which)
@@ -228,7 +236,8 @@ public class DiscoverMainActivity extends Activity
 				alertMsg.show();
 			}
 		});
-		handler.postDelayed(new Runnable(){
+		handler.postDelayed(new Runnable()
+		{
 			@Override
 			public void run()
 			{
@@ -384,7 +393,8 @@ public class DiscoverMainActivity extends Activity
 
 				deviceArraylist.clear();
 
-				handler.postDelayed(new Runnable(){
+				handler.postDelayed(new Runnable()
+				{
 					@Override
 					public void run()
 					{
@@ -415,19 +425,24 @@ public class DiscoverMainActivity extends Activity
 
 					.setMessage(R.string.confirmSignOutMsg)
 					.setPositiveButton(R.string.yes,
-							new DialogInterface.OnClickListener(){
+							new DialogInterface.OnClickListener()
+							{
 								@Override
 								public void onClick(DialogInterface dialog,
 										int which)
 								{
-									SharedPrefsManager.clearAllUserInfo(sharedPrefs);
+									SharedPrefsManager
+											.clearAllUserInfo(sharedPrefs);
 									menuSignIn.setVisible(true);
 									menuSignOut.setVisible(false);
-									Toast.makeText(getApplicationContext(), "Success logged out!", Toast.LENGTH_SHORT).show();
+									Toast.makeText(getApplicationContext(),
+											"Success logged out!",
+											Toast.LENGTH_SHORT).show();
 								}
 							})
 					.setNegativeButton(R.string.no,
-							new DialogInterface.OnClickListener(){
+							new DialogInterface.OnClickListener()
+							{
 								@Override
 								public void onClick(DialogInterface dialog,
 										int which)
@@ -451,7 +466,8 @@ public class DiscoverMainActivity extends Activity
 	public void startDiscovery()
 	{
 		cancelTasks();
-		scanRange = new ScanRange(netInfo.getLocalIp(), IpTranslator.cidrToMask(netInfo.getCidr()));
+		scanRange = new ScanRange(netInfo.getLocalIp(),
+				IpTranslator.cidrToMask(netInfo.getCidr()));
 		ipScanTask = new IpScanTask(DiscoverMainActivity.this, scanRange);
 		ipScanTask.execute();
 
@@ -468,8 +484,7 @@ public class DiscoverMainActivity extends Activity
 
 		updateShowList();
 
-		IGDDiscoveryTask igdDiscoveryTask = new IGDDiscoveryTask(
-				ctxt);
+		IGDDiscoveryTask igdDiscoveryTask = new IGDDiscoveryTask(ctxt);
 		igdDiscoveryTask.execute();
 	}
 
@@ -493,8 +508,7 @@ public class DiscoverMainActivity extends Activity
 					cameraOperation.insertScanCamera(camera, netInfo.getSsid());
 				}
 
-				new EvercamPortScan(camera.getIP(), netInfo.getSsid(),
-						ctxt);
+				new EvercamPortScan(camera.getIP(), netInfo.getSsid(), ctxt);
 				addToDeviceList(camera);
 			}
 			// not a camera, but record device info
@@ -605,7 +619,8 @@ public class DiscoverMainActivity extends Activity
 		else if (camera.getFlag() == Constants.TYPE_CAMERA)
 		{
 			ResourceHelper resourceHelper = new ResourceHelper(ctxt);
-			deviceMap.put("device_img", resourceHelper.getCameraImageId(camera));
+			deviceMap
+					.put("device_img", resourceHelper.getCameraImageId(camera));
 		}
 		else
 		{
@@ -621,7 +636,7 @@ public class DiscoverMainActivity extends Activity
 		{
 			deviceMap.put("device_rtsp", "RTSP\u2713");
 		}
-		if(camera.isEvercam())
+		if (camera.isEvercam())
 		{
 			deviceMap.put("evercamlogo", R.drawable.icon_50x50);
 		}
@@ -633,7 +648,8 @@ public class DiscoverMainActivity extends Activity
 
 	private void startIpScan()
 	{
-		handler.postDelayed(new Runnable(){
+		handler.postDelayed(new Runnable()
+		{
 
 			@Override
 			public void run()
@@ -647,7 +663,8 @@ public class DiscoverMainActivity extends Activity
 					}
 					else
 					{
-						makeToast(getResources().getString(R.string.checkInternetConnection));
+						makeToast(getResources().getString(
+								R.string.checkInternetConnection));
 					}
 				}
 			}
@@ -720,7 +737,8 @@ public class DiscoverMainActivity extends Activity
 
 					.setMessage(R.string.alertNoCamera)
 					.setPositiveButton(R.string.ok,
-							new DialogInterface.OnClickListener(){
+							new DialogInterface.OnClickListener()
+							{
 								@Override
 								public void onClick(DialogInterface dialog,
 										int which)
@@ -815,7 +833,8 @@ public class DiscoverMainActivity extends Activity
 	{
 
 		Collections.sort(deviceArraylist,
-				new Comparator<HashMap<String, Object>>(){
+				new Comparator<HashMap<String, Object>>()
+				{
 					@Override
 					public int compare(HashMap<String, Object> arg0,
 							HashMap<String, Object> arg1)
@@ -846,7 +865,8 @@ public class DiscoverMainActivity extends Activity
 		connectDialogBuilder.setMessage(R.string.dialogMsgMustConnect);
 
 		connectDialogBuilder.setPositiveButton(R.string.wifiSettings,
-				new DialogInterface.OnClickListener(){
+				new DialogInterface.OnClickListener()
+				{
 					@Override
 					public void onClick(DialogInterface dialog, int which)
 					{
@@ -854,7 +874,8 @@ public class DiscoverMainActivity extends Activity
 					}
 				});
 		connectDialogBuilder.setNegativeButton(R.string.notNow,
-				new DialogInterface.OnClickListener(){
+				new DialogInterface.OnClickListener()
+				{
 					@Override
 					public void onClick(DialogInterface dialog, int which)
 					{
@@ -873,7 +894,8 @@ public class DiscoverMainActivity extends Activity
 
 				.setMessage(R.string.confirmStopScan)
 				.setPositiveButton(R.string.yes,
-						new DialogInterface.OnClickListener(){
+						new DialogInterface.OnClickListener()
+						{
 							@Override
 							public void onClick(DialogInterface dialog,
 									int which)
@@ -882,7 +904,8 @@ public class DiscoverMainActivity extends Activity
 							}
 						})
 				.setNegativeButton(R.string.no,
-						new DialogInterface.OnClickListener(){
+						new DialogInterface.OnClickListener()
+						{
 							@Override
 							public void onClick(DialogInterface dialog,
 									int which)

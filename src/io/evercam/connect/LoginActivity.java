@@ -68,17 +68,17 @@ public class LoginActivity extends Activity
 		sharedPrefs = PreferenceManager
 				.getDefaultSharedPreferences(LoginActivity.this);
 		SharedPrefsManager.clearAllUserInfo(sharedPrefs);
-		
+
 		ActionBar actionBar = getActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
 		actionBar.setDisplayHomeAsUpEnabled(true);
 
 		loginLayout = (LinearLayout) findViewById(R.id.login_layout);
 		confirmLayout = (LinearLayout) findViewById(R.id.confirm_layout);
-		
+
 		loginFormView = findViewById(R.id.login_form);
 		loginStatusView = findViewById(R.id.login_status);
-		
+
 		usernameEdit = (EditText) findViewById(R.id.loginUsername);
 		passwordEdit = (EditText) findViewById(R.id.loginPassword);
 
@@ -89,7 +89,8 @@ public class LoginActivity extends Activity
 		spanString.setSpan(new UnderlineSpan(), 0, spanString.length(), 0);
 		signUpLink.setText(spanString);
 
-		signUpLink.setOnClickListener(new OnClickListener(){
+		signUpLink.setOnClickListener(new OnClickListener()
+		{
 
 			@Override
 			public void onClick(View v)
@@ -99,21 +100,23 @@ public class LoginActivity extends Activity
 			}
 
 		});
-		
-		btnEvercamSignIn.setOnClickListener(new OnClickListener(){
+
+		btnEvercamSignIn.setOnClickListener(new OnClickListener()
+		{
 
 			@Override
 			public void onClick(View v)
 			{
 				attemptLogin();
 			}
-			
+
 		});
 
 		signInButton = (SignInButton) findViewById(R.id.sign_in_button);
 		signInButton.setStyle(SignInButton.SIZE_WIDE, SignInButton.COLOR_LIGHT);
 
-		signInButton.setOnClickListener(new OnClickListener(){
+		signInButton.setOnClickListener(new OnClickListener()
+		{
 
 			@Override
 			public void onClick(View v)
@@ -122,8 +125,10 @@ public class LoginActivity extends Activity
 						.isGooglePlayServicesAvailable(getApplicationContext());
 				if (errorCode != ConnectionResult.SUCCESS)
 				{
-					GooglePlayServicesUtil.getErrorDialog(errorCode, LoginActivity.this, 0).show();
-					Toast.makeText(LoginActivity.this, "Google+ is not installed!", Toast.LENGTH_LONG)
+					GooglePlayServicesUtil.getErrorDialog(errorCode,
+							LoginActivity.this, 0).show();
+					Toast.makeText(LoginActivity.this,
+							"Google+ is not installed!", Toast.LENGTH_LONG)
 							.show();
 				}
 				else
@@ -155,7 +160,7 @@ public class LoginActivity extends Activity
 			}
 		});
 	}
-	
+
 	public void attemptLogin()
 	{
 		if (loginTask != null)
@@ -209,7 +214,8 @@ public class LoginActivity extends Activity
 			loginStatusView.setVisibility(View.VISIBLE);
 			loginStatusView.animate().setDuration(shortAnimTime)
 					.alpha(show ? 1 : 0)
-					.setListener(new AnimatorListenerAdapter(){
+					.setListener(new AnimatorListenerAdapter()
+					{
 						@Override
 						public void onAnimationEnd(Animator animation)
 						{
@@ -221,7 +227,8 @@ public class LoginActivity extends Activity
 			loginFormView.setVisibility(View.VISIBLE);
 			loginFormView.animate().setDuration(shortAnimTime)
 					.alpha(show ? 0 : 1)
-					.setListener(new AnimatorListenerAdapter(){
+					.setListener(new AnimatorListenerAdapter()
+					{
 						@Override
 						public void onAnimationEnd(Animator animation)
 						{
@@ -246,8 +253,10 @@ public class LoginActivity extends Activity
 		SharedPreferences sharedPrefs = PreferenceManager
 				.getDefaultSharedPreferences(LoginActivity.this);
 		String email = sharedPrefs.getString(Constants.KEY_USER_EMAIL, null);
-		String firstName = sharedPrefs.getString(Constants.KEY_USER_FIRST_NAME, null);
-		String lastName = sharedPrefs.getString(Constants.KEY_USER_LAST_NAME, null);
+		String firstName = sharedPrefs.getString(Constants.KEY_USER_FIRST_NAME,
+				null);
+		String lastName = sharedPrefs.getString(Constants.KEY_USER_LAST_NAME,
+				null);
 
 		EditText firstNameEditTxt = (EditText) findViewById(R.id.signUpFirstnamevalue_detail);
 		EditText lastNameEditTxt = (EditText) findViewById(R.id.signUpLastnamevalue_detail);
@@ -259,7 +268,8 @@ public class LoginActivity extends Activity
 		lastNameEditTxt.setText(lastName);
 		emailEditTxt.setText(email);
 
-		nextBtn.setOnClickListener(new OnClickListener(){
+		nextBtn.setOnClickListener(new OnClickListener()
+		{
 
 			@Override
 			public void onClick(View v)
@@ -276,7 +286,7 @@ public class LoginActivity extends Activity
 		return super.getParentActivityIntent();
 
 	}
-	
+
 	public class UserLoginTask extends AsyncTask<Void, Void, Boolean>
 	{
 		@Override
@@ -312,7 +322,8 @@ public class LoginActivity extends Activity
 
 			if (success)
 			{
-				SharedPrefsManager.saveEvercamCredential(sharedPrefs, username, password);
+				SharedPrefsManager.saveEvercamCredential(sharedPrefs, username,
+						password);
 				Toast toast = Toast.makeText(getApplicationContext(),
 						"Success", Toast.LENGTH_SHORT);
 				toast.show();

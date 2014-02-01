@@ -92,7 +92,8 @@ public class RouterActivity extends Activity
 		device_mac.setText(netInfo.getMacAddress().toUpperCase(Locale.UK));
 
 		Button b = (Button) findViewById(R.id.button_routerweb);
-		b.setOnClickListener(new OnClickListener(){
+		b.setOnClickListener(new OnClickListener()
+		{
 
 			@Override
 			public void onClick(View arg0)
@@ -117,7 +118,8 @@ public class RouterActivity extends Activity
 
 	private void displayExternalIP()
 	{
-		handler.postDelayed(new Runnable(){
+		handler.postDelayed(new Runnable()
+		{
 
 			@Override
 			public void run()

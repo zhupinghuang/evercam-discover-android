@@ -41,10 +41,10 @@ public class PropertyReader
 	{
 		return properties.getProperty(propertyName).toString();
 	}
-	
+
 	public boolean isPropertyExist(String key)
 	{
-		if(properties.containsKey(key))
+		if (properties.containsKey(key))
 		{
 			return true;
 		}

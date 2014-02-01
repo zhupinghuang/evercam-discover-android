@@ -84,7 +84,8 @@ public class SettingsActivity extends Activity
 			setVersionPrefs();
 
 			interfaceList
-					.setOnPreferenceChangeListener(new OnPreferenceChangeListener(){
+					.setOnPreferenceChangeListener(new OnPreferenceChangeListener()
+					{
 						@Override
 						public boolean onPreferenceChange(Preference prefs,
 								Object newValue)
@@ -95,7 +96,8 @@ public class SettingsActivity extends Activity
 					});
 
 			accountPrefs
-					.setOnPreferenceClickListener(new OnPreferenceClickListener(){
+					.setOnPreferenceClickListener(new OnPreferenceClickListener()
+					{
 
 						@Override
 						public boolean onPreferenceClick(Preference preference)
@@ -106,7 +108,8 @@ public class SettingsActivity extends Activity
 										getActivity());
 								logoutDialog.setMessage(R.string.signOutAlert);
 								logoutDialog.setNegativeButton(R.string.no,
-										new OnClickListener(){
+										new OnClickListener()
+										{
 											@Override
 											public void onClick(
 													DialogInterface dialog,
@@ -117,7 +120,8 @@ public class SettingsActivity extends Activity
 
 										});
 								logoutDialog.setPositiveButton(R.string.yes,
-										new OnClickListener(){
+										new OnClickListener()
+										{
 											@Override
 											public void onClick(
 													DialogInterface dialog,
@@ -148,7 +152,8 @@ public class SettingsActivity extends Activity
 					});
 
 			netInfoPrefs
-					.setOnPreferenceClickListener(new OnPreferenceClickListener(){
+					.setOnPreferenceClickListener(new OnPreferenceClickListener()
+					{
 
 						@Override
 						public boolean onPreferenceClick(Preference preference)
@@ -171,7 +176,7 @@ public class SettingsActivity extends Activity
 
 		private void setUpAccount()
 		{
-			accountPrefs = (Preference) getPreferenceManager().findPreference(
+			accountPrefs = getPreferenceManager().findPreference(
 					Constants.KEY_ACCOUNT);
 			if (SharedPrefsManager.isSignedWithGoogle(sharedPrefs))
 			{
@@ -241,7 +246,8 @@ public class SettingsActivity extends Activity
 			connectDialogBuilder.setMessage(R.string.dialogMsgMustConnect);
 
 			connectDialogBuilder.setPositiveButton(R.string.wifiSettings,
-					new DialogInterface.OnClickListener(){
+					new DialogInterface.OnClickListener()
+					{
 						@Override
 						public void onClick(DialogInterface dialog, int which)
 						{
@@ -250,7 +256,8 @@ public class SettingsActivity extends Activity
 						}
 					});
 			connectDialogBuilder.setNegativeButton(R.string.notNow,
-					new DialogInterface.OnClickListener(){
+					new DialogInterface.OnClickListener()
+					{
 						@Override
 						public void onClick(DialogInterface dialog, int which)
 						{

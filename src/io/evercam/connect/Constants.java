@@ -39,7 +39,7 @@ public final class Constants
 	public static final String KEY_USER_EMAIL = "UserEmail";
 	public static final String KEY_USER_FIRST_NAME = "UserFirstName";
 	public static final String KEY_USER_LAST_NAME = "UserLastName";
-	
+
 	public static final String EVERCAM_USERNAME = "EvercamUserName";
 	public static final String EVERCAM_PASSWORD = "EvercamPassword";
 
