@@ -19,8 +19,6 @@ public class SimpleDBConnect
 {
 	private AWSCredentials credentials;
 	private static AmazonSimpleDBClient sdbClient;
-	public String username = null;
-	public String password = null;
 	private Context ctxt;
 
 	public SimpleDBConnect(Context ctxt)
@@ -38,25 +36,6 @@ public class SimpleDBConnect
 		credentials = new BasicAWSCredentials(accessKey, secretKey);
 		sdbClient = new AmazonSimpleDBClient(credentials);
 		sdbClient.setEndpoint("sdb.eu-west-1.amazonaws.com");
-
-	}
-
-	public void queryDefaultPassword(String vendor)
-	{
-
-		SelectRequest selectRequest = new SelectRequest(
-				"select username,password from username_password where vendor='"
-						+ vendor + "'");
-		selectRequest.setConsistentRead(true);
-		SelectResult response = sdbClient.select(selectRequest);
-		if (!response.getItems().isEmpty())
-		{
-			username = response.getItems().get(0).getAttributes().get(0)
-					.getValue();
-			password = response.getItems().get(0).getAttributes().get(1)
-					.getValue();
-		}
-
 	}
 
 	public String getVendorFromMac(String mac)
@@ -87,7 +66,6 @@ public class SimpleDBConnect
 							.getValue();
 				}
 			}
-
 		}
 		catch (NoSuchDomainException e)
 		{
@@ -97,7 +75,6 @@ public class SimpleDBConnect
 		{
 			e.printStackTrace();
 		}
-
 		return vendor;
 	}
 

@@ -619,8 +619,9 @@ public class DiscoverMainActivity extends Activity
 		else if (camera.getFlag() == Constants.TYPE_CAMERA)
 		{
 			ResourceHelper resourceHelper = new ResourceHelper(ctxt);
-			deviceMap
-					.put("device_img", resourceHelper.getCameraImageId(camera));
+			deviceMap.put("device_img", resourceHelper.getCameraImageId(camera));
+			EvercamTask evercamTask = new EvercamTask(camera,ctxt);
+			evercamTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 		}
 		else
 		{

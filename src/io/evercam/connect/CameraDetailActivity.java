@@ -5,7 +5,6 @@ import io.evercam.connect.db.Camera;
 import io.evercam.connect.db.CameraOperation;
 import io.evercam.connect.db.ResourceHelper;
 import io.evercam.connect.db.SharedPrefsManager;
-import io.evercam.connect.db.SimpleDBConnect;
 import io.evercam.connect.net.NetInfo;
 
 import java.io.IOException;
@@ -55,7 +54,6 @@ import android.widget.Toast;
 
 public class CameraDetailActivity extends Activity
 {
-
 	private String ipstring;
 	private String ssid;
 	private String rtspURL;
@@ -408,15 +406,15 @@ public class CameraDetailActivity extends Activity
 		{
 			// if username and password not exist in database
 			if (camera.getUsername() == null)
-			{
-				SimpleDBConnect simpleDB = new SimpleDBConnect(ctxt);
-				simpleDB.queryDefaultPassword(camera.getVendor());
+			{	
+				String username = EvercamTask.getUsername(camera.getVendor());
+				String password = EvercamTask.getPassword(camera.getVendor());
 				cameraOperation.updateAttributeString(camera.getIP(),
-						camera.getSsid(), "username", simpleDB.username);
+						camera.getSsid(), "username", username);
 				cameraOperation.updateAttributeString(camera.getIP(),
-						camera.getSsid(), "password", simpleDB.password);
-				camera.setUsername(simpleDB.username);
-				camera.setPassword(simpleDB.password);
+						camera.getSsid(), "password", password);
+				camera.setUsername(username);
+				camera.setPassword(password);
 			}
 
 			setDeviceBtn.setVisibility(View.VISIBLE);
@@ -1015,14 +1013,8 @@ public class CameraDetailActivity extends Activity
 		alertDialog.setPositiveButton(R.string.ok,
 				new DialogInterface.OnClickListener()
 				{
-
 					@Override
-					public void onClick(DialogInterface dialog, int which)
-					{
-
-					}
-				});
-
+					public void onClick(DialogInterface dialog, int which){}});
 		alertDialog.show();
 	}
 
