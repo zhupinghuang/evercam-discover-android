@@ -479,4 +479,21 @@ public class Camera implements Serializable
 		return false;
 	}
 
+	public boolean hasUsername()
+	{
+		if(getUsername() != null && !getUsername().isEmpty())
+		{
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean hasPassword()
+	{
+		if(getPassword() != null && !getPassword().isEmpty())
+		{
+			return true;
+		}
+		return false;
+	}
 }

@@ -504,6 +504,16 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dip"
                 android:textSize="17sp" />
+
+            <ImageView
+                android:id="@+id/username_img"
+                android:layout_width="10sp"
+                android:layout_height="10sp"
+                android:layout_marginTop="2sp"
+                android:layout_marginLeft="2sp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/cross"
+                android:visibility="gone" />
         </LinearLayout>
 
         <LinearLayout
@@ -531,6 +541,16 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dip"
                 android:textSize="17sp" />
+
+            <ImageView
+                android:id="@+id/password_img"
+                android:layout_width="10sp"
+                android:layout_height="10sp"
+                android:layout_marginTop="2sp"
+                android:layout_marginLeft="2sp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/cross"
+                android:visibility="gone" />
         </LinearLayout>
 
         <ImageView
@@ -602,8 +622,8 @@
                 android:background="@drawable/detail_btn_selector"
                 android:drawableLeft="@drawable/icon_50x50"
                 android:drawablePadding="35sp"
-                android:paddingLeft="35dip"
                 android:gravity="left|center"
+                android:paddingLeft="35dip"
                 android:text="@string/addToEvercam"
                 android:textColor="@drawable/detail_btn_txt_selector" >
             </Button>

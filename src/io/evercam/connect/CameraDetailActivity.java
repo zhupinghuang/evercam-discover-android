@@ -20,6 +20,8 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
+import com.mashape.unirest.http.utils.Base64Coder;
+
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -71,6 +73,8 @@ public class CameraDetailActivity extends Activity
 	private NetInfo netInfo;
 	private ImageView snapshot;
 	private GetSnapshotTask snapshotTask;
+	private ImageView usernameCross;
+	private ImageView passwordCross;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -210,7 +214,6 @@ public class CameraDetailActivity extends Activity
 
 				if (camera.isDemoCamera())
 				{
-
 					alertDialog.setPositiveButton(R.string.ok, null).show();
 				}
 				else
@@ -218,7 +221,6 @@ public class CameraDetailActivity extends Activity
 					alertDialog.setPositiveButton(R.string.next,
 							new DialogInterface.OnClickListener()
 							{
-
 								@Override
 								public void onClick(DialogInterface dialog,
 										int which)
@@ -234,7 +236,6 @@ public class CameraDetailActivity extends Activity
 								}
 							}).show();
 				}
-
 			}
 
 		});
@@ -400,6 +401,9 @@ public class CameraDetailActivity extends Activity
 		setDeviceBtn = (Button) findViewById(R.id.setAsDeviceButton);
 		setCameraBtn = (Button) findViewById(R.id.setAsCameraButton);
 		addEvercamButton = (Button) findViewById(R.id.addToEvercamBtn);
+		
+		usernameCross = (ImageView) findViewById(R.id.username_img);
+		passwordCross = (ImageView) findViewById(R.id.password_img);
 
 		// Is a camera
 		if (camera.getFlag() == Constants.TYPE_CAMERA)
@@ -640,12 +644,12 @@ public class CameraDetailActivity extends Activity
 		}
 
 		// username and password
-		if (camera.getUsername() != null && !camera.getUsername().isEmpty())
+		if (camera.hasUsername())
 		{
 			username_layout.setVisibility(View.VISIBLE);
 			password_layout.setVisibility(View.VISIBLE);
 			username_value.setText(camera.getUsername());
-			if (!camera.getPassword().equals(""))
+			if (camera.hasPassword())
 			{
 				password_value.setText(camera.getPassword());
 			}
@@ -1098,14 +1102,7 @@ public class CameraDetailActivity extends Activity
 		}
 		snapshotTask = new GetSnapshotTask(url, username, password, isSample);
 
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
-		{
-			snapshotTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-		}
-		else
-		{
-			snapshotTask.execute();
-		}
+		snapshotTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 	}
 
 	private class GetSnapshotTask extends AsyncTask<Void, Void, Bitmap>
@@ -1124,6 +1121,34 @@ public class CameraDetailActivity extends Activity
 			this.isSample = isSample;
 		}
 
+		@Override
+		protected void onPreExecute()
+		{
+			usernameCross.setVisibility(View.GONE);
+			passwordCross.setVisibility(View.GONE);
+	        try
+			{
+	        	DefaultHttpClient c = new DefaultHttpClient();
+		        HttpGet post = new HttpGet(url);
+		        String encoding = Base64Coder.encodeString(username + ":" + password);
+		        post.setHeader("Authorization", "Basic " + encoding);
+				org.apache.http.HttpResponse r = c.execute(post);
+				if(r.getStatusLine().getStatusCode() == 401)
+				{
+					usernameCross.setVisibility(View.VISIBLE);
+					passwordCross.setVisibility(View.VISIBLE);
+				}
+			}
+			catch (ClientProtocolException e)
+			{
+				e.printStackTrace();
+			}
+			catch (IOException e)
+			{
+				e.printStackTrace();
+			}
+		}
+		
 		@Override
 		protected Bitmap doInBackground(Void... arg0)
 		{
