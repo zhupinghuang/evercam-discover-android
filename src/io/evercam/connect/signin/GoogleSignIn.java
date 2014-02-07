@@ -1,5 +1,6 @@
-package io.evercam.connect;
+package io.evercam.connect.signin;
 
+import io.evercam.connect.helper.Constants;
 import android.app.ProgressDialog;
 import android.content.SharedPreferences;
 import android.content.IntentSender.SendIntentException;

@@ -1,4 +1,4 @@
-package io.evercam.connect;
+package io.evercam.connect.helper;
 
 public final class Constants
 {

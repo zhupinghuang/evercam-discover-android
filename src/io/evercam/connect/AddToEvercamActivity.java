@@ -7,7 +7,7 @@ import io.evercam.CameraDetail;
 import io.evercam.EvercamException;
 import io.evercam.connect.db.Camera;
 import io.evercam.connect.db.CameraOperation;
-import io.evercam.connect.db.SharedPrefsManager;
+import io.evercam.connect.helper.SharedPrefsManager;
 import io.evercam.connect.net.NetInfo;
 import io.evercam.network.ipscan.PortScan;
 import android.os.AsyncTask;

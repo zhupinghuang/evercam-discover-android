@@ -2,7 +2,7 @@ package io.evercam.connect.db;
 
 import java.io.Serializable;
 
-import io.evercam.connect.Constants;
+import io.evercam.connect.helper.Constants;
 import io.evercam.connect.net.NetInfo;
 
 public class Camera implements Serializable

@@ -3,9 +3,11 @@ package io.evercam.connect;
 import io.evercam.connect.R;
 import io.evercam.connect.db.Camera;
 import io.evercam.connect.db.CameraOperation;
-import io.evercam.connect.db.ResourceHelper;
-import io.evercam.connect.db.SharedPrefsManager;
+import io.evercam.connect.helper.Constants;
+import io.evercam.connect.helper.ResourceHelper;
+import io.evercam.connect.helper.SharedPrefsManager;
 import io.evercam.connect.net.NetInfo;
+import io.evercam.connect.signin.LoginActivity;
 
 import java.io.IOException;
 import java.io.InputStream;

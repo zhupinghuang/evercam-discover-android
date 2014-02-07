@@ -1,6 +1,6 @@
 package io.evercam.connect.net;
 
-import io.evercam.connect.Constants;
+import io.evercam.connect.helper.Constants;
 
 import java.io.BufferedReader;
 import java.io.File;

@@ -1,8 +1,12 @@
-package io.evercam.connect;
+package io.evercam.connect.signin;
 
 import io.evercam.API;
 import io.evercam.connect.R;
-import io.evercam.connect.db.SharedPrefsManager;
+import io.evercam.connect.R.id;
+import io.evercam.connect.R.layout;
+import io.evercam.connect.R.string;
+import io.evercam.connect.helper.Constants;
+import io.evercam.connect.helper.SharedPrefsManager;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;

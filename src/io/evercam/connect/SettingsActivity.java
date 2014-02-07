@@ -2,8 +2,10 @@ package io.evercam.connect;
 
 import java.util.ArrayList;
 
-import io.evercam.connect.db.SharedPrefsManager;
+import io.evercam.connect.helper.Constants;
+import io.evercam.connect.helper.SharedPrefsManager;
 import io.evercam.connect.net.NetInfo;
+import io.evercam.connect.signin.LoginActivity;
 import io.evercam.connect.R;
 import io.evercam.network.ipscan.NetworkInfo;
 

@@ -1,5 +1,6 @@
-package io.evercam.connect.db;
+package io.evercam.connect.helper;
 
+import io.evercam.connect.db.Camera;
 import android.content.Context;
 
 public class ResourceHelper

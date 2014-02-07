@@ -67,7 +67,7 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="io.evercam.connect.LoginActivity"
+            android:name="io.evercam.connect.signin.LoginActivity"
             android:label="@string/title_activity_login" >
         </activity>
         <activity
@@ -79,8 +79,8 @@
             android:name="io.evercam.connect.AddToEvercamActivity"
             android:label="@string/title_activity_add_to_evercam" >
         </activity>
-                <activity
-            android:name="io.evercam.connect.SignUpActivity"
+        <activity
+            android:name="io.evercam.connect.signin.SignUpActivityctivity"
             android:label="@string/create_account" >
         </activity>
     </application>

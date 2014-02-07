@@ -1,13 +1,13 @@
 package io.evercam.connect.discover.ipscan;
 
-import io.evercam.connect.Constants;
 import io.evercam.connect.DiscoverMainActivity;
-import io.evercam.connect.PropertyReader;
-import io.evercam.connect.db.AwsS3Uploader;
 import io.evercam.connect.db.Camera;
 import io.evercam.connect.db.CameraOperation;
-import io.evercam.connect.db.JsonMessage;
 import io.evercam.connect.db.SimpleDBConnect;
+import io.evercam.connect.helper.AwsS3Uploader;
+import io.evercam.connect.helper.Constants;
+import io.evercam.connect.helper.JsonMessage;
+import io.evercam.connect.helper.PropertyReader;
 import io.evercam.connect.net.NetInfo;
 import io.evercam.network.ipscan.IpScan;
 import io.evercam.network.ipscan.ScanRange;

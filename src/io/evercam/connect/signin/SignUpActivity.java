@@ -1,8 +1,12 @@
-package io.evercam.connect;
+package io.evercam.connect.signin;
 
 import io.evercam.EvercamException;
 import io.evercam.User;
 import io.evercam.UserDetail;
+import io.evercam.connect.R;
+import io.evercam.connect.R.id;
+import io.evercam.connect.R.layout;
+import io.evercam.connect.R.string;
 
 import java.util.Locale;
 import java.util.Set;

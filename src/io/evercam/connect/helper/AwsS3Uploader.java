@@ -1,7 +1,5 @@
-package io.evercam.connect.db;
+package io.evercam.connect.helper;
 
-import io.evercam.connect.Constants;
-import io.evercam.connect.PropertyReader;
 
 import java.io.File;
 import java.io.FileOutputStream;

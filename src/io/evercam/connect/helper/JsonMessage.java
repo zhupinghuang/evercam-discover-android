@@ -1,5 +1,6 @@
-package io.evercam.connect.db;
+package io.evercam.connect.helper;
 
+import io.evercam.connect.db.Camera;
 import io.evercam.connect.net.NetInfo;
 
 import java.util.ArrayList;

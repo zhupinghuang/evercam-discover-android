@@ -2,15 +2,18 @@ package io.evercam.connect;
 
 import io.evercam.connect.db.Camera;
 import io.evercam.connect.db.CameraOperation;
-import io.evercam.connect.db.ResourceHelper;
-import io.evercam.connect.db.SharedPrefsManager;
 import io.evercam.connect.discover.bonjour.JmdnsDiscover;
 import io.evercam.connect.discover.ipscan.Host;
 import io.evercam.connect.discover.ipscan.IpScanTask;
 import io.evercam.connect.discover.ipscan.EvercamPortScan;
 import io.evercam.connect.discover.upnp.IGDDiscoveryTask;
 import io.evercam.connect.discover.upnp.UpnpDiscoveryTask;
+import io.evercam.connect.helper.Constants;
+import io.evercam.connect.helper.PropertyReader;
+import io.evercam.connect.helper.ResourceHelper;
+import io.evercam.connect.helper.SharedPrefsManager;
 import io.evercam.connect.net.NetInfo;
+import io.evercam.connect.signin.LoginActivity;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

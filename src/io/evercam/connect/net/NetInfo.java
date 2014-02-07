@@ -1,6 +1,6 @@
 package io.evercam.connect.net;
 
-import io.evercam.connect.Constants;
+import io.evercam.connect.helper.Constants;
 import io.evercam.network.ipscan.IpTranslator;
 
 import java.io.BufferedReader;
