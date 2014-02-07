@@ -116,7 +116,6 @@
     <string name="enabled">Enabled</string>
     <string name="disabled">Disabled</string>
     <string name="title_activity_login">Login</string>
-    <string name="title_activity_sign_up">Sign Up</string>
     <string name="confirmSignOutMsg">Are you sure you want to sign out?</string>
     <string name="unknown">Unknown</string>
     <string name="title_activity_settings">Settings</string>
@@ -126,7 +125,6 @@
     <string name="wifiSettings">Wi-Fi settings</string>
     <string name="notNow">Not now</string>
     <string name="notConnected">Not connected to a network</string>
-    <string name="signUpForEvercam">Sign Up for Evercam</string>
     <string name="networkInterface">Network Interface: </string>
     <string name="noNetworkInterface">No network interface found.</string>
     <string name="msgMustConnect">No network interface found.</string>

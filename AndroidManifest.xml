@@ -71,10 +71,6 @@
             android:label="@string/title_activity_login" >
         </activity>
         <activity
-            android:name="com.evercamdiscover.SignUpActivity"
-            android:label="@string/title_activity_sign_up" >
-        </activity>
-        <activity
             android:name="io.evercam.connect.SettingsActivity"
             android:icon="@drawable/icon_192x192"
             android:label="@string/title_activity_settings" >
@@ -82,6 +78,10 @@
         <activity
             android:name="io.evercam.connect.AddToEvercamActivity"
             android:label="@string/title_activity_add_to_evercam" >
+        </activity>
+                <activity
+            android:name="io.evercam.connect.SignUpActivity"
+            android:label="@string/create_account" >
         </activity>
     </application>
 

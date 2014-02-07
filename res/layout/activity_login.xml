@@ -61,7 +61,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="50sp"
-                android:hint="Email/Username"
+                android:hint="@string/prompt_email"
                 android:inputType="text"
                 android:singleLine="true"
                 android:textSize="17sp" />
@@ -70,7 +70,7 @@
                 android:id="@+id/loginPassword"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:hint="Password"
+                android:hint="@string/prompt_password"
                 android:inputType="textPassword"
                 android:singleLine="true"
                 android:textSize="17sp" />
@@ -79,11 +79,11 @@
         <Button
             android:id="@+id/signInEvercamBtn"
             android:layout_width="fill_parent"
-            android:layout_height="40dp"
+            android:layout_height="35dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="30dp"
             android:background="@drawable/btn_selector"
-            android:text="Log In"
+            android:text="@string/log_in"
             android:textColor="#ffffff" />
 
         <TextView
@@ -91,7 +91,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dip"
-            android:text="Sign Up For Evercam"
+            android:text="@string/create_account"
             android:textColor="@drawable/text_color_selector"
             android:textSize="16sp"
             android:visibility="visible" />
@@ -128,7 +128,7 @@
                 android:layout_width="100sp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dip"
-                android:text="First Name:"
+                android:text="@string/forename"
                 android:textColor="#778899"
                 android:textSize="18sp" />
 
@@ -136,7 +136,7 @@
                 android:id="@+id/signUpFirstnamevalue_detail"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:hint="First Name"
+                android:hint="@string/firstName"
                 android:inputType="text"
                 android:singleLine="true"
                 android:textSize="17sp" />
@@ -158,7 +158,7 @@
                 android:layout_width="100sp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dip"
-                android:text="Last Name:"
+                android:text="@string/lastname:"
                 android:textColor="#778899"
                 android:textSize="18sp" />
 
@@ -166,7 +166,7 @@
                 android:id="@+id/signUpLastnamevalue_detail"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:hint="Last Name"
+                android:hint="@string/lastName"
                 android:inputType="text"
                 android:singleLine="true"
                 android:textSize="17sp" />
@@ -188,7 +188,7 @@
                 android:layout_width="100sp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dip"
-                android:text="Email:"
+                android:text="@string/email:"
                 android:textColor="#778899"
                 android:textSize="18sp" />
 
@@ -196,7 +196,7 @@
                 android:id="@+id/signUpEmailvalue_detail"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:hint="Email"
+                android:hint="@string/email"
                 android:inputType="text"
                 android:singleLine="true"
                 android:textSize="17sp" />
@@ -218,7 +218,7 @@
                 android:layout_width="100sp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dip"
-                android:text="Country:"
+                android:text="@string/country:"
                 android:textColor="#778899"
                 android:textSize="18sp" />
 
@@ -241,7 +241,7 @@
             android:layout_marginRight="20sp"
             android:layout_marginTop="30dp"
             android:background="@drawable/btn_selector"
-            android:text="Confirm"
+            android:text="@string/confirm"
             android:textColor="#ffffff" />
     </LinearLayout>
 

@@ -85,7 +85,7 @@ public class LoginActivity extends Activity
 		btnEvercamSignIn = (Button) findViewById(R.id.signInEvercamBtn);
 		TextView signUpLink = (TextView) findViewById(R.id.signupLink);
 		SpannableString spanString = new SpannableString(this.getResources()
-				.getString(R.string.signUpForEvercam));
+				.getString(R.string.create_account));
 		spanString.setSpan(new UnderlineSpan(), 0, spanString.length(), 0);
 		signUpLink.setText(spanString);
 
@@ -95,10 +95,10 @@ public class LoginActivity extends Activity
 			@Override
 			public void onClick(View v)
 			{
-				Toast.makeText(LoginActivity.this, "Coming Soon...",
-						Toast.LENGTH_SHORT).show();
+				Intent signUpIntent = new Intent();
+				signUpIntent.setClass(LoginActivity.this, SignUpActivity.class);
+				startActivity(signUpIntent);
 			}
-
 		});
 
 		btnEvercamSignIn.setOnClickListener(new OnClickListener()
@@ -109,7 +109,6 @@ public class LoginActivity extends Activity
 			{
 				attemptLogin();
 			}
-
 		});
 
 		signInButton = (SignInButton) findViewById(R.id.sign_in_button);
