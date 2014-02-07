@@ -160,6 +160,8 @@
     <string name="addPort">Add Port</string>
     <string name="save">Save</string>
     <string name="title_activity_add_to_evercam">Complete Camera Details</string>
+    
+    <!-- Add to Evercam -->
     <string name="cameraId:">Camera ID:</string>
     <string name="cameraName:">Name:</string>
     <string name="snapshotJpgPath:">Snapshot Path:</string>

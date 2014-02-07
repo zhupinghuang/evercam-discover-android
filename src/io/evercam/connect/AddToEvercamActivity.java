@@ -1,5 +1,6 @@
 package io.evercam.connect;
 
+import java.util.Locale;
 import java.util.TimeZone;
 
 import io.evercam.API;
@@ -16,7 +17,6 @@ import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
@@ -40,6 +40,7 @@ public class AddToEvercamActivity extends Activity
 	private EditText exthttpEdit;
 	private EditText modelEdit;
 	private EditText vendorEdit;
+	private EditText macEdit;
 	private RadioButton publicRadioBtn;
 	private Button addBtn;
 	private CreateCameraTask createCameraTask;
@@ -53,6 +54,7 @@ public class AddToEvercamActivity extends Activity
 	private String cameraPassword;
 	private String cameraModel;
 	private String cameraVendor;
+	private String cameraMac;
 	private ProgressDialog progressDialog;
 	private String externalIp = null;
 
@@ -144,6 +146,7 @@ public class AddToEvercamActivity extends Activity
 		exthttpEdit = (EditText) findViewById(R.id.addExtHttp_edit);
 		modelEdit = (EditText) findViewById(R.id.addModel_value);
 		vendorEdit = (EditText) findViewById(R.id.addVendor_value);
+		macEdit = (EditText) findViewById(R.id.addMac_value);
 		publicRadioBtn = (RadioButton) findViewById(R.id.publicRadio);
 		addBtn = (Button) findViewById(R.id.button_creatCamera);
 	}
@@ -158,6 +161,7 @@ public class AddToEvercamActivity extends Activity
 		snapshotEdit.setText(camera.getSnapshotJpgUrl());
 		usernameEdit.setText(camera.getUsername());
 		passwordEdit.setText(camera.getPassword());
+		macEdit.setText(camera.getMAC().toLowerCase(Locale.UK));
 		if (camera.hasModel())
 		{
 			if (camera.getModel().startsWith(camera.getVendor()))
@@ -241,6 +245,7 @@ public class AddToEvercamActivity extends Activity
 				cameraPassword = passwordStr;
 				cameraModel = modelEdit.getText().toString();
 				cameraVendor = vendorEdit.getText().toString();
+				cameraMac = macEdit.getText().toString();
 				return true;
 			}
 		}
@@ -375,14 +380,12 @@ public class AddToEvercamActivity extends Activity
 						.create(cameraDetail);
 				if (camera.getId().equals(cameraId))
 				{
-					Log.v("evercamconnect", camera.toString());
 					return true;
 				}
 				return false;
 			}
 			catch (EvercamException e)
 			{
-				e.printStackTrace();
 				errorMsg = e.getMessage();
 				return false;
 			}
@@ -416,6 +419,13 @@ public class AddToEvercamActivity extends Activity
 				if (cameraModel.length() != 0)
 				{
 					cameraDetail.setModel(cameraModel);
+				}
+			}
+			if (cameraMac != null)
+			{
+				if (cameraMac.length() != 0)
+				{
+					cameraDetail.setMacAddress(cameraMac);
 				}
 			}
 		}
