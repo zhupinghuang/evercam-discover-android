@@ -14,8 +14,7 @@ import com.google.android.gms.common.GooglePlayServicesClient.ConnectionCallback
 import com.google.android.gms.common.GooglePlayServicesClient.OnConnectionFailedListener;
 import com.google.android.gms.plus.PlusClient;
 
-public class GoogleSignIn implements ConnectionCallbacks,
-		OnConnectionFailedListener
+public class GoogleSignIn implements ConnectionCallbacks,OnConnectionFailedListener
 {
 
 	protected static final int REQUEST_CODE_RESOLVE_ERR = 9000;
@@ -24,12 +23,11 @@ public class GoogleSignIn implements ConnectionCallbacks,
 	GoogleSignIn(LoginActivity loginActivity)
 	{
 		this.loginActivity = loginActivity;
-		loginActivity.mPlusClient = new PlusClient.Builder(loginActivity, this,
-				this).setActions("http://schemas.google.com/AddActivity",
-				"http://schemas.google.com/BuyActivity").build();
+		loginActivity.mPlusClient = new PlusClient.Builder(loginActivity, this, this).setActions(
+				"http://schemas.google.com/AddActivity", "http://schemas.google.com/BuyActivity")
+				.build();
 
-		loginActivity.mConnectionProgressDialog = new ProgressDialog(
-				loginActivity);
+		loginActivity.mConnectionProgressDialog = new ProgressDialog(loginActivity);
 		loginActivity.mConnectionProgressDialog.setMessage("Signing in...");
 
 		loginActivity.mPlusClient.connect();
@@ -41,24 +39,18 @@ public class GoogleSignIn implements ConnectionCallbacks,
 	{
 
 		loginActivity.mConnectionProgressDialog.dismiss();
-		Toast.makeText(
-				loginActivity,
-				"Hi, "
-						+ loginActivity.mPlusClient.getCurrentPerson()
-								.getDisplayName() + " :)", Toast.LENGTH_LONG)
-				.show();
+		Toast.makeText(loginActivity,
+				"Hi, " + loginActivity.mPlusClient.getCurrentPerson().getDisplayName() + " :)",
+				Toast.LENGTH_LONG).show();
 
 		SharedPreferences sharedPrefs = PreferenceManager
 				.getDefaultSharedPreferences(loginActivity);
 		SharedPreferences.Editor editor = sharedPrefs.edit();
-		editor.putString(Constants.KEY_USER_EMAIL,
-				loginActivity.mPlusClient.getAccountName());
-		editor.putString(Constants.KEY_USER_FIRST_NAME,
-				loginActivity.mPlusClient.getCurrentPerson().getDisplayName()
-						.split(" ")[0]);
-		editor.putString(Constants.KEY_USER_LAST_NAME,
-				loginActivity.mPlusClient.getCurrentPerson().getDisplayName()
-						.split(" ")[1]);
+		editor.putString(Constants.KEY_USER_EMAIL, loginActivity.mPlusClient.getAccountName());
+		editor.putString(Constants.KEY_USER_FIRST_NAME, loginActivity.mPlusClient
+				.getCurrentPerson().getDisplayName().split(" ")[0]);
+		editor.putString(Constants.KEY_USER_LAST_NAME, loginActivity.mPlusClient.getCurrentPerson()
+				.getDisplayName().split(" ")[1]);
 		editor.commit();
 
 		loginActivity.launchConfirmPage();
@@ -81,8 +73,7 @@ public class GoogleSignIn implements ConnectionCallbacks,
 		{
 			try
 			{
-				result.startResolutionForResult(loginActivity,
-						REQUEST_CODE_RESOLVE_ERR);
+				result.startResolutionForResult(loginActivity, REQUEST_CODE_RESOLVE_ERR);
 			}
 			catch (SendIntentException e)
 			{

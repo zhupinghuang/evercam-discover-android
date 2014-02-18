@@ -21,7 +21,7 @@ public class CameraOperation
 	public CameraOperation(Context ctxt)
 	{
 		database = new DatabaseHelper(ctxt);
-		
+
 	}
 
 	public void insertScanCamera(Camera camera, String ssid)
@@ -29,9 +29,8 @@ public class CameraOperation
 		db = database.getWritableDatabase();
 		db.execSQL(
 				"insert into cameralist(ip,mac,vendor,flag,firstseen,lastseen,ssid)values(?,?,?,?,?,?,?)",
-				new Object[] { camera.getIP(), camera.getMAC(),
-						camera.getVendor(), camera.getFlag(),
-						camera.getFirstSeen(), camera.getLastSeen(), ssid });
+				new Object[] { camera.getIP(), camera.getMAC(), camera.getVendor(),
+						camera.getFlag(), camera.getFirstSeen(), camera.getLastSeen(), ssid });
 		db.close();
 
 	}
@@ -41,9 +40,8 @@ public class CameraOperation
 		db = database.getWritableDatabase();
 		db.execSQL(
 				"update cameralist set mac=?,vendor=?,lastseen=?,flag=?  where ip=? and ssid=?",
-				new Object[] { camera.getMAC(), camera.getVendor(),
-						camera.getLastSeen(), camera.getFlag(), camera.getIP(),
-						ssid });
+				new Object[] { camera.getMAC(), camera.getVendor(), camera.getLastSeen(),
+						camera.getFlag(), camera.getIP(), ssid });
 		db.close();
 	}
 
@@ -52,18 +50,14 @@ public class CameraOperation
 		db = database.getWritableDatabase();
 		db.execSQL(
 				"insert into cameralist(ip,mac,vendor,model,upnp, onvif, bonjour,http,https,rtsp,ftp, ssh, portforwarded, evercam,exthttp,exthttps, extftp,extrtsp,extssh, flag,firstseen,lastseen,username, password, ssid)values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
-				new Object[] { camera.getIP(), camera.getMAC(),
-						camera.getVendor(), camera.getModel(),
-						camera.getUpnp(), camera.getOnvif(),
-						camera.getBonjour(), camera.getHttp(),
-						camera.getHttps(), camera.getRtsp(), camera.getFtp(),
-						camera.getSsh(), camera.getPortForwarded(),
-						camera.getEvercamConnected(), camera.getExthttp(),
-						camera.getExthttps(), camera.getExtftp(),
-						camera.getExtrtsp(), camera.getExtssh(),
-						camera.getFlag(), camera.getFirstSeen(),
-						camera.getLastSeen(), camera.getUsername(),
-						camera.getPassword(), ssid });
+				new Object[] { camera.getIP(), camera.getMAC(), camera.getVendor(),
+						camera.getModel(), camera.getUpnp(), camera.getOnvif(),
+						camera.getBonjour(), camera.getHttp(), camera.getHttps(), camera.getRtsp(),
+						camera.getFtp(), camera.getSsh(), camera.getPortForwarded(),
+						camera.getEvercamConnected(), camera.getExthttp(), camera.getExthttps(),
+						camera.getExtftp(), camera.getExtrtsp(), camera.getExtssh(),
+						camera.getFlag(), camera.getFirstSeen(), camera.getLastSeen(),
+						camera.getUsername(), camera.getPassword(), ssid });
 		db.close();
 	}
 
@@ -72,9 +66,8 @@ public class CameraOperation
 		db = database.getWritableDatabase();
 		db.execSQL(
 				"update cameralist set mac=?,vendor=?,model=?,http=?,bonjour=?,lastseen=?  where ip=? and ssid=?",
-				new Object[] { camera.getMAC(), camera.getVendor(),
-						camera.getModel(), camera.getHttp(),
-						camera.getBonjour(), camera.getLastSeen(),
+				new Object[] { camera.getMAC(), camera.getVendor(), camera.getModel(),
+						camera.getHttp(), camera.getBonjour(), camera.getLastSeen(),
 						camera.getIP(), ssid });
 		db.close();
 	}
@@ -84,8 +77,8 @@ public class CameraOperation
 		db = database.getWritableDatabase();
 		db.execSQL(
 				"update cameralist set model=?,http=?,upnp=?,lastseen=?  where ip=? and ssid=?",
-				new Object[] { camera.getModel(), camera.getHttp(), 1,
-						camera.getLastSeen(), camera.getIP(), ssid });
+				new Object[] { camera.getModel(), camera.getHttp(), 1, camera.getLastSeen(),
+						camera.getIP(), ssid });
 		db.close();
 	}
 
@@ -93,9 +86,8 @@ public class CameraOperation
 	public boolean isExisting(String ip, String ssid)
 	{
 		db = database.getWritableDatabase();
-		Cursor c = db.rawQuery(
-				"select * from cameralist where ip=? and ssid=?", new String[] {
-						ip, ssid });
+		Cursor c = db.rawQuery("select * from cameralist where ip=? and ssid=?", new String[] { ip,
+				ssid });
 		if (c.moveToFirst())
 		{
 			return true;
@@ -109,9 +101,8 @@ public class CameraOperation
 	public boolean isMacExisting(String mac, String ssid)
 	{
 		db = database.getWritableDatabase();
-		Cursor c = db.rawQuery(
-				"select * from cameralist where mac=? and ssid=?",
-				new String[] { mac, ssid });
+		Cursor c = db.rawQuery("select * from cameralist where mac=? and ssid=?", new String[] {
+				mac, ssid });
 		if (c.moveToFirst())
 		{
 			return true;
@@ -127,9 +118,8 @@ public class CameraOperation
 	{
 		db = database.getWritableDatabase();
 		Camera camera = new Camera(ip);
-		Cursor c = db.rawQuery(
-				"select * from cameralist where ip=? and ssid=?", new String[] {
-						ip, ssid });
+		Cursor c = db.rawQuery("select * from cameralist where ip=? and ssid=?", new String[] { ip,
+				ssid });
 		if (c.moveToFirst())
 		{
 			String mac = c.getString(c.getColumnIndex("mac"));
@@ -185,21 +175,19 @@ public class CameraOperation
 		return camera;
 	}
 
-	public void updateAttributeInt(String ip, String ssid, String attribute,
-			int value)
+	public void updateAttributeInt(String ip, String ssid, String attribute, int value)
 	{
 		db = database.getWritableDatabase();
-		db.execSQL("update cameralist set " + attribute
-				+ "=?  where ip=? and ssid=?", new Object[] { value, ip, ssid });
+		db.execSQL("update cameralist set " + attribute + "=?  where ip=? and ssid=?",
+				new Object[] { value, ip, ssid });
 		db.close();
 	}
 
-	public void updateAttributeString(String ip, String ssid, String attribute,
-			String value)
+	public void updateAttributeString(String ip, String ssid, String attribute, String value)
 	{
 		db = database.getWritableDatabase();
-		db.execSQL("update cameralist set " + attribute
-				+ "=?  where ip=? and ssid=?", new Object[] { value, ip, ssid });
+		db.execSQL("update cameralist set " + attribute + "=?  where ip=? and ssid=?",
+				new Object[] { value, ip, ssid });
 		db.close();
 	}
 
@@ -207,8 +195,7 @@ public class CameraOperation
 	{
 		db = database.getWritableDatabase();
 		ArrayList<Camera> arraylist = new ArrayList<Camera>();
-		Cursor cursor = db.rawQuery(
-				"select * from cameralist where ssid=? order by ip",
+		Cursor cursor = db.rawQuery("select * from cameralist where ssid=? order by ip",
 				new String[] { ssid });
 		while (cursor.moveToNext())
 		{
@@ -227,10 +214,9 @@ public class CameraOperation
 
 		try
 		{
-			Cursor cursor = db
-					.rawQuery(
-							"select * from cameralist where ssid=? and flag=? order by ip",
-							new String[] { ssid, "1" });
+			Cursor cursor = db.rawQuery(
+					"select * from cameralist where ssid=? and flag=? order by ip", new String[] {
+							ssid, "1" });
 			while (cursor.moveToNext())
 			{
 				String ip = cursor.getString(1);

@@ -1,6 +1,5 @@
 package io.evercam.connect.helper;
 
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -36,8 +35,7 @@ public class AwsS3Uploader
 				.getPropertyStr(Constants.PROPERTY_KEY_ACCESS_KEY);
 		String secretKey = new PropertyReader(ctxt)
 				.getPropertyStr(Constants.PROPERTY_KEY_SECRET_KEY);
-		s3Client = new AmazonS3Client(new BasicAWSCredentials(accessKey,
-				secretKey));
+		s3Client = new AmazonS3Client(new BasicAWSCredentials(accessKey, secretKey));
 
 		s3Client.setRegion(Region.getRegion(Regions.EU_WEST_1));
 
@@ -64,8 +62,8 @@ public class AwsS3Uploader
 		@Override
 		protected Void doInBackground(Void... params)
 		{
-			File file = new File(Environment.getExternalStorageDirectory()
-					+ File.separator + title + SUFFIX_TXT);
+			File file = new File(Environment.getExternalStorageDirectory() + File.separator + title
+					+ SUFFIX_TXT);
 			try
 			{
 				file.createNewFile();
@@ -76,9 +74,8 @@ public class AwsS3Uploader
 					outputStream.close();
 					try
 					{
-						putObjectRequest = new PutObjectRequest(
-								"evercamconnect-userdata", title + SUFFIX_TXT,
-								file);
+						putObjectRequest = new PutObjectRequest("evercamconnect-userdata", title
+								+ SUFFIX_TXT, file);
 						s3Client.putObject(putObjectRequest);
 					}
 					catch (Exception e)

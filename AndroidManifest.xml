@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="io.evercam.connect"
-    android:versionCode="6"
-    android:versionName="1.0.5" >
+    android:versionCode="7"
+    android:versionName="1.0.6" >
 
     <!-- 10/12/2013  version1 - 1.0.0 -->
     <!-- 10/01/2014  version2 - 1.0.1 -->
     <!-- 29/01/2014  version4 - 1.0.3 -->
     <!-- 31/01/2014  version5 - 1.0.4 -->
     <!-- 07/02/2014  version6 - 1.0.5 -->
+    <!-- 18/02/2014  version7 - 1.0.6 -->
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE" />

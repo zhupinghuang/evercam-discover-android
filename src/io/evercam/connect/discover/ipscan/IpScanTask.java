@@ -33,7 +33,7 @@ public class IpScanTask extends AsyncTask<Void, Host, Void>
 		mainDiscover = new WeakReference<DiscoverMainActivity>(ipmainDiscover);
 		this.scanRange = scanRange;
 	}
-	
+
 	@Override
 	protected void onProgressUpdate(Host... host)
 	{
@@ -73,8 +73,9 @@ public class IpScanTask extends AsyncTask<Void, Host, Void>
 						{
 							publish(host);
 						}
-						
-					}});
+
+					}
+				});
 				this.pool = ipScan.pool;
 				ipScan.scanAll(scanRange);
 			}
@@ -128,15 +129,13 @@ public class IpScanTask extends AsyncTask<Void, Host, Void>
 				// Mac Addr not already detected
 				if (!host.hardwareAddress.equals(NetInfo.EMPTY_MAC))
 				{
-					host.hardwareAddress = NetInfo
-							.getHardwareAddress(host.ipAddress);
+					host.hardwareAddress = NetInfo.getHardwareAddress(host.ipAddress);
 				}
 
 				// NIC vendor
-				SimpleDBConnect simpleDBConnect = new SimpleDBConnect(
-						mainDiscover.get().getApplicationContext());
-				host.vendor = simpleDBConnect
-						.getVendorFromMac(host.hardwareAddress);
+				SimpleDBConnect simpleDBConnect = new SimpleDBConnect(mainDiscover.get()
+						.getApplicationContext());
+				host.vendor = simpleDBConnect.getVendorFromMac(host.hardwareAddress);
 
 				// Is camera
 				if (simpleDBConnect.isCameraVendor(host.hardwareAddress))
@@ -158,50 +157,42 @@ public class IpScanTask extends AsyncTask<Void, Host, Void>
 	private void sendFeedBack()
 	{
 		SharedPreferences sharedPrefs;
-		NetInfo netInfo = new NetInfo(mainDiscover.get()
+		NetInfo netInfo = new NetInfo(mainDiscover.get().getApplicationContext());
+		sharedPrefs = PreferenceManager.getDefaultSharedPreferences(mainDiscover.get()
 				.getApplicationContext());
-		sharedPrefs = PreferenceManager
-				.getDefaultSharedPreferences(mainDiscover.get()
-						.getApplicationContext());
 		String userFirstName = "";
 		String userLastName = "";
 		String userEmail = "";
 		if (sharedPrefs.getString(Constants.KEY_USER_EMAIL, null) != null)
 		{
 			userEmail = sharedPrefs.getString(Constants.KEY_USER_EMAIL, null);
-			userFirstName = sharedPrefs.getString(
-					Constants.KEY_USER_FIRST_NAME, null);
-			userLastName = sharedPrefs.getString(Constants.KEY_USER_LAST_NAME,
-					null);
+			userFirstName = sharedPrefs.getString(Constants.KEY_USER_FIRST_NAME, null);
+			userLastName = sharedPrefs.getString(Constants.KEY_USER_LAST_NAME, null);
 		}
 
-		CameraOperation cameraOperation = new CameraOperation(mainDiscover
-				.get().getApplicationContext());
+		CameraOperation cameraOperation = new CameraOperation(mainDiscover.get()
+				.getApplicationContext());
 		ArrayList<Camera> list = cameraOperation.selectAllIP(netInfo.getSsid());
 
 		JsonMessage jsonMessage = new JsonMessage();
-		String uploadContent = jsonMessage.getAllDataJsonMsg(list,
-				userFirstName + " " + userLastName, userEmail, netInfo);
+		String uploadContent = jsonMessage.getAllDataJsonMsg(list, userFirstName + " "
+				+ userLastName, userEmail, netInfo);
 
 		Date date = new Date(System.currentTimeMillis());
 		String uploadTitle = userEmail + " " + date;
-		new AwsS3Uploader(uploadTitle, uploadContent, mainDiscover.get()
-				.getApplicationContext());
+		new AwsS3Uploader(uploadTitle, uploadContent, mainDiscover.get().getApplicationContext());
 
 	}
 
 	private void startEvercamDataCollection()
 	{
-		SharedPreferences sharedPrefs = PreferenceManager
-				.getDefaultSharedPreferences(mainDiscover.get()
-						.getApplicationContext());
-		boolean isDataCollectionAllowed = sharedPrefs.getBoolean(
-				Constants.KEY_USER_DATA, true);
+		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(mainDiscover
+				.get().getApplicationContext());
+		boolean isDataCollectionAllowed = sharedPrefs.getBoolean(Constants.KEY_USER_DATA, true);
 		PropertyReader propertyReader = new PropertyReader(mainDiscover.get()
 				.getApplicationContext());
 		if (isDataCollectionAllowed
-				&& propertyReader
-						.isPropertyExist(Constants.PROPERTY_KEY_DATA_COLLECTION))
+				&& propertyReader.isPropertyExist(Constants.PROPERTY_KEY_DATA_COLLECTION))
 		{
 			sendFeedBack();
 		}

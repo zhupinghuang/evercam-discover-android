@@ -46,8 +46,7 @@ public class SimpleDBConnect
 		try
 		{
 			SelectRequest selectRequest = new SelectRequest(
-					"select vendor,alias from mac_vendor where mac='" + submac
-							+ "'");
+					"select vendor,alias from mac_vendor where mac='" + submac + "'");
 			selectRequest.setConsistentRead(true);
 			SelectResult response = sdbClient.select(selectRequest);
 			if (!response.getItems().isEmpty())
@@ -56,14 +55,12 @@ public class SimpleDBConnect
 				// no alias
 				if (size == 1)
 				{
-					vendor = response.getItems().get(0).getAttributes().get(0)
-							.getValue();
+					vendor = response.getItems().get(0).getAttributes().get(0).getValue();
 				}
 				// has alias
 				else if (size == 2)
 				{
-					vendor = response.getItems().get(0).getAttributes().get(1)
-							.getValue();
+					vendor = response.getItems().get(0).getAttributes().get(1).getValue();
 				}
 			}
 		}
@@ -85,8 +82,7 @@ public class SimpleDBConnect
 		try
 		{
 			SelectRequest selectRequest = new SelectRequest(
-					"select vendor,alias from mac_vendor where mac='" + submac
-							+ "'");
+					"select vendor,alias from mac_vendor where mac='" + submac + "'");
 			selectRequest.setConsistentRead(true);
 			SelectResult response = sdbClient.select(selectRequest);
 

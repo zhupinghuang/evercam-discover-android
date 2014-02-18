@@ -102,8 +102,7 @@ public class CurrentNetworkInterface
 
 	public boolean isWiFiInterface()
 	{
-		WifiManager wifi = (WifiManager) ctxt
-				.getSystemService(Context.WIFI_SERVICE);
+		WifiManager wifi = (WifiManager) ctxt.getSystemService(Context.WIFI_SERVICE);
 		WifiInfo wifiInfo = wifi.getConnectionInfo();
 		String wifiMac = wifiInfo.getMacAddress();
 
@@ -144,8 +143,8 @@ public class CurrentNetworkInterface
 	{
 		try
 		{
-			for (Enumeration<NetworkInterface> en = NetworkInterface
-					.getNetworkInterfaces(); en.hasMoreElements();)
+			for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en
+					.hasMoreElements();)
 			{
 				NetworkInterface ni = en.nextElement();
 				String name = ni.getName();
@@ -190,22 +189,20 @@ public class CurrentNetworkInterface
 		{
 			try
 			{
-				if ((match = matchFromCommand("/system/xbin/ip",
-						String.format(CMD_IP, intf),
+				if ((match = matchFromCommand("/system/xbin/ip", String.format(CMD_IP, intf),
 						String.format(PTN_IP1, intf))) != null)
 				{
 					cidr = Integer.parseInt(match);
 
 				}
-				else if ((match = matchFromCommand("/system/xbin/ip",
-						String.format(CMD_IP, intf),
+				else if ((match = matchFromCommand("/system/xbin/ip", String.format(CMD_IP, intf),
 						String.format(PTN_IP2, intf))) != null)
 				{
 					cidr = Integer.parseInt(match);
 
 				}
-				else if ((match = matchFromCommand("/system/bin/ifconfig", " "
-						+ intf, String.format(PTN_IF, intf))) != null)
+				else if ((match = matchFromCommand("/system/bin/ifconfig", " " + intf,
+						String.format(PTN_IF, intf))) != null)
 				{
 					cidr = maskIpToCidr(match);
 
@@ -244,8 +241,8 @@ public class CurrentNetworkInterface
 				Matcher matcher;
 				Pattern ptrn = Pattern.compile(ptn);
 				Process p = Runtime.getRuntime().exec(path + cmd);
-				BufferedReader r = new BufferedReader(new InputStreamReader(
-						p.getInputStream()), BUF);
+				BufferedReader r = new BufferedReader(new InputStreamReader(p.getInputStream()),
+						BUF);
 				while ((line = r.readLine()) != null)
 				{
 					matcher = ptrn.matcher(line);

@@ -26,7 +26,6 @@ import com.mashape.unirest.http.utils.Base64Coder;
 
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.preference.PreferenceManager;
@@ -94,14 +93,12 @@ public class CameraDetailActivity extends Activity
 		Bundle extras = getIntent().getExtras();
 		ipstring = extras.getString("IP");
 		ssid = extras.getString("SSID");
-		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
-				.permitAll().build();
+		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 		StrictMode.setThreadPolicy(policy);
 		cameraOperation = new CameraOperation(ctxt);
 		setUpPage();
 
-		http_button.setOnClickListener(new OnClickListener()
-		{
+		http_button.setOnClickListener(new OnClickListener(){
 
 			@Override
 			public void onClick(View arg0)
@@ -125,34 +122,29 @@ public class CameraDetailActivity extends Activity
 
 		});
 
-		rtsp_button.setOnClickListener(new OnClickListener()
-		{
+		rtsp_button.setOnClickListener(new OnClickListener(){
 
 			@Override
 			public void onClick(View arg0)
 			{
 				if (camera.getVendor().equals(Constants.VENDOR_HIKVISION))
 				{
-					rtspURL = "rtsp://" + camera.getUsername() + ":"
-							+ camera.getPassword() + "@" + ipstring + ":"
-							+ camera.getRtsp() + "/h264/ch1/main/av_stream";
+					rtspURL = "rtsp://" + camera.getUsername() + ":" + camera.getPassword() + "@"
+							+ ipstring + ":" + camera.getRtsp() + "/h264/ch1/main/av_stream";
 				}
 				else if (camera.getVendor().equals(Constants.VENDOR_AXIS))
 				{
-					rtspURL = "rtsp://" + camera.getUsername() + ":"
-							+ camera.getPassword() + "@" + ipstring + ":"
-							+ camera.getRtsp() + "/axis-media/media.amp";
+					rtspURL = "rtsp://" + camera.getUsername() + ":" + camera.getPassword() + "@"
+							+ ipstring + ":" + camera.getRtsp() + "/axis-media/media.amp";
 				}
 				else if (camera.getVendor().equals(Constants.VENDOR_UBIQUITI))
 				{
-					rtspURL = "rtsp://" + ipstring + ":" + camera.getRtsp()
-							+ "/live/ch00_0";
+					rtspURL = "rtsp://" + ipstring + ":" + camera.getRtsp() + "/live/ch00_0";
 				}
 				else if (camera.getVendor().equals(Constants.VENDOR_YCAM))
 				{
-					rtspURL = "rtsp://" + camera.getUsername() + ":"
-							+ camera.getPassword() + "@" + ipstring + ":"
-							+ camera.getRtsp() + "/live_mpeg4.sdp";
+					rtspURL = "rtsp://" + camera.getUsername() + ":" + camera.getPassword() + "@"
+							+ ipstring + ":" + camera.getRtsp() + "/live_mpeg4.sdp";
 				}
 				else
 				{
@@ -161,15 +153,13 @@ public class CameraDetailActivity extends Activity
 
 				if (rtspURL != null)
 				{
-					Intent intent = new Intent(Intent.ACTION_VIEW, Uri
-							.parse(rtspURL));
+					Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(rtspURL));
 					startActivity(intent);
 					if (ssid.equals("sample"))
 					{
 						for (int i = 11; i >= 1; i--)
 						{
-							Toast toast = Toast.makeText(ctxt,
-									"Loading video stream..." + i,
+							Toast toast = Toast.makeText(ctxt, "Loading video stream..." + i,
 									Toast.LENGTH_SHORT);
 							toast.setGravity(Gravity.CENTER, 0, 0);
 							toast.show();
@@ -180,8 +170,7 @@ public class CameraDetailActivity extends Activity
 					{
 						for (int i = 4; i >= 1; i--)
 						{
-							Toast toast = Toast.makeText(ctxt,
-									"Loading video stream..." + i,
+							Toast toast = Toast.makeText(ctxt, "Loading video stream..." + i,
 									Toast.LENGTH_SHORT);
 							toast.setGravity(Gravity.CENTER, 0, 0);
 							toast.show();
@@ -191,26 +180,22 @@ public class CameraDetailActivity extends Activity
 
 				else if (rtspURL == null)
 				{
-					Toast toast = Toast
-							.makeText(
-									ctxt,
-									"Sorry, RTSP Stream is not availiable for this device.",
-									Toast.LENGTH_SHORT);
+					Toast toast = Toast.makeText(ctxt,
+							"Sorry, RTSP Stream is not availiable for this device.",
+							Toast.LENGTH_SHORT);
 					toast.setGravity(Gravity.CENTER, 0, 0);
 					toast.show();
 				}
 			}
 		});
 
-		portForwardBtn.setOnClickListener(new OnClickListener()
-		{
+		portForwardBtn.setOnClickListener(new OnClickListener(){
 
 			@Override
 			public void onClick(View arg0)
 			{
 
-				AlertDialog.Builder alertDialog = new AlertDialog.Builder(
-						CameraDetailActivity.this);
+				AlertDialog.Builder alertDialog = new AlertDialog.Builder(CameraDetailActivity.this);
 				alertDialog.setTitle(R.string.portForwarding);
 				alertDialog.setMessage(R.string.forwardGuideMsg);
 
@@ -221,19 +206,15 @@ public class CameraDetailActivity extends Activity
 				else
 				{
 					alertDialog.setPositiveButton(R.string.next,
-							new DialogInterface.OnClickListener()
-							{
+							new DialogInterface.OnClickListener(){
 								@Override
-								public void onClick(DialogInterface dialog,
-										int which)
+								public void onClick(DialogInterface dialog, int which)
 								{
 									Intent intentForward = new Intent();
-									intentForward.setClass(
-											CameraDetailActivity.this,
+									intentForward.setClass(CameraDetailActivity.this,
 											MainTabActivity.class);
 									intentForward.putExtra("IP", ipstring);
-									intentForward.putExtra("SSID",
-											netInfo.getSsid());
+									intentForward.putExtra("SSID", netInfo.getSsid());
 									startActivity(intentForward);
 								}
 							}).show();
@@ -242,8 +223,7 @@ public class CameraDetailActivity extends Activity
 
 		});
 
-		setCameraBtn.setOnClickListener(new OnClickListener()
-		{
+		setCameraBtn.setOnClickListener(new OnClickListener(){
 
 			@Override
 			public void onClick(View v)
@@ -259,8 +239,7 @@ public class CameraDetailActivity extends Activity
 			}
 		});
 
-		setDeviceBtn.setOnClickListener(new OnClickListener()
-		{
+		setDeviceBtn.setOnClickListener(new OnClickListener(){
 
 			@Override
 			public void onClick(View v)
@@ -276,33 +255,29 @@ public class CameraDetailActivity extends Activity
 			}
 		});
 
-		snapshot.setOnClickListener(new OnClickListener()
-		{
+		snapshot.setOnClickListener(new OnClickListener(){
 
 			@Override
 			public void onClick(View v)
 			{
 
-				Toast toast = Toast.makeText(ctxt, "Refreshing snapshot...",
-						Toast.LENGTH_SHORT);
+				Toast toast = Toast.makeText(ctxt, "Refreshing snapshot...", Toast.LENGTH_SHORT);
 				toast.setGravity(Gravity.CENTER, 0, 0);
 				toast.show();
 				if (camera.getSsid().equals("sample"))
 				{
-					launchSnapshot(
-							"http://89.101.225.158:8101/Streaming/channels/1/picture",
+					launchSnapshot("http://89.101.225.158:8101/Streaming/channels/1/picture",
 							camera.getUsername(), camera.getPassword(), true);
 				}
 				else
 				{
-					launchSnapshot(getSnapshotURL(), camera.getUsername(),
-							camera.getPassword(), false);
+					launchSnapshot(getSnapshotURL(), camera.getUsername(), camera.getPassword(),
+							false);
 				}
 			}
 		});
 
-		editBtn.setOnClickListener(new OnClickListener()
-		{
+		editBtn.setOnClickListener(new OnClickListener(){
 
 			@Override
 			public void onClick(View v)
@@ -313,8 +288,7 @@ public class CameraDetailActivity extends Activity
 
 		});
 
-		addEvercamButton.setOnClickListener(new OnClickListener()
-		{
+		addEvercamButton.setOnClickListener(new OnClickListener(){
 
 			@Override
 			public void onClick(View v)
@@ -403,7 +377,7 @@ public class CameraDetailActivity extends Activity
 		setDeviceBtn = (Button) findViewById(R.id.setAsDeviceButton);
 		setCameraBtn = (Button) findViewById(R.id.setAsCameraButton);
 		addEvercamButton = (Button) findViewById(R.id.addToEvercamBtn);
-		
+
 		usernameCross = (ImageView) findViewById(R.id.username_img);
 		passwordCross = (ImageView) findViewById(R.id.password_img);
 
@@ -412,13 +386,13 @@ public class CameraDetailActivity extends Activity
 		{
 			// if username and password not exist in database
 			if (camera.getUsername() == null)
-			{	
+			{
 				String username = EvercamTask.getUsername(camera.getVendor());
 				String password = EvercamTask.getPassword(camera.getVendor());
-				cameraOperation.updateAttributeString(camera.getIP(),
-						camera.getSsid(), "username", username);
-				cameraOperation.updateAttributeString(camera.getIP(),
-						camera.getSsid(), "password", password);
+				cameraOperation.updateAttributeString(camera.getIP(), camera.getSsid(), "username",
+						username);
+				cameraOperation.updateAttributeString(camera.getIP(), camera.getSsid(), "password",
+						password);
 				camera.setUsername(username);
 				camera.setPassword(password);
 			}
@@ -482,8 +456,7 @@ public class CameraDetailActivity extends Activity
 			editBtn.setVisibility(View.VISIBLE);
 			portForwardBtn.setVisibility(View.VISIBLE);
 
-			launchSnapshot(
-					"http://89.101.225.158:8101/Streaming/channels/1/picture",
+			launchSnapshot("http://89.101.225.158:8101/Streaming/channels/1/picture",
 					camera.getUsername(), camera.getPassword(), true);
 		}
 		// Show snapshot
@@ -491,8 +464,7 @@ public class CameraDetailActivity extends Activity
 		{
 			snapshot.setVisibility(View.VISIBLE);
 
-			launchSnapshot(getSnapshotURL(), camera.getUsername(),
-					camera.getPassword(), false);
+			launchSnapshot(getSnapshotURL(), camera.getUsername(), camera.getPassword(), false);
 		}
 		else if (camera.getHttp() == 0)
 		{
@@ -717,28 +689,23 @@ public class CameraDetailActivity extends Activity
 
 	public String getSnapshotURL()
 	{
-		if (camera.getVendor().equals(Constants.VENDOR_HIKVISION)
-				&& camera.getHttp() != 0)
+		if (camera.getVendor().equals(Constants.VENDOR_HIKVISION) && camera.getHttp() != 0)
 		{
 			camera.setSnapshotJpgUrl("/Streaming/channels/1/picture");
 		}
-		else if (camera.getVendor().equals(Constants.VENDOR_AXIS)
-				&& camera.getHttp() != 0)
+		else if (camera.getVendor().equals(Constants.VENDOR_AXIS) && camera.getHttp() != 0)
 		{
 			camera.setSnapshotJpgUrl("/jpg/image.jpg");
 		}
-		else if (camera.getVendor().equals(Constants.VENDOR_UBIQUITI)
-				&& camera.getHttp() != 0)
+		else if (camera.getVendor().equals(Constants.VENDOR_UBIQUITI) && camera.getHttp() != 0)
 		{
 			camera.setSnapshotJpgUrl("/snapshot.cgi");
 		}
-		else if (camera.getVendor().equals(Constants.VENDOR_YCAM)
-				&& camera.getHttp() != 0)
+		else if (camera.getVendor().equals(Constants.VENDOR_YCAM) && camera.getHttp() != 0)
 		{
 			camera.setSnapshotJpgUrl("/snapshot.jpg");
 		}
-		else if (camera.getVendor().equals(Constants.VENDOR_TPLINK)
-				&& camera.getHttp() != 0)
+		else if (camera.getVendor().equals(Constants.VENDOR_TPLINK) && camera.getHttp() != 0)
 		{
 			camera.setSnapshotJpgUrl("/jpg/image.jpg");
 		}
@@ -746,76 +713,61 @@ public class CameraDetailActivity extends Activity
 		{
 			return null;
 		}
-		return "http://" + this.ipstring + ":" + camera.getHttp()
-				+ camera.getSnapshotJpgUrl();
+		return "http://" + this.ipstring + ":" + camera.getHttp() + camera.getSnapshotJpgUrl();
 	}
 
 	private void showSetAsCameraDialog()
 	{
-		AlertDialog alertDialog = new AlertDialog.Builder(
-				CameraDetailActivity.this)
+		AlertDialog alertDialog = new AlertDialog.Builder(CameraDetailActivity.this)
 				.setMessage(R.string.confirmIsCamera)
-				.setPositiveButton(R.string.yes,
-						new DialogInterface.OnClickListener()
-						{
-							@Override
-							public void onClick(DialogInterface dialog,
-									int which)
-							{
-								cameraOperation.updateAttributeInt(ipstring,
-										ssid, "flag", Constants.TYPE_CAMERA);
-								setUpPage();
-								showSendFeedback(Constants.TITLE_SETDEVICE);
-							}
-						}).setNegativeButton(R.string.no, null).create();
+				.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener(){
+					@Override
+					public void onClick(DialogInterface dialog, int which)
+					{
+						cameraOperation.updateAttributeInt(ipstring, ssid, "flag",
+								Constants.TYPE_CAMERA);
+						setUpPage();
+						showSendFeedback(Constants.TITLE_SETDEVICE);
+					}
+				}).setNegativeButton(R.string.no, null).create();
 		alertDialog.show();
 	}
 
 	private void showSetAsDeviceDialog()
 	{
-		AlertDialog alertDialog = new AlertDialog.Builder(
-				CameraDetailActivity.this)
+		AlertDialog alertDialog = new AlertDialog.Builder(CameraDetailActivity.this)
 				.setMessage(R.string.confirmNotCamera)
-				.setPositiveButton(R.string.yes,
-						new DialogInterface.OnClickListener()
-						{
-							@Override
-							public void onClick(DialogInterface dialog,
-									int which)
-							{
-								cameraOperation.updateAttributeInt(ipstring,
-										ssid, "flag", Constants.TYPE_OTHERS);
-								setUpPage();
-								showSendFeedback(Constants.TITLE_SETCAMERA);
+				.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener(){
+					@Override
+					public void onClick(DialogInterface dialog, int which)
+					{
+						cameraOperation.updateAttributeInt(ipstring, ssid, "flag",
+								Constants.TYPE_OTHERS);
+						setUpPage();
+						showSendFeedback(Constants.TITLE_SETCAMERA);
 
-							}
-						}).setNegativeButton(R.string.no, null).create();
+					}
+				}).setNegativeButton(R.string.no, null).create();
 		alertDialog.show();
 	}
 
 	private void showSendFeedback(final String type)
 	{
-		AlertDialog alertDialog1 = new AlertDialog.Builder(
-				CameraDetailActivity.this)
+		AlertDialog alertDialog1 = new AlertDialog.Builder(CameraDetailActivity.this)
 
-				.setMessage(R.string.reportwarning)
-				.setPositiveButton(R.string.yes,
-						new DialogInterface.OnClickListener()
-						{
-							@Override
-							public void onClick(DialogInterface dialog,
-									int which)
-							{
-								Intent data = new Intent(Intent.ACTION_SENDTO);
-								data.setData(Uri
-										.parse("mailto:liuting.du@mhlabs.net"));
-								data.putExtra(Intent.EXTRA_SUBJECT, type);
-								data.putExtra(Intent.EXTRA_TEXT, "Device info:"
-										+ camera.toString() + "From IP:"
-										+ NetInfo.getExternalIP());
-								startActivity(data);
-							}
-						}).setNegativeButton(R.string.no, null).create();
+		.setMessage(R.string.reportwarning)
+				.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener(){
+					@Override
+					public void onClick(DialogInterface dialog, int which)
+					{
+						Intent data = new Intent(Intent.ACTION_SENDTO);
+						data.setData(Uri.parse("mailto:liuting.du@mhlabs.net"));
+						data.putExtra(Intent.EXTRA_SUBJECT, type);
+						data.putExtra(Intent.EXTRA_TEXT, "Device info:" + camera.toString()
+								+ "From IP:" + NetInfo.getExternalIP());
+						startActivity(data);
+					}
+				}).setNegativeButton(R.string.no, null).create();
 		alertDialog1.show();
 	}
 
@@ -826,22 +778,14 @@ public class CameraDetailActivity extends Activity
 		final AlertDialog.Builder editBuilder = new AlertDialog.Builder(this);
 		editBuilder.setView(editView);
 
-		final EditText editModel = (EditText) editView
-				.findViewById(R.id.editModel_value);
-		final EditText editHttp = (EditText) editView
-				.findViewById(R.id.editHttp_edit);
-		final EditText editRtsp = (EditText) editView
-				.findViewById(R.id.editRtsp_edit);
-		final EditText editHttps = (EditText) editView
-				.findViewById(R.id.editHttps_edit);
-		final EditText editFtp = (EditText) editView
-				.findViewById(R.id.editFtp_edit);
-		final EditText editSsh = (EditText) editView
-				.findViewById(R.id.editSsh_edit);
-		final EditText editUsername = (EditText) editView
-				.findViewById(R.id.editUsername_edit);
-		final EditText editPassword = (EditText) editView
-				.findViewById(R.id.editPassword_edit);
+		final EditText editModel = (EditText) editView.findViewById(R.id.editModel_value);
+		final EditText editHttp = (EditText) editView.findViewById(R.id.editHttp_edit);
+		final EditText editRtsp = (EditText) editView.findViewById(R.id.editRtsp_edit);
+		final EditText editHttps = (EditText) editView.findViewById(R.id.editHttps_edit);
+		final EditText editFtp = (EditText) editView.findViewById(R.id.editFtp_edit);
+		final EditText editSsh = (EditText) editView.findViewById(R.id.editSsh_edit);
+		final EditText editUsername = (EditText) editView.findViewById(R.id.editUsername_edit);
+		final EditText editPassword = (EditText) editView.findViewById(R.id.editPassword_edit);
 
 		editModel.setText(camera.getModel());
 
@@ -895,116 +839,100 @@ public class CameraDetailActivity extends Activity
 			editUsername.setText("");
 			editPassword.setText("");
 		}
-		editBuilder.setPositiveButton(R.string.save,
-				new DialogInterface.OnClickListener()
+		editBuilder.setPositiveButton(R.string.save, new DialogInterface.OnClickListener(){
+			@Override
+			public void onClick(DialogInterface dialog, int which)
+			{
+				if (camera.isDemoCamera())
 				{
-					@Override
-					public void onClick(DialogInterface dialog, int which)
+					closeDialog(dialog);
+				}
+				else
+				{
+					String newModel = editModel.getText().toString();
+					String newUsername = editUsername.getText().toString();
+					String newPassword = editPassword.getText().toString();
+					String httpStr = editHttp.getText().toString();
+					String rtspStr = editRtsp.getText().toString();
+					String httpsStr = editHttps.getText().toString();
+					String ftpStr = editFtp.getText().toString();
+					String sshStr = editSsh.getText().toString();
+
+					if (httpStr.length() == 0)
 					{
-						if (camera.isDemoCamera())
+						httpStr = "0";
+					}
+					if (rtspStr.length() == 0)
+					{
+						rtspStr = "0";
+					}
+					if (httpsStr.length() == 0)
+					{
+						httpsStr = "0";
+					}
+					if (ftpStr.length() == 0)
+					{
+						ftpStr = "0";
+					}
+					if (sshStr.length() == 0)
+					{
+						sshStr = "0";
+					}
+
+					try
+					{
+						int newHttp = Integer.parseInt(httpStr);
+						int newRtsp = Integer.parseInt(rtspStr);
+						int newHttps = Integer.parseInt(httpsStr);
+						int newFtp = Integer.parseInt(ftpStr);
+						int newSsh = Integer.parseInt(sshStr);
+
+						// If ports all in 0-65535
+						if (isInPortRange(newHttp) && isInPortRange(newRtsp)
+								&& isInPortRange(newHttps) && isInPortRange(newFtp)
+								&& isInPortRange(newSsh))
 						{
+							cameraOperation.updateAttributeString(camera.getIP(), camera.getSsid(),
+									"model", newModel);
+							cameraOperation.updateAttributeInt(camera.getIP(), camera.getSsid(),
+									"http", newHttp);
+							cameraOperation.updateAttributeInt(camera.getIP(), camera.getSsid(),
+									"rtsp", newRtsp);
+							cameraOperation.updateAttributeInt(camera.getIP(), camera.getSsid(),
+									"https", newHttps);
+							cameraOperation.updateAttributeInt(camera.getIP(), camera.getSsid(),
+									"ftp", newFtp);
+							cameraOperation.updateAttributeInt(camera.getIP(), camera.getSsid(),
+									"ssh", newSsh);
+							cameraOperation.updateAttributeString(camera.getIP(), camera.getSsid(),
+									"username", newUsername);
+							cameraOperation.updateAttributeString(camera.getIP(), camera.getSsid(),
+									"password", newPassword);
 							closeDialog(dialog);
+							setUpPage();
 						}
 						else
 						{
-							String newModel = editModel.getText().toString();
-							String newUsername = editUsername.getText()
-									.toString();
-							String newPassword = editPassword.getText()
-									.toString();
-							String httpStr = editHttp.getText().toString();
-							String rtspStr = editRtsp.getText().toString();
-							String httpsStr = editHttps.getText().toString();
-							String ftpStr = editFtp.getText().toString();
-							String sshStr = editSsh.getText().toString();
-
-							if (httpStr.length() == 0)
-							{
-								httpStr = "0";
-							}
-							if (rtspStr.length() == 0)
-							{
-								rtspStr = "0";
-							}
-							if (httpsStr.length() == 0)
-							{
-								httpsStr = "0";
-							}
-							if (ftpStr.length() == 0)
-							{
-								ftpStr = "0";
-							}
-							if (sshStr.length() == 0)
-							{
-								sshStr = "0";
-							}
-
-							try
-							{
-								int newHttp = Integer.parseInt(httpStr);
-								int newRtsp = Integer.parseInt(rtspStr);
-								int newHttps = Integer.parseInt(httpsStr);
-								int newFtp = Integer.parseInt(ftpStr);
-								int newSsh = Integer.parseInt(sshStr);
-
-								// If ports all in 0-65535
-								if (isInPortRange(newHttp)
-										&& isInPortRange(newRtsp)
-										&& isInPortRange(newHttps)
-										&& isInPortRange(newFtp)
-										&& isInPortRange(newSsh))
-								{
-									cameraOperation.updateAttributeString(
-											camera.getIP(), camera.getSsid(),
-											"model", newModel);
-									cameraOperation.updateAttributeInt(
-											camera.getIP(), camera.getSsid(),
-											"http", newHttp);
-									cameraOperation.updateAttributeInt(
-											camera.getIP(), camera.getSsid(),
-											"rtsp", newRtsp);
-									cameraOperation.updateAttributeInt(
-											camera.getIP(), camera.getSsid(),
-											"https", newHttps);
-									cameraOperation.updateAttributeInt(
-											camera.getIP(), camera.getSsid(),
-											"ftp", newFtp);
-									cameraOperation.updateAttributeInt(
-											camera.getIP(), camera.getSsid(),
-											"ssh", newSsh);
-									cameraOperation.updateAttributeString(
-											camera.getIP(), camera.getSsid(),
-											"username", newUsername);
-									cameraOperation.updateAttributeString(
-											camera.getIP(), camera.getSsid(),
-											"password", newPassword);
-									closeDialog(dialog);
-									setUpPage();
-								}
-								else
-								{
-									showPortNotInRange();
-									keepDialog(dialog);
-								}
-							}
-							catch (NumberFormatException e)
-							{
-								showPortNotInRange();
-								keepDialog(dialog);
-							}
+							showPortNotInRange();
+							keepDialog(dialog);
 						}
-
 					}
-				});
-		editBuilder.setNegativeButton(R.string.cancel,
-				new DialogInterface.OnClickListener()
-				{
-					@Override
-					public void onClick(DialogInterface dialog, int which)
+					catch (NumberFormatException e)
 					{
-						closeDialog(dialog);
+						showPortNotInRange();
+						keepDialog(dialog);
 					}
-				});
+				}
+
+			}
+		});
+		editBuilder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener(){
+			@Override
+			public void onClick(DialogInterface dialog, int which)
+			{
+				closeDialog(dialog);
+			}
+		});
 		editBuilder.setTitle("Edit Details  (" + camera.getIP() + ")");
 		editBuilder.setCancelable(false);
 		editBuilder.show();
@@ -1012,15 +940,15 @@ public class CameraDetailActivity extends Activity
 
 	private void showDemoSetAsCameraDialog()
 	{
-		AlertDialog.Builder alertDialog = new AlertDialog.Builder(
-				CameraDetailActivity.this);
+		AlertDialog.Builder alertDialog = new AlertDialog.Builder(CameraDetailActivity.this);
 		alertDialog.setTitle(R.string.userGuide);
 		alertDialog.setMessage(R.string.userGuideMsg);
-		alertDialog.setPositiveButton(R.string.ok,
-				new DialogInterface.OnClickListener()
-				{
-					@Override
-					public void onClick(DialogInterface dialog, int which){}});
+		alertDialog.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener(){
+			@Override
+			public void onClick(DialogInterface dialog, int which)
+			{
+			}
+		});
 		alertDialog.show();
 	}
 
@@ -1040,8 +968,7 @@ public class CameraDetailActivity extends Activity
 	{
 		try
 		{
-			Field field = dialog.getClass().getSuperclass()
-					.getDeclaredField("mShowing");
+			Field field = dialog.getClass().getSuperclass().getDeclaredField("mShowing");
 			field.setAccessible(true);
 			field.set(dialog, false);
 		}
@@ -1053,8 +980,7 @@ public class CameraDetailActivity extends Activity
 
 	private void showPortNotInRange()
 	{
-		Toast toast = Toast.makeText(ctxt, R.string.portRangeMsg1,
-				Toast.LENGTH_SHORT);
+		Toast toast = Toast.makeText(ctxt, R.string.portRangeMsg1, Toast.LENGTH_SHORT);
 		toast.setGravity(Gravity.CENTER, 0, 0);
 		toast.show();
 	}
@@ -1063,8 +989,7 @@ public class CameraDetailActivity extends Activity
 	{
 		try
 		{
-			Field field = dialog.getClass().getSuperclass()
-					.getDeclaredField("mShowing");
+			Field field = dialog.getClass().getSuperclass().getDeclaredField("mShowing");
 			field.setAccessible(true);
 			field.set(dialog, true);
 		}
@@ -1076,27 +1001,21 @@ public class CameraDetailActivity extends Activity
 
 	private void showComfirmLoginDialog()
 	{
-		AlertDialog alertDialog = new AlertDialog.Builder(
-				CameraDetailActivity.this)
+		AlertDialog alertDialog = new AlertDialog.Builder(CameraDetailActivity.this)
 				.setMessage(R.string.pleaseSignInBeforeAddCamera)
-				.setPositiveButton(R.string.action_signIn,
-						new DialogInterface.OnClickListener()
-						{
-							@Override
-							public void onClick(DialogInterface dialog,
-									int which)
-							{
-								Intent loginIntent = new Intent();
-								loginIntent.setClass(CameraDetailActivity.this,
-										LoginActivity.class);
-								startActivity(loginIntent);
-							}
-						}).setNegativeButton(R.string.notNow, null).create();
+				.setPositiveButton(R.string.action_signIn, new DialogInterface.OnClickListener(){
+					@Override
+					public void onClick(DialogInterface dialog, int which)
+					{
+						Intent loginIntent = new Intent();
+						loginIntent.setClass(CameraDetailActivity.this, LoginActivity.class);
+						startActivity(loginIntent);
+					}
+				}).setNegativeButton(R.string.notNow, null).create();
 		alertDialog.show();
 	}
 
-	private void launchSnapshot(String url, String username, String password,
-			boolean isSample)
+	private void launchSnapshot(String url, String username, String password, boolean isSample)
 	{
 		if (snapshotTask != null)
 		{
@@ -1114,8 +1033,7 @@ public class CameraDetailActivity extends Activity
 		String password;
 		boolean isSample;; // 0:sample 1:other
 
-		GetSnapshotTask(String url, String username, String password,
-				boolean isSample)
+		GetSnapshotTask(String url, String username, String password, boolean isSample)
 		{
 			this.url = url;
 			this.username = username;
@@ -1128,14 +1046,14 @@ public class CameraDetailActivity extends Activity
 		{
 			usernameCross.setVisibility(View.GONE);
 			passwordCross.setVisibility(View.GONE);
-	        try
+			try
 			{
-	        	DefaultHttpClient c = new DefaultHttpClient();
-		        HttpGet post = new HttpGet(url);
-		        String encoding = Base64Coder.encodeString(username + ":" + password);
-		        post.setHeader("Authorization", "Basic " + encoding);
+				DefaultHttpClient c = new DefaultHttpClient();
+				HttpGet post = new HttpGet(url);
+				String encoding = Base64Coder.encodeString(username + ":" + password);
+				post.setHeader("Authorization", "Basic " + encoding);
 				org.apache.http.HttpResponse r = c.execute(post);
-				if(r.getStatusLine().getStatusCode() == 401)
+				if (r.getStatusLine().getStatusCode() == 401)
 				{
 					usernameCross.setVisibility(View.VISIBLE);
 					passwordCross.setVisibility(View.VISIBLE);
@@ -1150,7 +1068,7 @@ public class CameraDetailActivity extends Activity
 				e.printStackTrace();
 			}
 		}
-		
+
 		@Override
 		protected Bitmap doInBackground(Void... arg0)
 		{

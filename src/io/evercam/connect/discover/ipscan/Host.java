@@ -57,6 +57,5 @@ public class Host
 	{
 		this.vendor = vendor;
 	}
-	
-	
+
 }

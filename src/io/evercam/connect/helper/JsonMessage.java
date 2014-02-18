@@ -19,8 +19,8 @@ import org.json.JSONObject;
 public class JsonMessage
 {
 
-	public String getAllDataJsonMsg(ArrayList<Camera> cameraList, String name,
-			String email, NetInfo netInfo)
+	public String getAllDataJsonMsg(ArrayList<Camera> cameraList, String name, String email,
+			NetInfo netInfo)
 	{
 		JSONObject userDataObject = new JSONObject();
 		JSONArray cameraArray = getJsonArrayFromCameras(cameraList);

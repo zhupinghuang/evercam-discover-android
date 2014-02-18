@@ -26,26 +26,22 @@ public class EvercamPortScan
 				case PortScan.TYPE_STANDARD:
 					if (port == 80)
 					{
-						cameraOperation.updateAttributeInt(ip, ssid, "http",
-								port);
+						cameraOperation.updateAttributeInt(ip, ssid, "http", port);
 					}
 					if (port == 554)
 					{
-						cameraOperation.updateAttributeInt(ip, ssid, "rtsp",
-								port);
+						cameraOperation.updateAttributeInt(ip, ssid, "rtsp", port);
 					}
 					break;
 				case PortScan.TYPE_COMMON:
 					if (port_s.startsWith("8"))
 					{
-						cameraOperation.updateAttributeInt(ip, ssid, "http",
-								port);
+						cameraOperation.updateAttributeInt(ip, ssid, "http", port);
 
 					}
 					else if (port_s.startsWith("9"))
 					{
-						cameraOperation.updateAttributeInt(ip, ssid, "rtsp",
-								port);
+						cameraOperation.updateAttributeInt(ip, ssid, "rtsp", port);
 					}
 					break;
 				}

@@ -72,8 +72,7 @@ public class NetInfo
 	// get wifi information
 	private void setWifiInfo()
 	{
-		WifiManager wifi = (WifiManager) ctxt
-				.getSystemService(Context.WIFI_SERVICE);
+		WifiManager wifi = (WifiManager) ctxt.getSystemService(Context.WIFI_SERVICE);
 		if (isWifiConnected(ctxt))
 		{
 			wifiInfo = wifi.getConnectionInfo();
@@ -104,7 +103,7 @@ public class NetInfo
 			return false;
 		}
 	}
-	
+
 	// check wifi connection
 	public boolean isWifiConnected(Context context)
 	{
@@ -124,10 +123,8 @@ public class NetInfo
 	{
 		String extIP = null;
 		HttpClient httpclient = new DefaultHttpClient();
-		httpclient.getParams().setIntParameter(CoreConnectionPNames.SO_TIMEOUT,
-				2000);
-		httpclient.getParams().setIntParameter(
-				CoreConnectionPNames.CONNECTION_TIMEOUT, 2000);
+		httpclient.getParams().setIntParameter(CoreConnectionPNames.SO_TIMEOUT, 2000);
+		httpclient.getParams().setIntParameter(CoreConnectionPNames.CONNECTION_TIMEOUT, 2000);
 		try
 		{
 
@@ -159,8 +156,8 @@ public class NetInfo
 			{
 				String ptrn = String.format(MAC_RE, ip.replace(".", "\\."));
 				Pattern pattern = Pattern.compile(ptrn);
-				BufferedReader bufferedReader = new BufferedReader(
-						new FileReader("/proc/net/arp"), BUF);
+				BufferedReader bufferedReader = new BufferedReader(new FileReader("/proc/net/arp"),
+						BUF);
 				String line;
 
 				Matcher matcher;
@@ -237,9 +234,8 @@ public class NetInfo
 	private String cidrToMask(int cidr)
 	{
 		int value = 0xffffffff << (32 - cidr);
-		byte[] bytes = new byte[] { (byte) (value >>> 24),
-				(byte) (value >> 16 & 0xff), (byte) (value >> 8 & 0xff),
-				(byte) (value & 0xff) };
+		byte[] bytes = new byte[] { (byte) (value >>> 24), (byte) (value >> 16 & 0xff),
+				(byte) (value >> 8 & 0xff), (byte) (value & 0xff) };
 
 		InetAddress netAddr;
 		try

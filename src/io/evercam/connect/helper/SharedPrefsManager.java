@@ -14,7 +14,7 @@ public class SharedPrefsManager
 		editor.putString(Constants.KEY_USER_LAST_NAME, null);
 		editor.commit();
 	}
-	
+
 	public static void clearEvercamUserInfo(SharedPreferences sharedPrefs)
 	{
 		SharedPreferences.Editor editor = sharedPrefs.edit();
@@ -22,14 +22,15 @@ public class SharedPrefsManager
 		editor.putString(Constants.EVERCAM_PASSWORD, null);
 		editor.commit();
 	}
-	
+
 	public static void clearAllUserInfo(SharedPreferences sharedPrefs)
 	{
 		clearGoogleUserInfo(sharedPrefs);
 		clearEvercamUserInfo(sharedPrefs);
 	}
 
-	public static void saveEvercamCredential(SharedPreferences sharedPrefs,User user,String password) throws EvercamException
+	public static void saveEvercamCredential(SharedPreferences sharedPrefs, User user,
+			String password) throws EvercamException
 	{
 		SharedPreferences.Editor editor = sharedPrefs.edit();
 		editor.putString(Constants.EVERCAM_USERNAME, user.getId());
@@ -67,20 +68,22 @@ public class SharedPrefsManager
 		}
 		return false;
 	}
-	
+
 	public static String[] getGoogle(SharedPreferences sharedPrefs)
 	{
-		return new String[] {sharedPrefs.getString(Constants.KEY_USER_EMAIL, null),sharedPrefs.getString(Constants.KEY_USER_FIRST_NAME, null),sharedPrefs.getString(Constants.KEY_USER_LAST_NAME, null)};
+		return new String[] { sharedPrefs.getString(Constants.KEY_USER_EMAIL, null),
+				sharedPrefs.getString(Constants.KEY_USER_FIRST_NAME, null),
+				sharedPrefs.getString(Constants.KEY_USER_LAST_NAME, null) };
 	}
-	
+
 	public static String getEvercamUsername(SharedPreferences sharedPrefs)
 	{
 		return sharedPrefs.getString(Constants.EVERCAM_USERNAME, null);
 	}
-	
+
 	public static String getEvercamPassword(SharedPreferences sharedPrefs)
 	{
 		return sharedPrefs.getString(Constants.EVERCAM_PASSWORD, null);
 	}
-	
+
 }

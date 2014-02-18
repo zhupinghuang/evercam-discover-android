@@ -67,8 +67,7 @@ public class LoginActivity extends Activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
 
-		sharedPrefs = PreferenceManager
-				.getDefaultSharedPreferences(LoginActivity.this);
+		sharedPrefs = PreferenceManager.getDefaultSharedPreferences(LoginActivity.this);
 		SharedPrefsManager.clearAllUserInfo(sharedPrefs);
 
 		ActionBar actionBar = getActionBar();
@@ -86,13 +85,12 @@ public class LoginActivity extends Activity
 
 		btnEvercamSignIn = (Button) findViewById(R.id.signInEvercamBtn);
 		TextView signUpLink = (TextView) findViewById(R.id.signupLink);
-		SpannableString spanString = new SpannableString(this.getResources()
-				.getString(R.string.create_account));
+		SpannableString spanString = new SpannableString(this.getResources().getString(
+				R.string.create_account));
 		spanString.setSpan(new UnderlineSpan(), 0, spanString.length(), 0);
 		signUpLink.setText(spanString);
 
-		signUpLink.setOnClickListener(new OnClickListener()
-		{
+		signUpLink.setOnClickListener(new OnClickListener(){
 
 			@Override
 			public void onClick(View v)
@@ -103,8 +101,7 @@ public class LoginActivity extends Activity
 			}
 		});
 
-		btnEvercamSignIn.setOnClickListener(new OnClickListener()
-		{
+		btnEvercamSignIn.setOnClickListener(new OnClickListener(){
 
 			@Override
 			public void onClick(View v)
@@ -116,8 +113,7 @@ public class LoginActivity extends Activity
 		signInButton = (SignInButton) findViewById(R.id.sign_in_button);
 		signInButton.setStyle(SignInButton.SIZE_WIDE, SignInButton.COLOR_LIGHT);
 
-		signInButton.setOnClickListener(new OnClickListener()
-		{
+		signInButton.setOnClickListener(new OnClickListener(){
 
 			@Override
 			public void onClick(View v)
@@ -126,11 +122,9 @@ public class LoginActivity extends Activity
 						.isGooglePlayServicesAvailable(getApplicationContext());
 				if (errorCode != ConnectionResult.SUCCESS)
 				{
-					GooglePlayServicesUtil.getErrorDialog(errorCode,
-							LoginActivity.this, 0).show();
-					Toast.makeText(LoginActivity.this,
-							"Google+ is not installed!", Toast.LENGTH_LONG)
-							.show();
+					GooglePlayServicesUtil.getErrorDialog(errorCode, LoginActivity.this, 0).show();
+					Toast.makeText(LoginActivity.this, "Google+ is not installed!",
+							Toast.LENGTH_LONG).show();
 				}
 				else
 				{
@@ -145,8 +139,7 @@ public class LoginActivity extends Activity
 						{
 							try
 							{
-								mConnectionResult.startResolutionForResult(
-										LoginActivity.this,
+								mConnectionResult.startResolutionForResult(LoginActivity.this,
 										GoogleSignIn.REQUEST_CODE_RESOLVE_ERR);
 							}
 							catch (SendIntentException e)
@@ -209,32 +202,25 @@ public class LoginActivity extends Activity
 	{
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2)
 		{
-			int shortAnimTime = getResources().getInteger(
-					android.R.integer.config_shortAnimTime);
+			int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
 			loginStatusView.setVisibility(View.VISIBLE);
-			loginStatusView.animate().setDuration(shortAnimTime)
-					.alpha(show ? 1 : 0)
-					.setListener(new AnimatorListenerAdapter()
-					{
+			loginStatusView.animate().setDuration(shortAnimTime).alpha(show ? 1 : 0)
+					.setListener(new AnimatorListenerAdapter(){
 						@Override
 						public void onAnimationEnd(Animator animation)
 						{
-							loginStatusView.setVisibility(show ? View.VISIBLE
-									: View.GONE);
+							loginStatusView.setVisibility(show ? View.VISIBLE : View.GONE);
 						}
 					});
 
 			loginFormView.setVisibility(View.VISIBLE);
-			loginFormView.animate().setDuration(shortAnimTime)
-					.alpha(show ? 0 : 1)
-					.setListener(new AnimatorListenerAdapter()
-					{
+			loginFormView.animate().setDuration(shortAnimTime).alpha(show ? 0 : 1)
+					.setListener(new AnimatorListenerAdapter(){
 						@Override
 						public void onAnimationEnd(Animator animation)
 						{
-							loginFormView.setVisibility(show ? View.GONE
-									: View.VISIBLE);
+							loginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
 						}
 					});
 		}
@@ -254,10 +240,8 @@ public class LoginActivity extends Activity
 		SharedPreferences sharedPrefs = PreferenceManager
 				.getDefaultSharedPreferences(LoginActivity.this);
 		String email = sharedPrefs.getString(Constants.KEY_USER_EMAIL, null);
-		String firstName = sharedPrefs.getString(Constants.KEY_USER_FIRST_NAME,
-				null);
-		String lastName = sharedPrefs.getString(Constants.KEY_USER_LAST_NAME,
-				null);
+		String firstName = sharedPrefs.getString(Constants.KEY_USER_FIRST_NAME, null);
+		String lastName = sharedPrefs.getString(Constants.KEY_USER_LAST_NAME, null);
 
 		EditText firstNameEditTxt = (EditText) findViewById(R.id.signUpFirstnamevalue_detail);
 		EditText lastNameEditTxt = (EditText) findViewById(R.id.signUpLastnamevalue_detail);
@@ -269,8 +253,7 @@ public class LoginActivity extends Activity
 		lastNameEditTxt.setText(lastName);
 		emailEditTxt.setText(email);
 
-		nextBtn.setOnClickListener(new OnClickListener()
-		{
+		nextBtn.setOnClickListener(new OnClickListener(){
 
 			@Override
 			public void onClick(View v)
@@ -295,10 +278,9 @@ public class LoginActivity extends Activity
 		{
 			try
 			{
-				HttpResponse<JsonNode> response = Unirest
-						.get(API.URL + "users/"+username)
-						.header("accept", "application/json")
-						.basicAuth(username, password).asJson();
+				HttpResponse<JsonNode> response = Unirest.get(API.URL + "users/" + username)
+						.header("accept", "application/json").basicAuth(username, password)
+						.asJson();
 				if (response.getCode() == 401)
 				{
 					return false;
@@ -324,26 +306,25 @@ public class LoginActivity extends Activity
 			if (success)
 			{
 				API.setAuth(username, password);
-				
+
 				try
 				{
 					User user = new User(username);
-					SharedPrefsManager.saveEvercamCredential(sharedPrefs, user,
-							password);
+					SharedPrefsManager.saveEvercamCredential(sharedPrefs, user, password);
 				}
 				catch (EvercamException e)
 				{
 					e.printStackTrace();
 				}
-				Toast toast = Toast.makeText(getApplicationContext(),
-						"Success", Toast.LENGTH_SHORT);
+				Toast toast = Toast
+						.makeText(getApplicationContext(), "Success", Toast.LENGTH_SHORT);
 				toast.show();
 				finish();
 			}
 			else
 			{
-				Toast toast = Toast.makeText(getApplicationContext(),
-						"Invalid username/password!", Toast.LENGTH_SHORT);
+				Toast toast = Toast.makeText(getApplicationContext(), "Invalid username/password!",
+						Toast.LENGTH_SHORT);
 				toast.setGravity(Gravity.CENTER, 0, 0);
 				toast.show();
 				passwordEdit.setText(null);

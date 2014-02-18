@@ -25,15 +25,13 @@ public class DatabaseHelper extends SQLiteOpenHelper
 	public void onCreate(SQLiteDatabase db)
 	{
 		db.execSQL("CREATE TABLE IF NOT EXISTS cameralist("
-				+ "cameraid INTEGER PRIMARY KEY AUTOINCREMENT	NOT NULL, "
-				+ "ip	 TEXT	 NOT NULL," + "mac	TEXT," + "vendor		CHAR(50),"
-				+ "model	TEXT," + "upnp		INT," + "onvif	INT," + "bonjour	INT,"
-				+ "http	INT," + "https INT," + "rtsp INT," + "ftp INT,"
-				+ "ssh INT," + "portforwarded	INT," + "evercam INT,"
-				+ "exthttp	INT," + "exthttps	INT," + "extftp	INT,"
-				+ "extrtsp	INT," + "extssh	INT," + "flag INT,"
-				+ "firstseen TEXT," + "lastseen TEXT," + "username TEXT,"
-				+ "password TEXT," + "ssid TEXT NOT NULL);");
+				+ "cameraid INTEGER PRIMARY KEY AUTOINCREMENT	NOT NULL, " + "ip	 TEXT	 NOT NULL,"
+				+ "mac	TEXT," + "vendor		CHAR(50)," + "model	TEXT," + "upnp		INT," + "onvif	INT,"
+				+ "bonjour	INT," + "http	INT," + "https INT," + "rtsp INT," + "ftp INT,"
+				+ "ssh INT," + "portforwarded	INT," + "evercam INT," + "exthttp	INT,"
+				+ "exthttps	INT," + "extftp	INT," + "extrtsp	INT," + "extssh	INT," + "flag INT,"
+				+ "firstseen TEXT," + "lastseen TEXT," + "username TEXT," + "password TEXT,"
+				+ "ssid TEXT NOT NULL);");
 
 		// add sample camera
 		PropertyReader propertyReader = new PropertyReader(ctxt);
@@ -43,10 +41,8 @@ public class DatabaseHelper extends SQLiteOpenHelper
 		String sampleModel = propertyReader.getPropertyStr(Constants.PROPERTY_KEY_SAMPLE_MODEL);
 		db.execSQL(
 				"insert into cameralist(ip,mac,vendor,model,upnp,onvif,bonjour,portforwarded,flag,http,rtsp,exthttp,extrtsp, firstseen,lastseen,ssid)values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
-				new Object[] { sampleIP, sampleMAC,
-						sampleVendor, sampleModel, 1, 1, 0, 1, 1,
-						8101, 9101, 8101, 9101,
-						DiscoverMainActivity.getSystemTime(),
+				new Object[] { sampleIP, sampleMAC, sampleVendor, sampleModel, 1, 1, 0, 1, 1, 8101,
+						9101, 8101, 9101, DiscoverMainActivity.getSystemTime(),
 						DiscoverMainActivity.getSystemTime(), "sample" });
 	}
 

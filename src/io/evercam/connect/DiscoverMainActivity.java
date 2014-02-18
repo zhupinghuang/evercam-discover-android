@@ -107,14 +107,11 @@ public class DiscoverMainActivity extends Activity
 		// Bug Sense
 		if (propertyReader.isPropertyExist(Constants.PROPERTY_KEY_BUG_SENSE))
 		{
-			String bugSenseCode = propertyReader
-					.getPropertyStr(Constants.PROPERTY_KEY_BUG_SENSE);
-			BugSenseHandler.initAndStartSession(DiscoverMainActivity.this,
-					bugSenseCode);
+			String bugSenseCode = propertyReader.getPropertyStr(Constants.PROPERTY_KEY_BUG_SENSE);
+			BugSenseHandler.initAndStartSession(DiscoverMainActivity.this, bugSenseCode);
 		}
 		setContentView(R.layout.activity_evercam_discover);
-		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
-				.permitAll().build();
+		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 		StrictMode.setThreadPolicy(policy);
 
 		sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
@@ -123,54 +120,45 @@ public class DiscoverMainActivity extends Activity
 
 		// discovered device list
 		final ListView deviceList = (ListView) findViewById(R.id.device_list);
-		deviceList.addHeaderView(LayoutInflater.from(this).inflate(
-				R.layout.header_layout, null));
+		deviceList.addHeaderView(LayoutInflater.from(this).inflate(R.layout.header_layout, null));
 
 		scanning_text = (TextView) findViewById(R.id.scanning_text1);
 		progressbar = (ProgressBar) findViewById(R.id.processBar1);
 		deviceArraylist = new ArrayList<HashMap<String, Object>>();
-		deviceAdapter = new SimpleAdapter(this, deviceArraylist,
-				R.layout.ditail_relative_layout, new String[]
-				{ "device_img", "device_name", "device_mac", "device_vendor",
-						"device_model", "device_http", "device_rtsp",
-						"device_timediff", "evercamlogo" }, new int[]
-				{ R.id.device_img, R.id.device_name, R.id.device_mac,
-						R.id.device_vendor, R.id.device_model,
-						R.id.device_http, R.id.device_rtsp, R.id.time_diff,
-						R.id.evercamglobe_img });
+		deviceAdapter = new SimpleAdapter(this, deviceArraylist, R.layout.ditail_relative_layout,
+				new String[] { "device_img", "device_name", "device_mac", "device_vendor",
+						"device_model", "device_http", "device_rtsp", "device_timediff",
+						"evercamlogo" }, new int[] { R.id.device_img, R.id.device_name,
+						R.id.device_mac, R.id.device_vendor, R.id.device_model, R.id.device_http,
+						R.id.device_rtsp, R.id.time_diff, R.id.evercamglobe_img });
 		deviceList.setAdapter(deviceAdapter);
 
 		LinearLayout sampleLayout = (LinearLayout) findViewById(R.id.sample_layout);
 		sampleLayout.setFocusable(true);
 		sampleLayout.setClickable(true);
-		sampleLayout.setOnClickListener(new OnClickListener()
-		{
+		sampleLayout.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v)
 			{
 				if (!netInfo.hasActiveNetwork())
 				{
-					makeToast(ctxt.getResources().getString(
-							R.string.pleaseConnectNetwork));
+					makeToast(ctxt.getResources().getString(R.string.pleaseConnectNetwork));
 				}
 				else
 				{
 					Intent intent = new Intent();
-					intent.setClass(DiscoverMainActivity.this,
-							CameraDetailActivity.class);
-					intent.putExtra("IP", propertyReader
-							.getPropertyStr(Constants.PROPERTY_KEY_SAMPLE_IP));
+					intent.setClass(DiscoverMainActivity.this, CameraDetailActivity.class);
+					intent.putExtra("IP",
+							propertyReader.getPropertyStr(Constants.PROPERTY_KEY_SAMPLE_IP));
 					intent.putExtra("SSID", "sample");
 					startActivity(intent);
 				}
 			}
 		});
 
-		deviceList.setOnItemClickListener(new OnItemClickListener()
-		{
+		deviceList.setOnItemClickListener(new OnItemClickListener(){
 			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1,
-					int position, long arg3)
+			public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3)
 			{
 				@SuppressWarnings("unchecked")
 				HashMap<String, Object> map = (HashMap<String, Object>) deviceList
@@ -179,19 +167,16 @@ public class DiscoverMainActivity extends Activity
 
 				if (cameraOperation.isExisting(deviceIp, netInfo.getSsid()))
 				{
-					if ((cameraOperation.getCamera(deviceIp, netInfo.getSsid())
-							.getFlag() == Constants.TYPE_ROUTER))
+					if ((cameraOperation.getCamera(deviceIp, netInfo.getSsid()).getFlag() == Constants.TYPE_ROUTER))
 					{
 						Intent intent = new Intent();
-						intent.setClass(DiscoverMainActivity.this,
-								RouterActivity.class);
+						intent.setClass(DiscoverMainActivity.this, RouterActivity.class);
 						startActivity(intent);
 					}
 					else
 					{
 						Intent intent = new Intent();
-						intent.setClass(DiscoverMainActivity.this,
-								CameraDetailActivity.class);
+						intent.setClass(DiscoverMainActivity.this, CameraDetailActivity.class);
 						intent.putExtra("IP", deviceIp);
 						intent.putExtra("SSID", netInfo.getSsid());
 						startActivity(intent);
@@ -207,40 +192,30 @@ public class DiscoverMainActivity extends Activity
 
 		scanning_text.setClickable(true);
 		scanning_text.setFocusable(true);
-		scanning_text.setOnClickListener(new OnClickListener()
-		{
+		scanning_text.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v)
 			{
-				AlertDialog alertMsg = new AlertDialog.Builder(
-						DiscoverMainActivity.this)
+				AlertDialog alertMsg = new AlertDialog.Builder(DiscoverMainActivity.this)
 
-						.setMessage(R.string.confirmStopScan)
-						.setPositiveButton(R.string.yes,
-								new DialogInterface.OnClickListener()
-								{
-									@Override
-									public void onClick(DialogInterface dialog,
-											int which)
-									{
-										stopDiscovery();
-									}
-								})
-						.setNegativeButton(R.string.no,
-								new DialogInterface.OnClickListener()
-								{
-									@Override
-									public void onClick(DialogInterface dialog,
-											int which)
-									{
-										return;
-									}
-								}).create();
+				.setMessage(R.string.confirmStopScan)
+						.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener(){
+							@Override
+							public void onClick(DialogInterface dialog, int which)
+							{
+								stopDiscovery();
+							}
+						}).setNegativeButton(R.string.no, new DialogInterface.OnClickListener(){
+							@Override
+							public void onClick(DialogInterface dialog, int which)
+							{
+								return;
+							}
+						}).create();
 				alertMsg.show();
 			}
 		});
-		handler.postDelayed(new Runnable()
-		{
+		handler.postDelayed(new Runnable(){
 			@Override
 			public void run()
 			{
@@ -274,8 +249,7 @@ public class DiscoverMainActivity extends Activity
 
 		if (netInfo.isWifiConnected(ctxt))
 		{
-			isShowCameraOnly = sharedPrefs.getBoolean(
-					Constants.KEY_SHOW_CAMERA_ONLY, false);
+			isShowCameraOnly = sharedPrefs.getBoolean(Constants.KEY_SHOW_CAMERA_ONLY, false);
 			if (ipScanTask == null)
 			{
 				updateShowList();
@@ -333,8 +307,7 @@ public class DiscoverMainActivity extends Activity
 			upnpDiscoveryTask = new UpnpDiscoveryTask(ctxt);
 			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
 			{
-				upnpDiscoveryTask
-						.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+				upnpDiscoveryTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 			}
 			else
 			{
@@ -396,8 +369,7 @@ public class DiscoverMainActivity extends Activity
 
 				deviceArraylist.clear();
 
-				handler.postDelayed(new Runnable()
-				{
+				handler.postDelayed(new Runnable(){
 					@Override
 					public void run()
 					{
@@ -415,44 +387,33 @@ public class DiscoverMainActivity extends Activity
 
 		{
 			Intent intentSignIn = new Intent();
-			intentSignIn.setClass(DiscoverMainActivity.this,
-					LoginActivity.class);
+			intentSignIn.setClass(DiscoverMainActivity.this, LoginActivity.class);
 			startActivity(intentSignIn);
 		}
 
 		else if (item.getItemId() == R.id.action_signOut)
 
 		{
-			AlertDialog confirmSignoutDialog = new AlertDialog.Builder(
-					DiscoverMainActivity.this)
+			AlertDialog confirmSignoutDialog = new AlertDialog.Builder(DiscoverMainActivity.this)
 
-					.setMessage(R.string.confirmSignOutMsg)
-					.setPositiveButton(R.string.yes,
-							new DialogInterface.OnClickListener()
-							{
-								@Override
-								public void onClick(DialogInterface dialog,
-										int which)
-								{
-									SharedPrefsManager
-											.clearAllUserInfo(sharedPrefs);
-									menuSignIn.setVisible(true);
-									menuSignOut.setVisible(false);
-									Toast.makeText(getApplicationContext(),
-											"Success logged out!",
-											Toast.LENGTH_SHORT).show();
-								}
-							})
-					.setNegativeButton(R.string.no,
-							new DialogInterface.OnClickListener()
-							{
-								@Override
-								public void onClick(DialogInterface dialog,
-										int which)
-								{
-									return;
-								}
-							}).create();
+			.setMessage(R.string.confirmSignOutMsg)
+					.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener(){
+						@Override
+						public void onClick(DialogInterface dialog, int which)
+						{
+							SharedPrefsManager.clearAllUserInfo(sharedPrefs);
+							menuSignIn.setVisible(true);
+							menuSignOut.setVisible(false);
+							Toast.makeText(getApplicationContext(), "Success logged out!",
+									Toast.LENGTH_SHORT).show();
+						}
+					}).setNegativeButton(R.string.no, new DialogInterface.OnClickListener(){
+						@Override
+						public void onClick(DialogInterface dialog, int which)
+						{
+							return;
+						}
+					}).create();
 			confirmSignoutDialog.show();
 		}
 
@@ -469,8 +430,7 @@ public class DiscoverMainActivity extends Activity
 	public void startDiscovery()
 	{
 		cancelTasks();
-		scanRange = new ScanRange(netInfo.getLocalIp(),
-				IpTranslator.cidrToMask(netInfo.getCidr()));
+		scanRange = new ScanRange(netInfo.getLocalIp(), IpTranslator.cidrToMask(netInfo.getCidr()));
 		ipScanTask = new IpScanTask(DiscoverMainActivity.this, scanRange);
 		ipScanTask.execute();
 
@@ -500,8 +460,7 @@ public class DiscoverMainActivity extends Activity
 			{
 				camera = getDeviceFromScan(host, Constants.TYPE_CAMERA);
 
-				if (cameraOperation.isExisting(camera.getIP(),
-						netInfo.getSsid()))
+				if (cameraOperation.isExisting(camera.getIP(), netInfo.getSsid()))
 				{
 					camera.setLastSeen(getSystemTime());
 					cameraOperation.updateScanCamera(camera, netInfo.getSsid());
@@ -523,8 +482,7 @@ public class DiscoverMainActivity extends Activity
 					camera.setFlag(Constants.TYPE_ROUTER);
 				}
 
-				if (cameraOperation.isExisting(camera.getIP(),
-						netInfo.getSsid()))
+				if (cameraOperation.isExisting(camera.getIP(), netInfo.getSsid()))
 				{
 					camera.setLastSeen(getSystemTime());
 					cameraOperation.updateScanCamera(camera, netInfo.getSsid());
@@ -571,8 +529,7 @@ public class DiscoverMainActivity extends Activity
 
 	public void makeToast(String toast_str)
 	{
-		Toast toast = Toast.makeText(getApplicationContext(), toast_str,
-				Toast.LENGTH_SHORT);
+		Toast toast = Toast.makeText(getApplicationContext(), toast_str, Toast.LENGTH_SHORT);
 		toast.show();
 	}
 
@@ -612,8 +569,7 @@ public class DiscoverMainActivity extends Activity
 			deviceMap.put("device_vendor", listVendor);
 		}
 
-		deviceMap.put("device_timediff", getTimeDifference(camera.getLastSeen()
-				+ ":00"));
+		deviceMap.put("device_timediff", getTimeDifference(camera.getLastSeen() + ":00"));
 
 		if (camera.getFlag() == Constants.TYPE_ROUTER)
 		{
@@ -623,7 +579,7 @@ public class DiscoverMainActivity extends Activity
 		{
 			ResourceHelper resourceHelper = new ResourceHelper(ctxt);
 			deviceMap.put("device_img", resourceHelper.getCameraImageId(camera));
-			EvercamTask evercamTask = new EvercamTask(camera,ctxt);
+			EvercamTask evercamTask = new EvercamTask(camera, ctxt);
 			evercamTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 		}
 		else
@@ -652,8 +608,7 @@ public class DiscoverMainActivity extends Activity
 
 	private void startIpScan()
 	{
-		handler.postDelayed(new Runnable()
-		{
+		handler.postDelayed(new Runnable(){
 
 			@Override
 			public void run()
@@ -667,8 +622,7 @@ public class DiscoverMainActivity extends Activity
 					}
 					else
 					{
-						makeToast(getResources().getString(
-								R.string.checkInternetConnection));
+						makeToast(getResources().getString(R.string.checkInternetConnection));
 					}
 				}
 			}
@@ -699,8 +653,7 @@ public class DiscoverMainActivity extends Activity
 			if (type == Constants.TYPE_SHOW_ALL)
 			{
 				deviceArraylist.clear();
-				ArrayList<Camera> cameraList = cameraOperation
-						.selectAllIP(lastSSID);
+				ArrayList<Camera> cameraList = cameraOperation.selectAllIP(lastSSID);
 				Iterator<Camera> iterator = cameraList.iterator();
 				while (iterator.hasNext())
 				{
@@ -717,8 +670,7 @@ public class DiscoverMainActivity extends Activity
 
 	private void updateShowList()
 	{
-		isShowCameraOnly = sharedPrefs.getBoolean(
-				Constants.KEY_SHOW_CAMERA_ONLY, false);
+		isShowCameraOnly = sharedPrefs.getBoolean(Constants.KEY_SHOW_CAMERA_ONLY, false);
 		if (isShowCameraOnly)
 		{
 			displayCameraOnly();
@@ -736,20 +688,16 @@ public class DiscoverMainActivity extends Activity
 		if (!iterator.hasNext())
 		{
 
-			AlertDialog alertDialog = new AlertDialog.Builder(
-					DiscoverMainActivity.this)
+			AlertDialog alertDialog = new AlertDialog.Builder(DiscoverMainActivity.this)
 
-					.setMessage(R.string.alertNoCamera)
-					.setPositiveButton(R.string.ok,
-							new DialogInterface.OnClickListener()
-							{
-								@Override
-								public void onClick(DialogInterface dialog,
-										int which)
-								{
-									displayAll();
-								}
-							}).create();
+			.setMessage(R.string.alertNoCamera)
+					.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener(){
+						@Override
+						public void onClick(DialogInterface dialog, int which)
+						{
+							displayAll();
+						}
+					}).create();
 			alertDialog.show();
 		}
 		else
@@ -836,30 +784,27 @@ public class DiscoverMainActivity extends Activity
 	private void sortByIp()
 	{
 
-		Collections.sort(deviceArraylist,
-				new Comparator<HashMap<String, Object>>()
+		Collections.sort(deviceArraylist, new Comparator<HashMap<String, Object>>(){
+			@Override
+			public int compare(HashMap<String, Object> arg0, HashMap<String, Object> arg1)
+			{
+				try
 				{
-					@Override
-					public int compare(HashMap<String, Object> arg0,
-							HashMap<String, Object> arg1)
-					{
-						try
-						{
-							String ip1 = (String) arg0.get("device_name");
-							int digit1 = Integer.parseInt(ip1.substring(
-									ip1.lastIndexOf(".") + 1, ip1.length()));
-							String ip2 = (String) arg1.get("device_name");
-							int digit2 = Integer.parseInt(ip2.substring(
-									ip2.lastIndexOf(".") + 1, ip2.length()));
-							return (digit1 - digit2);
-						}
-						catch (NumberFormatException e)
-						{
-							e.printStackTrace();
-							return 1;
-						}
-					}
-				});
+					String ip1 = (String) arg0.get("device_name");
+					int digit1 = Integer.parseInt(ip1.substring(ip1.lastIndexOf(".") + 1,
+							ip1.length()));
+					String ip2 = (String) arg1.get("device_name");
+					int digit2 = Integer.parseInt(ip2.substring(ip2.lastIndexOf(".") + 1,
+							ip2.length()));
+					return (digit1 - digit2);
+				}
+				catch (NumberFormatException e)
+				{
+					e.printStackTrace();
+					return 1;
+				}
+			}
+		});
 
 	}
 
@@ -869,8 +814,7 @@ public class DiscoverMainActivity extends Activity
 		connectDialogBuilder.setMessage(R.string.dialogMsgMustConnect);
 
 		connectDialogBuilder.setPositiveButton(R.string.wifiSettings,
-				new DialogInterface.OnClickListener()
-				{
+				new DialogInterface.OnClickListener(){
 					@Override
 					public void onClick(DialogInterface dialog, int which)
 					{
@@ -878,8 +822,7 @@ public class DiscoverMainActivity extends Activity
 					}
 				});
 		connectDialogBuilder.setNegativeButton(R.string.notNow,
-				new DialogInterface.OnClickListener()
-				{
+				new DialogInterface.OnClickListener(){
 					@Override
 					public void onClick(DialogInterface dialog, int which)
 					{
@@ -893,30 +836,22 @@ public class DiscoverMainActivity extends Activity
 
 	private void showConfirmScanDialog()
 	{
-		AlertDialog alertMsg = new AlertDialog.Builder(
-				DiscoverMainActivity.this)
+		AlertDialog alertMsg = new AlertDialog.Builder(DiscoverMainActivity.this)
 
-				.setMessage(R.string.confirmStopScan)
-				.setPositiveButton(R.string.yes,
-						new DialogInterface.OnClickListener()
-						{
-							@Override
-							public void onClick(DialogInterface dialog,
-									int which)
-							{
-								stopDiscovery();
-							}
-						})
-				.setNegativeButton(R.string.no,
-						new DialogInterface.OnClickListener()
-						{
-							@Override
-							public void onClick(DialogInterface dialog,
-									int which)
-							{
-								return;
-							}
-						}).create();
+		.setMessage(R.string.confirmStopScan)
+				.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener(){
+					@Override
+					public void onClick(DialogInterface dialog, int which)
+					{
+						stopDiscovery();
+					}
+				}).setNegativeButton(R.string.no, new DialogInterface.OnClickListener(){
+					@Override
+					public void onClick(DialogInterface dialog, int which)
+					{
+						return;
+					}
+				}).create();
 		alertMsg.show();
 	}
 }

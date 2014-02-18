@@ -46,13 +46,13 @@ public class IGDDiscoveryTask extends AsyncTask<Void, Void, Void>
 	{
 		if (igdDiscovery.isRouterIGD)
 		{
-			cameraOperation.updateAttributeInt(netInfo.getGatewayIp(),
-					netInfo.getSsid(), "upnp", 1);
+			cameraOperation
+					.updateAttributeInt(netInfo.getGatewayIp(), netInfo.getSsid(), "upnp", 1);
 		}
 		else
 		{
-			cameraOperation.updateAttributeInt(netInfo.getGatewayIp(),
-					netInfo.getSsid(), "upnp", 0);
+			cameraOperation
+					.updateAttributeInt(netInfo.getGatewayIp(), netInfo.getSsid(), "upnp", 0);
 		}
 	}
 
@@ -62,29 +62,25 @@ public class IGDDiscoveryTask extends AsyncTask<Void, Void, Void>
 		{
 			try
 			{
-				ActionResponse mapEntry = igdDiscovery.IGD
-						.getGenericPortMappingEntry(sizeIndex);
+				ActionResponse mapEntry = igdDiscovery.IGD.getGenericPortMappingEntry(sizeIndex);
 				String natIP = mapEntry
 						.getOutActionArgumentValue(UpnpDiscovery.UPNP_KEY_INTERNAL_CLIENT);
-				int natInternalPort = Integer
-						.parseInt(mapEntry
-								.getOutActionArgumentValue(UpnpDiscovery.UPNP_KEY_INTERNAL_PORT));
-				int natExternalPort = Integer
-						.parseInt(mapEntry
-								.getOutActionArgumentValue(UpnpDiscovery.UPNP_KEY_EXTERNAL_PORT));
+				int natInternalPort = Integer.parseInt(mapEntry
+						.getOutActionArgumentValue(UpnpDiscovery.UPNP_KEY_INTERNAL_PORT));
+				int natExternalPort = Integer.parseInt(mapEntry
+						.getOutActionArgumentValue(UpnpDiscovery.UPNP_KEY_EXTERNAL_PORT));
 				if (cameraOperation.isExisting(natIP, netInfo.getSsid()))
 				{
-					Camera camera = cameraOperation.getCamera(natIP,
-							netInfo.getSsid());
+					Camera camera = cameraOperation.getCamera(natIP, netInfo.getSsid());
 					if (natInternalPort == camera.getHttp())
 					{
-						cameraOperation.updateAttributeInt(natIP,
-								netInfo.getSsid(), "exthttp", natExternalPort);
+						cameraOperation.updateAttributeInt(natIP, netInfo.getSsid(), "exthttp",
+								natExternalPort);
 					}
 					else if (natInternalPort == camera.getRtsp())
 					{
-						cameraOperation.updateAttributeInt(natIP,
-								netInfo.getSsid(), "extrtsp", natExternalPort);
+						cameraOperation.updateAttributeInt(natIP, netInfo.getSsid(), "extrtsp",
+								natExternalPort);
 					}
 				}
 

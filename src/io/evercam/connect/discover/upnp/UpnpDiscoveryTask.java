@@ -29,7 +29,7 @@ public class UpnpDiscoveryTask extends AsyncTask<Void, Void, Void>
 		upnpDiscover();
 		return null;
 	}
-	
+
 	private void upnpDiscover()
 	{
 		upnpDiscovery = new UpnpDiscovery(new UpnpResult(){
@@ -40,20 +40,17 @@ public class UpnpDiscoveryTask extends AsyncTask<Void, Void, Void>
 				Camera deviceFromUPNP = getDeviceFromUpnp(upnpDevice);
 				if (deviceFromUPNP != null)
 				{
-					if (cameraOperation.isExisting(deviceFromUPNP.getIP(),
-							netInfo.getSsid()))
+					if (cameraOperation.isExisting(deviceFromUPNP.getIP(), netInfo.getSsid()))
 					{
-						cameraOperation.updateUpnpCamera(deviceFromUPNP,
-								netInfo.getSsid());
+						cameraOperation.updateUpnpCamera(deviceFromUPNP, netInfo.getSsid());
 					}
 					else
 					{
-						cameraOperation.insertCamera(deviceFromUPNP,
-								netInfo.getSsid());
+						cameraOperation.insertCamera(deviceFromUPNP, netInfo.getSsid());
 					}
 				}
 			}
-			
+
 		});
 		upnpDiscovery.discoverAll();
 	}

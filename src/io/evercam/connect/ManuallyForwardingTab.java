@@ -60,13 +60,11 @@ public class ManuallyForwardingTab extends Fragment
 	}
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState)
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
 		cameraIP = getActivity().getIntent().getExtras().get("IP").toString();
 		ssid = getActivity().getIntent().getExtras().get("SSID").toString();
-		cameraOperation = new CameraOperation(getActivity()
-				.getApplicationContext());
+		cameraOperation = new CameraOperation(getActivity().getApplicationContext());
 
 		View view = inflater.inflate(R.layout.tab_two, container, false);
 
@@ -93,8 +91,7 @@ public class ManuallyForwardingTab extends Fragment
 
 		setUpPage();
 
-		saveBtn.setOnClickListener(new OnClickListener()
-		{
+		saveBtn.setOnClickListener(new OnClickListener(){
 
 			@Override
 			public void onClick(View v)
@@ -104,8 +101,7 @@ public class ManuallyForwardingTab extends Fragment
 
 		});
 
-		addBtn.setOnClickListener(new OnClickListener()
-		{
+		addBtn.setOnClickListener(new OnClickListener(){
 
 			@Override
 			public void onClick(View v)
@@ -142,8 +138,7 @@ public class ManuallyForwardingTab extends Fragment
 				internalHttpText.setText(String.valueOf(camera.getHttp()));
 				if (camera.hasExternalHttp())
 				{
-					externalHttpEdit
-							.setText(String.valueOf(camera.getExthttp()));
+					externalHttpEdit.setText(String.valueOf(camera.getExthttp()));
 				}
 				else
 				{
@@ -162,8 +157,7 @@ public class ManuallyForwardingTab extends Fragment
 				internalRtspText.setText(String.valueOf(camera.getRtsp()));
 				if (camera.hasExternalRtsp())
 				{
-					externalRtspEdit
-							.setText(String.valueOf(camera.getExtrtsp()));
+					externalRtspEdit.setText(String.valueOf(camera.getExtrtsp()));
 				}
 				else
 				{
@@ -182,8 +176,7 @@ public class ManuallyForwardingTab extends Fragment
 				internalHttpsText.setText(String.valueOf(camera.getHttps()));
 				if (camera.hasExternalHttps())
 				{
-					externalHttpsEdit.setText(String.valueOf(camera
-							.getExthttps()));
+					externalHttpsEdit.setText(String.valueOf(camera.getExthttps()));
 				}
 				else
 				{
@@ -275,22 +268,20 @@ public class ManuallyForwardingTab extends Fragment
 			int newSsh = Integer.parseInt(sshStr);
 
 			// If ports all in 0-65535
-			if (isInPortRange(newHttp) && isInPortRange(newRtsp)
-					&& isInPortRange(newHttps) && isInPortRange(newFtp)
-					&& isInPortRange(newSsh))
+			if (isInPortRange(newHttp) && isInPortRange(newRtsp) && isInPortRange(newHttps)
+					&& isInPortRange(newFtp) && isInPortRange(newSsh))
 			{
-				cameraOperation.updateAttributeInt(camera.getIP(),
-						camera.getSsid(), "exthttp", newHttp);
-				cameraOperation.updateAttributeInt(camera.getIP(),
-						camera.getSsid(), "extrtsp", newRtsp);
-				cameraOperation.updateAttributeInt(camera.getIP(),
-						camera.getSsid(), "exthttps", newHttps);
-				cameraOperation.updateAttributeInt(camera.getIP(),
-						camera.getSsid(), "extftp", newFtp);
-				cameraOperation.updateAttributeInt(camera.getIP(),
-						camera.getSsid(), "extssh", newSsh);
-				Toast toast = Toast.makeText(getActivity()
-						.getApplicationContext(), "Success!",
+				cameraOperation.updateAttributeInt(camera.getIP(), camera.getSsid(), "exthttp",
+						newHttp);
+				cameraOperation.updateAttributeInt(camera.getIP(), camera.getSsid(), "extrtsp",
+						newRtsp);
+				cameraOperation.updateAttributeInt(camera.getIP(), camera.getSsid(), "exthttps",
+						newHttps);
+				cameraOperation.updateAttributeInt(camera.getIP(), camera.getSsid(), "extftp",
+						newFtp);
+				cameraOperation.updateAttributeInt(camera.getIP(), camera.getSsid(), "extssh",
+						newSsh);
+				Toast toast = Toast.makeText(getActivity().getApplicationContext(), "Success!",
 						Toast.LENGTH_SHORT);
 				toast.setGravity(Gravity.CENTER, 0, 0);
 				toast.show();
@@ -312,8 +303,8 @@ public class ManuallyForwardingTab extends Fragment
 
 	private void showPortNotInRange()
 	{
-		Toast toast = Toast.makeText(getActivity().getApplicationContext(),
-				R.string.portRangeMsg1, Toast.LENGTH_SHORT);
+		Toast toast = Toast.makeText(getActivity().getApplicationContext(), R.string.portRangeMsg1,
+				Toast.LENGTH_SHORT);
 		toast.setGravity(Gravity.CENTER, 0, 0);
 		toast.show();
 	}
@@ -328,20 +319,16 @@ public class ManuallyForwardingTab extends Fragment
 
 	private void showAddBtnDialog()
 	{
-		LayoutInflater mInflater = LayoutInflater.from(getActivity()
-				.getApplicationContext());
-		final View addPortView = mInflater.inflate(R.layout.manual_forward_add,
-				null);
-		final AlertDialog.Builder editBuilder = new AlertDialog.Builder(
-				this.getActivity());
+		LayoutInflater mInflater = LayoutInflater.from(getActivity().getApplicationContext());
+		final View addPortView = mInflater.inflate(R.layout.manual_forward_add, null);
+		final AlertDialog.Builder editBuilder = new AlertDialog.Builder(this.getActivity());
 		editBuilder.setView(addPortView);
 
 		final Spinner spinnerChoosePortType = (Spinner) addPortView
 				.findViewById(R.id.portType_spinner);
 
-		ArrayAdapter<String> portTypeAdapter = new ArrayAdapter<String>(
-				getActivity().getApplicationContext(), R.layout.spinner_item,
-				getPortTypesToAdd());
+		ArrayAdapter<String> portTypeAdapter = new ArrayAdapter<String>(getActivity()
+				.getApplicationContext(), R.layout.spinner_item, getPortTypesToAdd());
 		spinnerChoosePortType.setAdapter(portTypeAdapter);
 
 		final EditText addInternalEdit = (EditText) addPortView
@@ -349,127 +336,99 @@ public class ManuallyForwardingTab extends Fragment
 		final EditText addExternalEdit = (EditText) addPortView
 				.findViewById(R.id.externalPort_edit);
 
-		editBuilder.setPositiveButton(R.string.add,
-				new DialogInterface.OnClickListener()
+		editBuilder.setPositiveButton(R.string.add, new DialogInterface.OnClickListener(){
+			@Override
+			public void onClick(DialogInterface dialog, int which)
+			{
+
+				String choosedPort = spinnerChoosePortType.getSelectedItem().toString();
+				String internalStr = addInternalEdit.getText().toString();
+				String externalStr = addExternalEdit.getText().toString();
+
+				if (internalStr.length() == 0)
 				{
-					@Override
-					public void onClick(DialogInterface dialog, int which)
+					internalStr = "0";
+				}
+				if (externalStr.length() == 0)
+				{
+					externalStr = "0";
+				}
+
+				try
+				{
+					int internalInt = Integer.parseInt(internalStr);
+					int externalInt = Integer.parseInt(externalStr);
+
+					if (isInPortRange(internalInt) && isInPortRange(externalInt))
 					{
-
-						String choosedPort = spinnerChoosePortType
-								.getSelectedItem().toString();
-						String internalStr = addInternalEdit.getText()
-								.toString();
-						String externalStr = addExternalEdit.getText()
-								.toString();
-
-						if (internalStr.length() == 0)
+						if (internalInt == 0 && externalInt != 0)
 						{
-							internalStr = "0";
-						}
-						if (externalStr.length() == 0)
-						{
-							externalStr = "0";
-						}
-
-						try
-						{
-							int internalInt = Integer.parseInt(internalStr);
-							int externalInt = Integer.parseInt(externalStr);
-
-							if (isInPortRange(internalInt)
-									&& isInPortRange(externalInt))
-							{
-								if (internalInt == 0 && externalInt != 0)
-								{
-									showInternalCannotNull();
-									CameraDetailActivity.keepDialog(dialog);
-								}
-								else
-								{
-									if (choosedPort.equals("HTTP"))
-									{
-										cameraOperation.updateAttributeInt(
-												camera.getIP(),
-												camera.getSsid(), "http",
-												internalInt);
-										cameraOperation.updateAttributeInt(
-												camera.getIP(),
-												camera.getSsid(), "exthttp",
-												externalInt);
-									}
-									else if (choosedPort.equals("RTSP"))
-									{
-										cameraOperation.updateAttributeInt(
-												camera.getIP(),
-												camera.getSsid(), "rtsp",
-												internalInt);
-										cameraOperation.updateAttributeInt(
-												camera.getIP(),
-												camera.getSsid(), "extrtsp",
-												externalInt);
-									}
-									if (choosedPort.equals("HTTPS"))
-									{
-										cameraOperation.updateAttributeInt(
-												camera.getIP(),
-												camera.getSsid(), "https",
-												internalInt);
-										cameraOperation.updateAttributeInt(
-												camera.getIP(),
-												camera.getSsid(), "exthttps",
-												externalInt);
-									}
-									else if (choosedPort.equals("FTP"))
-									{
-										cameraOperation.updateAttributeInt(
-												camera.getIP(),
-												camera.getSsid(), "ftp",
-												internalInt);
-										cameraOperation.updateAttributeInt(
-												camera.getIP(),
-												camera.getSsid(), "extftp",
-												externalInt);
-									}
-									else if (choosedPort.equals("SSH"))
-									{
-										cameraOperation.updateAttributeInt(
-												camera.getIP(),
-												camera.getSsid(), "ssh",
-												internalInt);
-										cameraOperation.updateAttributeInt(
-												camera.getIP(),
-												camera.getSsid(), "extssh",
-												externalInt);
-									}
-
-									CameraDetailActivity.closeDialog(dialog);
-									setUpPage();
-								}
-							}
-							else
-							{
-								showPortNotInRange();
-								CameraDetailActivity.keepDialog(dialog);
-							}
-						}
-						catch (NumberFormatException e)
-						{
-							showPortNotInRange();
+							showInternalCannotNull();
 							CameraDetailActivity.keepDialog(dialog);
 						}
-					}
+						else
+						{
+							if (choosedPort.equals("HTTP"))
+							{
+								cameraOperation.updateAttributeInt(camera.getIP(),
+										camera.getSsid(), "http", internalInt);
+								cameraOperation.updateAttributeInt(camera.getIP(),
+										camera.getSsid(), "exthttp", externalInt);
+							}
+							else if (choosedPort.equals("RTSP"))
+							{
+								cameraOperation.updateAttributeInt(camera.getIP(),
+										camera.getSsid(), "rtsp", internalInt);
+								cameraOperation.updateAttributeInt(camera.getIP(),
+										camera.getSsid(), "extrtsp", externalInt);
+							}
+							if (choosedPort.equals("HTTPS"))
+							{
+								cameraOperation.updateAttributeInt(camera.getIP(),
+										camera.getSsid(), "https", internalInt);
+								cameraOperation.updateAttributeInt(camera.getIP(),
+										camera.getSsid(), "exthttps", externalInt);
+							}
+							else if (choosedPort.equals("FTP"))
+							{
+								cameraOperation.updateAttributeInt(camera.getIP(),
+										camera.getSsid(), "ftp", internalInt);
+								cameraOperation.updateAttributeInt(camera.getIP(),
+										camera.getSsid(), "extftp", externalInt);
+							}
+							else if (choosedPort.equals("SSH"))
+							{
+								cameraOperation.updateAttributeInt(camera.getIP(),
+										camera.getSsid(), "ssh", internalInt);
+								cameraOperation.updateAttributeInt(camera.getIP(),
+										camera.getSsid(), "extssh", externalInt);
+							}
 
-				});
-		editBuilder.setNegativeButton(R.string.cancel,
-				new DialogInterface.OnClickListener()
-				{
-					@Override
-					public void onClick(DialogInterface dialog, int which)
-					{
-						CameraDetailActivity.closeDialog(dialog);
+							CameraDetailActivity.closeDialog(dialog);
+							setUpPage();
+						}
 					}
-				});
+					else
+					{
+						showPortNotInRange();
+						CameraDetailActivity.keepDialog(dialog);
+					}
+				}
+				catch (NumberFormatException e)
+				{
+					showPortNotInRange();
+					CameraDetailActivity.keepDialog(dialog);
+				}
+			}
+
+		});
+		editBuilder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener(){
+			@Override
+			public void onClick(DialogInterface dialog, int which)
+			{
+				CameraDetailActivity.closeDialog(dialog);
+			}
+		});
 		editBuilder.setTitle("Add Forwarded Port (" + camera.getIP() + ")");
 		editBuilder.setCancelable(false);
 		editBuilder.show();

@@ -36,12 +36,13 @@ public class MainTabActivity extends FragmentActivity
 				.setTabListener(
 						new TabListener<ManuallyForwardingTab>(this, "tabtwo",
 								ManuallyForwardingTab.class)));
-		actionBar.addTab(actionBar
-				.newTab()
-				.setText(R.string.titleUpnpForward)
-				.setTabListener(
-						new TabListener<UpnpForwardingTab>(this, "tabone",
-								UpnpForwardingTab.class)));
+		actionBar
+				.addTab(actionBar
+						.newTab()
+						.setText(R.string.titleUpnpForward)
+						.setTabListener(
+								new TabListener<UpnpForwardingTab>(this, "tabone",
+										UpnpForwardingTab.class)));
 
 	}
 
@@ -58,12 +59,10 @@ public class MainTabActivity extends FragmentActivity
 	@Override
 	public void onSaveInstanceState(Bundle outState)
 	{
-		outState.putInt(STATE_SELECTED_NAVIGATION_ITEM, getActionBar()
-				.getSelectedNavigationIndex());
+		outState.putInt(STATE_SELECTED_NAVIGATION_ITEM, getActionBar().getSelectedNavigationIndex());
 	}
 
-	public class TabListener<T extends Fragment> implements
-			ActionBar.TabListener
+	public class TabListener<T extends Fragment> implements ActionBar.TabListener
 	{
 		private Fragment mFragment;
 		private final Activity mActivity;
@@ -81,8 +80,8 @@ public class MainTabActivity extends FragmentActivity
 		public void onTabSelected(Tab tab, FragmentTransaction ft)
 		{
 			mFragment = Fragment.instantiate(mActivity, mClass.getName());
-			getSupportFragmentManager().beginTransaction()
-					.replace(R.id.containter, mFragment).commit();
+			getSupportFragmentManager().beginTransaction().replace(R.id.containter, mFragment)
+					.commit();
 		}
 
 		@Override

@@ -4,10 +4,6 @@ import io.evercam.EvercamException;
 import io.evercam.User;
 import io.evercam.UserDetail;
 import io.evercam.connect.R;
-import io.evercam.connect.R.id;
-import io.evercam.connect.R.layout;
-import io.evercam.connect.R.string;
-
 import java.util.Locale;
 import java.util.Set;
 import java.util.TreeMap;
@@ -142,7 +138,8 @@ public class SignUpActivity extends Activity
 			emailEdit.setError(getString(R.string.error_field_required));
 			return null;
 		}
-		else if(!email.matches("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]"+")*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$"))
+		else if (!email.matches("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]"
+				+ ")*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$"))
 		{
 			makeShortToast(R.string.invalidEmail);
 			return null;

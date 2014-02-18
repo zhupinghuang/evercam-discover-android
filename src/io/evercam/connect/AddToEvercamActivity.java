@@ -66,15 +66,13 @@ public class AddToEvercamActivity extends Activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_add_to_evercam);
 
-		sharedPrefs = PreferenceManager
-				.getDefaultSharedPreferences(getApplicationContext());
+		sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
 		camera = (Camera) getIntent().getSerializableExtra("camera");
 		initPage();
 		fillPage();
 
-		addBtn.setOnClickListener(new OnClickListener()
-		{
+		addBtn.setOnClickListener(new OnClickListener(){
 
 			@Override
 			public void onClick(View v)
@@ -98,31 +96,26 @@ public class AddToEvercamActivity extends Activity
 			}
 		});
 
-		exthttpEdit.addTextChangedListener(new TextWatcher()
-		{
+		exthttpEdit.addTextChangedListener(new TextWatcher(){
 
 			@Override
 			public void afterTextChanged(Editable arg0)
 			{
-				exthttpEdit.setCompoundDrawablesWithIntrinsicBounds(null, null,
-						null, null);
+				exthttpEdit.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
 			}
 
 			@Override
-			public void beforeTextChanged(CharSequence s, int start, int count,
-					int after)
+			public void beforeTextChanged(CharSequence s, int start, int count, int after)
 			{
 			}
 
 			@Override
-			public void onTextChanged(CharSequence s, int start, int before,
-					int count)
+			public void onTextChanged(CharSequence s, int start, int before, int count)
 			{
 			}
 		});
 
-		exthttpEdit.setOnFocusChangeListener(new OnFocusChangeListener()
-		{
+		exthttpEdit.setOnFocusChangeListener(new OnFocusChangeListener(){
 
 			@Override
 			public void onFocusChange(View v, boolean hasFocus)
@@ -168,8 +161,7 @@ public class AddToEvercamActivity extends Activity
 		{
 			if (camera.getModel().startsWith(camera.getVendor()))
 			{
-				camera.setModel(camera.getModel()
-						.substring(camera.getVendor().length() + 1).trim());
+				camera.setModel(camera.getModel().substring(camera.getVendor().length() + 1).trim());
 			}
 			modelEdit.setText(camera.getModel().toLowerCase());
 		}
@@ -279,15 +271,13 @@ public class AddToEvercamActivity extends Activity
 	private void showTick()
 	{
 		Drawable tick = getResources().getDrawable(R.drawable.tick);
-		exthttpEdit.setCompoundDrawablesWithIntrinsicBounds(null, null, tick,
-				null);
+		exthttpEdit.setCompoundDrawablesWithIntrinsicBounds(null, null, tick, null);
 	}
 
 	private void showCross()
 	{
 		Drawable cross = getResources().getDrawable(R.drawable.cross);
-		exthttpEdit.setCompoundDrawablesWithIntrinsicBounds(null, null, cross,
-				null);
+		exthttpEdit.setCompoundDrawablesWithIntrinsicBounds(null, null, cross, null);
 	}
 
 	private boolean isPassed()
@@ -297,9 +287,8 @@ public class AddToEvercamActivity extends Activity
 		{
 			if (drawable != null)
 			{
-				if (drawable
-						.equals(getResources().getDrawable(R.drawable.tick)))
-					;
+				if (drawable.equals(getResources().getDrawable(R.drawable.tick)))
+				;
 				return true;
 			}
 		}
@@ -310,8 +299,7 @@ public class AddToEvercamActivity extends Activity
 	{
 		Handler handler = new Handler();
 
-		handler.postDelayed(new Runnable()
-		{
+		handler.postDelayed(new Runnable(){
 			@Override
 			public void run()
 			{
@@ -357,10 +345,8 @@ public class AddToEvercamActivity extends Activity
 			if (success)
 			{
 				showShortToast(R.string.Success);
-				CameraOperation cameraOperation = new CameraOperation(
-						AddToEvercamActivity.this);
-				cameraOperation.updateAttributeInt(camera.getIP(),
-						camera.getSsid(), "evercam", 1);
+				CameraOperation cameraOperation = new CameraOperation(AddToEvercamActivity.this);
+				cameraOperation.updateAttributeInt(camera.getIP(), camera.getSsid(), "evercam", 1);
 				AddToEvercamActivity.this.finish();
 			}
 			else
@@ -375,9 +361,9 @@ public class AddToEvercamActivity extends Activity
 			initialDetailObject();
 			try
 			{
-				API.setAuth(SharedPrefsManager.getEvercamUsername(sharedPrefs), SharedPrefsManager.getEvercamPassword(sharedPrefs));
-				io.evercam.Camera camera = io.evercam.Camera
-						.create(cameraDetail);
+				API.setAuth(SharedPrefsManager.getEvercamUsername(sharedPrefs),
+						SharedPrefsManager.getEvercamPassword(sharedPrefs));
+				io.evercam.Camera camera = io.evercam.Camera.create(cameraDetail);
 				if (camera.getId().equals(cameraId))
 				{
 					return true;
@@ -401,19 +387,14 @@ public class AddToEvercamActivity extends Activity
 			CameraBuilder cameraBuilder;
 			try
 			{
-				cameraBuilder = new CameraBuilder(cameraId,
-						cameraName,
-						isPublic,
-						new String[]
-								{ "http://" + externalIp + ":" + exthttp })
-				.setTimeZone(TimeZone.getDefault().getID())
-				.setBasicAuth(cameraUsername, cameraPassword)
-				.setSnapshotJPG(snapshotPath);
+				cameraBuilder = new CameraBuilder(cameraId, cameraName, isPublic,
+						new String[] { "http://" + externalIp + ":" + exthttp })
+						.setTimeZone(TimeZone.getDefault().getID())
+						.setBasicAuth(cameraUsername, cameraPassword).setSnapshotJPG(snapshotPath);
 
 				if (cameraVendor != null)
 				{
-					if (!cameraVendor.equals("Unknown Vendor")
-							&& cameraVendor.length() != 0)
+					if (!cameraVendor.equals("Unknown Vendor") && cameraVendor.length() != 0)
 					{
 						cameraBuilder.setVendor(cameraVendor);
 					}
@@ -440,7 +421,7 @@ public class AddToEvercamActivity extends Activity
 			}
 		}
 	}
-	
+
 	public int random()
 	{
 		Random rand = new Random();

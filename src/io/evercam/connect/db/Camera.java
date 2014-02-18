@@ -35,7 +35,7 @@ public class Camera implements Serializable
 	private String password;
 	private int portForwarded = 0; // 1:yes 0:no
 	private int evercamConnected = 0; // 1:yes 0:no
-	
+
 	private String snapshotJpgUrl = null;
 
 	public Camera(String ip)
@@ -236,14 +236,12 @@ public class Camera implements Serializable
 	@Override
 	public String toString()
 	{
-		return "Camera [id=" + id + ", ip=" + ip + ", mac=" + mac + ", vendor="
-				+ vendor + ",model=" + model + ",bonjour=" + bonjour + ",upnp="
-				+ upnp + ",onvif=" + onvif + ",http=" + http + ",rtsp=" + rtsp
-				+ ",https=" + https + ",ftp=" + ftp + ",ssh=" + ssh
-				+ ",extrtsp=" + extrtsp + ",exthttp=" + exthttp + ",flag="
-				+ flag + ",firstseen=" + firstSeen + ",lastseen=" + lastSeen
-				+ ",username=" + username + ",password=" + password + ",ssid="
-				+ ssid + "]";
+		return "Camera [id=" + id + ", ip=" + ip + ", mac=" + mac + ", vendor=" + vendor
+				+ ",model=" + model + ",bonjour=" + bonjour + ",upnp=" + upnp + ",onvif=" + onvif
+				+ ",http=" + http + ",rtsp=" + rtsp + ",https=" + https + ",ftp=" + ftp + ",ssh="
+				+ ssh + ",extrtsp=" + extrtsp + ",exthttp=" + exthttp + ",flag=" + flag
+				+ ",firstseen=" + firstSeen + ",lastseen=" + lastSeen + ",username=" + username
+				+ ",password=" + password + ",ssid=" + ssid + "]";
 	}
 
 	public int getHttps()
@@ -308,8 +306,7 @@ public class Camera implements Serializable
 
 	public boolean hasInternalPorts()
 	{
-		if (getHttp() != 0 || getRtsp() != 0 || getFtp() != 0 || getSsh() != 0
-				|| getHttps() != 0)
+		if (getHttp() != 0 || getRtsp() != 0 || getFtp() != 0 || getSsh() != 0 || getHttps() != 0)
 		{
 			return true;
 		}
@@ -432,28 +429,28 @@ public class Camera implements Serializable
 		}
 		return false;
 	}
-	
+
 	public boolean hasModel()
 	{
-		if(getModel()!=null && !getModel().equals(""))
-		{
-			return true;
-		}
-			return false;
-	}
-	
-	public boolean hasMac()
-	{
-		if(getMAC()!=null && !getMAC().equals("") && !getMAC().equals(NetInfo.EMPTY_MAC))
+		if (getModel() != null && !getModel().equals(""))
 		{
 			return true;
 		}
 		return false;
 	}
-	
+
+	public boolean hasMac()
+	{
+		if (getMAC() != null && !getMAC().equals("") && !getMAC().equals(NetInfo.EMPTY_MAC))
+		{
+			return true;
+		}
+		return false;
+	}
+
 	public boolean hasVendor()
 	{
-		if(getVendor()!=null && !getVendor().equals(""))
+		if (getVendor() != null && !getVendor().equals(""))
 		{
 			return true;
 		}
@@ -469,10 +466,10 @@ public class Camera implements Serializable
 	{
 		this.snapshotJpgUrl = snapshotJpgUrl;
 	}
-	
+
 	public boolean isEvercam()
 	{
-		if(getEvercamConnected() == 1)
+		if (getEvercamConnected() == 1)
 		{
 			return true;
 		}
@@ -481,16 +478,16 @@ public class Camera implements Serializable
 
 	public boolean hasUsername()
 	{
-		if(getUsername() != null && !getUsername().isEmpty())
+		if (getUsername() != null && !getUsername().isEmpty())
 		{
 			return true;
 		}
 		return false;
 	}
-	
+
 	public boolean hasPassword()
 	{
-		if(getPassword() != null && !getPassword().isEmpty())
+		if (getPassword() != null && !getPassword().isEmpty())
 		{
 			return true;
 		}

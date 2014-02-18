@@ -20,7 +20,7 @@ public class JmdnsDiscover
 
 	JmDNS jmdns;
 	private String axisVideoService = "_axis-video._tcp.local.";
-	//for Axis camera only
+	// for Axis camera only
 	private Camera camera;
 	private ServiceInfo info;
 	private CameraOperation cameraOperation;
@@ -45,12 +45,10 @@ public class JmdnsDiscover
 
 					final String serviceName = e.getName();
 					camera = getCameraFromBonjour(axisVideoService, serviceName);
-					if (cameraOperation.isExisting(camera.getIP(),
-							netInfo.getSsid()))
+					if (cameraOperation.isExisting(camera.getIP(), netInfo.getSsid()))
 					{
 						camera.setLastSeen(DiscoverMainActivity.getSystemTime());
-						cameraOperation.updateBonjourCamera(camera,
-								netInfo.getSsid());
+						cameraOperation.updateBonjourCamera(camera, netInfo.getSsid());
 					}
 					else
 					{
@@ -84,8 +82,7 @@ public class JmdnsDiscover
 		int httpport = info.getPort();
 		String ip = String.valueOf(info.getHostAddress());
 		Camera bonjourCamera = new Camera(ip);
-		for (Enumeration<String> names = info.getPropertyNames(); names
-				.hasMoreElements();)
+		for (Enumeration<String> names = info.getPropertyNames(); names.hasMoreElements();)
 		{
 			String prop = names.nextElement();
 			String mac = info.getPropertyString(prop);

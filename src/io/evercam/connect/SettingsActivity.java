@@ -56,8 +56,8 @@ public class SettingsActivity extends Activity
 
 	private void initFragment()
 	{
-		getFragmentManager().beginTransaction()
-				.replace(android.R.id.content, new PrefsFragement()).commit();
+		getFragmentManager().beginTransaction().replace(android.R.id.content, new PrefsFragement())
+				.commit();
 	}
 
 	public static class PrefsFragement extends PreferenceFragment
@@ -77,113 +77,89 @@ public class SettingsActivity extends Activity
 			addPreferencesFromResource(R.xml.preference_xml);
 
 			netInfo = new NetInfo(getActivity().getApplicationContext());
-			sharedPrefs = PreferenceManager
-					.getDefaultSharedPreferences(getActivity());
+			sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
 
 			setUpAccount();
 			setUpNetworkInterfacePrefs();
 			setNetInfoPrefs();
 			setVersionPrefs();
 
-			interfaceList
-					.setOnPreferenceChangeListener(new OnPreferenceChangeListener()
+			interfaceList.setOnPreferenceChangeListener(new OnPreferenceChangeListener(){
+				@Override
+				public boolean onPreferenceChange(Preference prefs, Object newValue)
+				{
+					interfaceList.setSummary(newValue.toString());
+					return true;
+				}
+			});
+
+			accountPrefs.setOnPreferenceClickListener(new OnPreferenceClickListener(){
+
+				@Override
+				public boolean onPreferenceClick(Preference preference)
+				{
+					if (isSigned)
 					{
-						@Override
-						public boolean onPreferenceChange(Preference prefs,
-								Object newValue)
-						{
-							interfaceList.setSummary(newValue.toString());
-							return true;
-						}
-					});
+						AlertDialog.Builder logoutDialog = new AlertDialog.Builder(getActivity());
+						logoutDialog.setMessage(R.string.signOutAlert);
+						logoutDialog.setNegativeButton(R.string.no, new OnClickListener(){
+							@Override
+							public void onClick(DialogInterface dialog, int which)
+							{
+								return;
+							}
 
-			accountPrefs
-					.setOnPreferenceClickListener(new OnPreferenceClickListener()
+						});
+						logoutDialog.setPositiveButton(R.string.yes, new OnClickListener(){
+							@Override
+							public void onClick(DialogInterface dialog, int which)
+							{
+								SharedPrefsManager.clearAllUserInfo(sharedPrefs);
+								isSigned = false;
+								accountPrefs.setTitle("Not Signed In");
+								accountPrefs.setSummary("Click to sign in with Evercam");
+								return;
+							}
+
+						});
+						logoutDialog.show();
+					}
+					else
 					{
+						Intent intentSignIn = new Intent();
+						intentSignIn.setClass(getActivity(), LoginActivity.class);
+						startActivity(intentSignIn);
+					}
+					return false;
+				}
+			});
 
-						@Override
-						public boolean onPreferenceClick(Preference preference)
-						{
-							if (isSigned)
-							{
-								AlertDialog.Builder logoutDialog = new AlertDialog.Builder(
-										getActivity());
-								logoutDialog.setMessage(R.string.signOutAlert);
-								logoutDialog.setNegativeButton(R.string.no,
-										new OnClickListener()
-										{
-											@Override
-											public void onClick(
-													DialogInterface dialog,
-													int which)
-											{
-												return;
-											}
+			netInfoPrefs.setOnPreferenceClickListener(new OnPreferenceClickListener(){
 
-										});
-								logoutDialog.setPositiveButton(R.string.yes,
-										new OnClickListener()
-										{
-											@Override
-											public void onClick(
-													DialogInterface dialog,
-													int which)
-											{
-												SharedPrefsManager
-														.clearAllUserInfo(sharedPrefs);
-												isSigned = false;
-												accountPrefs
-														.setTitle("Not Signed In");
-												accountPrefs
-														.setSummary("Click to sign in with Evercam");
-												return;
-											}
-
-										});
-								logoutDialog.show();
-							}
-							else
-							{
-								Intent intentSignIn = new Intent();
-								intentSignIn.setClass(getActivity(),
-										LoginActivity.class);
-								startActivity(intentSignIn);
-							}
-							return false;
-						}
-					});
-
-			netInfoPrefs
-					.setOnPreferenceClickListener(new OnPreferenceClickListener()
+				@Override
+				public boolean onPreferenceClick(Preference preference)
+				{
+					if (netInfo.hasActiveNetwork())
 					{
-
-						@Override
-						public boolean onPreferenceClick(Preference preference)
-						{
-							if (netInfo.hasActiveNetwork())
-							{
-								Intent intent = new Intent();
-								intent.setClass(getActivity(),
-										RouterActivity.class);
-								startActivity(intent);
-							}
-							else
-							{
-								showWifiNotConnectDialog();
-							}
-							return true;
-						}
-					});
+						Intent intent = new Intent();
+						intent.setClass(getActivity(), RouterActivity.class);
+						startActivity(intent);
+					}
+					else
+					{
+						showWifiNotConnectDialog();
+					}
+					return true;
+				}
+			});
 		}
 
 		private void setUpAccount()
 		{
-			accountPrefs = getPreferenceManager().findPreference(
-					Constants.KEY_ACCOUNT);
+			accountPrefs = getPreferenceManager().findPreference(Constants.KEY_ACCOUNT);
 			if (SharedPrefsManager.isSignedWithGoogle(sharedPrefs))
 			{
-				String[] googleInfos = SharedPrefsManager
-						.getGoogle(sharedPrefs);
+				String[] googleInfos = SharedPrefsManager.getGoogle(sharedPrefs);
 				String userEmail = googleInfos[0];
 				String userFirstName = googleInfos[1];
 
@@ -194,8 +170,7 @@ public class SettingsActivity extends Activity
 			else if (SharedPrefsManager.isSignedWithEvercam(sharedPrefs))
 			{
 				isSigned = true;
-				String username = SharedPrefsManager
-						.getEvercamUsername(sharedPrefs);
+				String username = SharedPrefsManager.getEvercamUsername(sharedPrefs);
 				accountPrefs.setTitle(username);
 				accountPrefs.setSummary("Signed with Evercam");
 			}
@@ -204,12 +179,11 @@ public class SettingsActivity extends Activity
 
 		private void setUpNetworkInterfacePrefs()
 		{
-			ArrayList<String> interfaceNameArrayList = NetworkInfo
-					.getNetworkInterfaceNames();
+			ArrayList<String> interfaceNameArrayList = NetworkInfo.getNetworkInterfaceNames();
 			CharSequence[] charInterfaceNames = interfaceNameArrayList
 					.toArray(new CharSequence[interfaceNameArrayList.size()]);
-			interfaceList = (ListPreference) getPreferenceManager()
-					.findPreference(Constants.KEY_NETWORK_INTERFACE);
+			interfaceList = (ListPreference) getPreferenceManager().findPreference(
+					Constants.KEY_NETWORK_INTERFACE);
 			interfaceList.setEntries(charInterfaceNames);
 			interfaceList.setEntryValues(charInterfaceNames);
 
@@ -229,36 +203,30 @@ public class SettingsActivity extends Activity
 
 		private void setNetInfoPrefs()
 		{
-			netInfoPrefs = getPreferenceManager().findPreference(
-					Constants.KEY_NETWORK_INFO);
+			netInfoPrefs = getPreferenceManager().findPreference(Constants.KEY_NETWORK_INFO);
 		}
 
 		private void setVersionPrefs()
 		{
-			Preference netInfoPrefs = getPreferenceManager().findPreference(
-					Constants.KEY_VERSION);
+			Preference netInfoPrefs = getPreferenceManager().findPreference(Constants.KEY_VERSION);
 			netInfoPrefs.setSummary(getVersion());
 		}
 
 		private void showWifiNotConnectDialog()
 		{
-			AlertDialog.Builder connectDialogBuilder = new AlertDialog.Builder(
-					getActivity());
+			AlertDialog.Builder connectDialogBuilder = new AlertDialog.Builder(getActivity());
 			connectDialogBuilder.setMessage(R.string.dialogMsgMustConnect);
 
 			connectDialogBuilder.setPositiveButton(R.string.wifiSettings,
-					new DialogInterface.OnClickListener()
-					{
+					new DialogInterface.OnClickListener(){
 						@Override
 						public void onClick(DialogInterface dialog, int which)
 						{
-							startActivity(new Intent(
-									Settings.ACTION_WIFI_SETTINGS));
+							startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
 						}
 					});
 			connectDialogBuilder.setNegativeButton(R.string.notNow,
-					new DialogInterface.OnClickListener()
-					{
+					new DialogInterface.OnClickListener(){
 						@Override
 						public void onClick(DialogInterface dialog, int which)
 						{
@@ -275,8 +243,7 @@ public class SettingsActivity extends Activity
 			try
 			{
 				PackageManager manager = getActivity().getPackageManager();
-				PackageInfo info = manager.getPackageInfo(getActivity()
-						.getPackageName(), 0);
+				PackageInfo info = manager.getPackageInfo(getActivity().getPackageName(), 0);
 				String version = info.versionName;
 				return version;
 			}

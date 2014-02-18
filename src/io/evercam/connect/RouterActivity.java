@@ -57,15 +57,14 @@ public class RouterActivity extends Activity
 		if (!netInfo.getGatewayIp().equals(NetInfo.EMPTY_IP))
 		{
 			router_ip.setText(netInfo.getGatewayIp());
-			router_mac.setText(NetInfo.getHardwareAddress(
-					netInfo.getGatewayIp()).toUpperCase(Locale.UK));
+			router_mac.setText(NetInfo.getHardwareAddress(netInfo.getGatewayIp()).toUpperCase(
+					Locale.UK));
 		}
 
 		displayExternalIP();
 
 		router_netmask.setText(netInfo.getNetmaskIp());
-		Camera camera = cameraOperation.getCamera(netInfo.getGatewayIp(),
-				netInfo.getSsid());
+		Camera camera = cameraOperation.getCamera(netInfo.getGatewayIp(), netInfo.getSsid());
 
 		// show model if exists
 		if (camera.getModel() != null && camera.getModel() != "")
@@ -84,16 +83,14 @@ public class RouterActivity extends Activity
 			router_upnp.setText(R.string.disabled);
 		}
 
-		device_title.setText(this.getResources().getString(
-				R.string.networkInterface)
+		device_title.setText(this.getResources().getString(R.string.networkInterface)
 				+ netInfo.getInterfaceName());
 
 		device_ip.setText(netInfo.getLocalIp());
 		device_mac.setText(netInfo.getMacAddress().toUpperCase(Locale.UK));
 
 		Button b = (Button) findViewById(R.id.button_routerweb);
-		b.setOnClickListener(new OnClickListener()
-		{
+		b.setOnClickListener(new OnClickListener(){
 
 			@Override
 			public void onClick(View arg0)
@@ -109,8 +106,7 @@ public class RouterActivity extends Activity
 				}
 				else
 				{
-					Toast.makeText(ctxt, "Router is not avaliable.",
-							Toast.LENGTH_SHORT).show();
+					Toast.makeText(ctxt, "Router is not avaliable.", Toast.LENGTH_SHORT).show();
 				}
 			}
 		});
@@ -118,8 +114,7 @@ public class RouterActivity extends Activity
 
 	private void displayExternalIP()
 	{
-		handler.postDelayed(new Runnable()
-		{
+		handler.postDelayed(new Runnable(){
 
 			@Override
 			public void run()
