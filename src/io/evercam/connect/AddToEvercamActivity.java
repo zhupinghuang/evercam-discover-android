@@ -4,6 +4,7 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 import io.evercam.API;
+import io.evercam.CameraBuilder;
 import io.evercam.CameraDetail;
 import io.evercam.EvercamException;
 import io.evercam.connect.db.Camera;
@@ -336,8 +337,8 @@ public class AddToEvercamActivity extends Activity
 
 	private class CreateCameraTask extends AsyncTask<Void, Void, Boolean>
 	{
-		CameraDetail cameraDetail = new CameraDetail();
-		String errorMsg = "Failed!";
+		CameraDetail cameraDetail;
+		String errorMsg = "Error, please try again later.";
 
 		@Override
 		protected void onPreExecute()
@@ -397,36 +398,46 @@ public class AddToEvercamActivity extends Activity
 			{
 				externalIp = NetInfo.getExternalIP();
 			}
-			String timezoneID = TimeZone.getDefault().getID();
-			cameraDetail.setId(cameraId);
-			cameraDetail.setName(cameraName);
-			cameraDetail.setBasicAuth(cameraUsername, cameraPassword);
-			cameraDetail.setSnapshotJPG(snapshotPath);
-			cameraDetail.setPublic(isPublic);
-			cameraDetail.setEndpoints(new String[]
-			{ "http://" + externalIp + ":" + exthttp });
-			cameraDetail.setTimezone(timezoneID);
-			if (cameraVendor != null)
+
+			CameraBuilder cameraBuilder;
+			try
 			{
-				if (!cameraVendor.equals("Unknown Vendor")
-						&& cameraVendor.length() != 0)
+				cameraBuilder = new CameraBuilder(cameraId,
+						cameraName,
+						isPublic,
+						new String[]
+								{ "http://" + externalIp + ":" + exthttp })
+				.setTimeZone(TimeZone.getDefault().getID())
+				.setBasicAuth(cameraUsername, cameraPassword)
+				.setSnapshotJPG(snapshotPath);
+
+				if (cameraVendor != null)
 				{
-					cameraDetail.setVendor(cameraVendor);
+					if (!cameraVendor.equals("Unknown Vendor")
+							&& cameraVendor.length() != 0)
+					{
+						cameraBuilder.setVendor(cameraVendor);
+					}
 				}
+				if (cameraModel != null)
+				{
+					if (cameraModel.length() != 0)
+					{
+						cameraBuilder.setModel(cameraModel);
+					}
+				}
+				if (cameraMac != null)
+				{
+					if (cameraMac.length() != 0)
+					{
+						cameraBuilder.setMacAddress(cameraMac);
+					}
+				}
+				cameraDetail = cameraBuilder.build();
 			}
-			if (cameraModel != null)
+			catch (EvercamException e)
 			{
-				if (cameraModel.length() != 0)
-				{
-					cameraDetail.setModel(cameraModel);
-				}
-			}
-			if (cameraMac != null)
-			{
-				if (cameraMac.length() != 0)
-				{
-					cameraDetail.setMacAddress(cameraMac);
-				}
+				e.printStackTrace();
 			}
 		}
 	}
