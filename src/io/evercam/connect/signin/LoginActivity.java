@@ -298,14 +298,14 @@ public class LoginActivity extends Activity
 			try
 			{
 				HttpResponse<JsonNode> response = Unirest
-						.post(API.URL + "cameras")
+						.get(API.URL + "users/"+username)
 						.header("accept", "application/json")
 						.basicAuth(username, password).asJson();
 				if (response.getCode() == 401)
 				{
 					return false;
 				}
-				else
+				else if (response.getCode() == 200)
 				{
 					return true;
 				}
@@ -314,7 +314,7 @@ public class LoginActivity extends Activity
 			{
 				e.printStackTrace();
 			}
-			return true;
+			return false;
 		}
 
 		@Override
