@@ -194,9 +194,8 @@ public class SettingsActivity extends Activity
 			else if (SharedPrefsManager.isSignedWithEvercam(sharedPrefs))
 			{
 				isSigned = true;
-				String[] evercamInfos = SharedPrefsManager
-						.getEvercam(sharedPrefs);
-				String username = evercamInfos[0];
+				String username = SharedPrefsManager
+						.getEvercamUsername(sharedPrefs);
 				accountPrefs.setTitle(username);
 				accountPrefs.setSummary("Signed with Evercam");
 			}

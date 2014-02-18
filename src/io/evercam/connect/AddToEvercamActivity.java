@@ -1,6 +1,7 @@
 package io.evercam.connect;
 
 import java.util.Locale;
+import java.util.Random;
 import java.util.TimeZone;
 
 import io.evercam.API;
@@ -176,8 +177,7 @@ public class AddToEvercamActivity extends Activity
 		{
 			vendorEdit.setText(camera.getVendor().toLowerCase());
 		}
-		String[] evercamAccount = SharedPrefsManager.getEvercam(sharedPrefs);
-		idEdit.setText(evercamAccount[0] + camera.getMAC());
+		idEdit.setText(SharedPrefsManager.getEvercamUsername(sharedPrefs) + random());
 		nameEdit.setText(R.string.myCamera);
 	}
 
@@ -375,8 +375,7 @@ public class AddToEvercamActivity extends Activity
 			initialDetailObject();
 			try
 			{
-				String[] account = SharedPrefsManager.getEvercam(sharedPrefs);
-				API.setAuth(account[0], account[1]);
+				API.setAuth(SharedPrefsManager.getEvercamUsername(sharedPrefs), SharedPrefsManager.getEvercamPassword(sharedPrefs));
 				io.evercam.Camera camera = io.evercam.Camera
 						.create(cameraDetail);
 				if (camera.getId().equals(cameraId))
@@ -440,5 +439,11 @@ public class AddToEvercamActivity extends Activity
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	public int random()
+	{
+		Random rand = new Random();
+		return rand.nextInt(100001);
 	}
 }

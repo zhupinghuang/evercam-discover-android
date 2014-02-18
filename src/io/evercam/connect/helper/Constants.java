@@ -42,6 +42,10 @@ public final class Constants
 
 	public static final String EVERCAM_USERNAME = "EvercamUserName";
 	public static final String EVERCAM_PASSWORD = "EvercamPassword";
+	public static final String EVERCAM_FORENAME = "EvercamForename";
+	public static final String EVERCAM_LASTNAME = "EvercamLastname";
+	public static final String EVERCAM_COUNTRY = "EvercamCountry";	
+	public static final String EVERCAM_EMAIL = "EvercamEmail";	
 
 	// Property keys
 	public static final String PROPERTY_KEY_BUG_SENSE = "BugSenseCode";

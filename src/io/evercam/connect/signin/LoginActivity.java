@@ -1,10 +1,9 @@
 package io.evercam.connect.signin;
 
 import io.evercam.API;
+import io.evercam.EvercamException;
+import io.evercam.User;
 import io.evercam.connect.R;
-import io.evercam.connect.R.id;
-import io.evercam.connect.R.layout;
-import io.evercam.connect.R.string;
 import io.evercam.connect.helper.Constants;
 import io.evercam.connect.helper.SharedPrefsManager;
 
@@ -45,7 +44,6 @@ import android.widget.Toast;
 
 public class LoginActivity extends Activity
 {
-
 	protected ProgressDialog mConnectionProgressDialog;
 	protected PlusClient mPlusClient;
 	protected ConnectionResult mConnectionResult;
@@ -325,8 +323,18 @@ public class LoginActivity extends Activity
 
 			if (success)
 			{
-				SharedPrefsManager.saveEvercamCredential(sharedPrefs, username,
-						password);
+				API.setAuth(username, password);
+				
+				try
+				{
+					User user = new User(username);
+					SharedPrefsManager.saveEvercamCredential(sharedPrefs, user,
+							password);
+				}
+				catch (EvercamException e)
+				{
+					e.printStackTrace();
+				}
 				Toast toast = Toast.makeText(getApplicationContext(),
 						"Success", Toast.LENGTH_SHORT);
 				toast.show();
