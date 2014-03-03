@@ -162,8 +162,8 @@
     <string name="title_activity_add_to_evercam">Complete Camera Details</string>
     
     <!-- Add to Evercam -->
-    <string name="cameraId:">Camera ID:</string>
-    <string name="cameraName:">Name:</string>
+    <string name="cameraId:">Evercam ID:</string>
+    <string name="cameraName:">Friendly Name:</string>
     <string name="snapshotJpgPath:">Snapshot Path:</string>
     <string name="isPublic">Is Public?</string>
     <string name="Public">Public</string>

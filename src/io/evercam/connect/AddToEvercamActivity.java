@@ -8,6 +8,8 @@ import io.evercam.API;
 import io.evercam.CameraBuilder;
 import io.evercam.CameraDetail;
 import io.evercam.EvercamException;
+import io.evercam.Model;
+import io.evercam.Vendor;
 import io.evercam.connect.db.Camera;
 import io.evercam.connect.db.CameraOperation;
 import io.evercam.connect.helper.SharedPrefsManager;
@@ -29,6 +31,7 @@ import android.widget.Toast;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 
 public class AddToEvercamActivity extends Activity
@@ -157,6 +160,8 @@ public class AddToEvercamActivity extends Activity
 		usernameEdit.setText(camera.getUsername());
 		passwordEdit.setText(camera.getPassword());
 		macEdit.setText(camera.getMAC().toLowerCase(Locale.UK));
+		macEdit.setEnabled(false);
+		macEdit.setTextColor(Color.parseColor("#808080"));
 		if (camera.hasModel())
 		{
 			if (camera.getModel().startsWith(camera.getVendor()))
@@ -168,6 +173,8 @@ public class AddToEvercamActivity extends Activity
 		if (camera.hasVendor())
 		{
 			vendorEdit.setText(camera.getVendor().toLowerCase());
+			vendorEdit.setEnabled(false);
+			vendorEdit.setTextColor(Color.parseColor("#808080"));
 		}
 		idEdit.setText(SharedPrefsManager.getEvercamUsername(sharedPrefs) + random());
 		nameEdit.setText(R.string.myCamera);
@@ -382,6 +389,16 @@ public class AddToEvercamActivity extends Activity
 			while (externalIp == null)
 			{
 				externalIp = NetInfo.getExternalIP();
+			}
+			
+			try
+			{
+				Model model = Vendor.getById(cameraVendor).getModel(cameraModel);
+				cameraModel = model.getName();
+			}
+			catch (EvercamException e1)
+			{
+				errorMsg = e1.getMessage();
 			}
 
 			CameraBuilder cameraBuilder;
