@@ -13,7 +13,7 @@ public final class Constants
 	public static final String VENDOR_TPLINK = "TPLINK";
 	public static final String VENDOR_PANASONIC = "PANASONIC";
 
-	public static final String URL_GET_EXTERNAL_ADDR = "http://api.externalip.net/ip";
+	public static final String URL_GET_EXTERNAL_ADDR = "http://ipinfo.io/ip";
 
 	// device types
 	public static final int TYPE_CAMERA = 1;
