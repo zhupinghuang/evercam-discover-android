@@ -8,6 +8,7 @@ import io.evercam.connect.helper.AwsS3Uploader;
 import io.evercam.connect.helper.Constants;
 import io.evercam.connect.helper.JsonMessage;
 import io.evercam.connect.helper.PropertyReader;
+import io.evercam.connect.helper.SharedPrefsManager;
 import io.evercam.connect.net.NetInfo;
 import io.evercam.network.ipscan.IpScan;
 import io.evercam.network.ipscan.ScanRange;
@@ -160,14 +161,18 @@ public class IpScanTask extends AsyncTask<Void, Host, Void>
 		NetInfo netInfo = new NetInfo(mainDiscover.get().getApplicationContext());
 		sharedPrefs = PreferenceManager.getDefaultSharedPreferences(mainDiscover.get()
 				.getApplicationContext());
-		String userFirstName = "";
-		String userLastName = "";
+		String userName = "";
 		String userEmail = "";
-		if (sharedPrefs.getString(Constants.KEY_USER_EMAIL, null) != null)
+		String userCountry = "";
+		if(SharedPrefsManager.isSignedWithEvercam(sharedPrefs))
+		{
+			userEmail = SharedPrefsManager.getEvercamEmail(sharedPrefs);
+			userName = SharedPrefsManager.getEvercamName(sharedPrefs);	
+		}
+		else if (sharedPrefs.getString(Constants.KEY_USER_EMAIL, null) != null)
 		{
 			userEmail = sharedPrefs.getString(Constants.KEY_USER_EMAIL, null);
-			userFirstName = sharedPrefs.getString(Constants.KEY_USER_FIRST_NAME, null);
-			userLastName = sharedPrefs.getString(Constants.KEY_USER_LAST_NAME, null);
+			userName = sharedPrefs.getString(Constants.KEY_USER_FIRST_NAME, null) + sharedPrefs.getString(Constants.KEY_USER_LAST_NAME, null);
 		}
 
 		CameraOperation cameraOperation = new CameraOperation(mainDiscover.get()
@@ -175,8 +180,7 @@ public class IpScanTask extends AsyncTask<Void, Host, Void>
 		ArrayList<Camera> list = cameraOperation.selectAllIP(netInfo.getSsid());
 
 		JsonMessage jsonMessage = new JsonMessage();
-		String uploadContent = jsonMessage.getAllDataJsonMsg(list, userFirstName + " "
-				+ userLastName, userEmail, netInfo);
+		String uploadContent = jsonMessage.getAllDataJsonMsg(list, userName, userEmail, netInfo);
 
 		Date date = new Date(System.currentTimeMillis());
 		String uploadTitle = userEmail + " " + date;
