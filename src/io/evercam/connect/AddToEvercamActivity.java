@@ -156,9 +156,9 @@ public class AddToEvercamActivity extends Activity
 			portCheck(camera.getExthttp());
 			exthttpEdit.setText(String.valueOf(camera.getExthttp()));
 		}
-		if(camera.hasJpgURL())
+		if (camera.hasJpgURL())
 		{
-		snapshotEdit.setText(camera.getJpg());
+			snapshotEdit.setText(camera.getJpg());
 		}
 		usernameEdit.setText(camera.getUsername());
 		passwordEdit.setText(camera.getPassword());
@@ -393,7 +393,7 @@ public class AddToEvercamActivity extends Activity
 			{
 				externalIp = NetInfo.getExternalIP();
 			}
-			
+
 			try
 			{
 				Model model = Vendor.getById(cameraVendor).getModel(cameraModel);

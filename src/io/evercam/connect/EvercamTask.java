@@ -29,7 +29,7 @@ public class EvercamTask extends AsyncTask<Void, Void, Void>
 
 	@Override
 	protected Void doInBackground(Void... arg0)
-	{	
+	{
 		Vendor vendor = null;
 		try
 		{
@@ -39,19 +39,19 @@ public class EvercamTask extends AsyncTask<Void, Void, Void>
 		{
 			Log.e("evercamconnect", e.getMessage());
 		}
-		if(vendor != null)
+		if (vendor != null)
 		{
-			if(!camera.hasUsername())
+			if (!camera.hasUsername())
 			{
 				fillDefaultAuth(vendor);
 			}
-			
+
 			fillDefaultURL(vendor);
 		}
-		
+
 		return null;
 	}
-	
+
 	private void fillDefaultAuth(Vendor vendor)
 	{
 		try
@@ -75,16 +75,15 @@ public class EvercamTask extends AsyncTask<Void, Void, Void>
 		{
 			jpgURL = vendor.getModel("*").getDefaults().getJpgURL();
 			streamURL = vendor.getModel("*").getDefaults().getH264URL();
-			if(!jpgURL.startsWith("/"))
+			if (!jpgURL.startsWith("/"))
 			{
 				jpgURL = "/" + jpgURL;
 			}
-			if(!streamURL.startsWith("/"))
+			if (!streamURL.startsWith("/"))
 			{
 				streamURL = "/" + streamURL;
 			}
-			cameraOperation.updateAttributeString(camera.getIP(), camera.getSsid(), "jpg",
-					jpgURL);
+			cameraOperation.updateAttributeString(camera.getIP(), camera.getSsid(), "jpg", jpgURL);
 			cameraOperation.updateAttributeString(camera.getIP(), camera.getSsid(), "h264",
 					streamURL);
 		}
@@ -93,7 +92,7 @@ public class EvercamTask extends AsyncTask<Void, Void, Void>
 			Log.e("evercamconnect", e.getMessage());
 		}
 	}
-	
+
 	public static String getUsername(String vendorId)
 	{
 		try

@@ -240,8 +240,7 @@ public class Camera implements Serializable
 				+ ",http=" + http + ",rtsp=" + rtsp + ",https=" + https + ",ftp=" + ftp + ",ssh="
 				+ ssh + ",extrtsp=" + extrtsp + ",exthttp=" + exthttp + ",flag=" + flag
 				+ ",firstseen=" + firstSeen + ",lastseen=" + lastSeen + ",username=" + username
-				+ ",password=" + password + ",jpg=" + jpg
-				+ ",h264=" + h264 + ",ssid=" + ssid + "]";
+				+ ",password=" + password + ",jpg=" + jpg + ",h264=" + h264 + ",ssid=" + ssid + "]";
 	}
 
 	public int getHttps()
@@ -503,7 +502,7 @@ public class Camera implements Serializable
 		}
 		return false;
 	}
-	
+
 	public boolean hasJpgURL()
 	{
 		if (getJpg() != null && !getJpg().isEmpty())
@@ -512,7 +511,7 @@ public class Camera implements Serializable
 		}
 		return false;
 	}
-	
+
 	public boolean hasH264URL()
 	{
 		if (getH264() != null && !getH264().isEmpty())

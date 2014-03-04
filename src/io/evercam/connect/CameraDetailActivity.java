@@ -126,17 +126,17 @@ public class CameraDetailActivity extends Activity
 			@Override
 			public void onClick(View arg0)
 			{
-				if(camera.hasH264URL())
+				if (camera.hasH264URL())
 				{
 					if (ssid.equals("sample"))
 					{
-						rtspURL = "rtsp://" + camera.getUsername() + ":" + camera.getPassword() + "@"
-							+ ipstring + ":" + camera.getExtrtsp() + camera.getH264();
+						rtspURL = "rtsp://" + camera.getUsername() + ":" + camera.getPassword()
+								+ "@" + ipstring + ":" + camera.getExtrtsp() + camera.getH264();
 					}
 					else
 					{
-						rtspURL = "rtsp://" + camera.getUsername() + ":" + camera.getPassword() + "@"
-								+ ipstring + ":" + camera.getRtsp() + camera.getH264();
+						rtspURL = "rtsp://" + camera.getUsername() + ":" + camera.getPassword()
+								+ "@" + ipstring + ":" + camera.getRtsp() + camera.getH264();
 					}
 				}
 				else
@@ -667,14 +667,14 @@ public class CameraDetailActivity extends Activity
 
 	public String getSnapshotURL()
 	{
-		if(camera.hasJpgURL())
+		if (camera.hasJpgURL())
 		{
 			return "http://" + this.ipstring + ":" + camera.getHttp() + camera.getJpg();
 		}
 		else
 		{
 			return null;
-		}	
+		}
 	}
 
 	private void showSetAsCameraDialog()

@@ -30,7 +30,7 @@ public class GetAllCameraTask extends AsyncTask<Void, HashMap<String, Object>, A
 		this.ctxt = discoverMainActivity.getApplicationContext();
 		readAuth();
 	}
-	
+
 	@Override
 	protected ArrayList<Camera> doInBackground(Void... params)
 	{
@@ -46,7 +46,7 @@ public class GetAllCameraTask extends AsyncTask<Void, HashMap<String, Object>, A
 		}
 		return cameras;
 	}
-	
+
 	private void readAuth()
 	{
 		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(ctxt);

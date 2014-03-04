@@ -164,15 +164,16 @@ public class IpScanTask extends AsyncTask<Void, Host, Void>
 		String userName = "";
 		String userEmail = "";
 		String userCountry = "";
-		if(SharedPrefsManager.isSignedWithEvercam(sharedPrefs))
+		if (SharedPrefsManager.isSignedWithEvercam(sharedPrefs))
 		{
 			userEmail = SharedPrefsManager.getEvercamEmail(sharedPrefs);
-			userName = SharedPrefsManager.getEvercamName(sharedPrefs);	
+			userName = SharedPrefsManager.getEvercamName(sharedPrefs);
 		}
 		else if (sharedPrefs.getString(Constants.KEY_USER_EMAIL, null) != null)
 		{
 			userEmail = sharedPrefs.getString(Constants.KEY_USER_EMAIL, null);
-			userName = sharedPrefs.getString(Constants.KEY_USER_FIRST_NAME, null) + sharedPrefs.getString(Constants.KEY_USER_LAST_NAME, null);
+			userName = sharedPrefs.getString(Constants.KEY_USER_FIRST_NAME, null)
+					+ sharedPrefs.getString(Constants.KEY_USER_LAST_NAME, null);
 		}
 
 		CameraOperation cameraOperation = new CameraOperation(mainDiscover.get()

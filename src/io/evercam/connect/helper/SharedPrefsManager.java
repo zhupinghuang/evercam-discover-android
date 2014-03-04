@@ -80,17 +80,18 @@ public class SharedPrefsManager
 	{
 		return sharedPrefs.getString(Constants.EVERCAM_USERNAME, null);
 	}
-	
+
 	public static String getEvercamEmail(SharedPreferences sharedPrefs)
 	{
 		return sharedPrefs.getString(Constants.EVERCAM_EMAIL, null);
 	}
-	
+
 	public static String getEvercamName(SharedPreferences sharedPrefs)
 	{
-		return sharedPrefs.getString(Constants.EVERCAM_FORENAME, null) + " " + sharedPrefs.getString(Constants.EVERCAM_LASTNAME, null);
+		return sharedPrefs.getString(Constants.EVERCAM_FORENAME, null) + " "
+				+ sharedPrefs.getString(Constants.EVERCAM_LASTNAME, null);
 	}
-	
+
 	public static String getEvercamCountry(SharedPreferences sharedPrefs)
 	{
 		return sharedPrefs.getString(Constants.EVERCAM_COUNTRY, null);

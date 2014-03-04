@@ -422,12 +422,12 @@ public class DiscoverMainActivity extends Activity
 
 	public void startDiscovery()
 	{
-		if(SharedPrefsManager.isSignedWithEvercam(sharedPrefs))
+		if (SharedPrefsManager.isSignedWithEvercam(sharedPrefs))
 		{
-		GetAllCameraTask getAllCameraTask = new GetAllCameraTask(DiscoverMainActivity.this);
-		getAllCameraTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+			GetAllCameraTask getAllCameraTask = new GetAllCameraTask(DiscoverMainActivity.this);
+			getAllCameraTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 		}
-		
+
 		cancelTasks();
 		scanRange = new ScanRange(netInfo.getLocalIp(), IpTranslator.cidrToMask(netInfo.getCidr()));
 		ipScanTask = new IpScanTask(DiscoverMainActivity.this, scanRange);
@@ -469,7 +469,8 @@ public class DiscoverMainActivity extends Activity
 				}
 
 				new EvercamPortScan(camera.getIP(), netInfo.getSsid(), ctxt);
-//				camera = cameraOperation.getCamera(camera.getIP(), netInfo.getSsid());
+				// camera = cameraOperation.getCamera(camera.getIP(),
+				// netInfo.getSsid());
 				addToDeviceList(camera);
 			}
 			// not a camera, but record device info
@@ -490,7 +491,8 @@ public class DiscoverMainActivity extends Activity
 				{
 					cameraOperation.insertScanCamera(camera, netInfo.getSsid());
 				}
-	//			camera = cameraOperation.getCamera(camera.getIP(), netInfo.getSsid());
+				// camera = cameraOperation.getCamera(camera.getIP(),
+				// netInfo.getSsid());
 				addToDeviceList(camera);
 			}
 
@@ -854,19 +856,20 @@ public class DiscoverMainActivity extends Activity
 				}).create();
 		alertMsg.show();
 	}
-	
+
 	private void checkIsEvercam(Camera camera)
 	{
 		boolean isEvercam = false;
-		if(evercamCameraList != null)
+		if (evercamCameraList != null)
 		{
 			for (io.evercam.Camera evercamCamera : evercamCameraList)
 			{
 				try
 				{
-					if(camera.getMAC().equalsIgnoreCase(evercamCamera.getMacAddress()))
+					if (camera.getMAC().equalsIgnoreCase(evercamCamera.getMacAddress()))
 					{
-						cameraOperation.updateAttributeInt(camera.getIP(), camera.getSsid(), "evercam", 1);		
+						cameraOperation.updateAttributeInt(camera.getIP(), camera.getSsid(),
+								"evercam", 1);
 						isEvercam = true;
 					}
 				}
@@ -875,11 +878,11 @@ public class DiscoverMainActivity extends Activity
 					e.printStackTrace();
 				}
 			}
-			if(!isEvercam)
+			if (!isEvercam)
 			{
-				cameraOperation.updateAttributeInt(camera.getIP(), camera.getSsid(), "evercam", 0);	
+				cameraOperation.updateAttributeInt(camera.getIP(), camera.getSsid(), "evercam", 0);
 			}
 		}
 	}
-	
+
 }
