@@ -1,5 +1,6 @@
 package io.evercam.connect;
 
+import io.evercam.EvercamException;
 import io.evercam.connect.db.Camera;
 import io.evercam.connect.db.CameraOperation;
 import io.evercam.connect.discover.bonjour.JmdnsDiscover;
@@ -38,7 +39,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.StrictMode;
@@ -77,6 +77,7 @@ public class DiscoverMainActivity extends Activity
 	private ProgressBar progressbar;
 	private IpScanTask ipScanTask = null;
 	private ArrayList<Camera> cameraList;
+	public ArrayList<io.evercam.Camera> evercamCameraList;
 	private CameraOperation cameraOperation;
 	private Camera camera;
 	private MenuItem menuRefresh;
@@ -305,14 +306,8 @@ public class DiscoverMainActivity extends Activity
 
 			// upnp
 			upnpDiscoveryTask = new UpnpDiscoveryTask(ctxt);
-			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
-			{
-				upnpDiscoveryTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-			}
-			else
-			{
-				upnpDiscoveryTask.execute();
-			}
+			upnpDiscoveryTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
 		}
 	}
 
@@ -426,9 +421,14 @@ public class DiscoverMainActivity extends Activity
 		return false;
 	}
 
-	// start ip scan
 	public void startDiscovery()
 	{
+		if(SharedPrefsManager.isSignedWithEvercam(sharedPrefs))
+		{
+		GetAllCameraTask getAllCameraTask = new GetAllCameraTask(DiscoverMainActivity.this);
+		getAllCameraTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+		}
+		
 		cancelTasks();
 		scanRange = new ScanRange(netInfo.getLocalIp(), IpTranslator.cidrToMask(netInfo.getCidr()));
 		ipScanTask = new IpScanTask(DiscoverMainActivity.this, scanRange);
@@ -437,7 +437,6 @@ public class DiscoverMainActivity extends Activity
 		showProgress(true);
 
 		deviceArraylist.clear();
-
 	}
 
 	public void stopDiscovery()
@@ -471,7 +470,7 @@ public class DiscoverMainActivity extends Activity
 				}
 
 				new EvercamPortScan(camera.getIP(), netInfo.getSsid(), ctxt);
-				camera = cameraOperation.getCamera(camera.getIP(), netInfo.getSsid());
+//				camera = cameraOperation.getCamera(camera.getIP(), netInfo.getSsid());
 				addToDeviceList(camera);
 			}
 			// not a camera, but record device info
@@ -492,7 +491,7 @@ public class DiscoverMainActivity extends Activity
 				{
 					cameraOperation.insertScanCamera(camera, netInfo.getSsid());
 				}
-				camera = cameraOperation.getCamera(camera.getIP(), netInfo.getSsid());
+	//			camera = cameraOperation.getCamera(camera.getIP(), netInfo.getSsid());
 				addToDeviceList(camera);
 			}
 
@@ -555,6 +554,8 @@ public class DiscoverMainActivity extends Activity
 	// display Camera object in listView
 	private void addToDeviceList(Camera camera)
 	{
+		checkIsEvercam(camera);
+		camera = cameraOperation.getCamera(camera.getIP(), netInfo.getSsid());
 		String listIP = camera.getIP();
 		String listMAC = camera.getMAC().toUpperCase();
 		String listVendor = camera.getVendor();
@@ -854,4 +855,32 @@ public class DiscoverMainActivity extends Activity
 				}).create();
 		alertMsg.show();
 	}
+	
+	private void checkIsEvercam(Camera camera)
+	{
+		boolean isEvercam = false;
+		if(evercamCameraList != null)
+		{
+			for (io.evercam.Camera evercamCamera : evercamCameraList)
+			{
+				try
+				{
+					if(camera.getMAC().equalsIgnoreCase(evercamCamera.getMacAddress()))
+					{
+						cameraOperation.updateAttributeInt(camera.getIP(), camera.getSsid(), "evercam", 1);		
+						isEvercam = true;
+					}
+				}
+				catch (EvercamException e)
+				{
+					e.printStackTrace();
+				}
+			}
+			if(!isEvercam)
+			{
+				cameraOperation.updateAttributeInt(camera.getIP(), camera.getSsid(), "evercam", 0);	
+			}
+		}
+	}
+	
 }
