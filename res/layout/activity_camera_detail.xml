@@ -88,8 +88,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="25sp"
-            android:orientation="horizontal"
-            android:visibility="gone" >
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/model_detail"
@@ -162,8 +161,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="25sp"
-            android:orientation="horizontal"
-            android:visibility="gone" >
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/upnp_detail"
@@ -212,8 +210,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="25sp"
-            android:orientation="horizontal"
-            android:visibility="gone" >
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/http_detail"
@@ -237,8 +234,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="25sp"
-            android:orientation="horizontal"
-            android:visibility="gone" >
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/rtsp_detail"

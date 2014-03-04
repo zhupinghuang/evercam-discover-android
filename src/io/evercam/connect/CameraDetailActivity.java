@@ -340,12 +340,8 @@ public class CameraDetailActivity extends Activity
 		TextView extrtsp = (TextView) findViewById(R.id.extrtspvalue_detail);
 		TextView firstseen = (TextView) findViewById(R.id.firstseenvalue_detail);
 		TextView lastseen = (TextView) findViewById(R.id.lastseenvalue_detail);
-		LinearLayout model_layout = (LinearLayout) findViewById(R.id.model_layout);
 		LinearLayout bonjour_layout = (LinearLayout) findViewById(R.id.bonjour_layout);
-		LinearLayout upnp_layout = (LinearLayout) findViewById(R.id.upnp_layout);
 		LinearLayout onvif_layout = (LinearLayout) findViewById(R.id.onvif_layout);
-		LinearLayout http_layout = (LinearLayout) findViewById(R.id.http_layout);
-		LinearLayout rtsp_layout = (LinearLayout) findViewById(R.id.rtsp_layout);
 		LinearLayout https_layout = (LinearLayout) findViewById(R.id.https_layout);
 		LinearLayout ftp_layout = (LinearLayout) findViewById(R.id.ftp_layout);
 		LinearLayout ssh_layout = (LinearLayout) findViewById(R.id.ssh_layout);
@@ -458,10 +454,9 @@ public class CameraDetailActivity extends Activity
 
 			launchSnapshot(getSnapshotURL(), camera.getUsername(), camera.getPassword(), false);
 		}
-		else if (camera.getHttp() == 0)
+		else if (!camera.hasHTTP())
 		{
 			snapshot.setVisibility(View.GONE);
-			http_layout.setVisibility(View.GONE);
 		}
 
 		if (camera.getFlag() == Constants.TYPE_CAMERA)
@@ -476,12 +471,10 @@ public class CameraDetailActivity extends Activity
 		// display model
 		if (camera.hasModel())
 		{
-			model_layout.setVisibility(View.VISIBLE);
 			model.setText(camera.getModel());
 		}
 		else
 		{
-			model_layout.setVisibility(View.GONE);
 		}
 
 		// show bonjour, upnp, onvif
@@ -497,12 +490,11 @@ public class CameraDetailActivity extends Activity
 
 		if (!(camera.getUpnp() == 0))
 		{
-			upnp_layout.setVisibility(View.VISIBLE);
 			isupnp.setText(R.string.yes);
 		}
 		else
 		{
-			upnp_layout.setVisibility(View.GONE);
+			isupnp.setText(R.string.unknown);
 		}
 		if (!(camera.getOnvif() == 0))
 		{
@@ -515,9 +507,8 @@ public class CameraDetailActivity extends Activity
 		}
 
 		// display rtsp if not null
-		if (!(camera.getRtsp() == 0))
+		if (camera.hasRTSP())
 		{
-			rtsp_layout.setVisibility(View.VISIBLE);
 			rtsp.setText(String.valueOf(camera.getRtsp()));
 			if (camera.getFlag() == Constants.TYPE_CAMERA)
 			{
@@ -531,21 +522,20 @@ public class CameraDetailActivity extends Activity
 		}
 		else
 		{
-			rtsp_layout.setVisibility(View.GONE);
+			rtsp.setText(R.string.unknown);
 			rtsp_button.setVisibility(View.GONE);
 		}
 
 		// display http port
 		if (camera.hasHTTP())
 		{
-			http_layout.setVisibility(View.VISIBLE);
 			http_button.setVisibility(View.VISIBLE);
 			http.setText(String.valueOf(camera.getHttp()));
 		}
 		else
 		{
 			cameraOperation.updateAttributeInt(camera.getIP(), ssid, "http", 0);
-			http_layout.setVisibility(View.GONE);
+			http.setText(R.string.unknown);
 			http_button.setVisibility(View.GONE);
 		}
 
@@ -586,7 +576,6 @@ public class CameraDetailActivity extends Activity
 		{
 			exthttp_layout.setVisibility(View.VISIBLE);
 			exthttp.setText(String.valueOf(camera.getExthttp()));
-			// show port forward
 			portforward_layout.setVisibility(View.VISIBLE);
 		}
 		else
@@ -600,7 +589,6 @@ public class CameraDetailActivity extends Activity
 		{
 			extrtsp_layout.setVisibility(View.VISIBLE);
 			extrtsp.setText(String.valueOf(camera.getExtrtsp()));
-			// show port forward
 			portforward_layout.setVisibility(View.VISIBLE);
 		}
 		else
@@ -612,8 +600,6 @@ public class CameraDetailActivity extends Activity
 		// username and password
 		if (camera.hasUsername())
 		{
-			username_layout.setVisibility(View.VISIBLE);
-			password_layout.setVisibility(View.VISIBLE);
 			username_value.setText(camera.getUsername());
 			if (camera.hasPassword())
 			{
@@ -632,8 +618,8 @@ public class CameraDetailActivity extends Activity
 		}
 		else
 		{
-			username_layout.setVisibility(View.GONE);
-			password_layout.setVisibility(View.GONE);
+			username_value.setText(R.string.unknown);
+			password_value.setText(R.string.unknown);
 		}
 		firstseen.setText(camera.getFirstSeen());
 		lastseen.setText(camera.getLastSeen());
