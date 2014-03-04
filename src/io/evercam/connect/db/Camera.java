@@ -31,8 +31,9 @@ public class Camera implements Serializable
 	private String firstSeen;
 	private String lastSeen;
 	private String username;
-
 	private String password;
+	private String jpg;
+	private String h264;
 	private int portForwarded = 0; // 1:yes 0:no
 	private int evercamConnected = 0; // 1:yes 0:no
 
@@ -241,7 +242,8 @@ public class Camera implements Serializable
 				+ ",http=" + http + ",rtsp=" + rtsp + ",https=" + https + ",ftp=" + ftp + ",ssh="
 				+ ssh + ",extrtsp=" + extrtsp + ",exthttp=" + exthttp + ",flag=" + flag
 				+ ",firstseen=" + firstSeen + ",lastseen=" + lastSeen + ",username=" + username
-				+ ",password=" + password + ",ssid=" + ssid + "]";
+				+ ",password=" + password + ",jpg=" + jpg
+				+ ",h264=" + h264 + ",ssid=" + ssid + "]";
 	}
 
 	public int getHttps()
@@ -282,6 +284,26 @@ public class Camera implements Serializable
 	public void setPassword(String password)
 	{
 		this.password = password;
+	}
+
+	public String getJpg()
+	{
+		return jpg;
+	}
+
+	public String getH264()
+	{
+		return h264;
+	}
+
+	public void setJpg(String jpg)
+	{
+		this.jpg = jpg;
+	}
+
+	public void setH264(String h264)
+	{
+		this.h264 = h264;
 	}
 
 	public int getPortForwarded()

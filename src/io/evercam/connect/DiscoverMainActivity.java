@@ -67,7 +67,6 @@ import android.widget.Toast;
 
 public class DiscoverMainActivity extends Activity
 {
-
 	private Handler handler = new Handler();
 	private SimpleAdapter deviceAdapter;
 	private ArrayList<HashMap<String, Object>> deviceArraylist;

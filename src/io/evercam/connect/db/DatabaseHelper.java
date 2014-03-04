@@ -12,7 +12,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
 {
 
 	private static final String dbName = "evercamdb";
-	private static final int dbVersion = 6;// add http for demo
+	private static final int dbVersion = 7;// add jpg & h264 urls
 	private Context ctxt;
 
 	public DatabaseHelper(Context context)
@@ -30,8 +30,8 @@ public class DatabaseHelper extends SQLiteOpenHelper
 				+ "bonjour	INT," + "http	INT," + "https INT," + "rtsp INT," + "ftp INT,"
 				+ "ssh INT," + "portforwarded	INT," + "evercam INT," + "exthttp	INT,"
 				+ "exthttps	INT," + "extftp	INT," + "extrtsp	INT," + "extssh	INT," + "flag INT,"
-				+ "firstseen TEXT," + "lastseen TEXT," + "username TEXT," + "password TEXT,"
-				+ "ssid TEXT NOT NULL);");
+				+ "firstseen TEXT," + "lastseen TEXT," + "username TEXT," + "password TEXT," 
+				+ "jpg TEXT," + "h264 TEXT," + "ssid TEXT NOT NULL);");
 
 		// add sample camera
 		PropertyReader propertyReader = new PropertyReader(ctxt);
@@ -42,7 +42,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
 		db.execSQL(
 				"insert into cameralist(ip,mac,vendor,model,upnp,onvif,bonjour,portforwarded,flag,http,rtsp,exthttp,extrtsp, firstseen,lastseen,ssid)values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
 				new Object[] { sampleIP, sampleMAC, sampleVendor, sampleModel, 1, 1, 0, 1, 1, 8101,
-						9101, 8101, 9101, DiscoverMainActivity.getSystemTime(),
+						9101, 8101, 8300, DiscoverMainActivity.getSystemTime(),
 						DiscoverMainActivity.getSystemTime(), "sample" });
 	}
 

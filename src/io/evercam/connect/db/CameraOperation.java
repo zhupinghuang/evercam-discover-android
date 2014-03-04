@@ -158,6 +158,11 @@ public class CameraOperation
 			camera.setUsername(username);
 			String password = c.getString(c.getColumnIndex("password"));
 			camera.setPassword(password);
+			
+			String jpg = c.getString(c.getColumnIndex("jpg"));
+			camera.setJpg(jpg);
+			String h264 = c.getString(c.getColumnIndex("h264"));
+			camera.setH264(h264);
 
 			int flag = c.getInt(c.getColumnIndex("flag"));
 			camera.setFlag(flag);

@@ -4,6 +4,7 @@ import java.util.Locale;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import io.evercam.Auth;
 import io.evercam.EvercamException;
@@ -15,31 +16,76 @@ public class EvercamTask extends AsyncTask<Void, Void, Void>
 {
 	public String username;
 	public String password;
+	private String jpgURL;
+	private String streamURL;
 	private Camera camera;
-	private Context ctxt;
+	CameraOperation cameraOperation;
 
 	public EvercamTask(Camera camera, Context ctxt)
 	{
 		this.camera = camera;
-		this.ctxt = ctxt;
+		cameraOperation = new CameraOperation(ctxt);
 	}
 
 	@Override
 	protected Void doInBackground(Void... arg0)
-	{
-		CameraOperation cameraOperation = new CameraOperation(ctxt);
-		if(!camera.hasUsername())
+	{	
+		Vendor vendor = null;
+		try
 		{
-		username = getUsername(camera.getVendor());
-		password = getPassword(camera.getVendor());
-		cameraOperation.updateAttributeString(camera.getIP(), camera.getSsid(), "username",
-				username);
-		cameraOperation.updateAttributeString(camera.getIP(), camera.getSsid(), "password",
-				password);
+			vendor = Vendor.getById(camera.getVendor().toLowerCase(Locale.UK));
 		}
+		catch (EvercamException e)
+		{
+			Log.e("evercamconnect", e.getMessage());
+		}
+		if(vendor != null)
+		{
+			if(!camera.hasUsername())
+			{
+				fillDefaultAuth(vendor);
+			}
+			
+			fillDefaultURL(vendor);
+		}
+		
 		return null;
 	}
+	
+	private void fillDefaultAuth(Vendor vendor)
+	{
+		try
+		{
+			username = vendor.getModel("*").getDefaults().getAuth(Auth.TYPE_BASIC).getUsername();
+			password = vendor.getModel("*").getDefaults().getAuth(Auth.TYPE_BASIC).getPassword();
+			cameraOperation.updateAttributeString(camera.getIP(), camera.getSsid(), "username",
+					username);
+			cameraOperation.updateAttributeString(camera.getIP(), camera.getSsid(), "password",
+					password);
+		}
+		catch (EvercamException e)
+		{
+			Log.e("evercamconnect", e.getMessage());
+		}
+	}
 
+	private void fillDefaultURL(Vendor vendor)
+	{
+		try
+		{
+			jpgURL = vendor.getModel("*").getDefaults().getJpgURL();
+			streamURL = vendor.getModel("*").getDefaults().getH264URL();
+			cameraOperation.updateAttributeString(camera.getIP(), camera.getSsid(), "jpg",
+					jpgURL);
+			cameraOperation.updateAttributeString(camera.getIP(), camera.getSsid(), "h264",
+					streamURL);
+		}
+		catch (EvercamException e)
+		{
+			Log.e("evercamconnect", e.getMessage());
+		}
+	}
+	
 	public static String getUsername(String vendorId)
 	{
 		try
