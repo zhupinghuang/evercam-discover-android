@@ -127,24 +127,10 @@ public class CameraDetailActivity extends Activity
 			@Override
 			public void onClick(View arg0)
 			{
-				if (camera.getVendor().equals(Constants.VENDOR_HIKVISION))
+				if(camera.hasH264URL())
 				{
 					rtspURL = "rtsp://" + camera.getUsername() + ":" + camera.getPassword() + "@"
-							+ ipstring + ":" + camera.getRtsp() + "/h264/ch1/main/av_stream";
-				}
-				else if (camera.getVendor().equals(Constants.VENDOR_AXIS))
-				{
-					rtspURL = "rtsp://" + camera.getUsername() + ":" + camera.getPassword() + "@"
-							+ ipstring + ":" + camera.getRtsp() + "/axis-media/media.amp";
-				}
-				else if (camera.getVendor().equals(Constants.VENDOR_UBIQUITI))
-				{
-					rtspURL = "rtsp://" + ipstring + ":" + camera.getRtsp() + "/live/ch00_0";
-				}
-				else if (camera.getVendor().equals(Constants.VENDOR_YCAM))
-				{
-					rtspURL = "rtsp://" + camera.getUsername() + ":" + camera.getPassword() + "@"
-							+ ipstring + ":" + camera.getRtsp() + "/live_mpeg4.sdp";
+							+ ipstring + ":" + camera.getRtsp() + camera.getH264();
 				}
 				else
 				{
@@ -689,31 +675,14 @@ public class CameraDetailActivity extends Activity
 
 	public String getSnapshotURL()
 	{
-		if (camera.getVendor().equals(Constants.VENDOR_HIKVISION) && camera.getHttp() != 0)
+		if(camera.hasJpgURL())
 		{
-			camera.setSnapshotJpgUrl("/Streaming/channels/1/picture");
-		}
-		else if (camera.getVendor().equals(Constants.VENDOR_AXIS) && camera.getHttp() != 0)
-		{
-			camera.setSnapshotJpgUrl("/jpg/image.jpg");
-		}
-		else if (camera.getVendor().equals(Constants.VENDOR_UBIQUITI) && camera.getHttp() != 0)
-		{
-			camera.setSnapshotJpgUrl("/snapshot.cgi");
-		}
-		else if (camera.getVendor().equals(Constants.VENDOR_YCAM) && camera.getHttp() != 0)
-		{
-			camera.setSnapshotJpgUrl("/snapshot.jpg");
-		}
-		else if (camera.getVendor().equals(Constants.VENDOR_TPLINK) && camera.getHttp() != 0)
-		{
-			camera.setSnapshotJpgUrl("/jpg/image.jpg");
+			return "http://" + this.ipstring + ":" + camera.getHttp() + camera.getJpg();
 		}
 		else
 		{
 			return null;
-		}
-		return "http://" + this.ipstring + ":" + camera.getHttp() + camera.getSnapshotJpgUrl();
+		}	
 	}
 
 	private void showSetAsCameraDialog()

@@ -75,6 +75,14 @@ public class EvercamTask extends AsyncTask<Void, Void, Void>
 		{
 			jpgURL = vendor.getModel("*").getDefaults().getJpgURL();
 			streamURL = vendor.getModel("*").getDefaults().getH264URL();
+			if(!jpgURL.startsWith("/"))
+			{
+				jpgURL = "/" + jpgURL;
+			}
+			if(!streamURL.startsWith("/"))
+			{
+				streamURL = "/" + streamURL;
+			}
 			cameraOperation.updateAttributeString(camera.getIP(), camera.getSsid(), "jpg",
 					jpgURL);
 			cameraOperation.updateAttributeString(camera.getIP(), camera.getSsid(), "h264",

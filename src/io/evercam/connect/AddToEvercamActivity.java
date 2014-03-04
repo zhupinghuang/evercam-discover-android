@@ -156,7 +156,10 @@ public class AddToEvercamActivity extends Activity
 			portCheck(camera.getExthttp());
 			exthttpEdit.setText(String.valueOf(camera.getExthttp()));
 		}
-		snapshotEdit.setText(camera.getSnapshotJpgUrl());
+		if(camera.hasJpgURL())
+		{
+		snapshotEdit.setText(camera.getJpg());
+		}
 		usernameEdit.setText(camera.getUsername());
 		passwordEdit.setText(camera.getPassword());
 		macEdit.setText(camera.getMAC().toLowerCase(Locale.UK));

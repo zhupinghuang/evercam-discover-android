@@ -37,8 +37,6 @@ public class Camera implements Serializable
 	private int portForwarded = 0; // 1:yes 0:no
 	private int evercamConnected = 0; // 1:yes 0:no
 
-	private String snapshotJpgUrl = null;
-
 	public Camera(String ip)
 	{
 		this.ip = ip;
@@ -479,16 +477,6 @@ public class Camera implements Serializable
 		return false;
 	}
 
-	public String getSnapshotJpgUrl()
-	{
-		return snapshotJpgUrl;
-	}
-
-	public void setSnapshotJpgUrl(String snapshotJpgUrl)
-	{
-		this.snapshotJpgUrl = snapshotJpgUrl;
-	}
-
 	public boolean isEvercam()
 	{
 		if (getEvercamConnected() == 1)
@@ -510,6 +498,24 @@ public class Camera implements Serializable
 	public boolean hasPassword()
 	{
 		if (getPassword() != null && !getPassword().isEmpty())
+		{
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean hasJpgURL()
+	{
+		if (getJpg() != null && !getJpg().isEmpty())
+		{
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean hasH264URL()
+	{
+		if (getH264() != null && !getH264().isEmpty())
 		{
 			return true;
 		}
