@@ -471,6 +471,7 @@ public class DiscoverMainActivity extends Activity
 				}
 
 				new EvercamPortScan(camera.getIP(), netInfo.getSsid(), ctxt);
+				camera = cameraOperation.getCamera(camera.getIP(), netInfo.getSsid());
 				addToDeviceList(camera);
 			}
 			// not a camera, but record device info
@@ -491,6 +492,7 @@ public class DiscoverMainActivity extends Activity
 				{
 					cameraOperation.insertScanCamera(camera, netInfo.getSsid());
 				}
+				camera = cameraOperation.getCamera(camera.getIP(), netInfo.getSsid());
 				addToDeviceList(camera);
 			}
 
@@ -560,7 +562,7 @@ public class DiscoverMainActivity extends Activity
 
 		deviceMap.put("device_name", listIP);
 		deviceMap.put("device_mac", listMAC);
-		if (camera.getModel() != "" && camera.getModel() != null)
+		if (camera.hasModel())
 		{
 			deviceMap.put("device_vendor", camera.getModel());
 		}
@@ -626,9 +628,7 @@ public class DiscoverMainActivity extends Activity
 					}
 				}
 			}
-
 		}, 1000);
-
 	}
 
 	// show all devices in database

@@ -28,12 +28,15 @@ public class EvercamTask extends AsyncTask<Void, Void, Void>
 	protected Void doInBackground(Void... arg0)
 	{
 		CameraOperation cameraOperation = new CameraOperation(ctxt);
+		if(!camera.hasUsername())
+		{
 		username = getUsername(camera.getVendor());
 		password = getPassword(camera.getVendor());
 		cameraOperation.updateAttributeString(camera.getIP(), camera.getSsid(), "username",
 				username);
 		cameraOperation.updateAttributeString(camera.getIP(), camera.getSsid(), "password",
 				password);
+		}
 		return null;
 	}
 
