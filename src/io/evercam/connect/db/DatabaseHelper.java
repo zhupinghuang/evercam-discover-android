@@ -40,10 +40,10 @@ public class DatabaseHelper extends SQLiteOpenHelper
 		String sampleVendor = propertyReader.getPropertyStr(Constants.PROPERTY_KEY_SAMPLE_VENDOR);
 		String sampleModel = propertyReader.getPropertyStr(Constants.PROPERTY_KEY_SAMPLE_MODEL);
 		db.execSQL(
-				"insert into cameralist(ip,mac,vendor,model,upnp,onvif,bonjour,portforwarded,flag,http,rtsp,exthttp,extrtsp, firstseen,lastseen,ssid)values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+				"insert into cameralist(ip,mac,vendor,model,upnp,onvif,bonjour,portforwarded,flag,http,rtsp,exthttp,extrtsp, firstseen,lastseen,ssid,jpg,h264)values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
 				new Object[] { sampleIP, sampleMAC, sampleVendor, sampleModel, 1, 1, 0, 1, 1, 8101,
 						9101, 8101, 8300, DiscoverMainActivity.getSystemTime(),
-						DiscoverMainActivity.getSystemTime(), "sample" });
+						DiscoverMainActivity.getSystemTime(), "sample", "/Streaming/Channels/1/picture", "/h264/ch1/main/av_stream" });
 	}
 
 	@Override

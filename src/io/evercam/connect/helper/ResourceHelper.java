@@ -58,16 +58,16 @@ public class ResourceHelper
 		}
 	}
 
-	public static String getInternalHttpURL(Camera camera)
-	{
-		return "http://" + camera.getUsername() + ":" + camera.getPassword() + "@" + camera.getIP()
-				+ ":" + camera.getHttp() + "/";
-	}
-
 	public static String getExternalHttpURL(Camera camera)
 	{
 		return "http://" + camera.getUsername() + ":" + camera.getPassword() + "@" + camera.getIP()
-				+ ":" + camera.getExthttp() + "/";
+				+ ":" + camera.getExthttp();
+	}
+
+	public static String getInternalHttpURL(Camera camera)
+	{
+		return "http://" + camera.getUsername() + ":" + camera.getPassword() + "@" + camera.getIP()
+				+ ":" + camera.getHttp();
 	}
 
 }

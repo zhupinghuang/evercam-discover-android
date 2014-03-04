@@ -106,7 +106,7 @@ public class CameraDetailActivity extends Activity
 				String commonUrl;
 				if (camera.getSsid().equals("sample"))
 				{
-					commonUrl = ResourceHelper.getExternalHttpURL(camera);
+					commonUrl = "http://" + camera.getIP() + ":" + camera.getExthttp();
 				}
 				else
 				{
@@ -119,7 +119,6 @@ public class CameraDetailActivity extends Activity
 				intent.setData(content_url);
 				startActivity(intent);
 			}
-
 		});
 
 		rtsp_button.setOnClickListener(new OnClickListener(){
@@ -129,14 +128,21 @@ public class CameraDetailActivity extends Activity
 			{
 				if(camera.hasH264URL())
 				{
-					rtspURL = "rtsp://" + camera.getUsername() + ":" + camera.getPassword() + "@"
-							+ ipstring + ":" + camera.getRtsp() + camera.getH264();
+					if (ssid.equals("sample"))
+					{
+						rtspURL = "rtsp://" + camera.getUsername() + ":" + camera.getPassword() + "@"
+							+ ipstring + ":" + camera.getExtrtsp() + camera.getH264();
+					}
+					else
+					{
+						rtspURL = "rtsp://" + camera.getUsername() + ":" + camera.getPassword() + "@"
+								+ ipstring + ":" + camera.getRtsp() + camera.getH264();
+					}
 				}
 				else
 				{
 					rtspURL = null;
 				}
-
 				if (rtspURL != null)
 				{
 					Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(rtspURL));
@@ -252,7 +258,7 @@ public class CameraDetailActivity extends Activity
 				toast.show();
 				if (camera.getSsid().equals("sample"))
 				{
-					launchSnapshot("http://89.101.225.158:8101/Streaming/channels/1/picture",
+					launchSnapshot(ResourceHelper.getExternalHttpURL(camera) + camera.getJpg(),
 							camera.getUsername(), camera.getPassword(), true);
 				}
 				else
@@ -442,7 +448,7 @@ public class CameraDetailActivity extends Activity
 			editBtn.setVisibility(View.VISIBLE);
 			portForwardBtn.setVisibility(View.VISIBLE);
 
-			launchSnapshot("http://89.101.225.158:8101/Streaming/channels/1/picture",
+			launchSnapshot(ResourceHelper.getExternalHttpURL(camera) + camera.getJpg(),
 					camera.getUsername(), camera.getPassword(), true);
 		}
 		// Show snapshot
@@ -892,7 +898,6 @@ public class CameraDetailActivity extends Activity
 						keepDialog(dialog);
 					}
 				}
-
 			}
 		});
 		editBuilder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener(){
