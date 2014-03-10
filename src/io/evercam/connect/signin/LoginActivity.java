@@ -185,6 +185,12 @@ public class LoginActivity extends Activity
 			focusView = usernameEdit;
 			cancel = true;
 		}
+		else if (username.contains("@"))
+		{
+			usernameEdit.setError("Please sign in with your Evercam USERNAME, NOT Email address.");
+			focusView = usernameEdit;
+			cancel = true;
+		}
 
 		if (cancel)
 		{
