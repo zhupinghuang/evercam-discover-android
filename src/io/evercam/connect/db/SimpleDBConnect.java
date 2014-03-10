@@ -5,6 +5,8 @@ import io.evercam.connect.helper.PropertyReader;
 
 import java.util.Locale;
 
+import org.apache.http.conn.ConnectTimeoutException;
+
 import android.content.Context;
 
 import com.amazonaws.AmazonClientException;
@@ -104,6 +106,10 @@ public class SimpleDBConnect
 		catch (NoSuchDomainException e)
 		{
 			e.printStackTrace();
+		}
+		catch (Exception exception)
+		{
+			exception.printStackTrace();
 		}
 		return false;
 
