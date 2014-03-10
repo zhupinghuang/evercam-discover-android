@@ -475,6 +475,7 @@ public class CameraDetailActivity extends Activity
 		}
 		else
 		{
+			model.setText(R.string.unknown);
 		}
 
 		// show bonjour, upnp, onvif

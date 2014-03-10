@@ -5,6 +5,7 @@ import io.evercam.EvercamException;
 import io.evercam.User;
 import io.evercam.connect.R;
 import io.evercam.connect.helper.Constants;
+import io.evercam.connect.helper.PropertyReader;
 import io.evercam.connect.helper.SharedPrefsManager;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -278,7 +279,11 @@ public class LoginActivity extends Activity
 		{
 			try
 			{
-				HttpResponse<JsonNode> response = Unirest.get(API.URL + "users/" + username)
+				PropertyReader propertyReader = new PropertyReader(getApplicationContext());
+				String apiKey = propertyReader.getPropertyStr(PropertyReader.KEY_API_KEY);
+				String apiID = propertyReader.getPropertyStr(PropertyReader.KEY_API_ID);
+				HttpResponse<JsonNode> response = Unirest.get(API.URL + "users/" + username  + "?app_id=" + apiID + "&app_key="
+						+ apiKey)
 						.header("accept", "application/json").basicAuth(username, password)
 						.asJson();
 				if (response.getCode() == 401)

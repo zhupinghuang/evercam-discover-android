@@ -482,8 +482,7 @@
             android:layout_marginLeft="25sp"
             android:focusable="true"
             android:focusableInTouchMode="true"
-            android:orientation="horizontal"
-            android:visibility="gone" >
+            android:orientation="horizontal" >
 
             <TextView
                 android:id="@+id/username_detail"
@@ -519,8 +518,7 @@
             android:layout_marginLeft="25sp"
             android:focusable="true"
             android:focusableInTouchMode="true"
-            android:orientation="horizontal"
-            android:visibility="gone" >
+            android:orientation="horizontal" >
 
             <TextView
                 android:id="@+id/password_detail"

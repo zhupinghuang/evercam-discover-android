@@ -10,6 +10,9 @@ import android.util.Log;
 
 public class PropertyReader
 {
+	public final static String KEY_API_KEY = "ApiKey";
+	public final static String KEY_API_ID = "ApiId";
+	
 	private Context context;
 	private Properties properties;
 	private final String LOCAL_PROPERTY_FILE = "local.properties";

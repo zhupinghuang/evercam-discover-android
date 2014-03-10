@@ -1,5 +1,6 @@
 package io.evercam.connect;
 
+import io.evercam.API;
 import io.evercam.EvercamException;
 import io.evercam.connect.db.Camera;
 import io.evercam.connect.db.CameraOperation;
@@ -118,6 +119,8 @@ public class DiscoverMainActivity extends Activity
 
 		netInfo = new NetInfo(ctxt);
 
+		setEvercamApiKey();
+		
 		// discovered device list
 		final ListView deviceList = (ListView) findViewById(R.id.device_list);
 		deviceList.addHeaderView(LayoutInflater.from(this).inflate(R.layout.header_layout, null));
@@ -885,4 +888,11 @@ public class DiscoverMainActivity extends Activity
 		}
 	}
 
+	private void setEvercamApiKey()
+	{
+		PropertyReader propertyReader = new PropertyReader(getApplicationContext());
+		String apiKey = propertyReader.getPropertyStr(PropertyReader.KEY_API_KEY);
+		String apiID = propertyReader.getPropertyStr(PropertyReader.KEY_API_ID);
+		API.setKeyPair(apiKey, apiID);
+	}
 }

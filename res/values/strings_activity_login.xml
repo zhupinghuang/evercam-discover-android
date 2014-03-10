@@ -3,7 +3,7 @@
     <string name="title_activity_login">Sign in</string>
 
     <!-- Login Strings-->
-    <string name="prompt_email">Email/Username</string>
+    <string name="prompt_email">Evercam Username</string>
     <string name="prompt_password">Password</string>
     <string name="action_sign_in_with_evercam"><b>Sign in</b> with Evercam</string>
     <string name="log_in">Log in</string>
