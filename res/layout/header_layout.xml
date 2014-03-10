@@ -104,14 +104,14 @@
                 android:visibility="gone" />
         </LinearLayout>
     </RelativeLayout>
-    
+
     <View
         android:layout_width="fill_parent"
         android:layout_height="1dp"
         android:layout_marginTop="1dp"
         android:background="#778899" />
-    
-        <Button
+
+    <Button
         android:id="@+id/button_turnOnWifi"
         android:layout_width="fill_parent"
         android:layout_height="40sp"
@@ -121,8 +121,8 @@
         android:layout_marginTop="20dip"
         android:background="@drawable/btn_selector"
         android:text="Connect to Wi-Fi"
-        android:visibility="gone"
-        android:textColor="#ffffff" >
+        android:textColor="#ffffff"
+        android:visibility="gone" >
     </Button>
 
 </LinearLayout>

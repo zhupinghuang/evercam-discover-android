@@ -120,7 +120,7 @@ public class DiscoverMainActivity extends Activity
 		netInfo = new NetInfo(ctxt);
 
 		setEvercamApiKey();
-		
+
 		// discovered device list
 		final ListView deviceList = (ListView) findViewById(R.id.device_list);
 		deviceList.addHeaderView(LayoutInflater.from(this).inflate(R.layout.header_layout, null));

@@ -14,9 +14,9 @@
         android:id="@+id/text_layout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
         android:layout_gravity="center_vertical"
         android:layout_marginTop="5dip"
-        android:layout_centerVertical="true"
         android:layout_toRightOf="@+id/device_img"
         android:orientation="vertical" >
 
@@ -68,14 +68,13 @@
         android:textColor="#778899"
         android:textSize="10sp" />
 
-     <ImageView
+    <ImageView
         android:id="@+id/evercamglobe_img"
         android:layout_width="20dip"
         android:layout_height="20dip"
         android:layout_alignParentRight="true"
         android:layout_marginRight="5dip"
         android:layout_marginTop="27dip" />
-        
 
     <LinearLayout
         android:id="@+id/portinfo_layout"

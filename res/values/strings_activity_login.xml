@@ -2,7 +2,7 @@
 
     <string name="title_activity_login">Sign in</string>
 
-    <!-- Login Strings-->
+    <!-- Login Strings -->
     <string name="prompt_email">Evercam Username</string>
     <string name="prompt_password">Password</string>
     <string name="action_sign_in_with_evercam"><b>Sign in</b> with Evercam</string>
@@ -15,8 +15,8 @@
     <string name="error_field_required">This field is required</string>
     <string name="create_account">Create Account</string>
     <string name="confirm">Confirm</string>
-    
-    <!-- Sign Up Strings-->
+
+    <!-- Sign Up Strings -->
     <string name="login_progress_signing_up">Signing up</string>
     <string name="sign_up">Sign Up</string>
     <string name="forename">Forename:</string>
@@ -32,8 +32,8 @@
     <string name="re_password">Confirm Password</string>
     <string name="country:">Country:</string>
     <string name="spinnerFistItem">Please select</string>
-    
-    <!-- Sign Up Message-->
+
+    <!-- Sign Up Message -->
     <string name="countryNotSelected">Please select a country!</string>
     <string name="invalidEmail">Invalid Email address!</string>
     <string name="confirmSignUp">Congratulations, we\'ve sent you a confirmation Email to complete the next step in the process.</string>

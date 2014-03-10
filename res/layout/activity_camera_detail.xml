@@ -88,7 +88,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="25sp"
-            android:orientation="horizontal">
+            android:orientation="horizontal" >
 
             <TextView
                 android:id="@+id/model_detail"
@@ -161,7 +161,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="25sp"
-            android:orientation="horizontal">
+            android:orientation="horizontal" >
 
             <TextView
                 android:id="@+id/upnp_detail"
@@ -210,7 +210,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="25sp"
-            android:orientation="horizontal">
+            android:orientation="horizontal" >
 
             <TextView
                 android:id="@+id/http_detail"
@@ -234,7 +234,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="25sp"
-            android:orientation="horizontal">
+            android:orientation="horizontal" >
 
             <TextView
                 android:id="@+id/rtsp_detail"
@@ -504,9 +504,9 @@
                 android:id="@+id/username_img"
                 android:layout_width="10sp"
                 android:layout_height="10sp"
-                android:layout_marginTop="2sp"
-                android:layout_marginLeft="2sp"
                 android:layout_gravity="center_vertical"
+                android:layout_marginLeft="2sp"
+                android:layout_marginTop="2sp"
                 android:src="@drawable/cross"
                 android:visibility="gone" />
         </LinearLayout>
@@ -540,9 +540,9 @@
                 android:id="@+id/password_img"
                 android:layout_width="10sp"
                 android:layout_height="10sp"
-                android:layout_marginTop="2sp"
-                android:layout_marginLeft="2sp"
                 android:layout_gravity="center_vertical"
+                android:layout_marginLeft="2sp"
+                android:layout_marginTop="2sp"
                 android:src="@drawable/cross"
                 android:visibility="gone" />
         </LinearLayout>

@@ -144,7 +144,7 @@ public class NetInfo
 		{
 			httpclient.getConnectionManager().shutdown();
 		}
-		return (extIP == null? null : extIP.replace("\n", ""));
+		return (extIP == null ? null : extIP.replace("\n", ""));
 	}
 
 	public static String getHardwareAddress(String ip)

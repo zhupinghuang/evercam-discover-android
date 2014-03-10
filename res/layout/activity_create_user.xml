@@ -38,8 +38,8 @@
 
         <LinearLayout
             style="@style/SignupFormContainer"
-            android:orientation="vertical" 
-            android:layout_marginTop="10sp">
+            android:layout_marginTop="10sp"
+            android:orientation="vertical" >
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -51,8 +51,8 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-light"
                     android:text="@string/forename"
-                    android:textSize="17sp"
-                    android:textColor="#778899" />
+                    android:textColor="#778899"
+                    android:textSize="17sp" />
 
                 <EditText
                     android:id="@+id/forename_edit"
@@ -73,8 +73,8 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-light"
                     android:text="@string/lastname:"
-                    android:textSize="17sp"
-                    android:textColor="#778899" />
+                    android:textColor="#778899"
+                    android:textSize="17sp" />
 
                 <EditText
                     android:id="@+id/lastname_edit"
@@ -85,7 +85,7 @@
                     android:singleLine="true" />
             </LinearLayout>
 
-           <LinearLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" >
 
@@ -95,14 +95,13 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-light"
                     android:text="@string/country:"
-                    android:textSize="17sp"
-                    android:textColor="#778899" />
+                    android:textColor="#778899"
+                    android:textSize="17sp" />
 
                 <Spinner
                     android:id="@+id/country_spinner"
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    />
+                    android:layout_height="wrap_content" />
             </LinearLayout>
 
             <LinearLayout
@@ -115,8 +114,8 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-light"
                     android:text="@string/username:"
-                    android:textSize="17sp"
-                    android:textColor="#778899" />
+                    android:textColor="#778899"
+                    android:textSize="17sp" />
 
                 <EditText
                     android:id="@+id/username_edit"
@@ -137,8 +136,8 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-light"
                     android:text="@string/email:"
-                    android:textSize="17sp"
-                    android:textColor="#778899" />
+                    android:textColor="#778899"
+                    android:textSize="17sp" />
 
                 <EditText
                     android:id="@+id/email_edit"
@@ -149,7 +148,7 @@
                     android:singleLine="true" />
             </LinearLayout>
 
-            <!--  
+            <!--
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" >
@@ -180,8 +179,8 @@
                 android:hint="@string/re_password"
                 android:inputType="textPassword"
                 android:singleLine="true"
-				android:textColor="#778899"/>
-                -->
+				android:textColor="#778899"/>
+            -->
 
             <Button
                 android:id="@+id/sign_up_button"
@@ -189,10 +188,9 @@
                 android:layout_height="35dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="30dp"
-                android:text="@string/sign_up"
                 android:background="@drawable/btn_selector"
+                android:text="@string/sign_up"
                 android:textColor="#ffffff" />
-            
         </LinearLayout>
     </ScrollView>
 

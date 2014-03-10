@@ -288,10 +288,10 @@ public class LoginActivity extends Activity
 				PropertyReader propertyReader = new PropertyReader(getApplicationContext());
 				String apiKey = propertyReader.getPropertyStr(PropertyReader.KEY_API_KEY);
 				String apiID = propertyReader.getPropertyStr(PropertyReader.KEY_API_ID);
-				HttpResponse<JsonNode> response = Unirest.get(API.URL + "users/" + username  + "?app_id=" + apiID + "&app_key="
-						+ apiKey)
-						.header("accept", "application/json").basicAuth(username, password)
-						.asJson();
+				HttpResponse<JsonNode> response = Unirest
+						.get(API.URL + "users/" + username + "?app_id=" + apiID + "&app_key="
+								+ apiKey).header("accept", "application/json")
+						.basicAuth(username, password).asJson();
 				if (response.getCode() == 401)
 				{
 					return false;

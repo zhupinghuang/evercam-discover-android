@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    
+
     <string name="idEmpty">Camera ID can NOT be empty!</string>
     <string name="nameEmpty">Camera name can NOT be empty!</string>
     <string name="snapshotEmpty">Snapshot path can NOT be empty!</string>
@@ -10,5 +10,5 @@
     <string name="snapshotInvalid">Snapshot should starts with \'/\'.</string>
     <string name="extPortNotOpen">External port is not opened.</string>
     <string name="Success">Success!</string>
-    
+
 </resources>
