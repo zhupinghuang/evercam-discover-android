@@ -408,9 +408,10 @@ public class AddToEvercamActivity extends Activity
 			try
 			{
 				cameraBuilder = new CameraBuilder(cameraId, cameraName, isPublic,
-						new String[] { "http://" + externalIp + ":" + exthttp })
+						"http://" + externalIp + ":" + exthttp)
 						.setTimeZone(TimeZone.getDefault().getID())
-						.setBasicAuth(cameraUsername, cameraPassword).setSnapshotJPG(snapshotPath);
+						.setCameraUsername(cameraUsername).setCameraPassword(cameraPassword)
+						.setJpgUrl(snapshotPath);
 
 				if (cameraVendor != null)
 				{
