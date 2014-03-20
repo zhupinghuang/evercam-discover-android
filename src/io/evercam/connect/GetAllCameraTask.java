@@ -14,6 +14,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 public class GetAllCameraTask extends AsyncTask<Void, HashMap<String, Object>, ArrayList<Camera>>
 {
@@ -42,7 +43,7 @@ public class GetAllCameraTask extends AsyncTask<Void, HashMap<String, Object>, A
 		}
 		catch (EvercamException e)
 		{
-			e.printStackTrace();
+			Log.e("evercamconnect", e.getMessage());
 		}
 		return cameras;
 	}

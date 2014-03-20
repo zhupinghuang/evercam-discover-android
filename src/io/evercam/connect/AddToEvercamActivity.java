@@ -407,11 +407,16 @@ public class AddToEvercamActivity extends Activity
 			CameraBuilder cameraBuilder;
 			try
 			{
-				cameraBuilder = new CameraBuilder(cameraId, cameraName, isPublic,
-						"http://" + externalIp + ":" + exthttp)
+				cameraBuilder = new CameraBuilder(cameraId, cameraName, isPublic)
+						.setExternalUrl("http://" + externalIp + ":" + exthttp)
 						.setTimeZone(TimeZone.getDefault().getID())
 						.setCameraUsername(cameraUsername).setCameraPassword(cameraPassword)
 						.setJpgUrl(snapshotPath);
+				if (camera.hasHTTP())
+				{
+					cameraBuilder.setInternalUrl("http://" + camera.getIP() + ":"
+							+ camera.getHttp());
+				}
 
 				if (cameraVendor != null)
 				{

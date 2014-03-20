@@ -693,7 +693,7 @@ public class DiscoverMainActivity extends Activity
 		if (!iterator.hasNext())
 		{
 
-			AlertDialog alertDialog = new AlertDialog.Builder(DiscoverMainActivity.this)
+			final AlertDialog alertDialog = new AlertDialog.Builder(DiscoverMainActivity.this)
 
 			.setMessage(R.string.alertNoCamera)
 					.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener(){

@@ -5,8 +5,6 @@ import io.evercam.connect.helper.PropertyReader;
 
 import java.util.Locale;
 
-import org.apache.http.conn.ConnectTimeoutException;
-
 import android.content.Context;
 
 import com.amazonaws.AmazonClientException;
