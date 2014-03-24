@@ -448,7 +448,7 @@ public class CameraDetailActivity extends Activity
 					camera.getUsername(), camera.getPassword(), true);
 		}
 		// Show snapshot
-		else if (camera.isSupportedCamera() && camera.getHttp() != 0)
+		else if (camera.hasJpgURL() && camera.getHttp() != 0)
 		{
 			snapshot.setVisibility(View.VISIBLE);
 
@@ -689,7 +689,7 @@ public class CameraDetailActivity extends Activity
 						cameraOperation.updateAttributeInt(ipstring, ssid, "flag",
 								Constants.TYPE_CAMERA);
 						setUpPage();
-						showSendFeedback(Constants.TITLE_SETDEVICE);
+						showSendFeedback(Constants.TITLE_SETCAMERA);
 					}
 				}).setNegativeButton(R.string.no, null).create();
 		alertDialog.show();
@@ -706,7 +706,7 @@ public class CameraDetailActivity extends Activity
 						cameraOperation.updateAttributeInt(ipstring, ssid, "flag",
 								Constants.TYPE_OTHERS);
 						setUpPage();
-						showSendFeedback(Constants.TITLE_SETCAMERA);
+						showSendFeedback(Constants.TITLE_SETDEVICE);
 
 					}
 				}).setNegativeButton(R.string.no, null).create();
@@ -904,12 +904,7 @@ public class CameraDetailActivity extends Activity
 		AlertDialog.Builder alertDialog = new AlertDialog.Builder(CameraDetailActivity.this);
 		alertDialog.setTitle(R.string.userGuide);
 		alertDialog.setMessage(R.string.userGuideMsg);
-		alertDialog.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener(){
-			@Override
-			public void onClick(DialogInterface dialog, int which)
-			{
-			}
-		});
+		alertDialog.setPositiveButton(R.string.ok, null);
 		alertDialog.show();
 	}
 

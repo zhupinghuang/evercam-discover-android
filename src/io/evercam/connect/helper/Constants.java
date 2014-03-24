@@ -5,14 +5,6 @@ public final class Constants
 	// collect user data
 	public static final boolean IsDataCollectionEnabled = true;
 
-	// Fixed camera vendors
-	public static final String VENDOR_HIKVISION = "HIKVISION";
-	public static final String VENDOR_AXIS = "AXIS";
-	public static final String VENDOR_UBIQUITI = "UBIQUITI";
-	public static final String VENDOR_YCAM = "YCAM";
-	public static final String VENDOR_TPLINK = "TPLINK";
-	public static final String VENDOR_PANASONIC = "PANASONIC";
-
 	public static final String URL_GET_EXTERNAL_ADDR = "http://ipinfo.io/ip";
 
 	// device types
@@ -21,8 +13,8 @@ public final class Constants
 	public static final int TYPE_OTHERS = 3;
 
 	// default UPnP port mapping description
-	public static final String UPNP_HTTP_DESCRIPTION = "EverCam Connect HTTP";
-	public static final String UPNP_RTSP_DESCRIPTION = "EverCam Connect RTSP";
+	public static final String UPNP_HTTP_DESCRIPTION = "Evercam Connect HTTP";
+	public static final String UPNP_RTSP_DESCRIPTION = "Evercam Connect RTSP";
 
 	public static final String PROTOCOL_TCP = "TCP";
 	public static final String PROTOCOL_UDP = "UDP";
@@ -61,7 +53,7 @@ public final class Constants
 	public static final int TYPE_SHOW_CAMERA = 0;
 
 	// mail
-	public static final String TITLE_SETCAMERA = "EvercamConnectReport: Set as a CAMERA";
-	public static final String TITLE_SETDEVICE = "EvercamConnectReport: Set as a DEVICE";
+	public static final String TITLE_SETCAMERA = "EvercamConnectFeedback: This is a CAMERA";
+	public static final String TITLE_SETDEVICE = "EvercamConnectFeedback: This is NOT a camera";
 
 }

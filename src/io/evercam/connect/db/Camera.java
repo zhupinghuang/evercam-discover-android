@@ -27,7 +27,7 @@ public class Camera implements Serializable
 	private int extssh = 0;
 	private int exthttps = 0;
 	private int flag = Constants.TYPE_OTHERS; // 1: camera, 2: router, 3:other
-	private String ssid;
+	private String ssid = "";
 	private String firstSeen;
 	private String lastSeen;
 	private String username;
@@ -333,18 +333,6 @@ public class Camera implements Serializable
 		{
 			return false;
 		}
-	}
-
-	public boolean isSupportedCamera()
-	{
-		if (getVendor().equals(Constants.VENDOR_HIKVISION)
-				|| getVendor().equals(Constants.VENDOR_AXIS)
-				|| getVendor().equals(Constants.VENDOR_UBIQUITI)
-				|| getVendor().equals(Constants.VENDOR_YCAM))
-		{
-			return true;
-		}
-		return false;
 	}
 
 	public boolean isDemoCamera()
