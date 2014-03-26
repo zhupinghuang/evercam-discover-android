@@ -120,6 +120,7 @@ public class DiscoverMainActivity extends Activity
 		netInfo = new NetInfo(ctxt);
 
 		setEvercamDeveloperApiKey();
+		setEvercamUserApiKey();
 
 		// discovered device list
 		final ListView deviceList = (ListView) findViewById(R.id.device_list);
@@ -891,8 +892,15 @@ public class DiscoverMainActivity extends Activity
 	private void setEvercamDeveloperApiKey()
 	{
 		PropertyReader propertyReader = new PropertyReader(getApplicationContext());
-		String apiKey = propertyReader.getPropertyStr(PropertyReader.KEY_API_KEY);
-		String apiID = propertyReader.getPropertyStr(PropertyReader.KEY_API_ID);
-		API.setDeveloperKeyPair(apiKey, apiID);
+		String developerApiKey = propertyReader.getPropertyStr(PropertyReader.KEY_API_KEY);
+		String developerAapiId = propertyReader.getPropertyStr(PropertyReader.KEY_API_ID);
+		API.setDeveloperKeyPair(developerApiKey, developerAapiId);
+	}
+	
+	private void setEvercamUserApiKey()
+	{
+		String userApiKey = SharedPrefsManager.getUserApiKey(sharedPrefs);
+		String userApiId = SharedPrefsManager.getUserApiId(sharedPrefs);
+		API.setUserKeyPair(userApiKey, userApiId);
 	}
 }

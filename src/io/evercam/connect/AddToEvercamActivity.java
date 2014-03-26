@@ -4,7 +4,6 @@ import java.util.Locale;
 import java.util.Random;
 import java.util.TimeZone;
 
-import io.evercam.API;
 import io.evercam.CameraBuilder;
 import io.evercam.CameraDetail;
 import io.evercam.EvercamException;
@@ -406,7 +405,7 @@ public class AddToEvercamActivity extends Activity
 			try
 			{
 				cameraBuilder = new CameraBuilder(cameraId, cameraName, isPublic)
-						.setExternalHost(externalIp + ":" + exthttp).setExternalHttpPort(exthttp)
+						.setExternalHost(externalIp).setExternalHttpPort(exthttp)
 						.setTimeZone(TimeZone.getDefault().getID())
 						.setCameraUsername(cameraUsername).setCameraPassword(cameraPassword)
 						.setJpgUrl(snapshotPath);

@@ -1,6 +1,7 @@
 package io.evercam.connect.signin;
 
 import io.evercam.API;
+import io.evercam.ApiKeyPair;
 import io.evercam.EvercamException;
 import io.evercam.User;
 import io.evercam.connect.R;
@@ -12,10 +13,6 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.plus.PlusClient;
-import com.mashape.unirest.http.HttpResponse;
-import com.mashape.unirest.http.JsonNode;
-import com.mashape.unirest.http.Unirest;
-import com.mashape.unirest.http.exceptions.UnirestException;
 
 import android.os.AsyncTask;
 import android.os.Build;
@@ -280,32 +277,26 @@ public class LoginActivity extends Activity
 
 	public class UserLoginTask extends AsyncTask<Void, Void, Boolean>
 	{
+		String errorMessage = "Error";
 		@Override
 		protected Boolean doInBackground(Void... params)
 		{
-			try
-			{
-				PropertyReader propertyReader = new PropertyReader(getApplicationContext());
-				String apiKey = propertyReader.getPropertyStr(PropertyReader.KEY_API_KEY);
-				String apiID = propertyReader.getPropertyStr(PropertyReader.KEY_API_ID);
-				HttpResponse<JsonNode> response = Unirest
-						.get(API.URL + "users/" + username + "?app_id=" + apiID + "&app_key="
-								+ apiKey).header("accept", "application/json")
-						.basicAuth(username, password).asJson();
-				if (response.getCode() == 401)
+				try
 				{
-					return false;
+			    ApiKeyPair userKeyPair = API.requestUserKeyPairFromEvercam(username, password);
+				String userApiKey = userKeyPair.getApiKey();
+				String userApiId = userKeyPair.getApiId();
+				SharedPrefsManager.saveEvercamUserKeyPair(sharedPrefs, userApiKey, userApiId);
+				API.setUserKeyPair(userApiKey, userApiId);
+				User evercamUser = new User(username);
+				SharedPrefsManager.saveEvercamCredential(sharedPrefs, evercamUser, password);
+				return true;
 				}
-				else if (response.getCode() == 200)
+				catch (EvercamException e)
 				{
-					return true;
+					errorMessage = e.getMessage();
 				}
-			}
-			catch (UnirestException e)
-			{
-				e.printStackTrace();
-			}
-			return false;
+				return false;
 		}
 
 		@Override
@@ -316,16 +307,6 @@ public class LoginActivity extends Activity
 
 			if (success)
 			{
-
-				try
-				{
-					User user = new User(username);
-					SharedPrefsManager.saveEvercamCredential(sharedPrefs, user, password);
-				}
-				catch (EvercamException e)
-				{
-					e.printStackTrace();
-				}
 				Toast toast = Toast
 						.makeText(getApplicationContext(), "Success", Toast.LENGTH_SHORT);
 				toast.show();
@@ -333,7 +314,7 @@ public class LoginActivity extends Activity
 			}
 			else
 			{
-				Toast toast = Toast.makeText(getApplicationContext(), "Invalid username/password!",
+				Toast toast = Toast.makeText(getApplicationContext(), errorMessage,
 						Toast.LENGTH_SHORT);
 				toast.setGravity(Gravity.CENTER, 0, 0);
 				toast.show();

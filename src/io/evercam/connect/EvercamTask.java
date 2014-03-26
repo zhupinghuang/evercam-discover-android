@@ -98,12 +98,16 @@ public class EvercamTask extends AsyncTask<Void, Void, Void>
 		try
 		{
 			Vendor vendor = Vendor.getById(vendorId.toLowerCase(Locale.UK));
+			if(vendor != null)
+			{
 			return vendor.getModel("*").getDefaults().getAuth(Auth.TYPE_BASIC).getUsername();
+			}
 		}
 		catch (EvercamException e)
 		{
-			return "";
+			Log.e("evercamconnect", e.getMessage());
 		}
+		return "";
 	}
 
 	public static String getPassword(String vendorId)
@@ -111,12 +115,16 @@ public class EvercamTask extends AsyncTask<Void, Void, Void>
 		try
 		{
 			Vendor vendor = Vendor.getById(vendorId.toLowerCase(Locale.UK));
+			if(vendor != null)
+			{
 			return vendor.getModel("*").getDefaults().getAuth(Auth.TYPE_BASIC).getPassword();
+			}
 		}
 		catch (EvercamException e)
 		{
-			return null;
+			Log.e("evercamconnect", e.getMessage());
 		}
+		return "";
 	}
 
 }

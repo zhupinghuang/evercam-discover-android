@@ -138,8 +138,7 @@ public class SignUpActivity extends Activity
 			emailEdit.setError(getString(R.string.error_field_required));
 			return null;
 		}
-		else if (!email.matches("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]"
-				+ ")*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$"))
+		else if (!email.contains("@"))
 		{
 			makeShortToast(R.string.invalidEmail);
 			return null;

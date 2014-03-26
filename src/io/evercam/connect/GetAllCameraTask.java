@@ -1,6 +1,5 @@
 package io.evercam.connect;
 
-import io.evercam.API;
 import io.evercam.Camera;
 import io.evercam.EvercamException;
 import io.evercam.User;
