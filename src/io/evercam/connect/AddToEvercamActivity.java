@@ -411,7 +411,8 @@ public class AddToEvercamActivity extends Activity
 						.setJpgUrl(snapshotPath);
 				if (camera.hasHTTP())
 				{
-					cameraBuilder.setInternalHost(camera.getIP()).setInternalHttpPort(camera.getHttp());
+					cameraBuilder.setInternalHost(camera.getIP()).setInternalHttpPort(
+							camera.getHttp());
 				}
 
 				if (cameraVendor != null)

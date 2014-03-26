@@ -8,12 +8,12 @@ public class SharedPrefsManager
 {
 	public final static String KEY_USER_API_KEY = "userApiKey";
 	public final static String KEY_USER_API_ID = "userApiId";
-	
+
 	private SharedPrefsManager()
 	{
-		
+
 	}
-	
+
 	public static void clearGoogleUserInfo(SharedPreferences sharedPrefs)
 	{
 		SharedPreferences.Editor editor = sharedPrefs.edit();
@@ -128,5 +128,5 @@ public class SharedPrefsManager
 	{
 		return sharedPrefs.getString(KEY_USER_API_ID, null);
 	}
-	
+
 }

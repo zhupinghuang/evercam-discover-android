@@ -6,7 +6,6 @@ import io.evercam.EvercamException;
 import io.evercam.User;
 import io.evercam.connect.R;
 import io.evercam.connect.helper.Constants;
-import io.evercam.connect.helper.PropertyReader;
 import io.evercam.connect.helper.SharedPrefsManager;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -278,12 +277,13 @@ public class LoginActivity extends Activity
 	public class UserLoginTask extends AsyncTask<Void, Void, Boolean>
 	{
 		String errorMessage = "Error";
+
 		@Override
 		protected Boolean doInBackground(Void... params)
 		{
-				try
-				{
-			    ApiKeyPair userKeyPair = API.requestUserKeyPairFromEvercam(username, password);
+			try
+			{
+				ApiKeyPair userKeyPair = API.requestUserKeyPairFromEvercam(username, password);
 				String userApiKey = userKeyPair.getApiKey();
 				String userApiId = userKeyPair.getApiId();
 				SharedPrefsManager.saveEvercamUserKeyPair(sharedPrefs, userApiKey, userApiId);
@@ -291,12 +291,12 @@ public class LoginActivity extends Activity
 				User evercamUser = new User(username);
 				SharedPrefsManager.saveEvercamCredential(sharedPrefs, evercamUser, password);
 				return true;
-				}
-				catch (EvercamException e)
-				{
-					errorMessage = e.getMessage();
-				}
-				return false;
+			}
+			catch (EvercamException e)
+			{
+				errorMessage = e.getMessage();
+			}
+			return false;
 		}
 
 		@Override

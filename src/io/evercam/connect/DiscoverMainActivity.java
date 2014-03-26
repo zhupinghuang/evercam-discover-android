@@ -896,7 +896,7 @@ public class DiscoverMainActivity extends Activity
 		String developerAapiId = propertyReader.getPropertyStr(PropertyReader.KEY_API_ID);
 		API.setDeveloperKeyPair(developerApiKey, developerAapiId);
 	}
-	
+
 	private void setEvercamUserApiKey()
 	{
 		String userApiKey = SharedPrefsManager.getUserApiKey(sharedPrefs);
