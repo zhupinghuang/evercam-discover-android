@@ -371,8 +371,6 @@ public class AddToEvercamActivity extends Activity
 			initialDetailObject();
 			try
 			{
-				API.setAuth(SharedPrefsManager.getEvercamUsername(sharedPrefs),
-						SharedPrefsManager.getEvercamPassword(sharedPrefs));
 				io.evercam.Camera camera = io.evercam.Camera.create(cameraDetail);
 				if (camera.getId().equals(cameraId))
 				{
@@ -408,14 +406,13 @@ public class AddToEvercamActivity extends Activity
 			try
 			{
 				cameraBuilder = new CameraBuilder(cameraId, cameraName, isPublic)
-						.setExternalUrl("http://" + externalIp + ":" + exthttp)
+						.setExternalHost(externalIp + ":" + exthttp).setExternalHttpPort(exthttp)
 						.setTimeZone(TimeZone.getDefault().getID())
 						.setCameraUsername(cameraUsername).setCameraPassword(cameraPassword)
 						.setJpgUrl(snapshotPath);
 				if (camera.hasHTTP())
 				{
-					cameraBuilder.setInternalUrl("http://" + camera.getIP() + ":"
-							+ camera.getHttp());
+					cameraBuilder.setInternalHost(camera.getIP()).setInternalHttpPort(camera.getHttp());
 				}
 
 				if (cameraVendor != null)

@@ -316,7 +316,6 @@ public class LoginActivity extends Activity
 
 			if (success)
 			{
-				API.setAuth(username, password);
 
 				try
 				{

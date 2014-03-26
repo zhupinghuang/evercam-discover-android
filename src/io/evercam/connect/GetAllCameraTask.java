@@ -37,7 +37,6 @@ public class GetAllCameraTask extends AsyncTask<Void, HashMap<String, Object>, A
 	{
 		try
 		{
-			API.setAuth(username, password);
 			cameras = User.getCameras(username);
 			discoverMainActivity.evercamCameraList = cameras;
 		}
