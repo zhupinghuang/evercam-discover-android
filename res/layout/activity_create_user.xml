@@ -158,8 +158,8 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-light"
                     android:text="@string/password:"
-                    android:textSize="17sp"
-                    android:textColor="#778899" />
+                    android:textColor="#778899"
+                    android:textSize="17sp" />
 
                 <EditText
                     android:id="@+id/password_edit"
@@ -177,7 +177,7 @@
                 android:layout_marginLeft="90sp"
                 android:hint="@string/re_password"
                 android:inputType="textPassword"
-                android:singleLine="true"/>
+                android:singleLine="true" />
 
             <Button
                 android:id="@+id/sign_up_button"

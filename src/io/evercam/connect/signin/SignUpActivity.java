@@ -19,8 +19,6 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 
 public class SignUpActivity extends Activity
 {
