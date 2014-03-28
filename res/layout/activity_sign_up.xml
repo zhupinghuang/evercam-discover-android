@@ -102,6 +102,7 @@
             android:singleLine="true"
             android:textSize="17sp" />
     </LinearLayout>
+    
 
     <Button
         android:id="@+id/button_next"

@@ -54,8 +54,8 @@ public class SignUpActivity extends Activity
 		lastnameEdit = (EditText) findViewById(R.id.lastname_edit);
 		usernameEdit = (EditText) findViewById(R.id.username_edit);
 		emailEdit = (EditText) findViewById(R.id.email_edit);
-		// passwordEdit = (EditText) findViewById(R.id.password_edit);
-		// repasswordEdit = (EditText) findViewById(R.id.repassword_edit);
+		passwordEdit = (EditText) findViewById(R.id.password_edit);
+		repasswordEdit = (EditText) findViewById(R.id.repassword_edit);
 		signupBtn = (Button) findViewById(R.id.sign_up_button);
 		countrySpinner = (Spinner) findViewById(R.id.country_spinner);
 
@@ -86,11 +86,15 @@ public class SignUpActivity extends Activity
 		String username = usernameEdit.getText().toString();
 		String email = emailEdit.getText().toString();
 		String countryname = countrySpinner.getSelectedItem().toString();
+		String password = passwordEdit.getText().toString();
+		String repassword = repasswordEdit.getText().toString();
 
 		firstnameEdit.setError(null);
 		lastnameEdit.setError(null);
 		usernameEdit.setError(null);
 		emailEdit.setError(null);
+		passwordEdit.setError(null);
+		repasswordEdit.setError(null);
 
 		if (TextUtils.isEmpty(firstname))
 		{
@@ -146,6 +150,27 @@ public class SignUpActivity extends Activity
 		else
 		{
 			user.setEmail(email);
+		}
+		
+		if (TextUtils.isEmpty(password))
+		{
+			passwordEdit.setError(getString(R.string.error_field_required));
+			return null;
+		}
+
+		if (TextUtils.isEmpty(repassword))
+		{
+			repasswordEdit.setError(getString(R.string.error_field_required));
+			return null;
+		}
+		else if (!password.equals(repassword))
+		{
+			makeShortToast(R.string.passwordNotMatch);
+			return null;
+		}
+		else
+		{
+			user.setPassword(password);
 		}
 		return user;
 	}
@@ -214,7 +239,7 @@ public class SignUpActivity extends Activity
 		{
 			if (message == null)
 			{
-				showConfirmDialog();
+				showConfirmSignUp();
 			}
 			else
 			{
@@ -250,19 +275,10 @@ public class SignUpActivity extends Activity
 		signUpFormView.setVisibility(show ? View.GONE : View.VISIBLE);
 	}
 
-	private void showConfirmDialog()
+	private void showConfirmSignUp()
 	{
-		AlertDialog.Builder dialog = new AlertDialog.Builder(SignUpActivity.this);
-		dialog.setMessage(getString(R.string.confirmSignUp));
-		dialog.setCancelable(false);
-		dialog.setNegativeButton(R.string.ok, new AlertDialog.OnClickListener(){
-			@Override
-			public void onClick(DialogInterface dialog, int which)
-			{
-				showProgress(false);
-				finish();
-			}
-		});
-		dialog.show();
+		makeShortToast(R.string.confirmSignUp);
+		showProgress(false);
+		finish();
 	}
 }

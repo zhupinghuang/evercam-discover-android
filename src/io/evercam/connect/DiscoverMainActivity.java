@@ -704,7 +704,10 @@ public class DiscoverMainActivity extends Activity
 							displayAll();
 						}
 					}).create();
+			if(!DiscoverMainActivity.this.isFinishing())
+			{
 			alertDialog.show();
+			}
 		}
 		else
 		{

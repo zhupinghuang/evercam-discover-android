@@ -148,7 +148,6 @@
                     android:singleLine="true" />
             </LinearLayout>
 
-            <!--
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" >
@@ -178,9 +177,7 @@
                 android:layout_marginLeft="90sp"
                 android:hint="@string/re_password"
                 android:inputType="textPassword"
-                android:singleLine="true"
-				android:textColor="#778899"/>
-            -->
+                android:singleLine="true"/>
 
             <Button
                 android:id="@+id/sign_up_button"
