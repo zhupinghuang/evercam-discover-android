@@ -170,7 +170,13 @@ public class LoginActivity extends Activity
 
 		if (TextUtils.isEmpty(password))
 		{
-			passwordEdit.setError("Password Required");
+			passwordEdit.setError(getString(R.string.error_field_required));
+			focusView = passwordEdit;
+			cancel = true;
+		}
+		else if (password.contains(" "))
+		{
+			passwordEdit.setError(getString(R.string.error_invalid_password));
 			focusView = passwordEdit;
 			cancel = true;
 		}
@@ -183,7 +189,13 @@ public class LoginActivity extends Activity
 		}
 		else if (username.contains("@"))
 		{
-			usernameEdit.setError("Please sign in with your Evercam USERNAME, NOT Email address.");
+			usernameEdit.setError(getString(R.string.please_use_username));
+			focusView = usernameEdit;
+			cancel = true;
+		}
+		else if (username.contains(" "))
+		{
+			usernameEdit.setError(getString(R.string.error_invalid_username));
 			focusView = usernameEdit;
 			cancel = true;
 		}
