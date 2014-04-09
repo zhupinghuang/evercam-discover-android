@@ -433,6 +433,7 @@ public class DiscoverMainActivity extends Activity
 		}
 
 		cancelTasks();
+		cameraOperation.clearEvercamStatus();//clear 'added to Evercam' status before scanning
 		scanRange = new ScanRange(netInfo.getLocalIp(), IpTranslator.cidrToMask(netInfo.getCidr()));
 		ipScanTask = new IpScanTask(DiscoverMainActivity.this, scanRange);
 		ipScanTask.execute();

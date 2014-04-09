@@ -236,4 +236,11 @@ public class CameraOperation
 		db.close();
 		return arraylist;
 	}
+	
+	public void clearEvercamStatus()
+	{
+		db = database.getWritableDatabase();
+		db.execSQL("update cameralist set evercam=0");
+		db.close();
+	}
 }
