@@ -236,7 +236,7 @@ public class CameraOperation
 		db.close();
 		return arraylist;
 	}
-	
+
 	public void clearEvercamStatus()
 	{
 		db = database.getWritableDatabase();

@@ -149,7 +149,7 @@ public class SignUpActivity extends Activity
 		{
 			user.setEmail(email);
 		}
-		
+
 		if (TextUtils.isEmpty(password))
 		{
 			passwordEdit.setError(getString(R.string.error_field_required));

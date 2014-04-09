@@ -433,7 +433,8 @@ public class DiscoverMainActivity extends Activity
 		}
 
 		cancelTasks();
-		cameraOperation.clearEvercamStatus();//clear 'added to Evercam' status before scanning
+		cameraOperation.clearEvercamStatus();// clear 'added to Evercam' status
+												// before scanning
 		scanRange = new ScanRange(netInfo.getLocalIp(), IpTranslator.cidrToMask(netInfo.getCidr()));
 		ipScanTask = new IpScanTask(DiscoverMainActivity.this, scanRange);
 		ipScanTask.execute();
@@ -705,9 +706,9 @@ public class DiscoverMainActivity extends Activity
 							displayAll();
 						}
 					}).create();
-			if(!DiscoverMainActivity.this.isFinishing())
+			if (!DiscoverMainActivity.this.isFinishing())
 			{
-			alertDialog.show();
+				alertDialog.show();
 			}
 		}
 		else
