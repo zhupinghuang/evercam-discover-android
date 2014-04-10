@@ -548,13 +548,19 @@ public class DiscoverMainActivity extends Activity
 		{
 			scanning_text.setVisibility(View.VISIBLE);
 			progressbar.setVisibility(View.VISIBLE);
-			menuRefresh.setIcon(R.drawable.ic_cancel);
+			if(menuRefresh != null)
+			{
+				menuRefresh.setIcon(R.drawable.ic_cancel);
+			}
 		}
 		else
 		{
 			scanning_text.setVisibility(View.GONE);
 			progressbar.setVisibility(View.GONE);
-			menuRefresh.setIcon(R.drawable.ic_menu_refresh);
+			if(menuRefresh != null)
+			{
+				menuRefresh.setIcon(R.drawable.ic_menu_refresh);
+			}
 		}
 	}
 
