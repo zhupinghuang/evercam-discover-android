@@ -8,11 +8,14 @@ import io.evercam.network.upnp.UpnpDiscovery;
 
 import java.io.IOException;
 
+import com.bugsense.trace.BugSenseHandler;
+
 import net.sbbi.upnp.messages.ActionResponse;
 import net.sbbi.upnp.messages.UPNPResponseException;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 
 /**
  * IGDDiscoveryTask
@@ -22,7 +25,7 @@ import android.os.AsyncTask;
 
 public class IGDDiscoveryTask extends AsyncTask<Void, Void, Void>
 {
-
+	private final String TAG = "evercamconnect-IGDDiscoveryTask";
 	private IGDDiscovery igdDiscovery;
 	private NetInfo netInfo;
 	private CameraOperation cameraOperation;
@@ -36,9 +39,16 @@ public class IGDDiscoveryTask extends AsyncTask<Void, Void, Void>
 	@Override
 	protected Void doInBackground(Void... params)
 	{
+		try
+		{
 		igdDiscovery = new IGDDiscovery(netInfo.getGatewayIp());
 		fillRouter();
 		fillAllEntries();
+		}
+		catch(Exception e)
+		{
+			Log.e(TAG,e.toString());
+		}
 		return null;
 	}
 
