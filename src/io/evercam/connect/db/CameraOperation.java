@@ -2,6 +2,8 @@ package io.evercam.connect.db;
 
 import java.util.ArrayList;
 
+import com.bugsense.trace.BugSenseHandler;
+
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -190,10 +192,24 @@ public class CameraOperation
 
 	public void updateAttributeString(String ip, String ssid, String attribute, String value)
 	{
-		db = database.getWritableDatabase();
-		db.execSQL("update cameralist set " + attribute + "=?  where ip=? and ssid=?",
-				new Object[] { value, ip, ssid });
-		db.close();
+		try
+		{
+			if (db != null)
+			{
+				if (db.isOpen())
+				{
+					db.close();
+				}
+			}
+			db = database.getWritableDatabase();
+			db.execSQL("update cameralist set " + attribute + "=?  where ip=? and ssid=?",
+					new Object[] { value, ip, ssid });
+			db.close();
+		}
+		catch (Exception e)
+		{
+			BugSenseHandler.sendException(e);
+		}
 	}
 
 	public ArrayList<Camera> selectAllIP(String ssid)

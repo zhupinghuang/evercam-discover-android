@@ -6,6 +6,8 @@ import io.evercam.connect.net.NetInfo;
 
 import java.util.Locale;
 
+import com.bugsense.trace.BugSenseHandler;
+
 import io.evercam.connect.R;
 
 import android.net.Uri;
@@ -61,34 +63,40 @@ public class RouterActivity extends Activity
 					Locale.UK));
 		}
 
-		displayExternalIP();
-
-		router_netmask.setText(netInfo.getNetmaskIp());
-		Camera camera = cameraOperation.getCamera(netInfo.getGatewayIp(), netInfo.getSsid());
-
-		// show model if exists
-		if (camera.getModel() != null && camera.getModel() != "")
+		try
 		{
-			routerModelLayout.setVisibility(View.VISIBLE);
-			router_model.setText(camera.getModel());
-		}
+			displayExternalIP();
 
-		// upnp status
-		if (camera.getUpnp() == 1)
+			router_netmask.setText(netInfo.getNetmaskIp());
+			Camera camera = cameraOperation.getCamera(netInfo.getGatewayIp(), netInfo.getSsid());
+
+			// show model if exists
+			if (camera.getModel() != null && camera.getModel() != "")
+			{
+				routerModelLayout.setVisibility(View.VISIBLE);
+				router_model.setText(camera.getModel());
+			}
+
+			// upnp status
+			if (camera.getUpnp() == 1)
+			{
+				router_upnp.setText(R.string.enabled);
+			}
+			else
+			{
+				router_upnp.setText(R.string.disabled);
+			}
+
+			device_title.setText(this.getResources().getString(R.string.networkInterface)
+					+ netInfo.getInterfaceName());
+
+			device_ip.setText(netInfo.getLocalIp());
+			device_mac.setText(netInfo.getMacAddress().toUpperCase(Locale.UK));
+		}
+		catch (Exception e)
 		{
-			router_upnp.setText(R.string.enabled);
+			BugSenseHandler.sendException(e);
 		}
-		else
-		{
-			router_upnp.setText(R.string.disabled);
-		}
-
-		device_title.setText(this.getResources().getString(R.string.networkInterface)
-				+ netInfo.getInterfaceName());
-
-		device_ip.setText(netInfo.getLocalIp());
-		device_mac.setText(netInfo.getMacAddress().toUpperCase(Locale.UK));
-
 		Button b = (Button) findViewById(R.id.button_routerweb);
 		b.setOnClickListener(new OnClickListener(){
 
