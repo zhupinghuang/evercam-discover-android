@@ -45,7 +45,7 @@
             android:layout_marginLeft="30sp"
             android:layout_marginRight="30sp"
             android:layout_marginTop="40dip"
-            android:src="@drawable/evercamconnect" />
+            android:src="@drawable/evercamdiscover" />
 
         <LinearLayout
             android:id="@+id/login_layout"

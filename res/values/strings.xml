@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Evercam Connect</string>
+    <string name="app_name">Evercam Discover</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_camera_details">Camera Details</string>
     <string name="title_activity_scan">ScanActivity</string>
@@ -67,9 +67,9 @@
     <string name="reportwarning">Would you like to report this? If yes, please specify device model. Thanks.</string>
     <string name="confirmIsCamera">Are you sure this is a camera?</string>
     <string name="confirmNotCamera">Are you sure it is NOT a camera?</string>
-    <string name="confirmFeedBack">Would you like to send discovered results to help improve Evercam Connect?</string>
+    <string name="confirmFeedBack">Would you like to send discovered results to help improve Evercam Discover?</string>
     <string name="confirmStopScan">Scanning is in process, are you sure you want to cancel?</string>
-    <string name="emailtitle">EvercamConnect User Data</string>
+    <string name="emailtitle">EvercamDiscover User Data</string>
     <string name="email_support">support@evercam.io</string>
     <string name="axisVideoService">_axis-video._tcp.local.</string>
     <string name="alertNoCamera">No camera found. If any camera is not recognized correctly, please in Device detail page -> Edit to set as a camera and send us a feedback. </string>
@@ -152,13 +152,10 @@
     <string name="tcp">TCP</string>
     <string name="udp">UDP</string>
     <string name="description:">Description:</string>
-    <string name="description">Description</string>
     <string name="portType:">Port Type:</string>
     <string name="noInternalPortExists">No internal port exists.</string>
     <string name="internalCapital">INTERNAL</string>
     <string name="externalCapital">EXTERNAL</string>
-    <string name="addPort">Add Port</string>
-    <string name="save">Save</string>
     <string name="title_activity_add_to_evercam">Complete Camera Details</string>
 
     <!-- Add to Evercam -->
