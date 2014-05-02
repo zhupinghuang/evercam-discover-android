@@ -68,6 +68,7 @@ import android.widget.Toast;
 
 public class DiscoverMainActivity extends Activity
 {
+	public final String TAG = "evercamdiscover-MainActivity";
 	private Handler handler = new Handler();
 	private SimpleAdapter deviceAdapter;
 	private ArrayList<HashMap<String, Object>> deviceArraylist;
@@ -435,7 +436,14 @@ public class DiscoverMainActivity extends Activity
 		cancelTasks();
 		cameraOperation.clearEvercamStatus();// clear 'added to Evercam' status
 												// before scanning
-		scanRange = new ScanRange(netInfo.getLocalIp(), IpTranslator.cidrToMask(netInfo.getCidr()));
+		try
+		{
+			scanRange = new ScanRange(netInfo.getLocalIp(), IpTranslator.cidrToMask(netInfo.getCidr()));
+		}
+		catch (Exception e)
+		{
+			Log.e(TAG, e.toString());
+		}
 		ipScanTask = new IpScanTask(DiscoverMainActivity.this, scanRange);
 		ipScanTask.execute();
 
