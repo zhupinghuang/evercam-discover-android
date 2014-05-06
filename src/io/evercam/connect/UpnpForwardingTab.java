@@ -23,6 +23,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,7 +47,7 @@ import android.view.Gravity;
 
 public class UpnpForwardingTab extends Fragment
 {
-
+	private final String TAG = "evercamdiscover-UpnpForwardingTab";
 	private Handler handler = new Handler();
 	private CheckBox useUpnpCheckbox;
 	private TextView isAvaliableTxt;
@@ -228,7 +229,14 @@ public class UpnpForwardingTab extends Fragment
 							@Override
 							public void run()
 							{
-								igdDiscovery = new IGDDiscovery(netInfo.getGatewayIp());
+								try
+								{
+									igdDiscovery = new IGDDiscovery(netInfo.getGatewayIp());
+								}
+								catch (Exception e)
+								{
+									Log.e(TAG, e.toString());
+								}
 								updateForwardPage();
 							}
 						}, 1000);
@@ -503,7 +511,14 @@ public class UpnpForwardingTab extends Fragment
 								@Override
 								public void run()
 								{
-									igdDiscovery = new IGDDiscovery(netInfo.getGatewayIp());
+									try
+									{
+										igdDiscovery = new IGDDiscovery(netInfo.getGatewayIp());
+									}
+									catch (Exception e)
+									{
+										Log.e(TAG, e.toString());
+									}
 									natList.setText(getCameraNATList());
 								}
 							}, 1000);
@@ -624,7 +639,14 @@ public class UpnpForwardingTab extends Fragment
 						@Override
 						public void run()
 						{
-							igdDiscovery = new IGDDiscovery(netInfo.getGatewayIp());
+							try
+							{
+								igdDiscovery = new IGDDiscovery(netInfo.getGatewayIp());
+							}
+							catch (Exception e)
+							{
+								Log.e(TAG, e.toString());
+							}
 							natList.setText(getCameraNATList());
 						}
 					}, 1000);
@@ -714,7 +736,14 @@ public class UpnpForwardingTab extends Fragment
 		protected Void doInBackground(Void... params)
 		{
 			igdDiscovery = null;
-			igdDiscovery = new IGDDiscovery(netInfo.getGatewayIp());
+			try
+			{
+				igdDiscovery = new IGDDiscovery(netInfo.getGatewayIp());
+			}
+			catch (Exception e)
+			{
+				Log.e(TAG, e.toString());
+			}
 
 			return null;
 		}
