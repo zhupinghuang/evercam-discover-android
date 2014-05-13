@@ -151,6 +151,16 @@ public class LoginActivity extends Activity
 			}
 		});
 	}
+	
+	@Override
+	protected void onRestart()
+	{
+		super.onRestart();
+		if (isUserLogged())
+		{
+			finish();
+		}
+	}
 
 	public void attemptLogin()
 	{
@@ -340,5 +350,15 @@ public class LoginActivity extends Activity
 			loginTask = null;
 			showProgress(false);
 		}
+	}
+	
+	private boolean isUserLogged()
+	{
+		String savedUsername = sharedPrefs.getString(Constants.EVERCAM_USERNAME, null);
+		if (savedUsername != null)
+		{
+			return true;
+		}
+		return false;
 	}
 }

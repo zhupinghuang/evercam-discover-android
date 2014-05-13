@@ -1,15 +1,20 @@
 package io.evercam.connect.signin;
 
+import io.evercam.API;
+import io.evercam.ApiKeyPair;
 import io.evercam.EvercamException;
 import io.evercam.User;
 import io.evercam.UserDetail;
 import io.evercam.connect.R;
+import io.evercam.connect.helper.SharedPrefsManager;
+
 import java.util.Locale;
 import java.util.Set;
 import java.util.TreeMap;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -19,6 +24,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 import android.app.Activity;
+import android.content.SharedPreferences;
 
 public class SignUpActivity extends Activity
 {
@@ -34,6 +40,7 @@ public class SignUpActivity extends Activity
 	private View signUpFormView;
 	private View signUpStatusView;
 	private CreateUserTask createUserTask;
+	private View focusView = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -72,6 +79,13 @@ public class SignUpActivity extends Activity
 					createUserTask = new CreateUserTask(userDetail);
 					createUserTask.execute();
 				}
+				else
+				{
+					if(focusView != null)
+					{
+						focusView.requestFocus();
+					}
+				}
 			}
 		});
 	}
@@ -97,6 +111,7 @@ public class SignUpActivity extends Activity
 		if (TextUtils.isEmpty(firstname))
 		{
 			firstnameEdit.setError(getString(R.string.error_field_required));
+			focusView = firstnameEdit;
 			return null;
 		}
 		else
@@ -107,6 +122,7 @@ public class SignUpActivity extends Activity
 		if (TextUtils.isEmpty(lastname))
 		{
 			lastnameEdit.setError(getString(R.string.error_field_required));
+			focusView = lastnameEdit;
 			return null;
 		}
 		else
@@ -128,6 +144,7 @@ public class SignUpActivity extends Activity
 		if (TextUtils.isEmpty(username))
 		{
 			usernameEdit.setError(getString(R.string.error_field_required));
+			focusView = usernameEdit;
 			return null;
 		}
 		else
@@ -138,11 +155,13 @@ public class SignUpActivity extends Activity
 		if (TextUtils.isEmpty(email))
 		{
 			emailEdit.setError(getString(R.string.error_field_required));
+			focusView = emailEdit;
 			return null;
 		}
 		else if (!email.contains("@"))
 		{
 			makeShortToast(R.string.invalidEmail);
+			focusView = emailEdit;
 			return null;
 		}
 		else
@@ -153,12 +172,14 @@ public class SignUpActivity extends Activity
 		if (TextUtils.isEmpty(password))
 		{
 			passwordEdit.setError(getString(R.string.error_field_required));
+			focusView = passwordEdit;
 			return null;
 		}
 
 		if (TextUtils.isEmpty(repassword))
 		{
 			repasswordEdit.setError(getString(R.string.error_field_required));
+			focusView = passwordEdit;
 			return null;
 		}
 		else if (!password.equals(repassword))
@@ -258,6 +279,17 @@ public class SignUpActivity extends Activity
 			try
 			{
 				User.create(userDetail);
+				ApiKeyPair userKeyPair = API.requestUserKeyPairFromEvercam(
+						userDetail.getUsername(), userDetail.getPassword());
+				String userApiKey = userKeyPair.getApiKey();
+				String userApiId = userKeyPair.getApiId();
+				SharedPreferences sharedPrefs = PreferenceManager
+						.getDefaultSharedPreferences(SignUpActivity.this);
+				SharedPrefsManager.saveEvercamUserKeyPair(sharedPrefs, userApiKey, userApiId);
+				API.setUserKeyPair(userApiKey, userApiId);
+				User evercamUser = new User(userDetail.getUsername());
+				SharedPrefsManager.saveEvercamCredential(sharedPrefs, evercamUser,
+						userDetail.getPassword());
 				return null;
 			}
 			catch (EvercamException e)
