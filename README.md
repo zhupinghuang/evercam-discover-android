@@ -1,6 +1,6 @@
-# Evercam Connect
+# Evercam Discover
 
-Evercam Connect is an Android app, scan local network, recognize cameras, get details of each camera, make it easier to add to Evercam.io and provide easy access for camera live view.
+Evercam Discover is an Android app, scan local network, recognize cameras, get details of each camera, make it easier to add to Evercam.io and provide easy access for camera live view.
 
 ## Features
 
@@ -18,7 +18,7 @@ Evercam Connect is an Android app, scan local network, recognize cameras, get de
 ## Build
 
     # Checkout from Git
-    git clone https://github.com/evercam/android.connect.git
+    git clone https://github.com/evercam/android.discover.git
 
 ### With Eclipse
 
