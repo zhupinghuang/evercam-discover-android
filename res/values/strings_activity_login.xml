@@ -16,7 +16,7 @@
     <string name="error_invalid_username">Invalid username</string>
     <string name="error_invalid_password">Invalid password</string>
 
-    <!-- Sign Up-->
+    <!-- Sign Up -->
     <string name="login_progress_signing_up">Signing up</string>
     <string name="sign_up">Sign Up</string>
     <string name="forename">Forename:</string>

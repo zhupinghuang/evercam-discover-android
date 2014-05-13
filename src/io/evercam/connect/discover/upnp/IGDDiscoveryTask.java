@@ -41,13 +41,13 @@ public class IGDDiscoveryTask extends AsyncTask<Void, Void, Void>
 	{
 		try
 		{
-		igdDiscovery = new IGDDiscovery(netInfo.getGatewayIp());
-		fillRouter();
-		fillAllEntries();
+			igdDiscovery = new IGDDiscovery(netInfo.getGatewayIp());
+			fillRouter();
+			fillAllEntries();
 		}
-		catch(Exception e)
+		catch (Exception e)
 		{
-			Log.e(TAG,e.toString());
+			Log.e(TAG, e.toString());
 		}
 		return null;
 	}

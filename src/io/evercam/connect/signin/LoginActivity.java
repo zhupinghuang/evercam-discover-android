@@ -151,7 +151,7 @@ public class LoginActivity extends Activity
 			}
 		});
 	}
-	
+
 	@Override
 	protected void onRestart()
 	{
@@ -351,7 +351,7 @@ public class LoginActivity extends Activity
 			showProgress(false);
 		}
 	}
-	
+
 	private boolean isUserLogged()
 	{
 		String savedUsername = sharedPrefs.getString(Constants.EVERCAM_USERNAME, null);

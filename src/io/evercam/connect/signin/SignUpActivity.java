@@ -81,7 +81,7 @@ public class SignUpActivity extends Activity
 				}
 				else
 				{
-					if(focusView != null)
+					if (focusView != null)
 					{
 						focusView.requestFocus();
 					}
