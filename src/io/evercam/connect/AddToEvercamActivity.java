@@ -414,6 +414,15 @@ public class AddToEvercamActivity extends Activity
 					cameraBuilder.setInternalHost(camera.getIP()).setInternalHttpPort(
 							camera.getHttp());
 				}
+				if(camera.hasRTSP())
+				{
+					cameraBuilder.setInternalHost(camera.getIP()).setInternalRtspPort(
+							camera.getRtsp());
+				}
+				if(camera.hasExternalRtsp())
+				{
+					cameraBuilder.setExternalRtspPort(camera.getRtsp());
+				}
 
 				if (cameraVendor != null)
 				{
