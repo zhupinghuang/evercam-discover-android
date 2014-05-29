@@ -38,7 +38,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -322,7 +321,6 @@ public class CameraDetailActivity extends Activity
 	public void setUpPage()
 	{
 		camera = cameraOperation.getCamera(ipstring, ssid);
-		Log.v(TAG, camera.toString());
 		ctxt = getApplicationContext();
 
 		TextView ip = (TextView) findViewById(R.id.ipvalue_detail);

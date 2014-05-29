@@ -8,8 +8,6 @@ import io.evercam.network.upnp.UpnpDiscovery;
 
 import java.io.IOException;
 
-import com.bugsense.trace.BugSenseHandler;
-
 import net.sbbi.upnp.messages.ActionResponse;
 import net.sbbi.upnp.messages.UPNPResponseException;
 

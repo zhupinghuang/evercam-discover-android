@@ -1,6 +1,5 @@
 package io.evercam.connect.db;
 
-import io.evercam.connect.helper.Constants;
 import io.evercam.connect.helper.PropertyReader;
 
 import java.util.Locale;
