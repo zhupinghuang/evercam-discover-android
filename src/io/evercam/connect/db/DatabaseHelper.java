@@ -12,7 +12,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
 {
 
 	private static final String dbName = "evercamdb";
-	private static final int dbVersion = 7;// add jpg & h264 urls
+	private static final int dbVersion = 8;// version 8: update demo camera details
 	private Context ctxt;
 
 	public DatabaseHelper(Context context)
@@ -35,16 +35,18 @@ public class DatabaseHelper extends SQLiteOpenHelper
 
 		// add sample camera
 		PropertyReader propertyReader = new PropertyReader(ctxt);
-		String sampleIP = propertyReader.getPropertyStr(Constants.PROPERTY_KEY_SAMPLE_IP);
-		String sampleMAC = propertyReader.getPropertyStr(Constants.PROPERTY_KEY_SAMPLE_MAC);
-		String sampleVendor = propertyReader.getPropertyStr(Constants.PROPERTY_KEY_SAMPLE_VENDOR);
-		String sampleModel = propertyReader.getPropertyStr(Constants.PROPERTY_KEY_SAMPLE_MODEL);
+		String sampleIP = propertyReader.getPropertyStr(PropertyReader.KEY_SAMPLE_IP);
+		String sampleMAC = propertyReader.getPropertyStr(PropertyReader.KEY_SAMPLE_MAC);
+		String sampleVendor = propertyReader.getPropertyStr(PropertyReader.KEY_SAMPLE_VENDOR);
+		String sampleModel = propertyReader.getPropertyStr(PropertyReader.KEY_SAMPLE_MODEL);
+		String sampleUsername = propertyReader.getPropertyStr(PropertyReader.KEY_SAMPLE_USERNAME);
+		String samplePassword = propertyReader.getPropertyStr(PropertyReader.KEY_SAMPLE_PASSWORD);
 		db.execSQL(
-				"insert into cameralist(ip,mac,vendor,model,upnp,onvif,bonjour,portforwarded,flag,http,rtsp,exthttp,extrtsp, firstseen,lastseen,ssid,jpg,h264)values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+				"insert into cameralist(ip,mac,vendor,model,upnp,onvif,bonjour,portforwarded,flag,http,rtsp,exthttp,extrtsp, firstseen,lastseen,ssid,jpg,h264,username,password)values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
 				new Object[] { sampleIP, sampleMAC, sampleVendor, sampleModel, 1, 1, 0, 1, 1, 8101,
 						9101, 8101, 8300, DiscoverMainActivity.getSystemTime(),
 						DiscoverMainActivity.getSystemTime(), "sample",
-						"/Streaming/Channels/1/picture", "/h264/ch1/main/av_stream" });
+						"/Streaming/Channels/1/picture", "/h264/ch1/main/av_stream", sampleUsername, samplePassword });
 	}
 
 	@Override

@@ -58,6 +58,7 @@ import android.widget.Toast;
 
 public class CameraDetailActivity extends Activity
 {
+	private final String TAG = "evercamdiscover-CameraDetailActivity";
 	private String ipstring;
 	private String ssid;
 	private String rtspURL;
@@ -83,7 +84,7 @@ public class CameraDetailActivity extends Activity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_camera_detail);
-
+		
 		ctxt = getApplicationContext();
 		final ActionBar actionBar = getActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
@@ -321,6 +322,7 @@ public class CameraDetailActivity extends Activity
 	public void setUpPage()
 	{
 		camera = cameraOperation.getCamera(ipstring, ssid);
+		Log.v(TAG, camera.toString());
 		ctxt = getApplicationContext();
 
 		TextView ip = (TextView) findViewById(R.id.ipvalue_detail);

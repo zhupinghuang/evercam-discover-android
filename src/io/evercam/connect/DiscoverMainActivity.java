@@ -107,9 +107,9 @@ public class DiscoverMainActivity extends Activity
 		propertyReader = new PropertyReader(ctxt);
 
 		// Bug Sense
-		if (propertyReader.isPropertyExist(Constants.PROPERTY_KEY_BUG_SENSE))
+		if (propertyReader.isPropertyExist(PropertyReader.KEY_BUG_SENSE))
 		{
-			String bugSenseCode = propertyReader.getPropertyStr(Constants.PROPERTY_KEY_BUG_SENSE);
+			String bugSenseCode = propertyReader.getPropertyStr(PropertyReader.KEY_BUG_SENSE);
 			BugSenseHandler.initAndStartSession(DiscoverMainActivity.this, bugSenseCode);
 		}
 		setContentView(R.layout.activity_evercam_discover);
@@ -154,7 +154,7 @@ public class DiscoverMainActivity extends Activity
 					Intent intent = new Intent();
 					intent.setClass(DiscoverMainActivity.this, CameraDetailActivity.class);
 					intent.putExtra("IP",
-							propertyReader.getPropertyStr(Constants.PROPERTY_KEY_SAMPLE_IP));
+							propertyReader.getPropertyStr(PropertyReader.KEY_SAMPLE_IP));
 					intent.putExtra("SSID", "sample");
 					startActivity(intent);
 				}
@@ -235,7 +235,7 @@ public class DiscoverMainActivity extends Activity
 	{
 		super.onStart();
 
-		if (propertyReader.isPropertyExist(Constants.PROPERTY_KEY_BUG_SENSE))
+		if (propertyReader.isPropertyExist(PropertyReader.KEY_BUG_SENSE))
 		{
 			BugSenseHandler.startSession(this);
 		}
@@ -267,7 +267,7 @@ public class DiscoverMainActivity extends Activity
 	protected void onStop()
 	{
 		super.onStop();
-		if (propertyReader.isPropertyExist(Constants.PROPERTY_KEY_BUG_SENSE))
+		if (propertyReader.isPropertyExist(PropertyReader.KEY_BUG_SENSE))
 		{
 			BugSenseHandler.closeSession(this);
 		}

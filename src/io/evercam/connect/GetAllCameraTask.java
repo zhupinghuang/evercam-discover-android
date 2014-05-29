@@ -36,7 +36,7 @@ public class GetAllCameraTask extends AsyncTask<Void, HashMap<String, Object>, A
 	{
 		try
 		{
-			cameras = User.getCameras(username);
+			cameras = User.getCameras(username, true);
 			discoverMainActivity.evercamCameraList = cameras;
 		}
 		catch (EvercamException e)

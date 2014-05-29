@@ -12,6 +12,16 @@ public class PropertyReader
 {
 	public final static String KEY_API_KEY = "ApiKey";
 	public final static String KEY_API_ID = "ApiId";
+	public static final String KEY_BUG_SENSE = "BugSenseCode";
+	public static final String KEY_ACCESS_KEY = "AwsAccessKeyId";
+	public static final String KEY_SECRET_KEY = "AwsSecretKey";
+	public static final String KEY_SAMPLE_IP = "SampleCameraIp";
+	public static final String KEY_SAMPLE_MAC = "SampleCameraMac";
+	public static final String KEY_SAMPLE_VENDOR = "SampleCameraVendor";
+	public static final String KEY_SAMPLE_MODEL = "SampleCameraModel";
+	public static final String KEY_SAMPLE_USERNAME = "SampleCameraUsername";
+	public static final String KEY_SAMPLE_PASSWORD = "SampleCameraPassword";
+	public static final String KEY_DATA_COLLECTION = "EnableDataCollection";
 
 	private Context context;
 	private Properties properties;

@@ -197,7 +197,7 @@ public class IpScanTask extends AsyncTask<Void, Host, Void>
 		PropertyReader propertyReader = new PropertyReader(mainDiscover.get()
 				.getApplicationContext());
 		if (isDataCollectionAllowed
-				&& propertyReader.isPropertyExist(Constants.PROPERTY_KEY_DATA_COLLECTION))
+				&& propertyReader.isPropertyExist(PropertyReader.KEY_DATA_COLLECTION))
 		{
 			sendFeedBack();
 		}

@@ -32,9 +32,9 @@ public class AwsS3Uploader
 	public AwsS3Uploader(String title, String content, Context ctxt)
 	{
 		String accessKey = new PropertyReader(ctxt)
-				.getPropertyStr(Constants.PROPERTY_KEY_ACCESS_KEY);
+				.getPropertyStr(PropertyReader.KEY_ACCESS_KEY);
 		String secretKey = new PropertyReader(ctxt)
-				.getPropertyStr(Constants.PROPERTY_KEY_SECRET_KEY);
+				.getPropertyStr(PropertyReader.KEY_SECRET_KEY);
 		s3Client = new AmazonS3Client(new BasicAWSCredentials(accessKey, secretKey));
 
 		s3Client.setRegion(Region.getRegion(Regions.EU_WEST_1));
@@ -80,7 +80,7 @@ public class AwsS3Uploader
 					}
 					catch (Exception e)
 					{
-						Log.e("Error", e.toString());
+						Log.e("evercamconnect", "Error while upload to S3" + e.toString());
 					}
 				}
 			}

@@ -39,16 +39,6 @@ public final class Constants
 	public static final String EVERCAM_COUNTRY = "EvercamCountry";
 	public static final String EVERCAM_EMAIL = "EvercamEmail";
 
-	// Property keys
-	public static final String PROPERTY_KEY_BUG_SENSE = "BugSenseCode";
-	public static final String PROPERTY_KEY_ACCESS_KEY = "AwsAccessKeyId";
-	public static final String PROPERTY_KEY_SECRET_KEY = "AwsSecretKey";
-	public static final String PROPERTY_KEY_SAMPLE_IP = "SampleCameraIp";
-	public static final String PROPERTY_KEY_SAMPLE_MAC = "SampleCameraMac";
-	public static final String PROPERTY_KEY_SAMPLE_VENDOR = "SampleCameraVendor";
-	public static final String PROPERTY_KEY_SAMPLE_MODEL = "SampleCameraModel";
-	public static final String PROPERTY_KEY_DATA_COLLECTION = "EnableDataCollection";
-
 	public static final int TYPE_SHOW_ALL = 1;
 	public static final int TYPE_SHOW_CAMERA = 0;
 

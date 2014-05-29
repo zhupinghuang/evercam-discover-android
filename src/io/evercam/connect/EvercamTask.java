@@ -8,6 +8,7 @@ import android.util.Log;
 
 import io.evercam.Auth;
 import io.evercam.EvercamException;
+import io.evercam.Model;
 import io.evercam.Vendor;
 import io.evercam.connect.db.Camera;
 import io.evercam.connect.db.CameraOperation;
@@ -56,8 +57,8 @@ public class EvercamTask extends AsyncTask<Void, Void, Void>
 	{
 		try
 		{
-			username = vendor.getModel("*").getDefaults().getAuth(Auth.TYPE_BASIC).getUsername();
-			password = vendor.getModel("*").getDefaults().getAuth(Auth.TYPE_BASIC).getPassword();
+			username = vendor.getModel("default").getDefaults().getAuth(Auth.TYPE_BASIC).getUsername();
+			password = vendor.getModel("default").getDefaults().getAuth(Auth.TYPE_BASIC).getPassword();
 			cameraOperation.updateAttributeString(camera.getIP(), camera.getSsid(), "username",
 					username);
 			cameraOperation.updateAttributeString(camera.getIP(), camera.getSsid(), "password",
@@ -71,10 +72,12 @@ public class EvercamTask extends AsyncTask<Void, Void, Void>
 
 	private void fillDefaultURL(Vendor vendor)
 	{
+		String vendorId = "";
 		try
 		{
-			jpgURL = vendor.getModel("*").getDefaults().getJpgURL();
-			streamURL = vendor.getModel("*").getDefaults().getH264URL();
+			vendorId = vendor.getId();
+			jpgURL = vendor.getModel(Model.DEFAULT_MODEL).getDefaults().getJpgURL();
+			streamURL = vendor.getModel(Model.DEFAULT_MODEL).getDefaults().getH264URL();
 			if (!jpgURL.startsWith("/"))
 			{
 				jpgURL = "/" + jpgURL;
@@ -89,7 +92,7 @@ public class EvercamTask extends AsyncTask<Void, Void, Void>
 		}
 		catch (EvercamException e)
 		{
-			Log.e("evercamconnect", e.getMessage());
+			Log.e("evercamconnect", "Exception with get default url " + vendorId + e.getMessage());
 		}
 	}
 
@@ -100,12 +103,12 @@ public class EvercamTask extends AsyncTask<Void, Void, Void>
 			Vendor vendor = Vendor.getById(vendorId.toLowerCase(Locale.UK));
 			if (vendor != null)
 			{
-				return vendor.getModel("*").getDefaults().getAuth(Auth.TYPE_BASIC).getUsername();
+				return vendor.getModel(Model.DEFAULT_MODEL).getDefaults().getAuth(Auth.TYPE_BASIC).getUsername();
 			}
 		}
 		catch (EvercamException e)
 		{
-			Log.e("evercamconnect", e.getMessage());
+			Log.e("evercamconnect", "Exception with get default username " + vendorId + e.getMessage());
 		}
 		return "";
 	}
@@ -117,12 +120,12 @@ public class EvercamTask extends AsyncTask<Void, Void, Void>
 			Vendor vendor = Vendor.getById(vendorId.toLowerCase(Locale.UK));
 			if (vendor != null)
 			{
-				return vendor.getModel("*").getDefaults().getAuth(Auth.TYPE_BASIC).getPassword();
+				return vendor.getModel(Model.DEFAULT_MODEL).getDefaults().getAuth(Auth.TYPE_BASIC).getPassword();
 			}
 		}
 		catch (EvercamException e)
 		{
-			Log.e("evercamconnect", e.getMessage());
+			Log.e("evercamconnect", "Exception with get default password" + vendorId  + e.getMessage());
 		}
 		return "";
 	}
