@@ -21,7 +21,7 @@
     <View
         android:layout_width="fill_parent"
         android:layout_height="2dp"
-        android:background="#DC4c3f" />
+        android:background="#778899" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -34,6 +34,22 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent" >
         </android.support.v4.view.ViewPager>
+
+        <Button
+            android:id="@+id/skipButton"
+            android:layout_width="wrap_content"
+            android:layout_height="30sp"
+            android:layout_above="@+id/dot_layout"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="15sp"
+            android:background="@drawable/skip_btn_selector"
+            android:fontFamily="sans-serif-light"
+            android:paddingLeft="10sp"
+            android:paddingRight="10sp"
+            android:text="@string/enter_the_app"
+            android:textColor="#778899"
+            android:textSize="16sp" >
+        </Button>
 
         <LinearLayout
             android:id="@+id/dot_layout"
@@ -66,8 +82,8 @@
                 android:layout_marginLeft="15sp"
                 android:clickable="true"
                 android:src="@drawable/dot_selector" />
-
-            <ImageView
+            
+                        <ImageView
                 android:layout_width="8sp"
                 android:layout_height="8sp"
                 android:layout_gravity="center_vertical"

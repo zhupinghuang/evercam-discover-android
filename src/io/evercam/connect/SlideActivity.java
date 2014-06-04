@@ -20,6 +20,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -34,7 +35,8 @@ public class SlideActivity extends Activity implements OnPageChangeListener
 
 	private List<View> views;
 	private ImageView[] dots;
-	private static final int[] pics = { R.drawable.capture_page_one_no_swipe };
+	private static final int[] pics = { R.drawable.discover_intro, R.drawable.discover_feature,
+										R.drawable.discover_add_camera, R.drawable.discover_next};
 	private int currentIndex;
 
 	@Override
@@ -53,10 +55,18 @@ public class SlideActivity extends Activity implements OnPageChangeListener
 			BugSenseHandler.initAndStartSession(SlideActivity.this, bugSenseCode);
 		}
 
-
-		initSlideView();
-		initDots();
-		initLinks();
+		if (LoginActivity.isUserLogged(sharedPrefs))
+		{
+			Intent intentMain = new Intent(SlideActivity.this, DiscoverMainActivity.class);
+			startActivity(intentMain);
+		}
+		else
+		{
+			setEvercamDeveloperApiKey();
+			initSlideView();
+			initDots();
+			initLinks();
+		}
 	}
 
 	@Override
@@ -67,6 +77,17 @@ public class SlideActivity extends Activity implements OnPageChangeListener
 		if (propertyReader.isPropertyExist(PropertyReader.KEY_BUG_SENSE))
 		{
 			BugSenseHandler.startSession(this);
+		}
+	}
+
+	@Override
+	protected void onRestart()
+	{
+		super.onRestart();
+		if(LoginActivity.isUserLogged(sharedPrefs))
+		{
+			Intent intentMain = new Intent(SlideActivity.this, DiscoverMainActivity.class);
+			startActivity(intentMain);
 		}
 	}
 
@@ -106,13 +127,13 @@ public class SlideActivity extends Activity implements OnPageChangeListener
 	{
 		TextView loginTextView = (TextView) findViewById(R.id.text_login);
 		TextView signUpTextView = (TextView) findViewById(R.id.text_signup);
+		Button skipButton = (Button) findViewById(R.id.skipButton);
 		loginTextView.setOnClickListener(new OnClickListener(){
 
 			@Override
 			public void onClick(View v)
 			{
-				Intent login = new Intent();
-				login.setClass(SlideActivity.this, LoginActivity.class);
+				Intent login = new Intent(SlideActivity.this, LoginActivity.class);
 				startActivity(login);
 			}
 		});
@@ -122,9 +143,18 @@ public class SlideActivity extends Activity implements OnPageChangeListener
 			@Override
 			public void onClick(View v)
 			{
-				Intent signup = new Intent();
-				signup.setClass(SlideActivity.this, SignUpActivity.class);
+				Intent signup = new Intent(SlideActivity.this, SignUpActivity.class);
 				startActivity(signup);
+			}
+		});
+		
+		skipButton.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v)
+			{
+				Intent skip = new Intent(SlideActivity.this, DiscoverMainActivity.class);
+				startActivity(skip);
 			}
 		});
 	}
@@ -154,7 +184,13 @@ public class SlideActivity extends Activity implements OnPageChangeListener
 		currentIndex = 0;
 		dots[currentIndex].setEnabled(false);
 	}
-
+	
+	private void setEvercamDeveloperApiKey()
+	{
+		String developerApiKey = propertyReader.getPropertyStr(PropertyReader.KEY_API_KEY);
+		String developerAapiId = propertyReader.getPropertyStr(PropertyReader.KEY_API_ID);
+		API.setDeveloperKeyPair(developerApiKey, developerAapiId);
+	}
 	private void setCurrentView(int position)
 	{
 		if (position < 0 || position >= pics.length)

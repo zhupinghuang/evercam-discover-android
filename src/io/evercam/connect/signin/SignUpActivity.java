@@ -314,7 +314,6 @@ public class SignUpActivity extends Activity
 	private void showConfirmSignUp()
 	{
 		makeShortToast(R.string.confirmSignUp);
-		showProgress(false);
 		finish();
 	}
 }

@@ -156,7 +156,7 @@ public class LoginActivity extends Activity
 	protected void onRestart()
 	{
 		super.onRestart();
-		if (isUserLogged())
+		if (isUserLogged(sharedPrefs))
 		{
 			finish();
 		}
@@ -352,7 +352,7 @@ public class LoginActivity extends Activity
 		}
 	}
 
-	private boolean isUserLogged()
+	public static boolean isUserLogged(SharedPreferences sharedPrefs)
 	{
 		String savedUsername = sharedPrefs.getString(Constants.EVERCAM_USERNAME, null);
 		if (savedUsername != null)

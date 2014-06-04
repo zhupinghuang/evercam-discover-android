@@ -272,6 +272,12 @@ public class DiscoverMainActivity extends Activity
 			BugSenseHandler.closeSession(this);
 		}
 	}
+	
+	@Override
+	public void onBackPressed()
+	{
+		// Not allowed to go back.
+	}
 
 	private void setUp()
 	{
@@ -385,9 +391,8 @@ public class DiscoverMainActivity extends Activity
 		else if (item.getItemId() == R.id.action_signIn)
 
 		{
-			Intent intentSignIn = new Intent();
-			intentSignIn.setClass(DiscoverMainActivity.this, LoginActivity.class);
-			startActivity(intentSignIn);
+			Intent intentWelcome = new Intent(DiscoverMainActivity.this, SlideActivity.class);
+			startActivity(intentWelcome);
 		}
 
 		else if (item.getItemId() == R.id.action_signOut)
@@ -403,8 +408,8 @@ public class DiscoverMainActivity extends Activity
 							SharedPrefsManager.clearAllUserInfo(sharedPrefs);
 							menuSignIn.setVisible(true);
 							menuSignOut.setVisible(false);
-							Toast.makeText(getApplicationContext(), "Success logged out!",
-									Toast.LENGTH_SHORT).show();
+							Intent intentWelcome = new Intent(DiscoverMainActivity.this, SlideActivity.class);
+							startActivity(intentWelcome);
 						}
 					}).setNegativeButton(R.string.no, new DialogInterface.OnClickListener(){
 						@Override
@@ -420,6 +425,12 @@ public class DiscoverMainActivity extends Activity
 		{
 			Intent intent = new Intent();
 			intent.setClass(DiscoverMainActivity.this, SettingsActivity.class);
+			startActivity(intent);
+		}
+		else if (item.getItemId() == R.id.action_welcome)
+		{
+			Intent intent = new Intent();
+			intent.setClass(DiscoverMainActivity.this, SlideActivity.class);
 			startActivity(intent);
 		}
 		return false;
