@@ -325,17 +325,14 @@ public class LoginActivity extends Activity
 		protected void onPostExecute(final Boolean success)
 		{
 			loginTask = null;
-			showProgress(false);
 
 			if (success)
 			{
-				Toast toast = Toast
-						.makeText(getApplicationContext(), "Success", Toast.LENGTH_SHORT);
-				toast.show();
 				finish();
 			}
 			else
 			{
+				showProgress(false);
 				Toast toast = Toast.makeText(getApplicationContext(), errorMessage,
 						Toast.LENGTH_SHORT);
 				toast.setGravity(Gravity.CENTER, 0, 0);

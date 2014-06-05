@@ -15,8 +15,6 @@ import io.evercam.connect.helper.PropertyReader;
 import io.evercam.connect.helper.ResourceHelper;
 import io.evercam.connect.helper.SharedPrefsManager;
 import io.evercam.connect.net.NetInfo;
-import io.evercam.connect.signin.LoginActivity;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -425,12 +423,6 @@ public class DiscoverMainActivity extends Activity
 		{
 			Intent intent = new Intent();
 			intent.setClass(DiscoverMainActivity.this, SettingsActivity.class);
-			startActivity(intent);
-		}
-		else if (item.getItemId() == R.id.action_welcome)
-		{
-			Intent intent = new Intent();
-			intent.setClass(DiscoverMainActivity.this, SlideActivity.class);
 			startActivity(intent);
 		}
 		return false;

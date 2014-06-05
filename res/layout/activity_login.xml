@@ -51,8 +51,8 @@
             android:id="@+id/login_layout"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="30sp"
-            android:layout_marginRight="30sp"
+            android:layout_marginLeft="20sp"
+            android:layout_marginRight="20sp"
             android:orientation="vertical" >
 
             <EditText
@@ -77,9 +77,11 @@
             <Button
                 android:id="@+id/signInEvercamBtn"
                 android:layout_width="fill_parent"
-                android:layout_height="35dp"
+                android:layout_height="40dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="30dp"
+                android:layout_marginLeft="2sp"
+           	    android:layout_marginRight="2sp"
                 android:background="@drawable/btn_selector"
                 android:text="@string/log_in"
                 android:textColor="#ffffff" />
@@ -89,6 +91,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dip"
+                android:layout_marginLeft="2sp"
                 android:text="@string/create_account"
                 android:textColor="@drawable/text_color_selector"
                 android:textSize="16sp"
