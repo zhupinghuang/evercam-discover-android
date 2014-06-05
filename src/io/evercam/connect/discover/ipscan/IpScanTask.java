@@ -9,6 +9,7 @@ import io.evercam.connect.helper.Constants;
 import io.evercam.connect.helper.JsonMessage;
 import io.evercam.connect.helper.PropertyReader;
 import io.evercam.connect.helper.SharedPrefsManager;
+import io.evercam.connect.helper.VendorFromMac;
 import io.evercam.connect.net.NetInfo;
 import io.evercam.network.ipscan.IpScan;
 import io.evercam.network.ipscan.ScanRange;
@@ -136,7 +137,9 @@ public class IpScanTask extends AsyncTask<Void, Host, Void>
 				// NIC vendor
 				SimpleDBConnect simpleDBConnect = new SimpleDBConnect(mainDiscover.get()
 						.getApplicationContext());
-				host.vendor = simpleDBConnect.getVendorFromMac(host.hardwareAddress);
+			//	host.vendor = simpleDBConnect.getVendorFromMac(host.hardwareAddress);
+				VendorFromMac vendorFromMac = new VendorFromMac(host.hardwareAddress);
+				host.vendor = vendorFromMac.getCompany();
 
 				// Is camera
 				if (simpleDBConnect.isCameraVendor(host.hardwareAddress))
