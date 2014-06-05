@@ -28,10 +28,8 @@ public class SimpleDBConnect
 
 	private void ConnectSimpleDB()
 	{
-		String accessKey = new PropertyReader(ctxt)
-				.getPropertyStr(PropertyReader.KEY_ACCESS_KEY);
-		String secretKey = new PropertyReader(ctxt)
-				.getPropertyStr(PropertyReader.KEY_SECRET_KEY);
+		String accessKey = new PropertyReader(ctxt).getPropertyStr(PropertyReader.KEY_ACCESS_KEY);
+		String secretKey = new PropertyReader(ctxt).getPropertyStr(PropertyReader.KEY_SECRET_KEY);
 		credentials = new BasicAWSCredentials(accessKey, secretKey);
 		sdbClient = new AmazonSimpleDBClient(credentials);
 		sdbClient.setEndpoint("sdb.eu-west-1.amazonaws.com");

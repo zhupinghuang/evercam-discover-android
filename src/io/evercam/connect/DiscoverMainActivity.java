@@ -270,7 +270,7 @@ public class DiscoverMainActivity extends Activity
 			BugSenseHandler.closeSession(this);
 		}
 	}
-	
+
 	@Override
 	public void onBackPressed()
 	{
@@ -406,7 +406,8 @@ public class DiscoverMainActivity extends Activity
 							SharedPrefsManager.clearAllUserInfo(sharedPrefs);
 							menuSignIn.setVisible(true);
 							menuSignOut.setVisible(false);
-							Intent intentWelcome = new Intent(DiscoverMainActivity.this, SlideActivity.class);
+							Intent intentWelcome = new Intent(DiscoverMainActivity.this,
+									SlideActivity.class);
 							startActivity(intentWelcome);
 						}
 					}).setNegativeButton(R.string.no, new DialogInterface.OnClickListener(){

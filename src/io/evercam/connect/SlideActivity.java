@@ -37,7 +37,7 @@ public class SlideActivity extends Activity implements OnPageChangeListener
 	private List<View> views;
 	private ImageView[] dots;
 	private static final int[] pics = { R.drawable.discover_intro, R.drawable.discover_feature,
-										R.drawable.discover_add_camera, R.drawable.discover_next};
+			R.drawable.discover_add_camera, R.drawable.discover_next };
 	private int currentIndex;
 
 	@Override
@@ -85,7 +85,7 @@ public class SlideActivity extends Activity implements OnPageChangeListener
 	protected void onRestart()
 	{
 		super.onRestart();
-		if(LoginActivity.isUserLogged(sharedPrefs))
+		if (LoginActivity.isUserLogged(sharedPrefs))
 		{
 			Intent intentMain = new Intent(SlideActivity.this, DiscoverMainActivity.class);
 			startActivity(intentMain);
@@ -148,7 +148,7 @@ public class SlideActivity extends Activity implements OnPageChangeListener
 				startActivity(signup);
 			}
 		});
-		
+
 		skipButton.setOnClickListener(new OnClickListener(){
 
 			@Override
@@ -185,13 +185,14 @@ public class SlideActivity extends Activity implements OnPageChangeListener
 		currentIndex = 0;
 		dots[currentIndex].setEnabled(false);
 	}
-	
+
 	private void setEvercamDeveloperApiKey()
 	{
 		String developerApiKey = propertyReader.getPropertyStr(PropertyReader.KEY_API_KEY);
 		String developerAapiId = propertyReader.getPropertyStr(PropertyReader.KEY_API_ID);
 		API.setDeveloperKeyPair(developerApiKey, developerAapiId);
 	}
+
 	private void setCurrentView(int position)
 	{
 		if (position < 0 || position >= pics.length)

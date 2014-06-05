@@ -31,10 +31,8 @@ public class AwsS3Uploader
 
 	public AwsS3Uploader(String title, String content, Context ctxt)
 	{
-		String accessKey = new PropertyReader(ctxt)
-				.getPropertyStr(PropertyReader.KEY_ACCESS_KEY);
-		String secretKey = new PropertyReader(ctxt)
-				.getPropertyStr(PropertyReader.KEY_SECRET_KEY);
+		String accessKey = new PropertyReader(ctxt).getPropertyStr(PropertyReader.KEY_ACCESS_KEY);
+		String secretKey = new PropertyReader(ctxt).getPropertyStr(PropertyReader.KEY_SECRET_KEY);
 		s3Client = new AmazonS3Client(new BasicAWSCredentials(accessKey, secretKey));
 
 		s3Client.setRegion(Region.getRegion(Regions.EU_WEST_1));

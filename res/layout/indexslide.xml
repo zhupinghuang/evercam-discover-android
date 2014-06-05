@@ -82,8 +82,8 @@
                 android:layout_marginLeft="15sp"
                 android:clickable="true"
                 android:src="@drawable/dot_selector" />
-            
-                        <ImageView
+
+            <ImageView
                 android:layout_width="8sp"
                 android:layout_height="8sp"
                 android:layout_gravity="center_vertical"
