@@ -118,6 +118,7 @@
     <string name="title_activity_login">Login</string>
     <string name="confirmSignOutMsg">Are you sure you want to sign out?</string>
     <string name="unknown">Unknown</string>
+    <string name="unknown_vendor">Unknown Vendor</string>
     <string name="title_activity_settings">Settings</string>
     <string name="notAvaliable">Not available</string>
     <string name="next">Next</string>

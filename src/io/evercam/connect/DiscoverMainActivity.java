@@ -583,24 +583,34 @@ public class DiscoverMainActivity extends Activity
 		checkIsEvercam(camera);
 		camera = cameraOperation.getCamera(camera.getIP(), netInfo.getSsid());
 		String listIP = camera.getIP();
-		String listMAC = camera.getMAC().toUpperCase();
 		String listVendor = camera.getVendor();
 		final HashMap<String, Object> deviceMap = new HashMap<String, Object>();
 
 		deviceMap.put("device_name", listIP);
-		deviceMap.put("device_mac", listMAC);
+		if (camera.hasMac())
+		{
+			deviceMap.put("device_mac", camera.getMAC().toUpperCase());
+		}
+		else
+		{
+			deviceMap.put("device_mac", NetInfo.EMPTY_MAC);
+		}
 		if (camera.hasModel())
 		{
 			deviceMap.put("device_vendor", camera.getModel());
 		}
-		else
+		else if(camera.hasVendor())
 		{
 			deviceMap.put("device_vendor", listVendor);
+		}
+		else
+		{
+			deviceMap.put("device_vendor", getString(R.string.unknown_vendor));
 		}
 
 		deviceMap.put("device_timediff", getTimeDifference(camera.getLastSeen() + ":00"));
 
-		if (camera.getFlag() == Constants.TYPE_ROUTER)
+		if (camera.getFlag() == Constants.TYPE_ROUTER || camera.getIP().equals(netInfo.getGatewayIp()))
 		{
 			deviceMap.put("device_img", R.drawable.tplink_trans);
 		}
@@ -894,11 +904,14 @@ public class DiscoverMainActivity extends Activity
 			{
 				try
 				{
-					if (camera.getMAC().equalsIgnoreCase(evercamCamera.getMacAddress()))
+					if (!camera.getMAC().isEmpty())
 					{
-						cameraOperation.updateAttributeInt(camera.getIP(), camera.getSsid(),
-								"evercam", 1);
-						isEvercam = true;
+						if (camera.getMAC().equalsIgnoreCase(evercamCamera.getMacAddress()))
+						{
+							cameraOperation.updateAttributeInt(camera.getIP(), camera.getSsid(),
+									"evercam", 1);
+							isEvercam = true;
+						}
 					}
 				}
 				catch (EvercamException e)

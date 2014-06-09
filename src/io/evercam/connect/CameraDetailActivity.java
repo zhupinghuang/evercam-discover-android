@@ -22,6 +22,7 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
+import com.bugsense.trace.BugSenseHandler;
 import com.mashape.unirest.http.utils.Base64Coder;
 
 import android.net.Uri;
@@ -38,6 +39,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -52,7 +54,7 @@ import android.widget.Toast;
 /**
  * CameraDetailActivity
  * 
- * Camera detail page, show camera thumnails, model , ports info, live view etc.
+ * Camera detail page, show camera thumbnails, model , ports info, live view etc.
  */
 
 public class CameraDetailActivity extends Activity
@@ -424,7 +426,7 @@ public class CameraDetailActivity extends Activity
 		}
 		else
 		{
-			mac.setText(R.string.unknown);
+			mac.setText(NetInfo.EMPTY_MAC);
 		}
 
 		if (camera.hasVendor())
@@ -433,7 +435,7 @@ public class CameraDetailActivity extends Activity
 		}
 		else
 		{
-			mac.setText(R.string.unknown);
+			vendor.setText(R.string.unknown);
 		}
 
 		// If is demo camera
@@ -1023,6 +1025,10 @@ public class CameraDetailActivity extends Activity
 			catch (IOException e)
 			{
 				e.printStackTrace();
+			}
+			catch (Exception e)
+			{
+				Log.e(TAG, Log.getStackTraceString(e));
 			}
 		}
 

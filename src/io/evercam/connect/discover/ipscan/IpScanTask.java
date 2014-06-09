@@ -23,9 +23,11 @@ import java.util.concurrent.ExecutorService;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 public class IpScanTask extends AsyncTask<Void, Host, Void>
 {
+	private final String TAG = "evercamdiscover-IpScanTask";
 	private ExecutorService pool;
 	final protected WeakReference<DiscoverMainActivity> mainDiscover;
 	ScanRange scanRange;
@@ -71,11 +73,8 @@ public class IpScanTask extends AsyncTask<Void, Host, Void>
 						Host host = new Host();
 						host.setIpAddress(ip);
 						host.setHardwareAddress(NetInfo.getHardwareAddress(ip));
-						if (!host.hardwareAddress.equals(NetInfo.EMPTY_MAC))
-						{
-							publish(host);
-						}
 
+						publish(host);
 					}
 				});
 				this.pool = ipScan.pool;
@@ -122,7 +121,7 @@ public class IpScanTask extends AsyncTask<Void, Host, Void>
 			publishProgress((Host) null);
 			return;
 		}
-
+		
 		if (mainDiscover != null)
 		{
 			final DiscoverMainActivity discover = mainDiscover.get();
