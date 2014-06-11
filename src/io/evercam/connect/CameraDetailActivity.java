@@ -99,6 +99,7 @@ public class CameraDetailActivity extends Activity
 		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 		StrictMode.setThreadPolicy(policy);
 		cameraOperation = new CameraOperation(ctxt);
+		
 		setUpPage();
 
 		http_button.setOnClickListener(new OnClickListener(){
@@ -726,7 +727,7 @@ public class CameraDetailActivity extends Activity
 					public void onClick(DialogInterface dialog, int which)
 					{
 						Intent data = new Intent(Intent.ACTION_SENDTO);
-						data.setData(Uri.parse("mailto:liuting.du@mhlabs.net"));
+						data.setData(Uri.parse("mailto:liuting.du@evercam.io"));
 						data.putExtra(Intent.EXTRA_SUBJECT, type);
 						data.putExtra(Intent.EXTRA_TEXT, "Device info:" + camera.toString()
 								+ "From IP:" + NetInfo.getExternalIP());

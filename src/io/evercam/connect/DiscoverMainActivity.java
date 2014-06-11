@@ -14,6 +14,7 @@ import io.evercam.connect.helper.Constants;
 import io.evercam.connect.helper.PropertyReader;
 import io.evercam.connect.helper.ResourceHelper;
 import io.evercam.connect.helper.SharedPrefsManager;
+import io.evercam.connect.net.CheckInternetTaskMain;
 import io.evercam.connect.net.NetInfo;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -149,13 +150,14 @@ public class DiscoverMainActivity extends Activity
 				}
 				else
 				{
+					Log.d(TAG, "old - has active network");
 					Intent intent = new Intent();
 					intent.setClass(DiscoverMainActivity.this, CameraDetailActivity.class);
 					intent.putExtra("IP",
 							propertyReader.getPropertyStr(PropertyReader.KEY_SAMPLE_IP));
 					intent.putExtra("SSID", "sample");
 					startActivity(intent);
-				}
+				}	
 			}
 		});
 
@@ -655,14 +657,7 @@ public class DiscoverMainActivity extends Activity
 
 				if (isWifiConnected || isEthernetConnected)
 				{
-					if (NetInfo.getExternalIP() != null)
-					{
-						startDiscovery();
-					}
-					else
-					{
-						makeToast(getResources().getString(R.string.checkInternetConnection));
-					}
+					new CheckInternetTaskMain(DiscoverMainActivity.this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 				}
 			}
 		}, 1000);

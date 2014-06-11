@@ -77,7 +77,7 @@ public class VendorFromMac
 		}
 		catch (EvercamException e)
 		{
-			Log.v(TAG, e.toString());
+			Log.e(TAG, e.toString());
 			return "";
 		}
 	}
