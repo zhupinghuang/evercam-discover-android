@@ -1,10 +1,7 @@
 package io.evercam.connect.net;
 
-import android.content.Intent;
-import io.evercam.connect.CameraDetailActivity;
 import io.evercam.connect.DiscoverMainActivity;
 import io.evercam.connect.R;
-import io.evercam.connect.helper.PropertyReader;
 
 public class CheckInternetTaskMain extends CheckInternetTask
 {
@@ -25,7 +22,8 @@ public class CheckInternetTaskMain extends CheckInternetTask
 		}
 		else
 		{
-			mainActivity.makeToast(mainActivity.getResources().getString(R.string.checkInternetConnection));
+			mainActivity.makeToast(mainActivity.getResources().getString(
+					R.string.checkInternetConnection));
 		}
 	}
 }

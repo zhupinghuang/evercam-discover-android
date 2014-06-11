@@ -157,7 +157,7 @@ public class DiscoverMainActivity extends Activity
 							propertyReader.getPropertyStr(PropertyReader.KEY_SAMPLE_IP));
 					intent.putExtra("SSID", "sample");
 					startActivity(intent);
-				}	
+				}
 			}
 		});
 
@@ -601,7 +601,7 @@ public class DiscoverMainActivity extends Activity
 		{
 			deviceMap.put("device_vendor", camera.getModel());
 		}
-		else if(camera.hasVendor())
+		else if (camera.hasVendor())
 		{
 			deviceMap.put("device_vendor", listVendor);
 		}
@@ -612,7 +612,8 @@ public class DiscoverMainActivity extends Activity
 
 		deviceMap.put("device_timediff", getTimeDifference(camera.getLastSeen() + ":00"));
 
-		if (camera.getFlag() == Constants.TYPE_ROUTER || camera.getIP().equals(netInfo.getGatewayIp()))
+		if (camera.getFlag() == Constants.TYPE_ROUTER
+				|| camera.getIP().equals(netInfo.getGatewayIp()))
 		{
 			deviceMap.put("device_img", R.drawable.tplink_trans);
 		}
@@ -657,7 +658,8 @@ public class DiscoverMainActivity extends Activity
 
 				if (isWifiConnected || isEthernetConnected)
 				{
-					new CheckInternetTaskMain(DiscoverMainActivity.this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+					new CheckInternetTaskMain(DiscoverMainActivity.this)
+							.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 				}
 			}
 		}, 1000);

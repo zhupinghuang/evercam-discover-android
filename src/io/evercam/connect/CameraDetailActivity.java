@@ -22,7 +22,6 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
-import com.bugsense.trace.BugSenseHandler;
 import com.mashape.unirest.http.utils.Base64Coder;
 
 import android.net.Uri;
@@ -54,7 +53,8 @@ import android.widget.Toast;
 /**
  * CameraDetailActivity
  * 
- * Camera detail page, show camera thumbnails, model , ports info, live view etc.
+ * Camera detail page, show camera thumbnails, model , ports info, live view
+ * etc.
  */
 
 public class CameraDetailActivity extends Activity
@@ -99,7 +99,7 @@ public class CameraDetailActivity extends Activity
 		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 		StrictMode.setThreadPolicy(policy);
 		cameraOperation = new CameraOperation(ctxt);
-		
+
 		setUpPage();
 
 		http_button.setOnClickListener(new OnClickListener(){

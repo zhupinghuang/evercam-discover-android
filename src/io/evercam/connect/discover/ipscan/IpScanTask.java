@@ -3,7 +3,6 @@ package io.evercam.connect.discover.ipscan;
 import io.evercam.connect.DiscoverMainActivity;
 import io.evercam.connect.db.Camera;
 import io.evercam.connect.db.CameraOperation;
-import io.evercam.connect.db.SimpleDBConnect;
 import io.evercam.connect.helper.AwsS3Uploader;
 import io.evercam.connect.helper.Constants;
 import io.evercam.connect.helper.JsonMessage;
@@ -23,7 +22,6 @@ import java.util.concurrent.ExecutorService;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
-import android.util.Log;
 
 public class IpScanTask extends AsyncTask<Void, Host, Void>
 {
@@ -121,7 +119,7 @@ public class IpScanTask extends AsyncTask<Void, Host, Void>
 			publishProgress((Host) null);
 			return;
 		}
-		
+
 		if (mainDiscover != null)
 		{
 			final DiscoverMainActivity discover = mainDiscover.get();
@@ -139,7 +137,7 @@ public class IpScanTask extends AsyncTask<Void, Host, Void>
 
 				// Is camera
 				String cameraVendorName = VendorFromMac.getCameraVendor(host.hardwareAddress);
-				if(!cameraVendorName.isEmpty())
+				if (!cameraVendorName.isEmpty())
 				{
 					host.vendor = cameraVendorName.toUpperCase();
 					host.deviceType = Constants.TYPE_CAMERA;

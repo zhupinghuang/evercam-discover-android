@@ -47,7 +47,7 @@ public class VendorFromMac
 
 	public String getCompany()
 	{
-		if(vendorJsonObject != null)
+		if (vendorJsonObject != null)
 		{
 			try
 			{
@@ -60,12 +60,14 @@ public class VendorFromMac
 		}
 		return "";
 	}
-	
+
 	/**
 	 * Query Evercam API to get camera manufacturer's name by MAC address.
-	 * @param macAddress Full MAC address read from device.
-	 * @return Short camera manufacturer's name, return empty string if 
-	 * camera vendor not exists.
+	 * 
+	 * @param macAddress
+	 *            Full MAC address read from device.
+	 * @return Short camera manufacturer's name, return empty string if camera
+	 *         vendor not exists.
 	 */
 	public static String getCameraVendor(String macAddress)
 	{
