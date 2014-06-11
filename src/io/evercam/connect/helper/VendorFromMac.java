@@ -1,5 +1,10 @@
 package io.evercam.connect.helper;
 
+import java.util.Locale;
+
+import io.evercam.EvercamException;
+import io.evercam.Vendor;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -12,7 +17,7 @@ import android.util.Log;
 
 public class VendorFromMac
 {
-	private final String TAG = "evercamdiscover-VendorFromMac";
+	private static final String TAG = "evercamdiscover-VendorFromMac";
 	private final String URL = "http://www.macvendorlookup.com/api/v2/";
 	private final String KEY_COMPANY = "company";
 	private final int CODE_OK = 200;
@@ -54,5 +59,26 @@ public class VendorFromMac
 			}
 		}
 		return "";
+	}
+	
+	/**
+	 * Query Evercam API to get camera manufacturer's name by MAC address.
+	 * @param macAddress Full MAC address read from device.
+	 * @return Short camera manufacturer's name, return empty string if 
+	 * camera vendor not exists.
+	 */
+	public static String getCameraVendor(String macAddress)
+	{
+		String submac = macAddress.substring(0, 8).toLowerCase(Locale.UK);
+		try
+		{
+			Vendor vendor = Vendor.getByMac(submac).get(0);
+			return vendor.getId();
+		}
+		catch (EvercamException e)
+		{
+			Log.v(TAG, e.toString());
+			return "";
+		}
 	}
 }

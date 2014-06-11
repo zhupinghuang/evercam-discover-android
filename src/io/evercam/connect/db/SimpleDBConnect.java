@@ -71,42 +71,42 @@ public class SimpleDBConnect
 //		}
 //		return vendor;
 //	}
-
-	public boolean isCameraVendor(String mac)
-	{
-		String submac = mac.substring(0, 8).toUpperCase(Locale.UK);
-
-		try
-		{
-			SelectRequest selectRequest = new SelectRequest(
-					"select vendor,alias from mac_vendor where mac='" + submac + "'");
-			selectRequest.setConsistentRead(true);
-			SelectResult response = sdbClient.select(selectRequest);
-
-			if (!response.getItems().isEmpty())
-			{
-				int size = response.getItems().get(0).getAttributes().size();
-				// No alias
-				if (size == 1)
-				{
-					return false;
-				}
-				// Has alias
-				else if (size == 2)
-				{
-					return true;
-				}
-			}
-		}
-		catch (NoSuchDomainException e)
-		{
-			e.printStackTrace();
-		}
-		catch (Exception exception)
-		{
-			exception.printStackTrace();
-		}
-		return false;
-
-	}
+//
+//	public boolean isCameraVendor(String mac)
+//	{
+//		String submac = mac.substring(0, 8).toUpperCase(Locale.UK);
+//
+//		try
+//		{
+//			SelectRequest selectRequest = new SelectRequest(
+//					"select vendor,alias from mac_vendor where mac='" + submac + "'");
+//			selectRequest.setConsistentRead(true);
+//			SelectResult response = sdbClient.select(selectRequest);
+//
+//			if (!response.getItems().isEmpty())
+//			{
+//				int size = response.getItems().get(0).getAttributes().size();
+//				// No alias
+//				if (size == 1)
+//				{
+//					return false;
+//				}
+//				// Has alias
+//				else if (size == 2)
+//				{
+//					return true;
+//				}
+//			}
+//		}
+//		catch (NoSuchDomainException e)
+//		{
+//			e.printStackTrace();
+//		}
+//		catch (Exception exception)
+//		{
+//			exception.printStackTrace();
+//		}
+//		return false;
+//
+//	}
 }

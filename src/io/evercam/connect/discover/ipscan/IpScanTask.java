@@ -134,15 +134,14 @@ public class IpScanTask extends AsyncTask<Void, Host, Void>
 				}
 
 				// NIC vendor
-				SimpleDBConnect simpleDBConnect = new SimpleDBConnect(mainDiscover.get()
-						.getApplicationContext());
-			//	host.vendor = simpleDBConnect.getVendorFromMac(host.hardwareAddress);
 				VendorFromMac vendorFromMac = new VendorFromMac(host.hardwareAddress);
 				host.vendor = vendorFromMac.getCompany();
 
 				// Is camera
-				if (simpleDBConnect.isCameraVendor(host.hardwareAddress))
+				String cameraVendorName = VendorFromMac.getCameraVendor(host.hardwareAddress);
+				if(!cameraVendorName.isEmpty())
 				{
+					host.vendor = cameraVendorName.toUpperCase();
 					host.deviceType = Constants.TYPE_CAMERA;
 				}
 
