@@ -38,7 +38,7 @@ public class EvercamTask extends AsyncTask<Void, Void, Void>
 		}
 		catch (EvercamException e)
 		{
-			Log.e("evercamconnect", e.getMessage());
+			Log.e("evercamdiscover", e.getMessage());
 		}
 		if (vendor != null)
 		{
@@ -80,17 +80,24 @@ public class EvercamTask extends AsyncTask<Void, Void, Void>
 			vendorId = vendor.getId();
 			jpgURL = vendor.getModel(Model.DEFAULT_MODEL).getDefaults().getJpgURL();
 			streamURL = vendor.getModel(Model.DEFAULT_MODEL).getDefaults().getH264URL();
-			if (!jpgURL.startsWith("/"))
+			if (!jpgURL.isEmpty())
 			{
-				jpgURL = "/" + jpgURL;
+				if (!jpgURL.startsWith("/"))
+				{
+					jpgURL = "/" + jpgURL;
+					cameraOperation.updateAttributeString(camera.getIP(), camera.getSsid(), "jpg",
+							jpgURL);
+				}
 			}
-			if (!streamURL.startsWith("/"))
+			if (!streamURL.isEmpty())
 			{
-				streamURL = "/" + streamURL;
+				if (!streamURL.startsWith("/"))
+				{
+					streamURL = "/" + streamURL;
+				}
+				cameraOperation.updateAttributeString(camera.getIP(), camera.getSsid(), "h264",
+						streamURL);
 			}
-			cameraOperation.updateAttributeString(camera.getIP(), camera.getSsid(), "jpg", jpgURL);
-			cameraOperation.updateAttributeString(camera.getIP(), camera.getSsid(), "h264",
-					streamURL);
 		}
 		catch (EvercamException e)
 		{
@@ -111,7 +118,7 @@ public class EvercamTask extends AsyncTask<Void, Void, Void>
 		}
 		catch (EvercamException e)
 		{
-			Log.e("evercamconnect",
+			Log.e("evercamdiscover",
 					"Exception with get default username " + vendorId + e.getMessage());
 		}
 		return "";
@@ -130,7 +137,7 @@ public class EvercamTask extends AsyncTask<Void, Void, Void>
 		}
 		catch (EvercamException e)
 		{
-			Log.e("evercamconnect",
+			Log.e("evercamdiscover",
 					"Exception with get default password" + vendorId + e.getMessage());
 		}
 		return "";

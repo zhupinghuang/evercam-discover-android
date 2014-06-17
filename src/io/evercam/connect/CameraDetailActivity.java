@@ -4,6 +4,7 @@ import io.evercam.connect.R;
 import io.evercam.connect.db.Camera;
 import io.evercam.connect.db.CameraOperation;
 import io.evercam.connect.helper.Constants;
+import io.evercam.connect.helper.PropertyReader;
 import io.evercam.connect.helper.ResourceHelper;
 import io.evercam.connect.helper.SharedPrefsManager;
 import io.evercam.connect.net.NetInfo;
@@ -94,8 +95,8 @@ public class CameraDetailActivity extends Activity
 		netInfo = new NetInfo(ctxt);
 
 		Bundle extras = getIntent().getExtras();
-		ipstring = extras.getString("IP");
-		ssid = extras.getString("SSID");
+		ipstring = extras.getString(Constants.BUNDLE_KEY_IP);
+		ssid = extras.getString(Constants.BUNDLE_KEY_SSID);
 		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 		StrictMode.setThreadPolicy(policy);
 		cameraOperation = new CameraOperation(ctxt);
@@ -110,7 +111,7 @@ public class CameraDetailActivity extends Activity
 				String commonUrl;
 				if (camera.getSsid().equals("sample"))
 				{
-					commonUrl = "http://" + camera.getIP() + ":" + camera.getExthttp();
+					commonUrl = Constants.PREFIX_HTTP + camera.getIP() + ":" + camera.getExthttp();
 				}
 				else
 				{
@@ -130,54 +131,16 @@ public class CameraDetailActivity extends Activity
 			@Override
 			public void onClick(View arg0)
 			{
-				if (camera.hasH264URL())
+				if ((camera.hasH264URL() || camera.hasJpgURL()) && camera.hasUsername() )
 				{
-					if (ssid.equals("sample"))
-					{
-						rtspURL = "rtsp://" + camera.getUsername() + ":" + camera.getPassword()
-								+ "@" + ipstring + ":" + camera.getExtrtsp() + camera.getH264();
-					}
-					else
-					{
-						rtspURL = "rtsp://" + camera.getUsername() + ":" + camera.getPassword()
-								+ "@" + ipstring + ":" + camera.getRtsp() + camera.getH264();
-					}
+					Intent videoIntent = new Intent(CameraDetailActivity.this, VideoActivity.class);
+					videoIntent.putExtra(Constants.BUNDLE_KEY_IP,ipstring);
+					videoIntent.putExtra(Constants.BUNDLE_KEY_SSID, ssid);
+					startActivity(videoIntent);
 				}
 				else
 				{
-					rtspURL = null;
-				}
-				if (rtspURL != null)
-				{
-					Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(rtspURL));
-					startActivity(intent);
-					if (ssid.equals("sample"))
-					{
-						for (int i = 11; i >= 1; i--)
-						{
-							Toast toast = Toast.makeText(ctxt, "Loading video stream..." + i,
-									Toast.LENGTH_SHORT);
-							toast.setGravity(Gravity.CENTER, 0, 0);
-							toast.show();
-						}
-
-					}
-					else
-					{
-						for (int i = 4; i >= 1; i--)
-						{
-							Toast toast = Toast.makeText(ctxt, "Loading video stream..." + i,
-									Toast.LENGTH_SHORT);
-							toast.setGravity(Gravity.CENTER, 0, 0);
-							toast.show();
-						}
-					}
-				}
-
-				else if (rtspURL == null)
-				{
-					Toast toast = Toast.makeText(ctxt,
-							"Sorry, RTSP Stream is not availiable for this device.",
+					Toast toast = Toast.makeText(ctxt, R.string.msg_video_not_avaliable,
 							Toast.LENGTH_SHORT);
 					toast.setGravity(Gravity.CENTER, 0, 0);
 					toast.show();
@@ -209,8 +172,9 @@ public class CameraDetailActivity extends Activity
 									Intent intentForward = new Intent();
 									intentForward.setClass(CameraDetailActivity.this,
 											MainTabActivity.class);
-									intentForward.putExtra("IP", ipstring);
-									intentForward.putExtra("SSID", netInfo.getSsid());
+									intentForward.putExtra(Constants.BUNDLE_KEY_IP, ipstring);
+									intentForward.putExtra(Constants.BUNDLE_KEY_SSID,
+											netInfo.getSsid());
 									startActivity(intentForward);
 								}
 							}).show();

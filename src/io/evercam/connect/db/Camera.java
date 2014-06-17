@@ -493,7 +493,7 @@ public class Camera implements Serializable
 
 	public boolean hasJpgURL()
 	{
-		if (getJpg() != null && !getJpg().isEmpty())
+		if (getJpg() != null && !getJpg().isEmpty() && getJpg() != "/")
 		{
 			return true;
 		}
@@ -502,7 +502,7 @@ public class Camera implements Serializable
 
 	public boolean hasH264URL()
 	{
-		if (getH264() != null && !getH264().isEmpty())
+		if (getH264() != null && !getH264().isEmpty() && getH264() != "/")
 		{
 			return true;
 		}

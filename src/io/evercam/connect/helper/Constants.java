@@ -46,4 +46,12 @@ public final class Constants
 	public static final String TITLE_SETCAMERA = "EvercamConnectFeedback: This is a CAMERA";
 	public static final String TITLE_SETDEVICE = "EvercamConnectFeedback: This is NOT a camera";
 
+	// Prefixes
+	public static final String PREFIX_HTTP = "http://";
+	public static final String PREFIX_RTSP = "rtsp://";
+	
+	// Bundle keys
+	public static final String BUNDLE_KEY_IP = "IP";
+	public static final String BUNDLE_KEY_SSID = "SSID";
+
 }

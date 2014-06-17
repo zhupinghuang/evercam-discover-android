@@ -11,6 +11,7 @@ import io.evercam.connect.discover.ipscan.EvercamPortScan;
 import io.evercam.connect.discover.upnp.IGDDiscoveryTask;
 import io.evercam.connect.discover.upnp.UpnpDiscoveryTask;
 import io.evercam.connect.helper.Constants;
+import io.evercam.connect.helper.CustomedDialog;
 import io.evercam.connect.helper.PropertyReader;
 import io.evercam.connect.helper.ResourceHelper;
 import io.evercam.connect.helper.SharedPrefsManager;
@@ -43,7 +44,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.StrictMode;
 import android.preference.PreferenceManager;
-import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -150,12 +150,10 @@ public class DiscoverMainActivity extends Activity
 				}
 				else
 				{
-					Log.d(TAG, "old - has active network");
-					Intent intent = new Intent();
-					intent.setClass(DiscoverMainActivity.this, CameraDetailActivity.class);
-					intent.putExtra("IP",
+					Intent intent = new Intent(DiscoverMainActivity.this, CameraDetailActivity.class);
+					intent.putExtra(Constants.BUNDLE_KEY_IP,
 							propertyReader.getPropertyStr(PropertyReader.KEY_SAMPLE_IP));
-					intent.putExtra("SSID", "sample");
+					intent.putExtra(Constants.BUNDLE_KEY_SSID, "sample");
 					startActivity(intent);
 				}
 			}
@@ -169,7 +167,6 @@ public class DiscoverMainActivity extends Activity
 				HashMap<String, Object> map = (HashMap<String, Object>) deviceList
 						.getItemAtPosition(position);
 				final String deviceIp = (String) map.get("device_name");
-
 				if (cameraOperation.isExisting(deviceIp, netInfo.getSsid()))
 				{
 					if ((cameraOperation.getCamera(deviceIp, netInfo.getSsid()).getFlag() == Constants.TYPE_ROUTER))
@@ -189,7 +186,7 @@ public class DiscoverMainActivity extends Activity
 				}
 				else
 				{
-					makeToast("Device not exists!");
+					makeToast(getString(R.string.msg_device_not_exist));
 				}
 			}
 
@@ -298,7 +295,8 @@ public class DiscoverMainActivity extends Activity
 			else
 			{
 				ssid_text.setText(R.string.no_wifi);
-				showWifiNotConnectDialog();
+				// showWifiNotConnectDialog();
+				CustomedDialog.getNoInternetDialog(this).show();
 				showLastScanResults(Constants.TYPE_SHOW_ALL);
 			}
 		}
@@ -843,32 +841,6 @@ public class DiscoverMainActivity extends Activity
 			}
 		});
 
-	}
-
-	private void showWifiNotConnectDialog()
-	{
-		AlertDialog.Builder connectDialogBuilder = new AlertDialog.Builder(this);
-		connectDialogBuilder.setMessage(R.string.dialogMsgMustConnect);
-
-		connectDialogBuilder.setPositiveButton(R.string.wifiSettings,
-				new DialogInterface.OnClickListener(){
-					@Override
-					public void onClick(DialogInterface dialog, int which)
-					{
-						startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
-					}
-				});
-		connectDialogBuilder.setNegativeButton(R.string.notNow,
-				new DialogInterface.OnClickListener(){
-					@Override
-					public void onClick(DialogInterface dialog, int which)
-					{
-						return;
-					}
-				});
-		connectDialogBuilder.setTitle(R.string.notConnected);
-		connectDialogBuilder.setCancelable(false);
-		connectDialogBuilder.show();
 	}
 
 	private void showConfirmScanDialog()
