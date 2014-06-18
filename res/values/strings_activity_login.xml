@@ -3,7 +3,7 @@
     <string name="title_activity_login">Sign in</string>
 
     <!-- Login -->
-    <string name="prompt_email">Evercam Username</string>
+    <string name="prompt_email">Username</string>
     <string name="prompt_password">Password</string>
     <string name="action_sign_in_with_evercam"><b>Sign in</b> with Evercam</string>
     <string name="log_in">Log in</string>
@@ -19,7 +19,7 @@
     <!-- Sign Up -->
     <string name="login_progress_signing_up">Signing up</string>
     <string name="sign_up">Sign Up</string>
-    <string name="forename">Forename:</string>
+    <string name="firstname:">Firstname:</string>
     <string name="firstName">First Name</string>
     <string name="lastname:">Lastname:</string>
     <string name="lastName">Last Name</string>

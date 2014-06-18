@@ -940,7 +940,7 @@ public class CameraDetailActivity extends Activity
 		snapshotTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 	}
 
-	private class GetSnapshotTask extends AsyncTask<Void, Void, Bitmap>
+	private class GetSnapshotTask extends AsyncTask<Void, Boolean, Bitmap>
 	{
 		String url;
 		String username;
@@ -960,6 +960,13 @@ public class CameraDetailActivity extends Activity
 		{
 			usernameCross.setVisibility(View.GONE);
 			passwordCross.setVisibility(View.GONE);
+		}
+		
+		
+
+		@Override
+		protected Bitmap doInBackground(Void... arg0)
+		{
 			try
 			{
 				DefaultHttpClient c = new DefaultHttpClient();
@@ -969,8 +976,7 @@ public class CameraDetailActivity extends Activity
 				org.apache.http.HttpResponse r = c.execute(post);
 				if (r.getStatusLine().getStatusCode() == 401)
 				{
-					usernameCross.setVisibility(View.VISIBLE);
-					passwordCross.setVisibility(View.VISIBLE);
+					publishProgress(true);
 				}
 			}
 			catch (ClientProtocolException e)
@@ -985,13 +991,19 @@ public class CameraDetailActivity extends Activity
 			{
 				Log.e(TAG, Log.getStackTraceString(e));
 			}
+			
+			Bitmap bitmap = getSnapshot(url, username, password);
+			return bitmap;
 		}
 
 		@Override
-		protected Bitmap doInBackground(Void... arg0)
+		protected void onProgressUpdate(Boolean... values)
 		{
-			Bitmap bitmap = getSnapshot(url, username, password);
-			return bitmap;
+			if(values[0])
+			{
+				usernameCross.setVisibility(View.VISIBLE);
+				passwordCross.setVisibility(View.VISIBLE);
+			}
 		}
 
 		@Override

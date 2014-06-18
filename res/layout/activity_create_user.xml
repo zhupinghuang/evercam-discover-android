@@ -46,19 +46,20 @@
                 android:layout_height="wrap_content" >
 
                 <TextView
-                    android:id="@+id/forename_txt"
+                    android:id="@+id/firstname_txt"
                     android:layout_width="90sp"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-light"
-                    android:text="@string/forename"
-                    android:textColor="#778899"
-                    android:textSize="17sp" />
+                    android:text="@string/firstname:"
+                    android:textSize="17sp"
+                    android:textColor="#778899"/>
 
                 <EditText
-                    android:id="@+id/forename_edit"
+                    android:id="@+id/firstname_edit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/firstName"
+					android:hint="@string/firstName"
+					android:textSize="17sp"
                     android:inputType="text"
                     android:singleLine="true" />
             </LinearLayout>
@@ -81,6 +82,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/lastName"
+                    android:textSize="17sp"
                     android:inputType="text"
                     android:singleLine="true" />
             </LinearLayout>
@@ -101,7 +103,8 @@
                 <Spinner
                     android:id="@+id/country_spinner"
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content" 
+                    android:fontFamily="sans-serif"/>
             </LinearLayout>
 
             <LinearLayout
@@ -123,6 +126,7 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/username"
                     android:inputType="text"
+                    android:textSize="17sp"
                     android:singleLine="true" />
             </LinearLayout>
 
@@ -144,6 +148,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/email"
+                    android:textSize="17sp"
                     android:inputType="textEmailAddress"
                     android:singleLine="true" />
             </LinearLayout>
@@ -167,6 +172,8 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/password"
                     android:inputType="textPassword"
+                    android:textSize="17sp"
+                    android:fontFamily="sans-serif"
                     android:singleLine="true" />
             </LinearLayout>
 
@@ -175,8 +182,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="90sp"
+                android:textSize="17sp"
                 android:hint="@string/re_password"
                 android:inputType="textPassword"
+                android:fontFamily="sans-serif"
                 android:singleLine="true" />
 
             <Button

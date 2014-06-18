@@ -144,7 +144,7 @@ public class EvercamTask extends AsyncTask<Void, Void, Void>
 	}
 	
 	/**
-	 * Only used camera detail page, if 
+	 * Only used in camera detail page, if camera credentials are empty.
 	 */
 	public static void runAuthTaskOnly(CameraDetailActivity detailActivity)
 	{
