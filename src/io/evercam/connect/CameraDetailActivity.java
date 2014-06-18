@@ -4,7 +4,6 @@ import io.evercam.connect.R;
 import io.evercam.connect.db.Camera;
 import io.evercam.connect.db.CameraOperation;
 import io.evercam.connect.helper.Constants;
-import io.evercam.connect.helper.PropertyReader;
 import io.evercam.connect.helper.ResourceHelper;
 import io.evercam.connect.helper.SharedPrefsManager;
 import io.evercam.connect.net.NetInfo;
@@ -28,7 +27,6 @@ import com.mashape.unirest.http.utils.Base64Coder;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.preference.PreferenceManager;
 import android.app.ActionBar;
 import android.app.Activity;
@@ -60,12 +58,12 @@ import android.widget.Toast;
 
 public class CameraDetailActivity extends Activity
 {
+	public CameraOperation cameraOperation;
+	public Camera camera;
+	
 	private final String TAG = "evercamdiscover-CameraDetailActivity";
 	private String ipstring;
 	private String ssid;
-	private String rtspURL;
-	private CameraOperation cameraOperation;
-	private Camera camera;
 	private Button http_button;
 	private Button rtsp_button;
 	private Button editBtn;
@@ -97,8 +95,7 @@ public class CameraDetailActivity extends Activity
 		Bundle extras = getIntent().getExtras();
 		ipstring = extras.getString(Constants.BUNDLE_KEY_IP);
 		ssid = extras.getString(Constants.BUNDLE_KEY_SSID);
-		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-		StrictMode.setThreadPolicy(policy);
+
 		cameraOperation = new CameraOperation(ctxt);
 
 		setUpPage();
@@ -109,7 +106,7 @@ public class CameraDetailActivity extends Activity
 			public void onClick(View arg0)
 			{
 				String commonUrl;
-				if (camera.getSsid().equals("sample"))
+				if (camera.getSsid().equals(Constants.SAMPLE))
 				{
 					commonUrl = Constants.PREFIX_HTTP + camera.getIP() + ":" + camera.getExthttp();
 				}
@@ -131,6 +128,8 @@ public class CameraDetailActivity extends Activity
 			@Override
 			public void onClick(View arg0)
 			{
+				// Only start video page if the device has either h264 or jpg url, 
+				// and has credentials.
 				if ((camera.hasH264URL() || camera.hasJpgURL()) && camera.hasUsername() )
 				{
 					Intent videoIntent = new Intent(CameraDetailActivity.this, VideoActivity.class);
@@ -153,7 +152,6 @@ public class CameraDetailActivity extends Activity
 			@Override
 			public void onClick(View arg0)
 			{
-
 				AlertDialog.Builder alertDialog = new AlertDialog.Builder(CameraDetailActivity.this);
 				alertDialog.setTitle(R.string.portForwarding);
 				alertDialog.setMessage(R.string.forwardGuideMsg);
@@ -220,11 +218,10 @@ public class CameraDetailActivity extends Activity
 			@Override
 			public void onClick(View v)
 			{
-
-				Toast toast = Toast.makeText(ctxt, "Refreshing snapshot...", Toast.LENGTH_SHORT);
+				Toast toast = Toast.makeText(ctxt, R.string.refresh_snapshot, Toast.LENGTH_SHORT);
 				toast.setGravity(Gravity.CENTER, 0, 0);
 				toast.show();
-				if (camera.getSsid().equals("sample"))
+				if (camera.getSsid().equals(Constants.SAMPLE))
 				{
 					launchSnapshot(ResourceHelper.getExternalHttpURL(camera) + camera.getJpg(),
 							camera.getUsername(), camera.getPassword(), true);
@@ -343,14 +340,7 @@ public class CameraDetailActivity extends Activity
 			// if username and password not exist in database
 			if (camera.getUsername() == null)
 			{
-				String username = EvercamTask.getUsername(camera.getVendor());
-				String password = EvercamTask.getPassword(camera.getVendor());
-				cameraOperation.updateAttributeString(camera.getIP(), camera.getSsid(), "username",
-						username);
-				cameraOperation.updateAttributeString(camera.getIP(), camera.getSsid(), "password",
-						password);
-				camera.setUsername(username);
-				camera.setPassword(password);
+				EvercamTask.runAuthTaskOnly(CameraDetailActivity.this);
 			}
 
 			setDeviceBtn.setVisibility(View.VISIBLE);
@@ -579,7 +569,7 @@ public class CameraDetailActivity extends Activity
 				password_value.setText("<blank>");
 			}
 
-			if (camera.getSsid().equals("sample"))
+			if (camera.getSsid().equals(Constants.SAMPLE))
 			{
 				username_layout.setVisibility(View.GONE);
 				password_layout.setVisibility(View.GONE);
@@ -638,7 +628,7 @@ public class CameraDetailActivity extends Activity
 	{
 		if (camera.hasJpgURL())
 		{
-			return "http://" + this.ipstring + ":" + camera.getHttp() + camera.getJpg();
+			return Constants.PREFIX_HTTP + this.ipstring + ":" + camera.getHttp() + camera.getJpg();
 		}
 		else
 		{
@@ -691,7 +681,7 @@ public class CameraDetailActivity extends Activity
 					public void onClick(DialogInterface dialog, int which)
 					{
 						Intent data = new Intent(Intent.ACTION_SENDTO);
-						data.setData(Uri.parse("mailto:liuting.du@evercam.io"));
+						data.setData(Uri.parse("mailto:liuting@evercam.io"));
 						data.putExtra(Intent.EXTRA_SUBJECT, type);
 						data.putExtra(Intent.EXTRA_TEXT, "Device info:" + camera.toString()
 								+ "From IP:" + NetInfo.getExternalIP());
@@ -764,7 +754,7 @@ public class CameraDetailActivity extends Activity
 		editUsername.setText(camera.getUsername());
 		editPassword.setText(camera.getPassword());
 
-		if (camera.getSsid().equals("sample"))
+		if (camera.getSsid().equals(Constants.SAMPLE))
 		{
 			editUsername.setText("");
 			editPassword.setText("");

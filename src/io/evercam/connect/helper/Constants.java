@@ -53,5 +53,6 @@ public final class Constants
 	// Bundle keys
 	public static final String BUNDLE_KEY_IP = "IP";
 	public static final String BUNDLE_KEY_SSID = "SSID";
+	public static final String SAMPLE = "sample";
 
 }

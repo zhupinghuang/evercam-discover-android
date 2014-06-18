@@ -15,9 +15,9 @@ import io.evercam.connect.helper.CustomedDialog;
 import io.evercam.connect.helper.PropertyReader;
 import io.evercam.connect.helper.ResourceHelper;
 import io.evercam.connect.helper.SharedPrefsManager;
+import io.evercam.connect.helper.TimeHelper;
 import io.evercam.connect.net.CheckInternetTaskMain;
 import io.evercam.connect.net.NetInfo;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -42,7 +42,6 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.StrictMode;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -112,8 +111,6 @@ public class DiscoverMainActivity extends Activity
 			BugSenseHandler.initAndStartSession(DiscoverMainActivity.this, bugSenseCode);
 		}
 		setContentView(R.layout.activity_evercam_discover);
-		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-		StrictMode.setThreadPolicy(policy);
 
 		sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
@@ -153,7 +150,7 @@ public class DiscoverMainActivity extends Activity
 					Intent intent = new Intent(DiscoverMainActivity.this, CameraDetailActivity.class);
 					intent.putExtra(Constants.BUNDLE_KEY_IP,
 							propertyReader.getPropertyStr(PropertyReader.KEY_SAMPLE_IP));
-					intent.putExtra(Constants.BUNDLE_KEY_SSID, "sample");
+					intent.putExtra(Constants.BUNDLE_KEY_SSID, Constants.SAMPLE);
 					startActivity(intent);
 				}
 			}
@@ -179,8 +176,8 @@ public class DiscoverMainActivity extends Activity
 					{
 						Intent intent = new Intent();
 						intent.setClass(DiscoverMainActivity.this, CameraDetailActivity.class);
-						intent.putExtra("IP", deviceIp);
-						intent.putExtra("SSID", netInfo.getSsid());
+						intent.putExtra(Constants.BUNDLE_KEY_IP, deviceIp);
+						intent.putExtra(Constants.BUNDLE_KEY_SSID, netInfo.getSsid());
 						startActivity(intent);
 					}
 				}
@@ -295,7 +292,7 @@ public class DiscoverMainActivity extends Activity
 			else
 			{
 				ssid_text.setText(R.string.no_wifi);
-				// showWifiNotConnectDialog();
+
 				CustomedDialog.getNoInternetDialog(this).show();
 				showLastScanResults(Constants.TYPE_SHOW_ALL);
 			}
@@ -312,10 +309,9 @@ public class DiscoverMainActivity extends Activity
 			JmdnsDiscover jmdnsDiscover = new JmdnsDiscover(netInfo, ctxt);
 			jmdnsDiscover.startJmdnsDiscovery();
 
-			// upnp
+			// UPnP
 			upnpDiscoveryTask = new UpnpDiscoveryTask(ctxt);
 			upnpDiscoveryTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
 		}
 	}
 
@@ -368,7 +364,7 @@ public class DiscoverMainActivity extends Activity
 			}
 			else
 			{
-				makeToast("Refreshing");
+				makeToast(getString(R.string.refreshing));
 
 				deviceArraylist.clear();
 
@@ -394,7 +390,6 @@ public class DiscoverMainActivity extends Activity
 		}
 
 		else if (item.getItemId() == R.id.action_signOut)
-
 		{
 			AlertDialog confirmSignoutDialog = new AlertDialog.Builder(DiscoverMainActivity.this)
 
@@ -488,8 +483,7 @@ public class DiscoverMainActivity extends Activity
 				}
 
 				new EvercamPortScan(camera.getIP(), netInfo.getSsid(), ctxt);
-				// camera = cameraOperation.getCamera(camera.getIP(),
-				// netInfo.getSsid());
+
 				addToDeviceList(camera);
 			}
 			// not a camera, but record device info
@@ -510,8 +504,7 @@ public class DiscoverMainActivity extends Activity
 				{
 					cameraOperation.insertScanCamera(camera, netInfo.getSsid());
 				}
-				// camera = cameraOperation.getCamera(camera.getIP(),
-				// netInfo.getSsid());
+
 				addToDeviceList(camera);
 			}
 
@@ -608,7 +601,7 @@ public class DiscoverMainActivity extends Activity
 			deviceMap.put("device_vendor", getString(R.string.unknown_vendor));
 		}
 
-		deviceMap.put("device_timediff", getTimeDifference(camera.getLastSeen() + ":00"));
+		deviceMap.put("device_timediff", TimeHelper.getTimeDifference(camera.getLastSeen() + ":00"));
 
 		if (camera.getFlag() == Constants.TYPE_ROUTER
 				|| camera.getIP().equals(netInfo.getGatewayIp()))
@@ -746,75 +739,6 @@ public class DiscoverMainActivity extends Activity
 		}
 	}
 
-	// calculate time difference between two time points
-	public String getTimeDifference(String time)
-	{
-
-		String diff = "";
-		long day = 0;
-		long hour = 0;
-		long min = 0;
-		long sec = 0;
-		Date now = new Date(System.currentTimeMillis());
-		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-		Date date;
-		try
-		{
-			date = formatter.parse(time);
-			long diff_long = now.getTime() - date.getTime();
-
-			day = diff_long / (24 * 60 * 60 * 1000);
-			hour = (diff_long / (60 * 60 * 1000) - day * 24);
-			min = ((diff_long / (60 * 1000)) - day * 24 * 60 - hour * 60);
-			sec = (diff_long / 1000 - day * 24 * 60 * 60 - hour * 60 * 60 - min * 60);
-			diff = "" + day + "day" + hour + "hour" + min + "min" + sec + "sec";
-		}
-		catch (ParseException e)
-		{
-			Log.e("Error", "Time difference error");
-		}
-		if (day != 0)
-		{
-			if (day == 1)
-			{
-				diff = day + " " + "day ago";
-			}
-			else
-			{
-				diff = day + " " + "days ago";
-			}
-		}
-		else if (day == 0)
-		{
-			if (hour != 0)
-			{
-				if (hour == 1)
-				{
-					diff = hour + " " + "hour ago";
-				}
-				else
-				{
-					diff = hour + " " + "hours ago";
-				}
-			}
-			else if (hour == 0)
-			{
-				if (min == 1)
-				{
-					diff = min + " " + "minute ago";
-				}
-				else if (min == 0)
-				{
-					diff = "now";
-				}
-				else
-				{
-					diff = min + " " + "minutes ago";
-				}
-			}
-		}
-		return diff;
-	}
 
 	private void sortByIp()
 	{

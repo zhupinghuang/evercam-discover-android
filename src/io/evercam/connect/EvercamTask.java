@@ -142,5 +142,38 @@ public class EvercamTask extends AsyncTask<Void, Void, Void>
 		}
 		return "";
 	}
+	
+	/**
+	 * Only used camera detail page, if 
+	 */
+	public static void runAuthTaskOnly(CameraDetailActivity detailActivity)
+	{
+		new FillAuthOnlyTask(detailActivity).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+	}
 
+	private static class FillAuthOnlyTask extends AsyncTask<Void, Void, Void>
+	{
+		CameraDetailActivity detailActivity;
+
+		FillAuthOnlyTask(CameraDetailActivity detailActivity)
+		{
+			this.detailActivity = detailActivity;
+		}
+		
+		@Override
+		protected Void doInBackground(Void... params)
+		{
+			Camera camera = detailActivity.camera;
+			CameraOperation cameraOperation = detailActivity.cameraOperation;
+			String username = getUsername(camera.getVendor());
+			String password = getPassword(camera.getVendor());
+			cameraOperation.updateAttributeString(camera.getIP(), camera.getSsid(), "username",
+					username);
+			cameraOperation.updateAttributeString(camera.getIP(), camera.getSsid(), "password",
+					password);
+			camera.setUsername(username);
+			camera.setPassword(password);
+			return null;
+		}
+	}
 }

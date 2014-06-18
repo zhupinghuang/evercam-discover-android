@@ -14,6 +14,7 @@ import javax.jmdns.ServiceInfo;
 import javax.jmdns.ServiceListener;
 
 import android.content.Context;
+import android.os.AsyncTask;
 
 public class JmdnsDiscover
 {
@@ -34,46 +35,7 @@ public class JmdnsDiscover
 
 	public void startJmdnsDiscovery()
 	{
-		try
-		{
-			jmdns = JmDNS.create();
-			jmdns.addServiceListener(axisVideoService, new ServiceListener(){
-
-				@Override
-				public void serviceAdded(ServiceEvent e)
-				{
-
-					final String serviceName = e.getName();
-					camera = getCameraFromBonjour(axisVideoService, serviceName);
-					if (cameraOperation.isExisting(camera.getIP(), netInfo.getSsid()))
-					{
-						camera.setLastSeen(DiscoverMainActivity.getSystemTime());
-						cameraOperation.updateBonjourCamera(camera, netInfo.getSsid());
-					}
-					else
-					{
-						cameraOperation.insertCamera(camera, netInfo.getSsid());
-					}
-
-				}
-
-				@Override
-				public void serviceRemoved(ServiceEvent e)
-				{
-				}
-
-				@Override
-				public void serviceResolved(ServiceEvent arg0)
-				{
-
-				}
-
-			});
-		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
-		}
+		new JmdnsTask().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 	}
 
 	private Camera getCameraFromBonjour(String type, String name)
@@ -97,5 +59,52 @@ public class JmdnsDiscover
 		bonjourCamera.setFirstSeen(DiscoverMainActivity.getSystemTime());
 		bonjourCamera.setLastSeen(DiscoverMainActivity.getSystemTime());
 		return bonjourCamera;
+	}
+	
+	private class JmdnsTask extends AsyncTask<Void, Void, Void>
+	{
+		@Override
+		protected Void doInBackground(Void... params)
+		{
+			try
+			{
+				jmdns = JmDNS.create();
+				jmdns.addServiceListener(axisVideoService, new ServiceListener(){
+
+					@Override
+					public void serviceAdded(ServiceEvent e)
+					{
+						final String serviceName = e.getName();
+						camera = getCameraFromBonjour(axisVideoService, serviceName);
+						if (cameraOperation.isExisting(camera.getIP(), netInfo.getSsid()))
+						{
+							camera.setLastSeen(DiscoverMainActivity.getSystemTime());
+							cameraOperation.updateBonjourCamera(camera, netInfo.getSsid());
+						}
+						else
+						{
+							cameraOperation.insertCamera(camera, netInfo.getSsid());
+						}
+					}
+
+					@Override
+					public void serviceRemoved(ServiceEvent e)
+					{
+					}
+
+					@Override
+					public void serviceResolved(ServiceEvent arg0)
+					{
+
+					}
+				});
+			}
+			catch (IOException e)
+			{
+				e.printStackTrace();
+			}
+			return null;
+		}
+		
 	}
 }

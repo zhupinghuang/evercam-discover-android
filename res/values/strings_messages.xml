@@ -3,5 +3,6 @@
 
     <string name="pleaseSignInBeforeAddCamera">Please sign in with Evercam before add a camera into your Evercam account.</string>
     <string name="msg_device_not_exist">Device not exists!</string>
+    <string name="refresh_snapshot">Refreshing snapshot&#8230;</string>
 
 </resources>
