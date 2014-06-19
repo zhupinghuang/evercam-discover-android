@@ -8,18 +8,13 @@ import io.evercam.UserDetail;
 import io.evercam.connect.R;
 import io.evercam.connect.helper.SharedPrefsManager;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 import java.util.TreeMap;
 
-import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.provider.ContactsContract;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -29,16 +24,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
-import android.annotation.TargetApi;
 import android.app.Activity;
-import android.content.ContentResolver;
-import android.content.Context;
 import android.content.SharedPreferences;
-import android.database.Cursor;
 
 public class SignUpActivity extends Activity
 {
 	private final String TAG = "evercamdiscover-SignUpActivity";
+	
+	//Auto filled profiles
+	private String filledFirstname = "";
+	private String filledLastname = "";
+	private String filledEmail = "";
+	
 	private EditText firstnameEdit;
 	private EditText lastnameEdit;
 	private EditText usernameEdit;
@@ -74,6 +71,8 @@ public class SignUpActivity extends Activity
 		repasswordEdit = (EditText) findViewById(R.id.repassword_edit);
 		signupBtn = (Button) findViewById(R.id.sign_up_button);
 		countrySpinner = (Spinner) findViewById(R.id.country_spinner);
+		
+		fillDefaultProfile();
 
 		setSpinnerAdapter();
 		signupBtn.setOnClickListener(new OnClickListener(){
@@ -316,291 +315,37 @@ public class SignUpActivity extends Activity
 		}
 	}
 
-	private String readFromAccount()
+	private void readFromAccount()
 	{
-		Log.d(TAG, "emails" + getUserProfile(this).possibleEmails().size() + "\nnames"
-				+ getUserProfile(this).possibleNames().get(0));
-		return "";
-	}
-
-	/**
-	 * Retrieves the user profile information.
-	 * 
-	 * @param context
-	 *            the context from which to retrieve the user profile
-	 * @return the user profile
-	 */
-	public static UserProfile getUserProfile(Context context)
-	{
-		return getUserProfileOnIcsDevice(context);
-
-	}
-
-	/**
-	 * Interface for interacting with the result of
-	 * {@link AccountUtils#getUserProfile}.
-	 */
-	public static class UserProfile
-	{
-
-		/**
-		 * Adds an email address to the list of possible email addresses for the
-		 * user
-		 * 
-		 * @param email
-		 *            the possible email address
-		 */
-		public void addPossibleEmail(String email)
+		UserProfile profile = AccountUtils.getUserProfile(this);
+		if(profile.primaryEmail() != null)
 		{
-			addPossibleEmail(email, false);
+			filledEmail = profile.primaryEmail();
 		}
-
-		/**
-		 * Adds an email address to the list of possible email addresses for the
-		 * user. Retains information about whether this email address is the
-		 * primary email address of the user.
-		 * 
-		 * @param email
-		 *            the possible email address
-		 * @param is_primary
-		 *            whether the email address is the primary email address
-		 */
-		public void addPossibleEmail(String email, boolean is_primary)
+		else if(profile.possibleEmails().size() > 0)
 		{
-			if (email == null) return;
-			if (is_primary)
+			filledEmail = profile.possibleEmails().get(0);
+		}
+		
+		if(profile.possibleNames().size() > 0)
+		{
+			String name = profile.possibleNames().get(0);
+			String[] nameArray = name.split("\\s+");
+			if(nameArray.length >= 2)
 			{
-				_primary_email = email;
-				_possible_emails.add(email);
+				filledFirstname = nameArray[0];
+				filledLastname = nameArray[1];
 			}
-			else _possible_emails.add(email);
 		}
-
-		/**
-		 * Adds a name to the list of possible names for the user.
-		 * 
-		 * @param name
-		 *            the possible name
-		 */
-		public void addPossibleName(String name)
-		{
-			if (name != null) _possible_names.add(name);
-		}
-
-		/**
-		 * Adds a phone number to the list of possible phone numbers for the
-		 * user.
-		 * 
-		 * @param phone_number
-		 *            the possible phone number
-		 */
-		public void addPossiblePhoneNumber(String phone_number)
-		{
-			if (phone_number != null) _possible_phone_numbers.add(phone_number);
-		}
-
-		/**
-		 * Adds a phone number to the list of possible phone numbers for the
-		 * user. Retains information about whether this phone number is the
-		 * primary phone number of the user.
-		 * 
-		 * @param phone_number
-		 *            the possible phone number
-		 * @param is_primary
-		 *            whether the phone number is teh primary phone number
-		 */
-		public void addPossiblePhoneNumber(String phone_number, boolean is_primary)
-		{
-			if (phone_number == null) return;
-			if (is_primary)
-			{
-				_primary_phone_number = phone_number;
-				_possible_phone_numbers.add(phone_number);
-			}
-			else _possible_phone_numbers.add(phone_number);
-		}
-
-		/**
-		 * Sets the possible photo for the user.
-		 * 
-		 * @param photo
-		 *            the possible photo
-		 */
-		public void addPossiblePhoto(Uri photo)
-		{
-			if (photo != null) _possible_photo = photo;
-		}
-
-		/**
-		 * Retrieves the list of possible email addresses.
-		 * 
-		 * @return the list of possible email addresses
-		 */
-		public List<String> possibleEmails()
-		{
-			return _possible_emails;
-		}
-
-		/**
-		 * Retrieves the list of possible names.
-		 * 
-		 * @return the list of possible names
-		 */
-		public List<String> possibleNames()
-		{
-			return _possible_names;
-		}
-
-		/**
-		 * Retrieves the list of possible phone numbers
-		 * 
-		 * @return the list of possible phone numbers
-		 */
-		public List<String> possiblePhoneNumbers()
-		{
-			return _possible_phone_numbers;
-		}
-
-		/**
-		 * Retrieves the possible photo.
-		 * 
-		 * @return the possible photo
-		 */
-		public Uri possiblePhoto()
-		{
-			return _possible_photo;
-		}
-
-		/**
-		 * Retrieves the primary email address.
-		 * 
-		 * @return the primary email address
-		 */
-		public String primaryEmail()
-		{
-			return _primary_email;
-		}
-
-		/**
-		 * Retrieves the primary phone number
-		 * 
-		 * @return the primary phone number
-		 */
-		public String primaryPhoneNumber()
-		{
-			return _primary_phone_number;
-		}
-
-		/** The primary email address */
-		private String _primary_email;
-		/** The primary name */
-		private String _primary_name;
-		/** The primary phone number */
-		private String _primary_phone_number;
-		/** A list of possible email addresses for the user */
-		private List<String> _possible_emails = new ArrayList<String>();
-		/** A list of possible names for the user */
-		private List<String> _possible_names = new ArrayList<String>();
-		/** A list of possible phone numbers for the user */
-		private List<String> _possible_phone_numbers = new ArrayList<String>();
-		/** A possible photo for the user */
-		private Uri _possible_photo;
+		Log.d(TAG, "emails" + profile.possibleEmails().size() + "\nnames"
+				+ profile.possibleNames().size() + profile.primaryEmail());
 	}
-
-	/**
-	 * Retrieves the user profile information in a manner supported by Ice Cream
-	 * Sandwich devices.
-	 * 
-	 * @param context
-	 *            the context from which to retrieve the user's email address
-	 *            and name
-	 * @return a list of the possible user's email address and name
-	 */
-	@TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
-	private static UserProfile getUserProfileOnIcsDevice(Context context)
+	
+	private void fillDefaultProfile()
 	{
-		final ContentResolver content = context.getContentResolver();
-		final Cursor cursor = content.query(
-		// Retrieves data rows for the device user's 'profile' contact
-				Uri.withAppendedPath(ContactsContract.Profile.CONTENT_URI,
-						ContactsContract.Contacts.Data.CONTENT_DIRECTORY), ProfileQuery.PROJECTION,
-
-				// Selects only email addresses or names
-				ContactsContract.Contacts.Data.MIMETYPE + "=? OR "
-						+ ContactsContract.Contacts.Data.MIMETYPE + "=? OR "
-						+ ContactsContract.Contacts.Data.MIMETYPE + "=? OR "
-						+ ContactsContract.Contacts.Data.MIMETYPE + "=?", new String[] {
-						ContactsContract.CommonDataKinds.Email.CONTENT_ITEM_TYPE,
-						ContactsContract.CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE,
-						ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE,
-						ContactsContract.CommonDataKinds.Photo.CONTENT_ITEM_TYPE },
-
-				// Show primary rows first. Note that there won't be a primary
-				// email address if the
-				// user hasn't specified one.
-				ContactsContract.Contacts.Data.IS_PRIMARY + " DESC");
-
-		final UserProfile user_profile = new UserProfile();
-		String mime_type;
-		while (cursor.moveToNext())
-		{
-			mime_type = cursor.getString(ProfileQuery.MIME_TYPE);
-			if (mime_type.equals(ContactsContract.CommonDataKinds.Email.CONTENT_ITEM_TYPE)) user_profile
-					.addPossibleEmail(cursor.getString(ProfileQuery.EMAIL),
-							cursor.getInt(ProfileQuery.IS_PRIMARY_EMAIL) > 0);
-			else if (mime_type
-					.equals(ContactsContract.CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE)) user_profile
-					.addPossibleName(cursor.getString(ProfileQuery.GIVEN_NAME) + " "
-							+ cursor.getString(ProfileQuery.FAMILY_NAME));
-			else if (mime_type.equals(ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE)) user_profile
-					.addPossiblePhoneNumber(cursor.getString(ProfileQuery.PHONE_NUMBER),
-							cursor.getInt(ProfileQuery.IS_PRIMARY_PHONE_NUMBER) > 0);
-			else if (mime_type.equals(ContactsContract.CommonDataKinds.Photo.CONTENT_ITEM_TYPE)) user_profile
-					.addPossiblePhoto(Uri.parse(cursor.getString(ProfileQuery.PHOTO)));
-		}
-
-		cursor.close();
-
-		return user_profile;
-	}
-
-	/**
-	 * Contacts user profile query interface.
-	 */
-	private interface ProfileQuery
-	{
-		/** The set of columns to extract from the profile query results */
-		String[] PROJECTION = { ContactsContract.CommonDataKinds.Email.ADDRESS,
-				ContactsContract.CommonDataKinds.Email.IS_PRIMARY,
-				ContactsContract.CommonDataKinds.StructuredName.FAMILY_NAME,
-				ContactsContract.CommonDataKinds.StructuredName.GIVEN_NAME,
-				ContactsContract.CommonDataKinds.Phone.NUMBER,
-				ContactsContract.CommonDataKinds.Phone.IS_PRIMARY,
-				ContactsContract.CommonDataKinds.Photo.PHOTO_URI,
-				ContactsContract.Contacts.Data.MIMETYPE };
-
-		/** Column index for the email address in the profile query results */
-		int EMAIL = 0;
-		/**
-		 * Column index for the primary email address indicator in the profile
-		 * query results
-		 */
-		int IS_PRIMARY_EMAIL = 1;
-		/** Column index for the family name in the profile query results */
-		int FAMILY_NAME = 2;
-		/** Column index for the given name in the profile query results */
-		int GIVEN_NAME = 3;
-		/** Column index for the phone number in the profile query results */
-		int PHONE_NUMBER = 4;
-		/**
-		 * Column index for the primary phone number in the profile query
-		 * results
-		 */
-		int IS_PRIMARY_PHONE_NUMBER = 5;
-		/** Column index for the photo in the profile query results */
-		int PHOTO = 6;
-		/** Column index for the MIME type in the profile query results */
-		int MIME_TYPE = 7;
+		firstnameEdit.setText(filledFirstname);
+		lastnameEdit.setText(filledLastname);
+		emailEdit.setText(filledEmail);
 	}
 
 	private void showProgress(boolean show)
