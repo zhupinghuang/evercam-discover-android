@@ -353,7 +353,7 @@ public class VideoActivity extends Activity implements SurfaceHolder.Callback,IV
 				int orientation = VideoActivity.this.getResources().getConfiguration().orientation;
 				if (!paused && orientation == Configuration.ORIENTATION_LANDSCAPE)
 				{
-				//	VideoActivity.this.getActionBar().hide();
+					// VideoActivity.this.getActionBar().hide();
 				}
 			}
 		});
@@ -602,7 +602,7 @@ public class VideoActivity extends Activity implements SurfaceHolder.Callback,IV
 				getWindow().setFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN,
 						WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
 				landscape = false;
-			//	this.getActionBar().show();
+				// this.getActionBar().show();
 			}
 			else
 			{
@@ -610,15 +610,16 @@ public class VideoActivity extends Activity implements SurfaceHolder.Callback,IV
 						WindowManager.LayoutParams.FLAG_FULLSCREEN);
 				landscape = true;
 
-		//		if (!paused && !end && !isProgressShowing) this.getActionBar().hide();
-			//	else this.getActionBar().show();
+				// if (!paused && !end && !isProgressShowing)
+				// this.getActionBar().hide();
+				// else this.getActionBar().show();
 			}
 
 			this.invalidateOptionsMenu();
 
 			mVideoWidth = surfaceView.getWidth();
-			mVideoHeight = surfaceView.getHeight() ;
-					//- this.getActionBar().getHeight();
+			mVideoHeight = surfaceView.getHeight();
+			// - this.getActionBar().getHeight();
 			setSize(mVideoWidth, mVideoHeight);
 
 		}
@@ -778,7 +779,7 @@ public class VideoActivity extends Activity implements SurfaceHolder.Callback,IV
 				if (!paused && !end) // video is currently playing. Now we
 										// need to pause video
 				{
-			//		VideoActivity.this.getActionBar().show();
+					// VideoActivity.this.getActionBar().show();
 					mediaPlayerView.setImageResource(android.R.drawable.ic_media_pause);
 
 					mediaPlayerView.setVisibility(View.VISIBLE);
@@ -1074,7 +1075,7 @@ public class VideoActivity extends Activity implements SurfaceHolder.Callback,IV
 					if (mediaPlayerView.getVisibility() != View.VISIBLE
 							&& VideoActivity.this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
 					{
-					//	VideoActivity.this.getActionBar().hide();
+						// VideoActivity.this.getActionBar().hide();
 					}
 
 					if (showImagesVideo)

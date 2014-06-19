@@ -60,7 +60,7 @@ public class CameraDetailActivity extends Activity
 {
 	public CameraOperation cameraOperation;
 	public Camera camera;
-	
+
 	private final String TAG = "evercamdiscover-CameraDetailActivity";
 	private String ipstring;
 	private String ssid;
@@ -128,12 +128,13 @@ public class CameraDetailActivity extends Activity
 			@Override
 			public void onClick(View arg0)
 			{
-				// Only start video page if the device has either h264 or jpg url, 
+				// Only start video page if the device has either h264 or jpg
+				// url,
 				// and has credentials.
-				if ((camera.hasH264URL() || camera.hasJpgURL()) && camera.hasUsername() )
+				if ((camera.hasH264URL() || camera.hasJpgURL()) && camera.hasUsername())
 				{
 					Intent videoIntent = new Intent(CameraDetailActivity.this, VideoActivity.class);
-					videoIntent.putExtra(Constants.BUNDLE_KEY_IP,ipstring);
+					videoIntent.putExtra(Constants.BUNDLE_KEY_IP, ipstring);
 					videoIntent.putExtra(Constants.BUNDLE_KEY_SSID, ssid);
 					startActivity(videoIntent);
 				}
@@ -961,8 +962,6 @@ public class CameraDetailActivity extends Activity
 			usernameCross.setVisibility(View.GONE);
 			passwordCross.setVisibility(View.GONE);
 		}
-		
-		
 
 		@Override
 		protected Bitmap doInBackground(Void... arg0)
@@ -991,7 +990,7 @@ public class CameraDetailActivity extends Activity
 			{
 				Log.e(TAG, Log.getStackTraceString(e));
 			}
-			
+
 			Bitmap bitmap = getSnapshot(url, username, password);
 			return bitmap;
 		}
@@ -999,7 +998,7 @@ public class CameraDetailActivity extends Activity
 		@Override
 		protected void onProgressUpdate(Boolean... values)
 		{
-			if(values[0])
+			if (values[0])
 			{
 				usernameCross.setVisibility(View.VISIBLE);
 				passwordCross.setVisibility(View.VISIBLE);

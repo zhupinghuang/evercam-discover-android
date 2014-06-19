@@ -156,36 +156,7 @@ public class IpScanTask extends AsyncTask<Void, Host, Void>
 
 	private void sendFeedBack()
 	{
-		SharedPreferences sharedPrefs;
-		NetInfo netInfo = new NetInfo(mainDiscover.get().getApplicationContext());
-		sharedPrefs = PreferenceManager.getDefaultSharedPreferences(mainDiscover.get()
-				.getApplicationContext());
-		String userName = "";
-		String userEmail = "";
-		String userCountry = "";
-		if (SharedPrefsManager.isSignedWithEvercam(sharedPrefs))
-		{
-			userEmail = SharedPrefsManager.getEvercamEmail(sharedPrefs);
-			userName = SharedPrefsManager.getEvercamName(sharedPrefs);
-		}
-		else if (sharedPrefs.getString(Constants.KEY_USER_EMAIL, null) != null)
-		{
-			userEmail = sharedPrefs.getString(Constants.KEY_USER_EMAIL, null);
-			userName = sharedPrefs.getString(Constants.KEY_USER_FIRST_NAME, null)
-					+ sharedPrefs.getString(Constants.KEY_USER_LAST_NAME, null);
-		}
-
-		CameraOperation cameraOperation = new CameraOperation(mainDiscover.get()
-				.getApplicationContext());
-		ArrayList<Camera> list = cameraOperation.selectAllIP(netInfo.getSsid());
-
-		JsonMessage jsonMessage = new JsonMessage();
-		String uploadContent = jsonMessage.getAllDataJsonMsg(list, userName, userEmail, netInfo);
-
-		Date date = new Date(System.currentTimeMillis());
-		String uploadTitle = userEmail + " " + date;
-		new AwsS3Uploader(uploadTitle, uploadContent, mainDiscover.get().getApplicationContext());
-
+		new SendFeedBackTask().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 	}
 
 	private void startEvercamDataCollection()
@@ -199,6 +170,49 @@ public class IpScanTask extends AsyncTask<Void, Host, Void>
 				&& propertyReader.isPropertyExist(PropertyReader.KEY_DATA_COLLECTION))
 		{
 			sendFeedBack();
+		}
+	}
+	
+	private class SendFeedBackTask extends AsyncTask<Void,Void,String>
+	{
+		String userName = "";
+		String userEmail = "";
+		String userCountry = "";
+		
+		@Override
+		protected String doInBackground(Void... params)
+		{
+			SharedPreferences sharedPrefs;
+			NetInfo netInfo = new NetInfo(mainDiscover.get().getApplicationContext());
+			sharedPrefs = PreferenceManager.getDefaultSharedPreferences(mainDiscover.get()
+					.getApplicationContext());
+			
+			if (SharedPrefsManager.isSignedWithEvercam(sharedPrefs))
+			{
+				userEmail = SharedPrefsManager.getEvercamEmail(sharedPrefs);
+				userName = SharedPrefsManager.getEvercamName(sharedPrefs);
+			}
+			else if (sharedPrefs.getString(Constants.KEY_USER_EMAIL, null) != null)
+			{
+				userEmail = sharedPrefs.getString(Constants.KEY_USER_EMAIL, null);
+				userName = sharedPrefs.getString(Constants.KEY_USER_FIRST_NAME, null)
+						+ sharedPrefs.getString(Constants.KEY_USER_LAST_NAME, null);
+			}
+
+			CameraOperation cameraOperation = new CameraOperation(mainDiscover.get()
+					.getApplicationContext());
+			ArrayList<Camera> list = cameraOperation.selectAllIP(netInfo.getSsid());
+
+			JsonMessage jsonMessage = new JsonMessage();
+			return jsonMessage.getAllDataJsonMsg(list, userName, userEmail, netInfo);
+		}
+
+		@Override
+		protected void onPostExecute(String uploadContent)
+		{
+			Date date = new Date(System.currentTimeMillis());
+			String uploadTitle = userEmail + " " + date;
+			new AwsS3Uploader(uploadTitle, uploadContent, mainDiscover.get().getApplicationContext());
 		}
 	}
 }

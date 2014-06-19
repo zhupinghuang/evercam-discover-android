@@ -142,7 +142,7 @@ public class EvercamTask extends AsyncTask<Void, Void, Void>
 		}
 		return "";
 	}
-	
+
 	/**
 	 * Only used in camera detail page, if camera credentials are empty.
 	 */
@@ -159,7 +159,7 @@ public class EvercamTask extends AsyncTask<Void, Void, Void>
 		{
 			this.detailActivity = detailActivity;
 		}
-		
+
 		@Override
 		protected Void doInBackground(Void... params)
 		{

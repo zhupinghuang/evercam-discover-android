@@ -7,6 +7,8 @@ import io.evercam.User;
 import io.evercam.UserDetail;
 import io.evercam.connect.R;
 import io.evercam.connect.helper.SharedPrefsManager;
+import io.evercam.connect.helper.account.AccountUtils;
+import io.evercam.connect.helper.account.UserProfile;
 
 import java.util.Locale;
 import java.util.Set;
@@ -30,12 +32,12 @@ import android.content.SharedPreferences;
 public class SignUpActivity extends Activity
 {
 	private final String TAG = "evercamdiscover-SignUpActivity";
-	
-	//Auto filled profiles
+
+	// Auto filled profiles
 	private String filledFirstname = "";
 	private String filledLastname = "";
 	private String filledEmail = "";
-	
+
 	private EditText firstnameEdit;
 	private EditText lastnameEdit;
 	private EditText usernameEdit;
@@ -71,7 +73,7 @@ public class SignUpActivity extends Activity
 		repasswordEdit = (EditText) findViewById(R.id.repassword_edit);
 		signupBtn = (Button) findViewById(R.id.sign_up_button);
 		countrySpinner = (Spinner) findViewById(R.id.country_spinner);
-		
+
 		fillDefaultProfile();
 
 		setSpinnerAdapter();
@@ -318,20 +320,20 @@ public class SignUpActivity extends Activity
 	private void readFromAccount()
 	{
 		UserProfile profile = AccountUtils.getUserProfile(this);
-		if(profile.primaryEmail() != null)
+		if (profile.primaryEmail() != null)
 		{
 			filledEmail = profile.primaryEmail();
 		}
-		else if(profile.possibleEmails().size() > 0)
+		else if (profile.possibleEmails().size() > 0)
 		{
 			filledEmail = profile.possibleEmails().get(0);
 		}
-		
-		if(profile.possibleNames().size() > 0)
+
+		if (profile.possibleNames().size() > 0)
 		{
 			String name = profile.possibleNames().get(0);
 			String[] nameArray = name.split("\\s+");
-			if(nameArray.length >= 2)
+			if (nameArray.length >= 2)
 			{
 				filledFirstname = nameArray[0];
 				filledLastname = nameArray[1];
@@ -340,7 +342,7 @@ public class SignUpActivity extends Activity
 		Log.d(TAG, "emails" + profile.possibleEmails().size() + "\nnames"
 				+ profile.possibleNames().size() + profile.primaryEmail());
 	}
-	
+
 	private void fillDefaultProfile()
 	{
 		firstnameEdit.setText(filledFirstname);

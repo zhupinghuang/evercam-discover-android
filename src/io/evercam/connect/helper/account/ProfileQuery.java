@@ -1,4 +1,4 @@
-package io.evercam.connect.signin;
+package io.evercam.connect.helper.account;
 
 import android.provider.ContactsContract;
 
@@ -20,8 +20,8 @@ public interface ProfileQuery
 	/** Column index for the email address in the profile query results */
 	int EMAIL = 0;
 	/**
-	 * Column index for the primary email address indicator in the profile
-	 * query results
+	 * Column index for the primary email address indicator in the profile query
+	 * results
 	 */
 	int IS_PRIMARY_EMAIL = 1;
 	/** Column index for the family name in the profile query results */
@@ -31,8 +31,7 @@ public interface ProfileQuery
 	/** Column index for the phone number in the profile query results */
 	int PHONE_NUMBER = 4;
 	/**
-	 * Column index for the primary phone number in the profile query
-	 * results
+	 * Column index for the primary phone number in the profile query results
 	 */
 	int IS_PRIMARY_PHONE_NUMBER = 5;
 	/** Column index for the photo in the profile query results */

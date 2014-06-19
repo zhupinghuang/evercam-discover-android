@@ -1,4 +1,4 @@
-package io.evercam.connect.signin;
+package io.evercam.connect.helper.account;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,8 +21,8 @@ public class UserProfile
 
 	/**
 	 * Adds an email address to the list of possible email addresses for the
-	 * user. Retains information about whether this email address is the
-	 * primary email address of the user.
+	 * user. Retains information about whether this email address is the primary
+	 * email address of the user.
 	 * 
 	 * @param email
 	 *            the possible email address
@@ -52,8 +52,7 @@ public class UserProfile
 	}
 
 	/**
-	 * Adds a phone number to the list of possible phone numbers for the
-	 * user.
+	 * Adds a phone number to the list of possible phone numbers for the user.
 	 * 
 	 * @param phone_number
 	 *            the possible phone number
@@ -64,9 +63,9 @@ public class UserProfile
 	}
 
 	/**
-	 * Adds a phone number to the list of possible phone numbers for the
-	 * user. Retains information about whether this phone number is the
-	 * primary phone number of the user.
+	 * Adds a phone number to the list of possible phone numbers for the user.
+	 * Retains information about whether this phone number is the primary phone
+	 * number of the user.
 	 * 
 	 * @param phone_number
 	 *            the possible phone number

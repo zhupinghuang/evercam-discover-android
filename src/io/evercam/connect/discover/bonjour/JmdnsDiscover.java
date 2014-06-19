@@ -60,7 +60,7 @@ public class JmdnsDiscover
 		bonjourCamera.setLastSeen(DiscoverMainActivity.getSystemTime());
 		return bonjourCamera;
 	}
-	
+
 	private class JmdnsTask extends AsyncTask<Void, Void, Void>
 	{
 		@Override
@@ -105,6 +105,6 @@ public class JmdnsDiscover
 			}
 			return null;
 		}
-		
+
 	}
 }

@@ -20,6 +20,7 @@ import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
@@ -35,6 +36,7 @@ import android.graphics.drawable.Drawable;
 
 public class AddToEvercamActivity extends Activity
 {
+	private final String TAG = "evercamdiscover-AddToEvercamActivity";
 	private Camera camera;
 	private EditText idEdit;
 	private EditText nameEdit;
@@ -314,13 +316,20 @@ public class AddToEvercamActivity extends Activity
 			{
 				if (externalIp != null)
 				{
-					if (PortScan.isPortReachable(externalIp, port))
+					try
 					{
-						showTick();
+						if (PortScan.isPortReachable(externalIp, port))
+						{
+							showTick();
+						}
+						else
+						{
+							showCross();
+						}
 					}
-					else
+					catch (Exception e)
 					{
-						showCross();
+						Log.e(TAG, e.toString());
 					}
 				}
 				else

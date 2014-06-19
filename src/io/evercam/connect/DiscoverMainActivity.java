@@ -147,7 +147,8 @@ public class DiscoverMainActivity extends Activity
 				}
 				else
 				{
-					Intent intent = new Intent(DiscoverMainActivity.this, CameraDetailActivity.class);
+					Intent intent = new Intent(DiscoverMainActivity.this,
+							CameraDetailActivity.class);
 					intent.putExtra(Constants.BUNDLE_KEY_IP,
 							propertyReader.getPropertyStr(PropertyReader.KEY_SAMPLE_IP));
 					intent.putExtra(Constants.BUNDLE_KEY_SSID, Constants.SAMPLE);
@@ -601,7 +602,8 @@ public class DiscoverMainActivity extends Activity
 			deviceMap.put("device_vendor", getString(R.string.unknown_vendor));
 		}
 
-		deviceMap.put("device_timediff", TimeHelper.getTimeDifference(camera.getLastSeen() + ":00"));
+		deviceMap
+				.put("device_timediff", TimeHelper.getTimeDifference(camera.getLastSeen() + ":00"));
 
 		if (camera.getFlag() == Constants.TYPE_ROUTER
 				|| camera.getIP().equals(netInfo.getGatewayIp()))
@@ -738,7 +740,6 @@ public class DiscoverMainActivity extends Activity
 			}
 		}
 	}
-
 
 	private void sortByIp()
 	{

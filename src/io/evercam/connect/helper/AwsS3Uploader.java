@@ -41,14 +41,9 @@ public class AwsS3Uploader
 		task.title = title;
 		task.content = content;
 
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
-		{
-			task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-		}
-		else
-		{
-			task.execute();
-		}
+
+		task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
 	}
 
 	private class S3PutObjectTask extends AsyncTask<Void, Void, Void>

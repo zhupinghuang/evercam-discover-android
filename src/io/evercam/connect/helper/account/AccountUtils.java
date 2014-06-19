@@ -1,4 +1,4 @@
-package io.evercam.connect.signin;
+package io.evercam.connect.helper.account;
 
 import java.util.regex.Matcher;
 
@@ -19,41 +19,54 @@ import android.util.Patterns;
 public class AccountUtils
 {
 	/**
-     * Retrieves the user profile information.
-     * @param context the context from which to retrieve the user profile
-     * @return the user profile
-     */
-    public static UserProfile getUserProfile(Context context) {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH
-                ? getUserProfileOnIcsDevice(context)
-                : getUserProfileOnGingerbreadDevice(context);
- //              return getUserProfileOnGingerbreadDevice(context);
-    }
-	
-    /**
-     * Retrieves the user profile information in a manner supported by Gingerbread devices.
-     * @param context the context from which to retrieve the user's email address and name
-     * @return a list of the possible user's email address and name
-     */
-    private static UserProfile getUserProfileOnGingerbreadDevice(Context context) {
-        // Other that using Patterns (API level 8) this works on devices down to API level 5
-        final Matcher valid_email_address = Patterns.EMAIL_ADDRESS.matcher("");
-        final Account[] accounts = AccountManager.get(context).getAccountsByType(GoogleAuthUtil.GOOGLE_ACCOUNT_TYPE);
-        UserProfile user_profile = new UserProfile();
-        // As far as I can tell, there is no way to get the real name or phone number from the Google account
-        for (Account account : accounts) {
-            if (valid_email_address.reset(account.name).matches())
-                user_profile.addPossibleEmail(account.name);
-        }
-        // Gets the phone number of the device is the device has one
-        if (context.getPackageManager().hasSystemFeature(Context.TELEPHONY_SERVICE)) {
-            final TelephonyManager telephony = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-            user_profile.addPossiblePhoneNumber(telephony.getLine1Number());
-        }
- 
-        return user_profile;
-    }
-    
+	 * Retrieves the user profile information.
+	 * 
+	 * @param context
+	 *            the context from which to retrieve the user profile
+	 * @return the user profile
+	 */
+	public static UserProfile getUserProfile(Context context)
+	{
+		return Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH ? getUserProfileOnIcsDevice(context)
+				: getUserProfileOnGingerbreadDevice(context);
+		// return getUserProfileOnGingerbreadDevice(context);
+	}
+
+	/**
+	 * Retrieves the user profile information in a manner supported by
+	 * Gingerbread devices.
+	 * 
+	 * @param context
+	 *            the context from which to retrieve the user's email address
+	 *            and name
+	 * @return a list of the possible user's email address and name
+	 */
+	private static UserProfile getUserProfileOnGingerbreadDevice(Context context)
+	{
+		// Other that using Patterns (API level 8) this works on devices down to
+		// API level 5
+		final Matcher valid_email_address = Patterns.EMAIL_ADDRESS.matcher("");
+		final Account[] accounts = AccountManager.get(context).getAccountsByType(
+				GoogleAuthUtil.GOOGLE_ACCOUNT_TYPE);
+		UserProfile user_profile = new UserProfile();
+		// As far as I can tell, there is no way to get the real name or phone
+		// number from the Google account
+		for (Account account : accounts)
+		{
+			if (valid_email_address.reset(account.name).matches()) user_profile
+					.addPossibleEmail(account.name);
+		}
+		// Gets the phone number of the device is the device has one
+		if (context.getPackageManager().hasSystemFeature(Context.TELEPHONY_SERVICE))
+		{
+			final TelephonyManager telephony = (TelephonyManager) context
+					.getSystemService(Context.TELEPHONY_SERVICE);
+			user_profile.addPossiblePhoneNumber(telephony.getLine1Number());
+		}
+
+		return user_profile;
+	}
+
 	/**
 	 * Retrieves the user profile information in a manner supported by Ice Cream
 	 * Sandwich devices.

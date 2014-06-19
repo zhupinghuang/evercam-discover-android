@@ -49,7 +49,7 @@ public final class Constants
 	// Prefixes
 	public static final String PREFIX_HTTP = "http://";
 	public static final String PREFIX_RTSP = "rtsp://";
-	
+
 	// Bundle keys
 	public static final String BUNDLE_KEY_IP = "IP";
 	public static final String BUNDLE_KEY_SSID = "SSID";
