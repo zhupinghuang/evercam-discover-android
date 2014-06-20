@@ -11,6 +11,7 @@ import com.bugsense.trace.BugSenseHandler;
 import io.evercam.connect.R;
 
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.app.Activity;
@@ -122,17 +123,22 @@ public class RouterActivity extends Activity
 
 	private void displayExternalIP()
 	{
-		handler.postDelayed(new Runnable(){
-
+		new AsyncTask<Void, Void, String>()
+		{
 			@Override
-			public void run()
+			protected String doInBackground(Void... params)
 			{
-				String externalIP = NetInfo.getExternalIP();
-				if (NetInfo.getExternalIP() != null)
+
+				return NetInfo.getExternalIP();
+			}
+			@Override
+			protected void onPostExecute(String externalIp)
+			{
+				if (externalIp != null)
 				{
-					external_ip.setText(externalIP);
+					external_ip.setText(externalIp);
 				}
 			}
-		}, 1000);
+		}.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);;
 	}
 }
