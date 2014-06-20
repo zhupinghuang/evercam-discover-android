@@ -11,8 +11,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
 {
 
 	private static final String dbName = "evercamdb";
-	private static final int dbVersion = 8;// version 8: update demo camera
-											// details
+	private static final int dbVersion = 9;// version 9: add 'active'
 	private Context ctxt;
 
 	public DatabaseHelper(Context context)
@@ -31,7 +30,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
 				+ "ssh INT," + "portforwarded	INT," + "evercam INT," + "exthttp	INT,"
 				+ "exthttps	INT," + "extftp	INT," + "extrtsp	INT," + "extssh	INT," + "flag INT,"
 				+ "firstseen TEXT," + "lastseen TEXT," + "username TEXT," + "password TEXT,"
-				+ "jpg TEXT," + "h264 TEXT," + "ssid TEXT NOT NULL);");
+				+ "jpg TEXT," + "h264 TEXT," + "active INT," + "ssid TEXT NOT NULL);");
 
 		// add sample camera
 		PropertyReader propertyReader = new PropertyReader(ctxt);

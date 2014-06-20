@@ -67,6 +67,16 @@ import android.widget.Toast;
 public class DiscoverMainActivity extends Activity
 {
 	public final String TAG = "evercamdiscover-MainActivity";
+	public final String ADAPTER_KEY_IMAGE = "device_img";
+	public final String ADAPTER_KEY_NAME = "device_name";
+	public final String ADAPTER_KEY_MAC = "device_mac";
+	public final String ADAPTER_KEY_VENDOR = "device_vendor";
+	public final String ADAPTER_KEY_HTTP = "device_http";
+	public final String ADAPTER_KEY_RTSP = "device_rtsp";
+	public final String ADAPTER_KEY_TIMEDIFF = "device_timediff";
+	public final String ADAPTER_KEY_LOGO = "evercamlogo";
+	public final String ADAPTER_KEY_ACTIVE = "device_active";
+	
 	private Handler handler = new Handler();
 	private SimpleAdapter deviceAdapter;
 	private ArrayList<HashMap<String, Object>> deviceArraylist;
@@ -126,12 +136,12 @@ public class DiscoverMainActivity extends Activity
 		scanning_text = (TextView) findViewById(R.id.scanning_text1);
 		progressbar = (ProgressBar) findViewById(R.id.processBar1);
 		deviceArraylist = new ArrayList<HashMap<String, Object>>();
-		deviceAdapter = new SimpleAdapter(this, deviceArraylist, R.layout.ditail_relative_layout,
-				new String[] { "device_img", "device_name", "device_mac", "device_vendor",
-						"device_model", "device_http", "device_rtsp", "device_timediff",
-						"evercamlogo" }, new int[] { R.id.device_img, R.id.device_name,
-						R.id.device_mac, R.id.device_vendor, R.id.device_model, R.id.device_http,
-						R.id.device_rtsp, R.id.time_diff, R.id.evercamglobe_img });
+		deviceAdapter = new DeviceListAdapter(this, deviceArraylist, R.layout.ditail_relative_layout,
+				new String[] { ADAPTER_KEY_IMAGE, ADAPTER_KEY_NAME, ADAPTER_KEY_MAC, ADAPTER_KEY_VENDOR ,
+						ADAPTER_KEY_HTTP, ADAPTER_KEY_RTSP, ADAPTER_KEY_TIMEDIFF,
+						ADAPTER_KEY_LOGO, ADAPTER_KEY_ACTIVE }, new int[] { R.id.device_img, R.id.device_name,
+						R.id.device_mac, R.id.device_vendor, R.id.device_http,
+						R.id.device_rtsp, R.id.time_diff, R.id.evercamglobe_img, R.id.device_active });
 		deviceList.setAdapter(deviceAdapter);
 
 		LinearLayout sampleLayout = (LinearLayout) findViewById(R.id.sample_layout);
@@ -164,7 +174,7 @@ public class DiscoverMainActivity extends Activity
 				@SuppressWarnings("unchecked")
 				HashMap<String, Object> map = (HashMap<String, Object>) deviceList
 						.getItemAtPosition(position);
-				final String deviceIp = (String) map.get("device_name");
+				final String deviceIp = (String) map.get(ADAPTER_KEY_NAME);
 				if (cameraOperation.isExisting(deviceIp, netInfo.getSsid()))
 				{
 					if ((cameraOperation.getCamera(deviceIp, netInfo.getSsid()).getFlag() == Constants.TYPE_ROUTER))
@@ -305,6 +315,8 @@ public class DiscoverMainActivity extends Activity
 			SharedPreferences.Editor editor = sharedPrefs.edit();
 			editor.putString(Constants.KEY_LAST_SSID, netInfo.getSsid());
 			editor.commit();
+			
+			cameraOperation.resetActive(netInfo.getSsid());
 
 			// Bonjour
 			JmdnsDiscover jmdnsDiscover = new JmdnsDiscover(netInfo, ctxt);
@@ -389,7 +401,6 @@ public class DiscoverMainActivity extends Activity
 			Intent intentWelcome = new Intent(DiscoverMainActivity.this, SlideActivity.class);
 			startActivity(intentWelcome);
 		}
-
 		else if (item.getItemId() == R.id.action_signOut)
 		{
 			AlertDialog confirmSignoutDialog = new AlertDialog.Builder(DiscoverMainActivity.this)
@@ -415,7 +426,6 @@ public class DiscoverMainActivity extends Activity
 					}).create();
 			confirmSignoutDialog.show();
 		}
-
 		else if (item.getItemId() == R.id.action_settings)
 		{
 			Intent intent = new Intent();
@@ -480,7 +490,7 @@ public class DiscoverMainActivity extends Activity
 				}
 				else
 				{
-					cameraOperation.insertScanCamera(camera, netInfo.getSsid());
+					cameraOperation.insertCamera(camera, netInfo.getSsid());
 				}
 
 				new PortScanTask(camera.getIP(), netInfo.getSsid(), ctxt).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);;
@@ -503,7 +513,7 @@ public class DiscoverMainActivity extends Activity
 				}
 				else
 				{
-					cameraOperation.insertScanCamera(camera, netInfo.getSsid());
+					cameraOperation.insertCamera(camera, netInfo.getSsid());
 				}
 
 				addToDeviceList(camera);
@@ -530,6 +540,7 @@ public class DiscoverMainActivity extends Activity
 		scannedCamera.setFlag(flag);
 		scannedCamera.setFirstSeen(getSystemTime());
 		scannedCamera.setLastSeen(getSystemTime());
+		scannedCamera.setActive(1);
 		return scannedCamera;
 	}
 
@@ -580,60 +591,66 @@ public class DiscoverMainActivity extends Activity
 		String listVendor = camera.getVendor();
 		final HashMap<String, Object> deviceMap = new HashMap<String, Object>();
 
-		deviceMap.put("device_name", listIP);
+		deviceMap.put(ADAPTER_KEY_NAME, listIP);
 		if (camera.hasMac())
 		{
-			deviceMap.put("device_mac", camera.getMAC().toUpperCase());
+			deviceMap.put(ADAPTER_KEY_MAC, camera.getMAC().toUpperCase());
 		}
 		else
 		{
-			deviceMap.put("device_mac", NetInfo.EMPTY_MAC);
+			deviceMap.put(ADAPTER_KEY_MAC, NetInfo.EMPTY_MAC);
 		}
 		if (camera.hasModel())
 		{
-			deviceMap.put("device_vendor", camera.getModel());
+			deviceMap.put(ADAPTER_KEY_VENDOR , camera.getModel());
 		}
 		else if (camera.hasVendor())
 		{
-			deviceMap.put("device_vendor", listVendor);
+			deviceMap.put(ADAPTER_KEY_VENDOR , listVendor);
 		}
 		else
 		{
-			deviceMap.put("device_vendor", getString(R.string.unknown_vendor));
+			deviceMap.put(ADAPTER_KEY_VENDOR , getString(R.string.unknown_vendor));
 		}
 
 		deviceMap
-				.put("device_timediff", TimeHelper.getTimeDifference(camera.getLastSeen() + ":00"));
+				.put(ADAPTER_KEY_TIMEDIFF, TimeHelper.getTimeDifference(camera.getLastSeen() + ":00"));
 
 		if (camera.getFlag() == Constants.TYPE_ROUTER
 				|| camera.getIP().equals(netInfo.getGatewayIp()))
 		{
-			deviceMap.put("device_img", R.drawable.tplink_trans);
+			deviceMap.put(ADAPTER_KEY_IMAGE, R.drawable.tplink_trans);
 		}
 		else if (camera.getFlag() == Constants.TYPE_CAMERA)
 		{
 			ResourceHelper resourceHelper = new ResourceHelper(ctxt);
-			deviceMap.put("device_img", resourceHelper.getCameraImageId(camera));
+			deviceMap.put(ADAPTER_KEY_IMAGE, resourceHelper.getCameraImageId(camera));
 			EvercamTask evercamTask = new EvercamTask(camera, ctxt);
 			evercamTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 		}
 		else
 		{
-			deviceMap.put("device_img", R.drawable.question_img_trans);
+			deviceMap.put(ADAPTER_KEY_IMAGE, R.drawable.question_img_trans);
 		}
 
 		// display http/rtsp if not empty
 		if (camera.hasHTTP())
 		{
-			deviceMap.put("device_http", "HTTP\u2713");
+			deviceMap.put(ADAPTER_KEY_HTTP, "HTTP\u2713");
 		}
 		if (camera.hasRTSP())
 		{
-			deviceMap.put("device_rtsp", "RTSP\u2713");
+			deviceMap.put(ADAPTER_KEY_RTSP, "RTSP\u2713");
 		}
 		if (camera.isEvercam())
 		{
-			deviceMap.put("evercamlogo", R.drawable.icon_50x50);
+			deviceMap.put(ADAPTER_KEY_LOGO, R.drawable.icon_50x50);
+		}
+		
+		//Device is active or not
+		if(camera.isActive())
+		{
+			deviceMap.put(ADAPTER_KEY_ACTIVE, "active");
 		}
 
 		deviceArraylist.add(deviceMap);
@@ -750,10 +767,10 @@ public class DiscoverMainActivity extends Activity
 			{
 				try
 				{
-					String ip1 = (String) arg0.get("device_name");
+					String ip1 = (String) arg0.get(ADAPTER_KEY_NAME);
 					int digit1 = Integer.parseInt(ip1.substring(ip1.lastIndexOf(".") + 1,
 							ip1.length()));
-					String ip2 = (String) arg1.get("device_name");
+					String ip2 = (String) arg1.get(ADAPTER_KEY_NAME);
 					int digit2 = Integer.parseInt(ip2.substring(ip2.lastIndexOf(".") + 1,
 							ip2.length()));
 					return (digit1 - digit2);

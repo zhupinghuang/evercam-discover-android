@@ -63,6 +63,7 @@ public class UpnpDiscoveryTask extends AsyncTask<Void, Void, Void>
 			camera.setModel(upnpDiscovery.getModelFromUpnp(upnpDevice));
 			camera.setHttp(upnpDiscovery.getPortFromUpnp(upnpDevice));
 			camera.setUpnp(1);
+			camera.setActive(1);
 			camera.setFirstSeen(DiscoverMainActivity.getSystemTime());
 			camera.setLastSeen(DiscoverMainActivity.getSystemTime());
 			return camera;

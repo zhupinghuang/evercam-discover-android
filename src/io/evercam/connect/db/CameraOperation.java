@@ -23,27 +23,15 @@ public class CameraOperation
 	public CameraOperation(Context ctxt)
 	{
 		database = new DatabaseHelper(ctxt);
-
-	}
-
-	public void insertScanCamera(Camera camera, String ssid)
-	{
-		db = database.getWritableDatabase();
-		db.execSQL(
-				"insert into cameralist(ip,mac,vendor,flag,firstseen,lastseen,ssid)values(?,?,?,?,?,?,?)",
-				new Object[] { camera.getIP(), camera.getMAC(), camera.getVendor(),
-						camera.getFlag(), camera.getFirstSeen(), camera.getLastSeen(), ssid });
-		db.close();
-
 	}
 
 	public void updateScanCamera(Camera camera, String ssid)
 	{
 		db = database.getWritableDatabase();
 		db.execSQL(
-				"update cameralist set mac=?,vendor=?,lastseen=?,flag=?  where ip=? and ssid=?",
+				"update cameralist set mac=?,vendor=?,lastseen=?,flag=?,active=?  where ip=? and ssid=?",
 				new Object[] { camera.getMAC(), camera.getVendor(), camera.getLastSeen(),
-						camera.getFlag(), camera.getIP(), ssid });
+						camera.getFlag(), camera.getActive(), camera.getIP(), ssid });
 		db.close();
 	}
 
@@ -51,7 +39,7 @@ public class CameraOperation
 	{
 		db = database.getWritableDatabase();
 		db.execSQL(
-				"insert into cameralist(ip,mac,vendor,model,upnp, onvif, bonjour,http,https,rtsp,ftp, ssh, portforwarded, evercam,exthttp,exthttps, extftp,extrtsp,extssh, flag,firstseen,lastseen,username, password, ssid)values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+				"insert into cameralist(ip,mac,vendor,model,upnp, onvif, bonjour,http,https,rtsp,ftp, ssh, portforwarded, evercam,exthttp,exthttps, extftp,extrtsp,extssh, flag,firstseen,lastseen,username, password, ssid, active)values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
 				new Object[] { camera.getIP(), camera.getMAC(), camera.getVendor(),
 						camera.getModel(), camera.getUpnp(), camera.getOnvif(),
 						camera.getBonjour(), camera.getHttp(), camera.getHttps(), camera.getRtsp(),
@@ -59,7 +47,7 @@ public class CameraOperation
 						camera.getEvercamConnected(), camera.getExthttp(), camera.getExthttps(),
 						camera.getExtftp(), camera.getExtrtsp(), camera.getExtssh(),
 						camera.getFlag(), camera.getFirstSeen(), camera.getLastSeen(),
-						camera.getUsername(), camera.getPassword(), ssid });
+						camera.getUsername(), camera.getPassword(), ssid, camera.getActive() });
 		db.close();
 	}
 
@@ -67,10 +55,10 @@ public class CameraOperation
 	{
 		db = database.getWritableDatabase();
 		db.execSQL(
-				"update cameralist set mac=?,vendor=?,model=?,http=?,bonjour=?,lastseen=?  where ip=? and ssid=?",
+				"update cameralist set mac=?,vendor=?,model=?,http=?,bonjour=?,lastseen=?,active=?  where ip=? and ssid=?",
 				new Object[] { camera.getMAC(), camera.getVendor(), camera.getModel(),
 						camera.getHttp(), camera.getBonjour(), camera.getLastSeen(),
-						camera.getIP(), ssid });
+						camera.getActive(), camera.getIP(), ssid });
 		db.close();
 	}
 
@@ -78,9 +66,16 @@ public class CameraOperation
 	{
 		db = database.getWritableDatabase();
 		db.execSQL(
-				"update cameralist set model=?,http=?,upnp=?,lastseen=?  where ip=? and ssid=?",
+				"update cameralist set model=?,http=?,upnp=?,lastseen=?,active=?  where ip=? and ssid=?",
 				new Object[] { camera.getModel(), camera.getHttp(), 1, camera.getLastSeen(),
-						camera.getIP(), ssid });
+						camera.getActive(), camera.getIP(), ssid });
+		db.close();
+	}
+
+	public void resetActive(String ssid)
+	{
+		db = database.getWritableDatabase();
+		db.execSQL("update cameralist set active=? where ssid=?", new Object[] { 0, ssid });
 		db.close();
 	}
 
@@ -177,6 +172,8 @@ public class CameraOperation
 			camera.setSsid(ssid);
 			int evercam = c.getInt(c.getColumnIndex("evercam"));
 			camera.setEvercamConnected(evercam);
+			int active = c.getInt(c.getColumnIndex("active"));
+			camera.setActive(active);
 		}
 		db.close();
 		return camera;

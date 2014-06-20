@@ -13,7 +13,6 @@ import io.evercam.connect.R;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -30,7 +29,6 @@ public class RouterActivity extends Activity
 	private NetInfo netInfo;
 	private Context ctxt;
 	private CameraOperation cameraOperation;
-	private Handler handler = new Handler();
 	private TextView external_ip;
 
 	@Override

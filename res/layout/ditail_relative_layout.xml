@@ -33,12 +33,6 @@
                 android:layout_marginLeft="5dip"
                 android:textSize="15sp" />
 
-            <TextView
-                android:id="@+id/device_model"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dip"
-                android:textSize="14sp" />
         </LinearLayout>
 
         <TextView
@@ -99,6 +93,15 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="2dip"
             android:textColor="#778899"
+            android:textSize="8sp" />
+        
+                <TextView
+            android:id="@+id/device_active"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dip"
+            android:textColor="#778899"
+            android:visibility="gone"
             android:textSize="8sp" />
     </LinearLayout>
 

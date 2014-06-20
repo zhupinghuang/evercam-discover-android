@@ -36,6 +36,7 @@ public class Camera implements Serializable
 	private String h264;
 	private int portForwarded = 0; // 1:yes 0:no
 	private int evercamConnected = 0; // 1:yes 0:no
+	private int active = 0; //1:yes 0:no
 
 	public Camera(String ip)
 	{
@@ -232,6 +233,22 @@ public class Camera implements Serializable
 		this.lastSeen = lastSeen;
 	}
 
+	
+	public int getActive()
+	{
+		return active;
+	}
+
+	public void setActive(int active)
+	{
+		this.active = active;
+	}
+	
+	public boolean isActive()
+	{
+		return getActive() == 1;
+	}
+
 	@Override
 	public String toString()
 	{
@@ -240,7 +257,8 @@ public class Camera implements Serializable
 				+ ",http=" + http + ",rtsp=" + rtsp + ",https=" + https + ",ftp=" + ftp + ",ssh="
 				+ ssh + ",extrtsp=" + extrtsp + ",exthttp=" + exthttp + ",flag=" + flag
 				+ ",firstseen=" + firstSeen + ",lastseen=" + lastSeen + ",username=" + username
-				+ ",password=" + password + ",jpg=" + jpg + ",h264=" + h264 + ",ssid=" + ssid + "]";
+				+ ",password=" + password + ",jpg=" + jpg + ",h264=" + h264 + ",ssid=" + ssid
+				+ ",active=" + active + "]";
 	}
 
 	public int getHttps()

@@ -7,7 +7,6 @@ import java.io.OutputStream;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Environment;
 import android.util.Log;
 

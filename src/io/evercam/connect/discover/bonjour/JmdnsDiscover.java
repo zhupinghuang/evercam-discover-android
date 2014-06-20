@@ -56,6 +56,7 @@ public class JmdnsDiscover
 		bonjourCamera.setModel(model);
 		bonjourCamera.setFlag(1);
 		bonjourCamera.setBonjour(1);
+		bonjourCamera.setActive(1);
 		bonjourCamera.setFirstSeen(DiscoverMainActivity.getSystemTime());
 		bonjourCamera.setLastSeen(DiscoverMainActivity.getSystemTime());
 		return bonjourCamera;
