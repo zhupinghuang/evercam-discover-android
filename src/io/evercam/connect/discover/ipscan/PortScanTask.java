@@ -5,25 +5,32 @@ import io.evercam.network.ipscan.PortScan;
 import io.evercam.network.ipscan.PortScanResult;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.util.Log;
 
-public class EvercamPortScan
+public class PortScanTask extends AsyncTask<Void, Void, Void>
 {
-	private final String TAG = "evercamdiscover-EvercamPortScan";
-	String ssid;
-	CameraOperation cameraOperation;
+	private final String TAG = "evercamdiscover-PortScanTask";
+	private String ssid;
+	private String ip;
+	private CameraOperation cameraOperation;
 
-	public EvercamPortScan(final String ip, final String ssid, Context ctxt)
+	public PortScanTask(final String ip, final String ssid, Context ctxt)
+	{
+		this.ip = ip;
+		this.ssid = ssid;
+		cameraOperation = new CameraOperation(ctxt);
+	}
+
+	@Override
+	protected Void doInBackground(Void... params)
 	{
 		try
 		{
-			this.ssid = ssid;
-			cameraOperation = new CameraOperation(ctxt);
 			PortScan portScan = new PortScan(new PortScanResult(){
 				@Override
 				public void onPortActive(int port, int type)
 				{
-					Log.d(TAG, "Active port:" + ip + ":" + port);
 					String port_s = String.valueOf(port);
 					switch (type)
 					{
@@ -58,5 +65,6 @@ public class EvercamPortScan
 		{
 			Log.e(TAG, e.toString());
 		}
+		return null;
 	}
 }

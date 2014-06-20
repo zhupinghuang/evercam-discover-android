@@ -9,7 +9,7 @@
     <!-- 29/05/2014  version16 - 1.1.5  Update wrapper dependency and demo camera -->
     <!-- 05/06/2014  version17 - 1.1.6  Welcome slides -->
     <!-- 11/06/2014  version18 - 1.1.7  Remove camera default requests from SimpleDB -->
-    <!-- 19/06/2014  version19 - 1.1.8  VLC integration, user profile auto fill -->
+    <!-- 20/06/2014  version19 - 1.1.8  VLC integration, user profile auto fill -->
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE" />
