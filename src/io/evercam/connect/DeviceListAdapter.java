@@ -5,7 +5,6 @@ import java.util.Map;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SimpleAdapter;
@@ -21,6 +20,7 @@ public class DeviceListAdapter extends SimpleAdapter
 		super(context, data, resource, from, to);
 	}
 
+	@Override
 	public View getView(int position, View convertView, ViewGroup parent)
 	{
 		View superView = super.getView(position, convertView, parent);

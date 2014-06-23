@@ -760,7 +760,6 @@ public class DiscoverMainActivity extends Activity
 
 	private void sortByIp()
 	{
-
 		Collections.sort(deviceArraylist, new Comparator<HashMap<String, Object>>(){
 			@Override
 			public int compare(HashMap<String, Object> arg0, HashMap<String, Object> arg1)
@@ -770,10 +769,34 @@ public class DiscoverMainActivity extends Activity
 					String ip1 = (String) arg0.get(ADAPTER_KEY_NAME);
 					int digit1 = Integer.parseInt(ip1.substring(ip1.lastIndexOf(".") + 1,
 							ip1.length()));
+					String active1 = (String) arg0.get(ADAPTER_KEY_ACTIVE);
+
+					boolean isActive1 = active1 !=null && !active1.isEmpty();
 					String ip2 = (String) arg1.get(ADAPTER_KEY_NAME);
 					int digit2 = Integer.parseInt(ip2.substring(ip2.lastIndexOf(".") + 1,
 							ip2.length()));
-					return (digit1 - digit2);
+					String active2 = (String) arg1.get(ADAPTER_KEY_ACTIVE);
+					
+					boolean isActive2 = active2 !=null && !active2.isEmpty();
+					
+					//If both device are active, order by ip.
+					if((isActive1 && isActive2) || (!isActive1 && !isActive2))
+					{
+						return (digit1 - digit2);
+					}
+					//Else put active device on top of the list.
+					else if(isActive1 && !isActive2)
+					{
+						return -1;
+					}
+					else if (!isActive1 && isActive2)
+					{
+						return 1;
+					}
+					else
+					{
+						return 0;
+					}
 				}
 				catch (NumberFormatException e)
 				{
