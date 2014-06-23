@@ -45,8 +45,6 @@
     <string name="https">HTTPS Port:</string>
     <string name="ftp">FTP Port:</string>
     <string name="ssh">SSH Port:</string>
-    <string name="username">Username:</string>
-    <string name="password">Password:</string>
     <string name="first_seen">First Seen:</string>
     <string name="last_seen">Last Active:</string>
     <string name="title_activity_popup">PopupActivity</string>
@@ -137,7 +135,6 @@
     <string name="userGuideMsg">Send a feedback to let us know this is a camera or not.</string>
     <string name="checkInternetConnection">Please check your INTERNET connection.</string>
     <string name="signOutAlert">Would you like to sign out?</string>
-    <string name="login_progress_signing_in">Signing in</string>
     <string name="addToEvercam">Add to Evercam</string>
     <string name="isEvercam">Is Evercam? </string>
     <string name="viewWebsite">View Website</string>
