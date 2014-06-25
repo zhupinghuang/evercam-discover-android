@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="io.evercam.connect"
-    android:versionCode="20"
-    android:versionName="1.1.9" >
+    android:versionCode="21"
+    android:versionName="1.2.0" >
 
     <!-- Recent Release History -->
     
@@ -11,6 +11,7 @@
     <!-- 11/06/2014  version18 - 1.1.7  Remove camera default requests from SimpleDB -->
     <!-- 20/06/2014  version19 - 1.1.8  VLC integration, user profile auto fill -->
     <!-- 23/06/2014  version20 - 1.1.9  Order device list -->
+    <!-- 25/06/2014  version21 - 1.2.0  Forename to Firstname -->
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE" />
