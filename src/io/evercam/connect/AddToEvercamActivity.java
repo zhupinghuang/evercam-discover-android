@@ -308,23 +308,25 @@ public class AddToEvercamActivity extends Activity
 
 	private void portCheck(final int port)
 	{
-		Handler handler = new Handler();
-
-		handler.postDelayed(new Runnable(){
+		new AsyncTask<Void, Void, Boolean>(){
 			@Override
-			public void run()
+			protected Boolean doInBackground(Void... params)
 			{
+				if (externalIp == null)
+				{
+					externalIp = NetInfo.getExternalIP();
+				}
 				if (externalIp != null)
 				{
 					try
 					{
 						if (PortScan.isPortReachable(externalIp, port))
 						{
-							showTick();
+							return true;
 						}
 						else
 						{
-							showCross();
+							return false;
 						}
 					}
 					catch (Exception e)
@@ -332,13 +334,22 @@ public class AddToEvercamActivity extends Activity
 						Log.e(TAG, e.toString());
 					}
 				}
+				return false;
+			}
+
+			@Override
+			protected void onPostExecute(Boolean active)
+			{
+				if (active)
+				{
+					showTick();
+				}
 				else
 				{
-					externalIp = NetInfo.getExternalIP();
-					portCheck(port);
+					showCross();
 				}
 			}
-		}, 1000);
+		}.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 	}
 
 	private class CreateCameraTask extends AsyncTask<Void, Void, Boolean>
