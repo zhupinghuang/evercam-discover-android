@@ -84,6 +84,7 @@ public class UpnpForwardingTab extends Fragment
 	private RadioButton udpRadioButton;
 	private UPNPTask upnpTask;
 	private ProgressBar processAnimate;
+	private String natListString;
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState)
@@ -162,7 +163,6 @@ public class UpnpForwardingTab extends Fragment
 			{
 				if (checkedId == autoRadioBtn.getId())
 				{
-
 					manualUpnpLayout.setVisibility(View.GONE);
 					useUpnpLayout.setVisibility(View.VISIBLE);
 					httpTxt.setText("");
@@ -170,14 +170,8 @@ public class UpnpForwardingTab extends Fragment
 					bottomLabel.setText("");
 					httpLabel.setText("");
 					rtspLabel.setText("");
-					handler.postDelayed(new Runnable(){
-						@Override
-						public void run()
-						{
-							updateForwardPage();
-						}
-					}, 1000);
-
+					
+					launchUpdateForward();
 				}
 				else
 				{
@@ -188,7 +182,7 @@ public class UpnpForwardingTab extends Fragment
 						@Override
 						public void run()
 						{
-							natList.setText(getCameraNATList());
+							updateNATListString();
 						}
 					}, 1000);
 				}
@@ -235,9 +229,9 @@ public class UpnpForwardingTab extends Fragment
 								}
 								catch (Exception e)
 								{
-									Log.e(TAG, e.toString());
+									Log.e(TAG, "Save Auto Forward" + e.toString());
 								}
-								updateForwardPage();
+								launchUpdateForward();
 							}
 						}, 1000);
 					}
@@ -331,12 +325,31 @@ public class UpnpForwardingTab extends Fragment
 		return randomPort;
 	}
 
-	private void updateForwardPage()
+	private void launchUpdateForward()
+	{
+		new AsyncTask<Void, Void, Void>(){
+
+			@Override
+			protected Void doInBackground(Void... params)
+			{
+				forwardedList = igdDiscovery.getMatchedEntries(cameraIP);
+				return null;
+			}
+
+			@Override
+			protected void onPostExecute(Void result)
+			{
+				updateForwardPage(forwardedList);
+			}
+
+		}.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+	}
+
+	private void updateForwardPage(ArrayList<ActionResponse> forwardedList)
 	{
 		// get corresponding forwarded ports
 		if (igdDiscovery != null)
 		{
-			forwardedList = igdDiscovery.getMatchedEntries(cameraIP);
 			if (forwardedList.iterator().hasNext())
 			{
 				for (int i = 0; i < forwardedList.size(); i++)
@@ -413,44 +426,61 @@ public class UpnpForwardingTab extends Fragment
 		}
 	}
 
-	private String getCameraNATList()
+	private void updateNATListString()
 	{
-		String cameraNATListStr = "Camera: " + cameraIP + " forwarded list:" + "\n";
-		if (igdDiscovery != null)
+		new AsyncTask<Void, Void, Void>()
 		{
-			forwardedList = igdDiscovery.getMatchedEntries(cameraIP);
-			if (forwardedList.iterator().hasNext())
+
+			@Override
+			protected Void doInBackground(Void... params)
 			{
-				removeBtn.setVisibility(View.VISIBLE);
-				for (int i = 0; i < forwardedList.size(); i++)
+				if (igdDiscovery != null)
 				{
-					String number = (i + 1) + "";
-					String description = forwardedList.get(i).getOutActionArgumentValue(
-							UpnpDiscovery.UPNP_KEY_DESCRIPTION);
-					String internalPort = forwardedList.get(i).getOutActionArgumentValue(
-							UpnpDiscovery.UPNP_KEY_INTERNAL_PORT);
-					String externalPort = forwardedList.get(i).getOutActionArgumentValue(
-							UpnpDiscovery.UPNP_KEY_EXTERNAL_PORT);
-					String protocol = forwardedList.get(i).getOutActionArgumentValue(
-							UpnpDiscovery.UPNP_KEY_PROTOCOL);
-					String thisEntry = number + "." + "\n" + "Description: " + description + "\n"
-							+ "Internal Port: " + internalPort + "\n" + "External Port: "
-							+ externalPort + "\n" + "Protocol: " + protocol + "\n";
-					cameraNATListStr += thisEntry;
+				forwardedList = igdDiscovery.getMatchedEntries(cameraIP);
 				}
+				return null;
 			}
-			else
+
+			@Override
+			protected void onPostExecute(Void result)
 			{
-				cameraNATListStr = "Camera: " + cameraIP + " has no ports mapped.";
-				removeBtn.setVisibility(View.GONE);
+				String cameraNATListStr = "Camera: " + cameraIP + " forwarded list:" + "\n";
+				if (igdDiscovery != null)
+				{
+					if (forwardedList.iterator().hasNext())
+					{
+						removeBtn.setVisibility(View.VISIBLE);
+						for (int i = 0; i < forwardedList.size(); i++)
+						{
+							String number = (i + 1) + "";
+							String description = forwardedList.get(i).getOutActionArgumentValue(
+									UpnpDiscovery.UPNP_KEY_DESCRIPTION);
+							String internalPort = forwardedList.get(i).getOutActionArgumentValue(
+									UpnpDiscovery.UPNP_KEY_INTERNAL_PORT);
+							String externalPort = forwardedList.get(i).getOutActionArgumentValue(
+									UpnpDiscovery.UPNP_KEY_EXTERNAL_PORT);
+							String protocol = forwardedList.get(i).getOutActionArgumentValue(
+									UpnpDiscovery.UPNP_KEY_PROTOCOL);
+							String thisEntry = number + "." + "\n" + "Description: " + description + "\n"
+									+ "Internal Port: " + internalPort + "\n" + "External Port: "
+									+ externalPort + "\n" + "Protocol: " + protocol + "\n";
+							cameraNATListStr += thisEntry;
+						}
+					}
+					else
+					{
+						cameraNATListStr = "Camera: " + cameraIP + " has no ports mapped.";
+						removeBtn.setVisibility(View.GONE);
+					}
+				}
+				// if igd is null
+				else
+				{
+					cameraNATListStr = "Camera: " + cameraIP + " has no ports mapped.";
+				}
+				natList.setText(cameraNATListStr);
 			}
-		}
-		// if igd is null
-		else
-		{
-			cameraNATListStr = "Camera: " + cameraIP + " has no ports mapped.";
-		}
-		return cameraNATListStr;
+		}.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 	}
 
 	private void showAddPortDialog()
@@ -474,13 +504,17 @@ public class UpnpForwardingTab extends Fragment
 			@Override
 			public void onClick(DialogInterface dialog, int which)
 			{
-				String internalPortStr = internalPortEdit.getText().toString();
-				String externalPortStr = externalPortEdit.getText().toString();
-				String descriptionStr = descriptionEdit.getText().toString();
-				String protocolStr = Constants.PROTOCOL_TCP;
+				final String internalPortStr = internalPortEdit.getText().toString();
+				final String externalPortStr = externalPortEdit.getText().toString();
+				final String descriptionStr = descriptionEdit.getText().toString();
+				final String protocolStr;
 				if (udpRadioButton.isChecked())
 				{
 					protocolStr = Constants.PROTOCOL_UDP;
+				}
+				else
+				{
+					protocolStr = Constants.PROTOCOL_TCP;
 				}
 
 				if (!(internalPortStr.length() == 0) && !(externalPortStr.length() == 0)
@@ -497,39 +531,13 @@ public class UpnpForwardingTab extends Fragment
 					{
 						e.printStackTrace();
 					}
-
+					
+					final int internalPortInt;
+					final int externalPortInt;
 					try
 					{
-						boolean manualUpnpMapped = igdDiscovery.IGD.addPortMapping(descriptionStr,
-								null, Integer.parseInt(internalPortStr),
-								Integer.parseInt(externalPortStr), cameraIP, 0, protocolStr);
-
-						if (manualUpnpMapped)
-						{
-							natList.setText(R.string.manualForwardSuccessMsg);
-							handler.postDelayed(new Runnable(){
-								@Override
-								public void run()
-								{
-									try
-									{
-										igdDiscovery = new IGDDiscovery(netInfo.getGatewayIp());
-									}
-									catch (Exception e)
-									{
-										Log.e(TAG, e.toString());
-									}
-									natList.setText(getCameraNATList());
-								}
-							}, 1000);
-						}
-						else
-						{
-							Toast toast = Toast.makeText(getActivity().getApplicationContext(),
-									R.string.portForwardFailed, Toast.LENGTH_SHORT);
-							toast.setGravity(Gravity.CENTER, 0, 0);
-							toast.show();
-						}
+					internalPortInt = Integer.parseInt(internalPortStr);
+					externalPortInt = Integer.parseInt(externalPortStr);
 					}
 					catch (NumberFormatException e)
 					{
@@ -537,34 +545,76 @@ public class UpnpForwardingTab extends Fragment
 								R.string.portRangeMsg, Toast.LENGTH_SHORT);
 						toast.setGravity(Gravity.CENTER, 0, 0);
 						toast.show();
+						return;
 					}
-					catch (IOException e)
+					
+					new AsyncTask<Void, Void, Boolean>()
 					{
-						e.printStackTrace();
-					}
-					catch (UPNPResponseException e)
-					{
-						e.printStackTrace();
-					}
-					catch (IllegalArgumentException ex)
-					{
-						Toast toast = Toast.makeText(getActivity().getApplicationContext(),
-								R.string.portRangeMsg, Toast.LENGTH_SHORT);
-						toast.setGravity(Gravity.CENTER, 0, 0);
-						toast.show();
-						try
-						{
-							Field field = dialog.getClass().getSuperclass()
-									.getDeclaredField("mShowing");
-							field.setAccessible(true);
-							field.set(dialog, false);
-						}
-						catch (Exception e)
-						{
-							e.printStackTrace();
-						}
-					}
 
+						@Override
+						protected Boolean doInBackground(Void... params)
+						{
+							boolean portAdded = false;
+							
+							try
+							{
+								portAdded = igdDiscovery.IGD.addPortMapping(descriptionStr,
+										null, internalPortInt,
+										externalPortInt, cameraIP, 0, protocolStr);
+							}
+							catch (IOException e)
+							{
+								e.printStackTrace();
+							}
+							catch (UPNPResponseException e)
+							{
+								e.printStackTrace();
+							}
+							catch (Exception e)
+							{
+								Log.e(TAG, "Add port forward" + e.toString());
+							}
+							
+							if(portAdded)
+							{
+								publishProgress();
+								try
+								{
+									igdDiscovery = new IGDDiscovery(netInfo.getGatewayIp());
+									return true;
+								}
+								catch (Exception e)
+								{
+									Log.e(TAG, "After add port forward" + e.toString());
+								}
+							}
+							return false;
+						}
+
+						@Override
+						protected void onPostExecute(Boolean success)
+						{
+							if (success)
+							{
+										updateNATListString();
+							}
+							else
+							{
+								Toast toast = Toast.makeText(getActivity().getApplicationContext(),
+										R.string.portForwardFailed, Toast.LENGTH_SHORT);
+								toast.setGravity(Gravity.CENTER, 0, 0);
+								toast.show();
+							}
+						}
+
+						@Override
+						protected void onProgressUpdate(Void... values)
+						{
+							natList.setText(R.string.manualForwardSuccessMsg);
+						}
+						
+						
+					}.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 				}
 
 				// If form not been complete
@@ -603,7 +653,6 @@ public class UpnpForwardingTab extends Fragment
 				{
 					e.printStackTrace();
 				}
-
 			}
 
 		});
@@ -630,35 +679,74 @@ public class UpnpForwardingTab extends Fragment
 			@Override
 			public void onClick(DialogInterface dialog, int which)
 			{
-				boolean unmapped = removeSelectedPort(spinnerRemovePort.getSelectedItem()
-						.toString());
-				if (unmapped)
+				new AsyncTask<Void, Void, Boolean>()
 				{
-					natList.setText(R.string.manualDeleteSuccessMsg);
-					handler.postDelayed(new Runnable(){
-						@Override
-						public void run()
+					@Override
+					protected Boolean doInBackground(Void... params)
+					{
+						String[] selectedValues = spinnerRemovePort.getSelectedItem()
+								.toString().split(" - ");
+						String extPort = selectedValues[0];
+						String protocol = selectedValues[1];
+
+						boolean unmapped = false;
+					
+						try
 						{
+							unmapped = igdDiscovery.IGD
+									.deletePortMapping(null, Integer.parseInt(extPort), protocol);
+						}
+						catch (NumberFormatException e)
+						{
+							e.printStackTrace();
+						}
+						catch (IOException e)
+						{
+							e.printStackTrace();
+						}
+						catch (UPNPResponseException e)
+						{
+							e.printStackTrace();
+						}
+						
+						if(unmapped)
+						{
+							this.publishProgress();
 							try
 							{
 								igdDiscovery = new IGDDiscovery(netInfo.getGatewayIp());
+								return true;
 							}
 							catch (Exception e)
 							{
-								Log.e(TAG, e.toString());
+								Log.e(TAG, "After remove port forward" + e.toString());
 							}
-							natList.setText(getCameraNATList());
 						}
-					}, 1000);
-				}
-				else
-				{
-					Toast toast = Toast.makeText(getActivity().getApplicationContext(),
-							R.string.deleteForwardFailed, Toast.LENGTH_SHORT);
-					toast.setGravity(Gravity.CENTER, 0, 0);
-					toast.show();
-				}
+						return false;
+					}
 
+					@Override
+					protected void onPostExecute(Boolean success)
+					{
+						if (success)
+						{
+							updateNATListString();
+						}
+						else
+						{
+							Toast toast = Toast.makeText(getActivity().getApplicationContext(),
+									R.string.deleteForwardFailed, Toast.LENGTH_SHORT);
+							toast.setGravity(Gravity.CENTER, 0, 0);
+							toast.show();
+						}
+					}
+
+					@Override
+					protected void onProgressUpdate(Void... values)
+					{
+						natList.setText(R.string.manualDeleteSuccessMsg);
+					}			
+				}.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 			}
 		});
 
@@ -673,7 +761,6 @@ public class UpnpForwardingTab extends Fragment
 		removeBuilder.setTitle(R.string.removePortForward);
 		removeBuilder.setCancelable(false);
 		removeBuilder.show();
-
 	}
 
 	// get list display in spinner for removing
@@ -695,35 +782,6 @@ public class UpnpForwardingTab extends Fragment
 		return spinnerList;
 	}
 
-	private boolean removeSelectedPort(String selectedValue)
-	{
-		String[] selectedValues = selectedValue.split(" - ");
-		String extPort = selectedValues[0];
-		String protocol = selectedValues[1];
-
-		boolean unmapped = false;
-		try
-		{
-			unmapped = igdDiscovery.IGD
-					.deletePortMapping(null, Integer.parseInt(extPort), protocol);
-		}
-		catch (NumberFormatException e)
-		{
-			e.printStackTrace();
-		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
-		}
-		catch (UPNPResponseException e)
-		{
-			e.printStackTrace();
-		}
-
-		return unmapped;
-
-	}
-
 	private class UPNPTask extends AsyncTask<Void, Void, Void>
 	{
 		@Override
@@ -742,7 +800,7 @@ public class UpnpForwardingTab extends Fragment
 			}
 			catch (Exception e)
 			{
-				Log.e(TAG, e.toString());
+				Log.e(TAG, "UPnPTask" + e.toString());
 			}
 
 			return null;
@@ -768,7 +826,7 @@ public class UpnpForwardingTab extends Fragment
 				helpMsgTxt.setText(R.string.helpNotAvailiable);
 			}
 
-			updateForwardPage();
+			launchUpdateForward();
 		}
 	}
 }
