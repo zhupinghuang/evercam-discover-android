@@ -170,7 +170,7 @@ public class UpnpForwardingTab extends Fragment
 					bottomLabel.setText("");
 					httpLabel.setText("");
 					rtspLabel.setText("");
-					
+
 					launchUpdateForward();
 				}
 				else
@@ -428,15 +428,14 @@ public class UpnpForwardingTab extends Fragment
 
 	private void updateNATListString()
 	{
-		new AsyncTask<Void, Void, Void>()
-		{
+		new AsyncTask<Void, Void, Void>(){
 
 			@Override
 			protected Void doInBackground(Void... params)
 			{
 				if (igdDiscovery != null)
 				{
-				forwardedList = igdDiscovery.getMatchedEntries(cameraIP);
+					forwardedList = igdDiscovery.getMatchedEntries(cameraIP);
 				}
 				return null;
 			}
@@ -461,9 +460,10 @@ public class UpnpForwardingTab extends Fragment
 									UpnpDiscovery.UPNP_KEY_EXTERNAL_PORT);
 							String protocol = forwardedList.get(i).getOutActionArgumentValue(
 									UpnpDiscovery.UPNP_KEY_PROTOCOL);
-							String thisEntry = number + "." + "\n" + "Description: " + description + "\n"
-									+ "Internal Port: " + internalPort + "\n" + "External Port: "
-									+ externalPort + "\n" + "Protocol: " + protocol + "\n";
+							String thisEntry = number + "." + "\n" + "Description: " + description
+									+ "\n" + "Internal Port: " + internalPort + "\n"
+									+ "External Port: " + externalPort + "\n" + "Protocol: "
+									+ protocol + "\n";
 							cameraNATListStr += thisEntry;
 						}
 					}
@@ -531,13 +531,13 @@ public class UpnpForwardingTab extends Fragment
 					{
 						e.printStackTrace();
 					}
-					
+
 					final int internalPortInt;
 					final int externalPortInt;
 					try
 					{
-					internalPortInt = Integer.parseInt(internalPortStr);
-					externalPortInt = Integer.parseInt(externalPortStr);
+						internalPortInt = Integer.parseInt(internalPortStr);
+						externalPortInt = Integer.parseInt(externalPortStr);
 					}
 					catch (NumberFormatException e)
 					{
@@ -547,20 +547,18 @@ public class UpnpForwardingTab extends Fragment
 						toast.show();
 						return;
 					}
-					
-					new AsyncTask<Void, Void, Boolean>()
-					{
+
+					new AsyncTask<Void, Void, Boolean>(){
 
 						@Override
 						protected Boolean doInBackground(Void... params)
 						{
 							boolean portAdded = false;
-							
+
 							try
 							{
-								portAdded = igdDiscovery.IGD.addPortMapping(descriptionStr,
-										null, internalPortInt,
-										externalPortInt, cameraIP, 0, protocolStr);
+								portAdded = igdDiscovery.IGD.addPortMapping(descriptionStr, null,
+										internalPortInt, externalPortInt, cameraIP, 0, protocolStr);
 							}
 							catch (IOException e)
 							{
@@ -574,8 +572,8 @@ public class UpnpForwardingTab extends Fragment
 							{
 								Log.e(TAG, "Add port forward" + e.toString());
 							}
-							
-							if(portAdded)
+
+							if (portAdded)
 							{
 								publishProgress();
 								try
@@ -596,7 +594,7 @@ public class UpnpForwardingTab extends Fragment
 						{
 							if (success)
 							{
-										updateNATListString();
+								updateNATListString();
 							}
 							else
 							{
@@ -612,8 +610,7 @@ public class UpnpForwardingTab extends Fragment
 						{
 							natList.setText(R.string.manualForwardSuccessMsg);
 						}
-						
-						
+
 					}.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 				}
 
@@ -679,22 +676,21 @@ public class UpnpForwardingTab extends Fragment
 			@Override
 			public void onClick(DialogInterface dialog, int which)
 			{
-				new AsyncTask<Void, Void, Boolean>()
-				{
+				new AsyncTask<Void, Void, Boolean>(){
 					@Override
 					protected Boolean doInBackground(Void... params)
 					{
-						String[] selectedValues = spinnerRemovePort.getSelectedItem()
-								.toString().split(" - ");
+						String[] selectedValues = spinnerRemovePort.getSelectedItem().toString()
+								.split(" - ");
 						String extPort = selectedValues[0];
 						String protocol = selectedValues[1];
 
 						boolean unmapped = false;
-					
+
 						try
 						{
-							unmapped = igdDiscovery.IGD
-									.deletePortMapping(null, Integer.parseInt(extPort), protocol);
+							unmapped = igdDiscovery.IGD.deletePortMapping(null,
+									Integer.parseInt(extPort), protocol);
 						}
 						catch (NumberFormatException e)
 						{
@@ -708,8 +704,8 @@ public class UpnpForwardingTab extends Fragment
 						{
 							e.printStackTrace();
 						}
-						
-						if(unmapped)
+
+						if (unmapped)
 						{
 							this.publishProgress();
 							try
@@ -745,7 +741,7 @@ public class UpnpForwardingTab extends Fragment
 					protected void onProgressUpdate(Void... values)
 					{
 						natList.setText(R.string.manualDeleteSuccessMsg);
-					}			
+					}
 				}.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 			}
 		});

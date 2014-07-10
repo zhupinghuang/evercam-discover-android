@@ -16,7 +16,6 @@ import io.evercam.connect.net.NetInfo;
 import io.evercam.network.ipscan.PortScan;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;

@@ -76,7 +76,7 @@ public class DiscoverMainActivity extends Activity
 	public final String ADAPTER_KEY_TIMEDIFF = "device_timediff";
 	public final String ADAPTER_KEY_LOGO = "evercamlogo";
 	public final String ADAPTER_KEY_ACTIVE = "device_active";
-	
+
 	private Handler handler = new Handler();
 	private SimpleAdapter deviceAdapter;
 	private ArrayList<HashMap<String, Object>> deviceArraylist;
@@ -121,7 +121,7 @@ public class DiscoverMainActivity extends Activity
 			BugSenseHandler.initAndStartSession(DiscoverMainActivity.this, bugSenseCode);
 		}
 		setContentView(R.layout.activity_evercam_discover);
-		
+
 		EvercamDiscover.sendScreenAnalytics(this, getString(R.string.screen_discovery));
 
 		sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
@@ -138,12 +138,13 @@ public class DiscoverMainActivity extends Activity
 		scanning_text = (TextView) findViewById(R.id.scanning_text1);
 		progressbar = (ProgressBar) findViewById(R.id.processBar1);
 		deviceArraylist = new ArrayList<HashMap<String, Object>>();
-		deviceAdapter = new DeviceListAdapter(this, deviceArraylist, R.layout.ditail_relative_layout,
-				new String[] { ADAPTER_KEY_IMAGE, ADAPTER_KEY_NAME, ADAPTER_KEY_MAC, ADAPTER_KEY_VENDOR ,
-						ADAPTER_KEY_HTTP, ADAPTER_KEY_RTSP, ADAPTER_KEY_TIMEDIFF,
-						ADAPTER_KEY_LOGO, ADAPTER_KEY_ACTIVE }, new int[] { R.id.device_img, R.id.device_name,
-						R.id.device_mac, R.id.device_vendor, R.id.device_http,
-						R.id.device_rtsp, R.id.time_diff, R.id.evercamglobe_img, R.id.device_active });
+		deviceAdapter = new DeviceListAdapter(this, deviceArraylist,
+				R.layout.ditail_relative_layout, new String[] { ADAPTER_KEY_IMAGE,
+						ADAPTER_KEY_NAME, ADAPTER_KEY_MAC, ADAPTER_KEY_VENDOR, ADAPTER_KEY_HTTP,
+						ADAPTER_KEY_RTSP, ADAPTER_KEY_TIMEDIFF, ADAPTER_KEY_LOGO,
+						ADAPTER_KEY_ACTIVE }, new int[] { R.id.device_img, R.id.device_name,
+						R.id.device_mac, R.id.device_vendor, R.id.device_http, R.id.device_rtsp,
+						R.id.time_diff, R.id.evercamglobe_img, R.id.device_active });
 		deviceList.setAdapter(deviceAdapter);
 
 		LinearLayout sampleLayout = (LinearLayout) findViewById(R.id.sample_layout);
@@ -153,8 +154,8 @@ public class DiscoverMainActivity extends Activity
 			@Override
 			public void onClick(View v)
 			{
-				EvercamDiscover.sendEventAnalytics(DiscoverMainActivity.this, R.string.category_main_click, 
-						R.string.action_demo, R.string.label_demo);
+				EvercamDiscover.sendEventAnalytics(DiscoverMainActivity.this,
+						R.string.category_main_click, R.string.action_demo, R.string.label_demo);
 				if (!netInfo.hasActiveNetwork())
 				{
 					makeToast(ctxt.getResources().getString(R.string.pleaseConnectNetwork));
@@ -318,7 +319,7 @@ public class DiscoverMainActivity extends Activity
 			SharedPreferences.Editor editor = sharedPrefs.edit();
 			editor.putString(Constants.KEY_LAST_SSID, netInfo.getSsid());
 			editor.commit();
-			
+
 			cameraOperation.resetActive(netInfo.getSsid());
 
 			// Bonjour
@@ -380,7 +381,8 @@ public class DiscoverMainActivity extends Activity
 			}
 			else
 			{
-				EvercamDiscover.sendEventAnalytics(this, R.string.category_main_click, R.string.action_refresh, R.string.label_refresh);
+				EvercamDiscover.sendEventAnalytics(this, R.string.category_main_click,
+						R.string.action_refresh, R.string.label_refresh);
 				makeToast(getString(R.string.refreshing));
 
 				deviceArraylist.clear();
@@ -401,7 +403,8 @@ public class DiscoverMainActivity extends Activity
 		}
 		else if (item.getItemId() == R.id.action_signIn)
 		{
-			EvercamDiscover.sendEventAnalytics(this, R.string.category_main_click, R.string.action_sign_in_out, R.string.label_menu_login);
+			EvercamDiscover.sendEventAnalytics(this, R.string.category_main_click,
+					R.string.action_sign_in_out, R.string.label_menu_login);
 			Intent intentWelcome = new Intent(DiscoverMainActivity.this, SlideActivity.class);
 			startActivity(intentWelcome);
 		}
@@ -414,8 +417,9 @@ public class DiscoverMainActivity extends Activity
 						@Override
 						public void onClick(DialogInterface dialog, int which)
 						{
-							EvercamDiscover.sendEventAnalytics(DiscoverMainActivity.this, R.string.category_main_click, 
-									R.string.action_sign_in_out, R.string.label_confirm_logout);
+							EvercamDiscover.sendEventAnalytics(DiscoverMainActivity.this,
+									R.string.category_main_click, R.string.action_sign_in_out,
+									R.string.label_confirm_logout);
 							SharedPrefsManager.clearAllUserInfo(sharedPrefs);
 							menuSignIn.setVisible(true);
 							menuSignOut.setVisible(false);
@@ -427,8 +431,9 @@ public class DiscoverMainActivity extends Activity
 						@Override
 						public void onClick(DialogInterface dialog, int which)
 						{
-							EvercamDiscover.sendEventAnalytics(DiscoverMainActivity.this, R.string.category_main_click, 
-									R.string.action_sign_in_out, R.string.label_cancel_logout);
+							EvercamDiscover.sendEventAnalytics(DiscoverMainActivity.this,
+									R.string.category_main_click, R.string.action_sign_in_out,
+									R.string.label_cancel_logout);
 							return;
 						}
 					}).create();
@@ -436,8 +441,9 @@ public class DiscoverMainActivity extends Activity
 		}
 		else if (item.getItemId() == R.id.action_settings)
 		{
-			EvercamDiscover.sendEventAnalytics(DiscoverMainActivity.this, R.string.category_main_click, 
-					R.string.action_settings, R.string.label_settings);
+			EvercamDiscover
+					.sendEventAnalytics(DiscoverMainActivity.this, R.string.category_main_click,
+							R.string.action_settings, R.string.label_settings);
 			Intent intent = new Intent();
 			intent.setClass(DiscoverMainActivity.this, SettingsActivity.class);
 			startActivity(intent);
@@ -503,7 +509,9 @@ public class DiscoverMainActivity extends Activity
 					cameraOperation.insertCamera(camera, netInfo.getSsid());
 				}
 
-				new PortScanTask(camera.getIP(), netInfo.getSsid(), ctxt).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);;
+				new PortScanTask(camera.getIP(), netInfo.getSsid(), ctxt)
+						.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+				;
 
 				addToDeviceList(camera);
 			}
@@ -612,19 +620,19 @@ public class DiscoverMainActivity extends Activity
 		}
 		if (camera.hasModel())
 		{
-			deviceMap.put(ADAPTER_KEY_VENDOR , camera.getModel());
+			deviceMap.put(ADAPTER_KEY_VENDOR, camera.getModel());
 		}
 		else if (camera.hasVendor())
 		{
-			deviceMap.put(ADAPTER_KEY_VENDOR , listVendor);
+			deviceMap.put(ADAPTER_KEY_VENDOR, listVendor);
 		}
 		else
 		{
-			deviceMap.put(ADAPTER_KEY_VENDOR , getString(R.string.unknown_vendor));
+			deviceMap.put(ADAPTER_KEY_VENDOR, getString(R.string.unknown_vendor));
 		}
 
-		deviceMap
-				.put(ADAPTER_KEY_TIMEDIFF, TimeHelper.getTimeDifference(camera.getLastSeen() + ":00"));
+		deviceMap.put(ADAPTER_KEY_TIMEDIFF,
+				TimeHelper.getTimeDifference(camera.getLastSeen() + ":00"));
 
 		if (camera.getFlag() == Constants.TYPE_ROUTER
 				|| camera.getIP().equals(netInfo.getGatewayIp()))
@@ -656,9 +664,9 @@ public class DiscoverMainActivity extends Activity
 		{
 			deviceMap.put(ADAPTER_KEY_LOGO, R.drawable.icon_50x50);
 		}
-		
-		//Device is active or not
-		if(camera.isActive())
+
+		// Device is active or not
+		if (camera.isActive())
 		{
 			deviceMap.put(ADAPTER_KEY_ACTIVE, "active");
 		}
@@ -781,21 +789,21 @@ public class DiscoverMainActivity extends Activity
 							ip1.length()));
 					String active1 = (String) arg0.get(ADAPTER_KEY_ACTIVE);
 
-					boolean isActive1 = active1 !=null && !active1.isEmpty();
+					boolean isActive1 = active1 != null && !active1.isEmpty();
 					String ip2 = (String) arg1.get(ADAPTER_KEY_NAME);
 					int digit2 = Integer.parseInt(ip2.substring(ip2.lastIndexOf(".") + 1,
 							ip2.length()));
 					String active2 = (String) arg1.get(ADAPTER_KEY_ACTIVE);
-					
-					boolean isActive2 = active2 !=null && !active2.isEmpty();
-					
-					//If both device are active, order by ip.
-					if((isActive1 && isActive2) || (!isActive1 && !isActive2))
+
+					boolean isActive2 = active2 != null && !active2.isEmpty();
+
+					// If both device are active, order by ip.
+					if ((isActive1 && isActive2) || (!isActive1 && !isActive2))
 					{
 						return (digit1 - digit2);
 					}
-					//Else put active device on top of the list.
-					else if(isActive1 && !isActive2)
+					// Else put active device on top of the list.
+					else if (isActive1 && !isActive2)
 					{
 						return -1;
 					}
@@ -827,8 +835,9 @@ public class DiscoverMainActivity extends Activity
 					@Override
 					public void onClick(DialogInterface dialog, int which)
 					{
-						EvercamDiscover.sendEventAnalytics(DiscoverMainActivity.this, 
-								R.string.category_main_click, R.string.action_refresh, R.string.label_cancel_refresh);
+						EvercamDiscover.sendEventAnalytics(DiscoverMainActivity.this,
+								R.string.category_main_click, R.string.action_refresh,
+								R.string.label_cancel_refresh);
 						stopDiscovery();
 					}
 				}).setNegativeButton(R.string.no, new DialogInterface.OnClickListener(){

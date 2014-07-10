@@ -36,7 +36,7 @@ public class RouterActivity extends Activity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_router);
-		
+
 		EvercamDiscover.sendScreenAnalytics(this, getString(R.string.screen_router));
 
 		TextView router_ip = (TextView) findViewById(R.id.routerip_detail);
@@ -123,14 +123,14 @@ public class RouterActivity extends Activity
 
 	private void displayExternalIP()
 	{
-		new AsyncTask<Void, Void, String>()
-		{
+		new AsyncTask<Void, Void, String>(){
 			@Override
 			protected String doInBackground(Void... params)
 			{
 
 				return NetInfo.getExternalIP();
 			}
+
 			@Override
 			protected void onPostExecute(String externalIp)
 			{
@@ -139,6 +139,7 @@ public class RouterActivity extends Activity
 					external_ip.setText(externalIp);
 				}
 			}
-		}.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);;
+		}.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+		;
 	}
 }

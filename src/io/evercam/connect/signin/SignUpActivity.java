@@ -323,28 +323,28 @@ public class SignUpActivity extends Activity
 	{
 		try
 		{
-		UserProfile profile = AccountUtils.getUserProfile(this);
-		if (profile.primaryEmail() != null)
-		{
-			filledEmail = profile.primaryEmail();
-		}
-		else if (profile.possibleEmails().size() > 0)
-		{
-			filledEmail = profile.possibleEmails().get(0);
-		}
-
-		if (profile.possibleNames().size() > 0)
-		{
-			String name = profile.possibleNames().get(0);
-			String[] nameArray = name.split("\\s+");
-			if (nameArray.length >= 2)
+			UserProfile profile = AccountUtils.getUserProfile(this);
+			if (profile.primaryEmail() != null)
 			{
-				filledFirstname = nameArray[0];
-				filledLastname = nameArray[1];
+				filledEmail = profile.primaryEmail();
 			}
-		}
-		Log.d(TAG, "emails" + profile.possibleEmails().size() + "\nnames"
-				+ profile.possibleNames().size() + profile.primaryEmail());
+			else if (profile.possibleEmails().size() > 0)
+			{
+				filledEmail = profile.possibleEmails().get(0);
+			}
+
+			if (profile.possibleNames().size() > 0)
+			{
+				String name = profile.possibleNames().get(0);
+				String[] nameArray = name.split("\\s+");
+				if (nameArray.length >= 2)
+				{
+					filledFirstname = nameArray[0];
+					filledLastname = nameArray[1];
+				}
+			}
+			Log.d(TAG, "emails" + profile.possibleEmails().size() + "\nnames"
+					+ profile.possibleNames().size() + profile.primaryEmail());
 		}
 		catch (Exception e)
 		{

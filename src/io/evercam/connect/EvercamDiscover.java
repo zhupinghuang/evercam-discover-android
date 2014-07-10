@@ -41,8 +41,7 @@ public class EvercamDiscover extends Application
 
 	private static Tracker getAppTracker(Activity activity)
 	{
-		return ((EvercamDiscover) activity.getApplication())
-				.getTracker(TrackerName.APP_TRACKER);
+		return ((EvercamDiscover) activity.getApplication()).getTracker(TrackerName.APP_TRACKER);
 	}
 
 	/**
@@ -62,22 +61,20 @@ public class EvercamDiscover extends Application
 	/**
 	 * Send an event with fixed details string id.
 	 */
-	public static void sendEventAnalytics(Activity activity, int cateory, int action,
-			int label)
+	public static void sendEventAnalytics(Activity activity, int cateory, int action, int label)
 	{
 		Tracker tracker = getAppTracker(activity);
-		tracker.send(new HitBuilders.EventBuilder().setCategory(activity.getString(cateory)).setAction(activity.getString(action))
-				.setLabel(activity.getString(label)).build());
+		tracker.send(new HitBuilders.EventBuilder().setCategory(activity.getString(cateory))
+				.setAction(activity.getString(action)).setLabel(activity.getString(label)).build());
 	}
-	
+
 	/**
 	 * Send an event with a customed label.
 	 */
-	public static void sendEventAnalytics(Activity activity, int cateory, int action,
-			String label)
+	public static void sendEventAnalytics(Activity activity, int cateory, int action, String label)
 	{
 		Tracker tracker = getAppTracker(activity);
-		tracker.send(new HitBuilders.EventBuilder().setCategory(activity.getString(cateory)).setAction(activity.getString(action))
-				.setLabel(label).build());
+		tracker.send(new HitBuilders.EventBuilder().setCategory(activity.getString(cateory))
+				.setAction(activity.getString(action)).setLabel(label).build());
 	}
 }

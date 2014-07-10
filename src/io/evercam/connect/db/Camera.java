@@ -36,7 +36,7 @@ public class Camera implements Serializable
 	private String h264;
 	private int portForwarded = 0; // 1:yes 0:no
 	private int evercamConnected = 0; // 1:yes 0:no
-	private int active = 0; //1:yes 0:no
+	private int active = 0; // 1:yes 0:no
 
 	public Camera(String ip)
 	{
@@ -233,7 +233,6 @@ public class Camera implements Serializable
 		this.lastSeen = lastSeen;
 	}
 
-	
 	public int getActive()
 	{
 		return active;
@@ -243,7 +242,7 @@ public class Camera implements Serializable
 	{
 		this.active = active;
 	}
-	
+
 	public boolean isActive()
 	{
 		return getActive() == 1;

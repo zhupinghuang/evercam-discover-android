@@ -40,7 +40,6 @@ public class AwsS3Uploader
 		task.title = title;
 		task.content = content;
 
-
 		task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
 	}

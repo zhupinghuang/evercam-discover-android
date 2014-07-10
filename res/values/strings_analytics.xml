@@ -3,10 +3,14 @@
     
     <!-- Event Category -->
     <string name="category_main_click">Main Page Clicks</string>
+    <string name="category_welcome_slides">Welcome Page Clicks</string>
     <string name="category_preference">Preference</string>
     <string name="category_detail_buttons">Clicks in Detail Page</string>
     
-    <!-- Event Action - Main Clicks -->
+    <!-- Event Action - Clicks on welcome page -->
+    <string name="action_welcome_sign_in_out">Login/Sign Out</string>
+    <string name="action_welcome_enter_app">Enter App</string>   
+    <!-- Event Action - Clicks on main page -->
     <string name="action_refresh">Refresh</string>
     <string name="action_sign_in_out">Login/Sign Out</string>
     <string name="action_settings">Settings</string>
@@ -25,6 +29,10 @@
     <string name="action_add_to_evercam">Add to Evercam</string>
     <string name="action_report_camera">Report (Not) Camera Vendor</string>
     
+    <!-- Event Label - Clicks on welcome page -->
+    <string name="label_welcome_login">Login from welcome page.</string>
+    <string name="label_welcome_sign_up">Sign up from welcome page.</string>
+    <string name="label_welcome_enter_app">Enter app without Evercam account.</string>
     <!-- Event Label - Main Clicks -->
     <string name="label_refresh">Restart discovery.</string>
     <string name="label_cancel_refresh">Cancel discovery.</string>

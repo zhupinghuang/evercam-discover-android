@@ -67,7 +67,7 @@ public class LoginActivity extends Activity
 
 		sharedPrefs = PreferenceManager.getDefaultSharedPreferences(LoginActivity.this);
 		SharedPrefsManager.clearAllUserInfo(sharedPrefs);
-		
+
 		EvercamDiscover.sendScreenAnalytics(this, getString(R.string.screen_login));
 
 		ActionBar actionBar = getActionBar();

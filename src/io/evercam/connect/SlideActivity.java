@@ -139,6 +139,9 @@ public class SlideActivity extends Activity implements OnPageChangeListener
 			@Override
 			public void onClick(View v)
 			{
+				EvercamDiscover.sendEventAnalytics(SlideActivity.this, R.string.category_welcome_slides, 
+						R.string.action_welcome_sign_in_out, R.string.label_welcome_login);
+				
 				Intent login = new Intent(SlideActivity.this, LoginActivity.class);
 				startActivity(login);
 			}
@@ -149,6 +152,9 @@ public class SlideActivity extends Activity implements OnPageChangeListener
 			@Override
 			public void onClick(View v)
 			{
+				EvercamDiscover.sendEventAnalytics(SlideActivity.this, R.string.category_welcome_slides, 
+						R.string.action_welcome_sign_in_out, R.string.label_welcome_sign_up);
+				
 				Intent signup = new Intent(SlideActivity.this, SignUpActivity.class);
 				startActivity(signup);
 			}
@@ -159,6 +165,9 @@ public class SlideActivity extends Activity implements OnPageChangeListener
 			@Override
 			public void onClick(View v)
 			{
+				EvercamDiscover.sendEventAnalytics(SlideActivity.this, R.string.category_welcome_slides, 
+						R.string.action_welcome_enter_app, R.string.label_welcome_enter_app);
+				
 				Intent skip = new Intent(SlideActivity.this, DiscoverMainActivity.class);
 				startActivity(skip);
 			}
