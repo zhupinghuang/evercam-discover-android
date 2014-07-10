@@ -143,6 +143,9 @@ public class VideoActivity extends Activity implements SurfaceHolder.Callback,IV
 				String bugSenseCode = propertyReader.getPropertyStr(PropertyReader.KEY_BUG_SENSE);
 				BugSenseHandler.initAndStartSession(VideoActivity.this, bugSenseCode);
 			}
+			
+			EvercamDiscover.sendScreenAnalytics(this, getString(R.string.screen_video));
+			
 			loadCameraFromDatabase();
 
 			initialPageElements();

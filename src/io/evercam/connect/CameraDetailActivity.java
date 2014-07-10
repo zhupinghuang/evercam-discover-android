@@ -85,6 +85,8 @@ public class CameraDetailActivity extends Activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_camera_detail);
 
+		EvercamDiscover.sendScreenAnalytics(this, getString(R.string.screen_detail));
+		
 		ctxt = getApplicationContext();
 		final ActionBar actionBar = getActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
@@ -105,6 +107,8 @@ public class CameraDetailActivity extends Activity
 			@Override
 			public void onClick(View arg0)
 			{
+				EvercamDiscover.sendEventAnalytics(CameraDetailActivity.this, R.string.category_detail_buttons, 
+						R.string.action_view_webpage, R.string.label_view_webpage);
 				String commonUrl;
 				if (camera.getSsid().equals(Constants.SAMPLE))
 				{
@@ -128,6 +132,9 @@ public class CameraDetailActivity extends Activity
 			@Override
 			public void onClick(View arg0)
 			{
+				EvercamDiscover.sendEventAnalytics(CameraDetailActivity.this, R.string.category_detail_buttons, 
+						R.string.action_view_stream, R.string.label_view_stream);
+				
 				// Only start video page if the device has either h264 or jpg
 				// url,
 				// and has credentials.
@@ -168,6 +175,9 @@ public class CameraDetailActivity extends Activity
 								@Override
 								public void onClick(DialogInterface dialog, int which)
 								{
+									EvercamDiscover.sendEventAnalytics(CameraDetailActivity.this, R.string.category_detail_buttons, 
+											R.string.action_port_forwarding, R.string.label_port_forwarding);
+									
 									Intent intentForward = new Intent();
 									intentForward.setClass(CameraDetailActivity.this,
 											MainTabActivity.class);
@@ -219,6 +229,9 @@ public class CameraDetailActivity extends Activity
 			@Override
 			public void onClick(View v)
 			{
+				EvercamDiscover.sendEventAnalytics(CameraDetailActivity.this, R.string.category_detail_buttons, 
+						R.string.action_refresh_snapshot, R.string.action_refresh_snapshot);
+				
 				Toast toast = Toast.makeText(ctxt, R.string.refresh_snapshot, Toast.LENGTH_SHORT);
 				toast.setGravity(Gravity.CENTER, 0, 0);
 				toast.show();
@@ -240,7 +253,6 @@ public class CameraDetailActivity extends Activity
 			@Override
 			public void onClick(View v)
 			{
-
 				showEditDialog();
 			}
 
@@ -645,6 +657,8 @@ public class CameraDetailActivity extends Activity
 					@Override
 					public void onClick(DialogInterface dialog, int which)
 					{
+						EvercamDiscover.sendEventAnalytics(CameraDetailActivity.this, R.string.category_detail_buttons, 
+								R.string.action_report_camera, R.string.label_report_camera);
 						cameraOperation.updateAttributeInt(ipstring, ssid, "flag",
 								Constants.TYPE_CAMERA);
 						setUpPage();
@@ -662,6 +676,8 @@ public class CameraDetailActivity extends Activity
 					@Override
 					public void onClick(DialogInterface dialog, int which)
 					{
+						EvercamDiscover.sendEventAnalytics(CameraDetailActivity.this, R.string.category_detail_buttons, 
+								R.string.action_report_camera, R.string.label_report_not_camera);
 						cameraOperation.updateAttributeInt(ipstring, ssid, "flag",
 								Constants.TYPE_OTHERS);
 						setUpPage();
@@ -764,6 +780,9 @@ public class CameraDetailActivity extends Activity
 			@Override
 			public void onClick(DialogInterface dialog, int which)
 			{
+				EvercamDiscover.sendEventAnalytics(CameraDetailActivity.this, R.string.category_detail_buttons, 
+						R.string.action_edit_details, R.string.label_edit_details_confirm);
+				
 				if (camera.isDemoCamera())
 				{
 					closeDialog(dialog);
@@ -850,6 +869,8 @@ public class CameraDetailActivity extends Activity
 			@Override
 			public void onClick(DialogInterface dialog, int which)
 			{
+				EvercamDiscover.sendEventAnalytics(CameraDetailActivity.this, R.string.category_detail_buttons, 
+						R.string.action_edit_details, R.string.label_edit_details_cancel);
 				closeDialog(dialog);
 			}
 		});
@@ -966,6 +987,7 @@ public class CameraDetailActivity extends Activity
 		@Override
 		protected Bitmap doInBackground(Void... arg0)
 		{
+			//Test camera user name and password is valid or not.
 			try
 			{
 				DefaultHttpClient c = new DefaultHttpClient();

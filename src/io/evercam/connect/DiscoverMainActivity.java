@@ -121,6 +121,8 @@ public class DiscoverMainActivity extends Activity
 			BugSenseHandler.initAndStartSession(DiscoverMainActivity.this, bugSenseCode);
 		}
 		setContentView(R.layout.activity_evercam_discover);
+		
+		EvercamDiscover.sendScreenAnalytics(this, getString(R.string.screen_discovery));
 
 		sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
@@ -151,6 +153,8 @@ public class DiscoverMainActivity extends Activity
 			@Override
 			public void onClick(View v)
 			{
+				EvercamDiscover.sendEventAnalytics(DiscoverMainActivity.this, R.string.category_main_click, 
+						R.string.action_demo, R.string.label_demo);
 				if (!netInfo.hasActiveNetwork())
 				{
 					makeToast(ctxt.getResources().getString(R.string.pleaseConnectNetwork));
@@ -265,7 +269,6 @@ public class DiscoverMainActivity extends Activity
 				updateShowList();
 			}
 		}
-
 	}
 
 	@Override
@@ -373,10 +376,11 @@ public class DiscoverMainActivity extends Activity
 		{
 			if (ipScanTask != null)
 			{
-				showConfirmScanDialog();
+				showConfirmCancelScanDialog();
 			}
 			else
 			{
+				EvercamDiscover.sendEventAnalytics(this, R.string.category_main_click, R.string.action_refresh, R.string.label_refresh);
 				makeToast(getString(R.string.refreshing));
 
 				deviceArraylist.clear();
@@ -396,8 +400,8 @@ public class DiscoverMainActivity extends Activity
 			}
 		}
 		else if (item.getItemId() == R.id.action_signIn)
-
 		{
+			EvercamDiscover.sendEventAnalytics(this, R.string.category_main_click, R.string.action_sign_in_out, R.string.label_menu_login);
 			Intent intentWelcome = new Intent(DiscoverMainActivity.this, SlideActivity.class);
 			startActivity(intentWelcome);
 		}
@@ -410,6 +414,8 @@ public class DiscoverMainActivity extends Activity
 						@Override
 						public void onClick(DialogInterface dialog, int which)
 						{
+							EvercamDiscover.sendEventAnalytics(DiscoverMainActivity.this, R.string.category_main_click, 
+									R.string.action_sign_in_out, R.string.label_confirm_logout);
 							SharedPrefsManager.clearAllUserInfo(sharedPrefs);
 							menuSignIn.setVisible(true);
 							menuSignOut.setVisible(false);
@@ -421,6 +427,8 @@ public class DiscoverMainActivity extends Activity
 						@Override
 						public void onClick(DialogInterface dialog, int which)
 						{
+							EvercamDiscover.sendEventAnalytics(DiscoverMainActivity.this, R.string.category_main_click, 
+									R.string.action_sign_in_out, R.string.label_cancel_logout);
 							return;
 						}
 					}).create();
@@ -428,6 +436,8 @@ public class DiscoverMainActivity extends Activity
 		}
 		else if (item.getItemId() == R.id.action_settings)
 		{
+			EvercamDiscover.sendEventAnalytics(DiscoverMainActivity.this, R.string.category_main_click, 
+					R.string.action_settings, R.string.label_settings);
 			Intent intent = new Intent();
 			intent.setClass(DiscoverMainActivity.this, SettingsActivity.class);
 			startActivity(intent);
@@ -808,7 +818,7 @@ public class DiscoverMainActivity extends Activity
 
 	}
 
-	private void showConfirmScanDialog()
+	private void showConfirmCancelScanDialog()
 	{
 		AlertDialog alertMsg = new AlertDialog.Builder(DiscoverMainActivity.this)
 
@@ -817,6 +827,8 @@ public class DiscoverMainActivity extends Activity
 					@Override
 					public void onClick(DialogInterface dialog, int which)
 					{
+						EvercamDiscover.sendEventAnalytics(DiscoverMainActivity.this, 
+								R.string.category_main_click, R.string.action_refresh, R.string.label_cancel_refresh);
 						stopDiscovery();
 					}
 				}).setNegativeButton(R.string.no, new DialogInterface.OnClickListener(){

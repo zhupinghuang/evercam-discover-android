@@ -36,6 +36,8 @@ public class RouterActivity extends Activity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_router);
+		
+		EvercamDiscover.sendScreenAnalytics(this, getString(R.string.screen_router));
 
 		TextView router_ip = (TextView) findViewById(R.id.routerip_detail);
 		TextView router_model = (TextView) findViewById(R.id.routermodel_detail);

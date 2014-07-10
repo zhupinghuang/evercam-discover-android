@@ -63,6 +63,7 @@ public class SlideActivity extends Activity implements OnPageChangeListener
 		}
 		else
 		{
+			EvercamDiscover.sendScreenAnalytics(this, getString(R.string.screen_welcome_slides));
 			setEvercamDeveloperApiKey();
 			initSlideView();
 			initDots();
@@ -89,6 +90,10 @@ public class SlideActivity extends Activity implements OnPageChangeListener
 		{
 			Intent intentMain = new Intent(SlideActivity.this, DiscoverMainActivity.class);
 			startActivity(intentMain);
+		}
+		else
+		{
+			EvercamDiscover.sendScreenAnalytics(this, getString(R.string.screen_welcome_slides));
 		}
 	}
 

@@ -5,6 +5,7 @@ import io.evercam.ApiKeyPair;
 import io.evercam.EvercamException;
 import io.evercam.User;
 import io.evercam.UserDetail;
+import io.evercam.connect.EvercamDiscover;
 import io.evercam.connect.R;
 import io.evercam.connect.helper.SharedPrefsManager;
 import io.evercam.connect.helper.account.AccountUtils;
@@ -59,6 +60,7 @@ public class SignUpActivity extends Activity
 		setContentView(R.layout.activity_create_user);
 		readFromAccount();
 		initialPage();
+		EvercamDiscover.sendScreenAnalytics(this, getString(R.string.screen_sign_up));
 	}
 
 	private void initialPage()
@@ -319,6 +321,8 @@ public class SignUpActivity extends Activity
 
 	private void readFromAccount()
 	{
+		try
+		{
 		UserProfile profile = AccountUtils.getUserProfile(this);
 		if (profile.primaryEmail() != null)
 		{
@@ -341,6 +345,13 @@ public class SignUpActivity extends Activity
 		}
 		Log.d(TAG, "emails" + profile.possibleEmails().size() + "\nnames"
 				+ profile.possibleNames().size() + profile.primaryEmail());
+		}
+		catch (Exception e)
+		{
+			// If exceptions happen here, will not influence app functionality.
+			// Just catch it to avoid crashing.
+			Log.e(TAG, e.toString());
+		}
 	}
 
 	private void fillDefaultProfile()

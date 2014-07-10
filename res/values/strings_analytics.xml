@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <!-- Event Category -->
+    <string name="category_main_click">Main Page Clicks</string>
+    <string name="category_preference">Preference</string>
+    <string name="category_detail_buttons">Clicks in Detail Page</string>
+    
+    <!-- Event Action - Main Clicks -->
+    <string name="action_refresh">Refresh</string>
+    <string name="action_sign_in_out">Login/Sign Out</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_demo">Demo Camera</string>
+    <!-- Event Action - Preferences -->
+    <string name="action_prefs_login_out">Preference Sign in/Log Out</string>
+    <string name="action_prefs_network">Network Info</string>
+    <string name="action_prefs_cameras_only">Show Cameras Only On/Off</string>
+    <string name="action_prefs_user_data">Send User Data On/Off</string>
+    <!-- Event Action - Buttons in detail page -->
+    <string name="action_refresh_snapshot">Refresh Snapshot</string>
+    <string name="action_view_webpage">View Webpage</string>
+    <string name="action_view_stream">View Video</string>
+    <string name="action_edit_details">Edit Details</string>
+    <string name="action_port_forwarding">Port Forwarding</string>
+    <string name="action_add_to_evercam">Add to Evercam</string>
+    <string name="action_report_camera">Report (Not) Camera Vendor</string>
+    
+    <!-- Event Label - Main Clicks -->
+    <string name="label_refresh">Restart discovery.</string>
+    <string name="label_cancel_refresh">Cancel discovery.</string>
+    <string name="label_menu_login">Sign in from menu.</string>
+    <string name="label_confirm_logout">Confirm log out from menu.</string>
+    <string name="label_cancel_logout">Cancel log out dialog.</string>
+    <string name="label_settings">Click menu \'Settings\'</string>
+    <string name="label_demo">View demo camera</string>
+    <!-- Event Label - Preferences -->
+    <string name="label_prefs_login">Login from preference.</string>
+    <string name="label_prefs_logout">Confirm log out from preference.</string>
+    <string name="label_prefs_network">View network information from preference.</string>
+    <string name="label_prefs_cameras_only">Change to show cameras only.</string>
+    <string name="label_prefs_show_all">Change to show all devices.</string>
+    <string name="label_prefs_user_data_on">Enable user data collection.</string>
+    <string name="label_prefs_user_data_off">Disable user data collection.</string>
+    <!-- Event Label - Buttons in detail page -->
+    <string name="label_refresh_snapshot">Refresh snapshot by clicking snapshot image.</string>
+    <string name="label_view_webpage">Click \'View webpage\' button.</string>
+    <string name="label_view_stream">Click \'View RTSP Stream\' button.</string>
+    <string name="label_edit_details_confirm">Save edited camera details.</string>
+    <string name="label_edit_details_cancel">Cancel edit camera details</string>
+    <string name="label_port_forwarding">Click \'Port forwarding\' and confirm to go to next step.</string>
+    <string name="label_add_to_evercam">Click \'Add to Evercam\'.</string>
+    <string name="label_report_camera">Confirm \'This is a camera.\'</string>
+    <string name="label_report_not_camera">Confirm \'This is NOT a camera.\'</string>
+    
+    <!-- Screen Names -->
+    <string name="screen_login">Login</string>
+    <string name="screen_sign_up">Sign Up</string>
+    <string name="screen_welcome_slides">Welcome Page</string>
+    <string name="screen_discovery">Main Discovery Screen</string>
+    <string name="screen_detail">Device Details</string>
+    <string name="screen_router">Router Details</string>
+    <string name="screen_settings">Settings Page</string>
+    <string name="screen_video">Play Video</string>
+    
+</resources>

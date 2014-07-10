@@ -4,6 +4,7 @@ import io.evercam.API;
 import io.evercam.ApiKeyPair;
 import io.evercam.EvercamException;
 import io.evercam.User;
+import io.evercam.connect.EvercamDiscover;
 import io.evercam.connect.R;
 import io.evercam.connect.helper.Constants;
 import io.evercam.connect.helper.SharedPrefsManager;
@@ -66,6 +67,8 @@ public class LoginActivity extends Activity
 
 		sharedPrefs = PreferenceManager.getDefaultSharedPreferences(LoginActivity.this);
 		SharedPrefsManager.clearAllUserInfo(sharedPrefs);
+		
+		EvercamDiscover.sendScreenAnalytics(this, getString(R.string.screen_login));
 
 		ActionBar actionBar = getActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);

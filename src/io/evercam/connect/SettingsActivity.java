@@ -19,6 +19,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
@@ -26,9 +27,12 @@ import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceFragment;
 import android.provider.Settings;
+import android.util.Log;
 
 public class SettingsActivity extends Activity
 {
+	public static final String TAG = "evercamDiscover-SettingsActivity";
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -37,6 +41,7 @@ public class SettingsActivity extends Activity
 		final ActionBar actionBar = getActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
 		actionBar.setDisplayHomeAsUpEnabled(true);
+		EvercamDiscover.sendScreenAnalytics(this, getString(R.string.screen_settings));
 	}
 
 	@Override
@@ -51,7 +56,6 @@ public class SettingsActivity extends Activity
 	{
 		this.finish();
 		return super.getParentActivityIntent();
-
 	}
 
 	private void initFragment()
@@ -62,7 +66,6 @@ public class SettingsActivity extends Activity
 
 	public static class PrefsFragement extends PreferenceFragment
 	{
-
 		NetInfo netInfo;
 		ListPreference interfaceList;
 		Preference netInfoPrefs;
@@ -114,6 +117,8 @@ public class SettingsActivity extends Activity
 							@Override
 							public void onClick(DialogInterface dialog, int which)
 							{
+								EvercamDiscover.sendEventAnalytics(getActivity(), R.string.category_preference, 
+										R.string.action_prefs_login_out, R.string.label_prefs_logout);
 								SharedPrefsManager.clearAllUserInfo(sharedPrefs);
 								isSigned = false;
 								accountPrefs.setTitle("Not Signed In");
@@ -126,8 +131,10 @@ public class SettingsActivity extends Activity
 					}
 					else
 					{
-						Intent intentSignIn = new Intent();
-						intentSignIn.setClass(getActivity(), LoginActivity.class);
+						EvercamDiscover.sendEventAnalytics(getActivity(), R.string.category_preference, 
+								R.string.action_prefs_login_out, R.string.label_prefs_login);
+						
+						Intent intentSignIn = new Intent(getActivity(), LoginActivity.class);
 						startActivity(intentSignIn);
 					}
 					return false;
@@ -139,6 +146,9 @@ public class SettingsActivity extends Activity
 				@Override
 				public boolean onPreferenceClick(Preference preference)
 				{
+					EvercamDiscover.sendEventAnalytics(getActivity(), R.string.category_preference, 
+							R.string.action_prefs_network, R.string.label_prefs_network);
+					
 					if (netInfo.hasActiveNetwork())
 					{
 						Intent intent = new Intent();
@@ -253,6 +263,5 @@ public class SettingsActivity extends Activity
 				return getResources().getString(R.string.notAvaliable);
 			}
 		}
-
 	}
 }
