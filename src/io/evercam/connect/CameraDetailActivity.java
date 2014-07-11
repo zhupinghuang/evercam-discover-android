@@ -268,19 +268,26 @@ public class CameraDetailActivity extends Activity
 			@Override
 			public void onClick(View v)
 			{
-				SharedPreferences sharedPrefs = PreferenceManager
-						.getDefaultSharedPreferences(getApplicationContext());
-				if (SharedPrefsManager.isSignedWithEvercam(sharedPrefs))
+				if (camera.isDemoCamera())
 				{
-					Intent addToEvercamIntent = new Intent();
-					addToEvercamIntent.setClass(CameraDetailActivity.this,
-							AddToEvercamActivity.class);
-					addToEvercamIntent.putExtra("camera", camera);
-					startActivity(addToEvercamIntent);
+					showDemoAddToEvercamDialog();
 				}
 				else
 				{
-					showComfirmLoginDialog();
+					SharedPreferences sharedPrefs = PreferenceManager
+							.getDefaultSharedPreferences(getApplicationContext());
+					if (SharedPrefsManager.isSignedWithEvercam(sharedPrefs))
+					{
+						Intent addToEvercamIntent = new Intent();
+						addToEvercamIntent.setClass(CameraDetailActivity.this,
+								AddToEvercamActivity.class);
+						addToEvercamIntent.putExtra("camera", camera);
+						startActivity(addToEvercamIntent);
+					}
+					else
+					{
+						showComfirmLoginDialog();
+					}
 				}
 			}
 		});
@@ -892,7 +899,16 @@ public class CameraDetailActivity extends Activity
 	{
 		AlertDialog.Builder alertDialog = new AlertDialog.Builder(CameraDetailActivity.this);
 		alertDialog.setTitle(R.string.userGuide);
-		alertDialog.setMessage(R.string.userGuideMsg);
+		alertDialog.setMessage(R.string.guideMsg_feedback);
+		alertDialog.setPositiveButton(R.string.ok, null);
+		alertDialog.show();
+	}
+
+	private void showDemoAddToEvercamDialog()
+	{
+		AlertDialog.Builder alertDialog = new AlertDialog.Builder(CameraDetailActivity.this);
+		alertDialog.setTitle(R.string.userGuide);
+		alertDialog.setMessage(R.string.guideMsg_add_to_evercam);
 		alertDialog.setPositiveButton(R.string.ok, null);
 		alertDialog.show();
 	}

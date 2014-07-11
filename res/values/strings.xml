@@ -130,11 +130,6 @@
     <string name="msgMustConnect">No network interface found.</string>
     <string name="titleManualForward">Manual Forwarding</string>
     <string name="titleUpnpForward">UPnP Forwarding</string>
-    <string name="forwardGuideMsg">1. If UPnP is enabled on your router, \'UPnP Forwarding\' helps forward your camera without log into the router.\n\n2. If you\'ve forworded the camera in your router, \'Manual Forwarding\' helps fill up forwarded ports and make it easier to add to Evercam.</string>
-    <string name="userGuide">User Guide</string>
-    <string name="userGuideMsg">Send a feedback to let us know this is a camera or not.</string>
-    <string name="checkInternetConnection">Please check your INTERNET connection.</string>
-    <string name="signOutAlert">Would you like to sign out?</string>
     <string name="addToEvercam">Add to Evercam</string>
     <string name="isEvercam">Is Evercam? </string>
     <string name="viewWebsite">View Website</string>

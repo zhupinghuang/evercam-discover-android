@@ -25,6 +25,7 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Locale;
 
 import com.bugsense.trace.BugSenseHandler;
 
@@ -620,7 +621,15 @@ public class DiscoverMainActivity extends Activity
 		}
 		if (camera.hasModel())
 		{
-			deviceMap.put(ADAPTER_KEY_VENDOR, camera.getModel());
+			if(camera.modelContainsVendorName())
+			{
+				deviceMap.put(ADAPTER_KEY_VENDOR, camera.getModel());
+			}
+			else
+			{
+				//If model does not contain vendor name, show as vendor name + model name.
+				deviceMap.put(ADAPTER_KEY_VENDOR, camera.getVendor() + " " + camera.getModel());
+			}
 		}
 		else if (camera.hasVendor())
 		{

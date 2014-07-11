@@ -1,6 +1,7 @@
 package io.evercam.connect.db;
 
 import java.io.Serializable;
+import java.util.Locale;
 
 import io.evercam.connect.helper.Constants;
 import io.evercam.connect.net.NetInfo;
@@ -520,6 +521,15 @@ public class Camera implements Serializable
 	public boolean hasH264URL()
 	{
 		if (getH264() != null && !getH264().isEmpty() && getH264() != "/")
+		{
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean modelContainsVendorName()
+	{
+		if(getModel().toUpperCase(Locale.UK).contains(getVendor().toUpperCase(Locale.UK)))
 		{
 			return true;
 		}
