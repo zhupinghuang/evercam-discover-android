@@ -714,8 +714,7 @@ public class CameraDetailActivity extends Activity
 						Intent data = new Intent(Intent.ACTION_SENDTO);
 						data.setData(Uri.parse("mailto:liuting@evercam.io"));
 						data.putExtra(Intent.EXTRA_SUBJECT, type);
-						data.putExtra(Intent.EXTRA_TEXT, "Device info:" + camera.toString()
-								+ "From IP:" + NetInfo.getExternalIP());
+						data.putExtra(Intent.EXTRA_TEXT, "Device info:" + camera.toString());
 						startActivity(data);
 					}
 				}).setNegativeButton(R.string.no, null).create();

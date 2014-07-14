@@ -127,7 +127,6 @@ public class RouterActivity extends Activity
 			@Override
 			protected String doInBackground(Void... params)
 			{
-
 				return NetInfo.getExternalIP();
 			}
 
@@ -140,6 +139,5 @@ public class RouterActivity extends Activity
 				}
 			}
 		}.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-		;
 	}
 }
