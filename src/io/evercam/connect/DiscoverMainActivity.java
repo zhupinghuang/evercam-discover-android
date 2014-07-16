@@ -620,13 +620,14 @@ public class DiscoverMainActivity extends Activity
 		}
 		if (camera.hasModel())
 		{
-			if(camera.modelContainsVendorName())
+			if (camera.modelContainsVendorName())
 			{
 				deviceMap.put(ADAPTER_KEY_VENDOR, camera.getModel());
 			}
 			else
 			{
-				//If model does not contain vendor name, show as vendor name + model name.
+				// If model does not contain vendor name, show as vendor name +
+				// model name.
 				deviceMap.put(ADAPTER_KEY_VENDOR, camera.getVendor() + " " + camera.getModel());
 			}
 		}
@@ -865,21 +866,14 @@ public class DiscoverMainActivity extends Activity
 		{
 			for (io.evercam.Camera evercamCamera : evercamCameraList)
 			{
-				try
+				if (!camera.getMAC().isEmpty())
 				{
-					if (!camera.getMAC().isEmpty())
+					if (camera.getMAC().equalsIgnoreCase(evercamCamera.getMacAddress()))
 					{
-						if (camera.getMAC().equalsIgnoreCase(evercamCamera.getMacAddress()))
-						{
-							cameraOperation.updateAttributeInt(camera.getIP(), camera.getSsid(),
-									"evercam", 1);
-							isEvercam = true;
-						}
+						cameraOperation.updateAttributeInt(camera.getIP(), camera.getSsid(),
+								"evercam", 1);
+						isEvercam = true;
 					}
-				}
-				catch (EvercamException e)
-				{
-					e.printStackTrace();
 				}
 			}
 			if (!isEvercam)

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="io.evercam.connect"
-    android:versionCode="22"
-    android:versionName="1.2.1" >
+    android:versionCode="23"
+    android:versionName="1.2.2" >
 
     <!-- Recent Release History -->
     
@@ -13,6 +13,7 @@
     <!-- 23/06/2014  version20 - 1.1.9  Order device list -->
     <!-- 25/06/2014  version21 - 1.2.0  Forename to Firstname -->
     <!-- 10/07/2014  version22 - 1.2.1  Google Analytics -->
+    <!-- 16/07/2014  version23 - 1.2.2  New Camera Model -->
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE" />
