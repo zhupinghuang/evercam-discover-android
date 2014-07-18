@@ -45,8 +45,8 @@ public class SharedPrefsManager
 		editor.putString(Constants.EVERCAM_PASSWORD, password);
 		editor.putString(Constants.EVERCAM_COUNTRY, user.getCountry());
 		editor.putString(Constants.EVERCAM_EMAIL, user.getEmail());
-		editor.putString(Constants.EVERCAM_FORENAME, user.getForename());
-		editor.putString(Constants.EVERCAM_LASTNAME, user.getLastname());
+		editor.putString(Constants.EVERCAM_FORENAME, user.getFirstName());
+		editor.putString(Constants.EVERCAM_LASTNAME, user.getLastName());
 		editor.commit();
 	}
 

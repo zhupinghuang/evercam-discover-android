@@ -11,9 +11,11 @@ import io.evercam.Model;
 import io.evercam.Vendor;
 import io.evercam.connect.db.Camera;
 import io.evercam.connect.db.CameraOperation;
+import io.evercam.connect.helper.LocationReader;
 import io.evercam.connect.helper.SharedPrefsManager;
 import io.evercam.connect.net.NetInfo;
 import io.evercam.network.ipscan.PortScan;
+import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -354,6 +356,7 @@ public class AddToEvercamActivity extends Activity
 	private class CreateCameraTask extends AsyncTask<Void, Void, Boolean>
 	{
 		CameraDetail cameraDetail;
+		Location currentLocation;
 		String errorMsg = "Error, please try again later.";
 
 		@Override
@@ -361,6 +364,7 @@ public class AddToEvercamActivity extends Activity
 		{
 			progressDialog = ProgressDialog.show(AddToEvercamActivity.this, "",
 					"Creating camera...", true);
+			currentLocation = new LocationReader(AddToEvercamActivity.this).getLocation();
 		}
 
 		@Override
@@ -464,6 +468,15 @@ public class AddToEvercamActivity extends Activity
 						cameraBuilder.setMacAddress(cameraMac);
 					}
 				}
+				
+				//Add location data if exists.
+				if(currentLocation != null)
+				{
+					Float lat = (float) currentLocation.getLatitude();
+					Float lng = (float) currentLocation.getLongitude();
+					cameraBuilder.setLocation(lat, lng);
+				}
+				
 				cameraDetail = cameraBuilder.build();
 			}
 			catch (EvercamException e)
