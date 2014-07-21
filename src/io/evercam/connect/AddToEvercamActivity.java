@@ -468,15 +468,15 @@ public class AddToEvercamActivity extends Activity
 						cameraBuilder.setMacAddress(cameraMac);
 					}
 				}
-				
-				//Add location data if exists.
-				if(currentLocation != null)
+
+				// Add location data if exists.
+				if (currentLocation != null)
 				{
 					Float lat = (float) currentLocation.getLatitude();
 					Float lng = (float) currentLocation.getLongitude();
 					cameraBuilder.setLocation(lat, lng);
 				}
-				
+
 				cameraDetail = cameraBuilder.build();
 			}
 			catch (EvercamException e)

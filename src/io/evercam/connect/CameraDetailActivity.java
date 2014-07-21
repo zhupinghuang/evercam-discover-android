@@ -977,6 +977,7 @@ public class CameraDetailActivity extends Activity
 
 	private void launchSnapshot(String url, String username, String password, boolean isSample)
 	{
+		// Log.d(TAG, "Launch snapshot: " + url + " " + username + password );
 		if (snapshotTask != null)
 		{
 			snapshotTask = null;

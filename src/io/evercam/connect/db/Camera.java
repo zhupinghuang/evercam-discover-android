@@ -526,10 +526,10 @@ public class Camera implements Serializable
 		}
 		return false;
 	}
-	
+
 	public boolean modelContainsVendorName()
 	{
-		if(getModel().toUpperCase(Locale.UK).contains(getVendor().toUpperCase(Locale.UK)))
+		if (getModel().toUpperCase(Locale.UK).contains(getVendor().toUpperCase(Locale.UK)))
 		{
 			return true;
 		}
