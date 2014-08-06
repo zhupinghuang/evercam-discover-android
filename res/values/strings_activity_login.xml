@@ -3,7 +3,7 @@
   <!--  <string name="title_activity_login">Sign in</string> --> 
 
     <!-- Login -->
-    <string name="prompt_email">Username</string>
+    <string name="prompt_email">Email / Username</string>
     <string name="prompt_password">Password</string>
     <string name="action_sign_in_with_evercam"><b>Sign in</b> with Evercam</string>
     <string name="log_in">Log in</string>
@@ -38,6 +38,5 @@
     <string name="invalidEmail">Invalid Email address!</string>
     <string name="passwordNotMatch">Two different password!</string>
     <string name="confirmSignUp">Congratulations, now you are logged in with your Evercam account.</string>
-    <string name="please_use_username">Please sign in with your Evercam USERNAME, NOT Email address.</string>
 
 </resources>

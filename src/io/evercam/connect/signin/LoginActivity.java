@@ -196,13 +196,7 @@ public class LoginActivity extends Activity
 
 		if (TextUtils.isEmpty(username))
 		{
-			usernameEdit.setError("Username Required");
-			focusView = usernameEdit;
-			cancel = true;
-		}
-		else if (username.contains("@"))
-		{
-			usernameEdit.setError(getString(R.string.please_use_username));
+			usernameEdit.setError(getString(R.string.error_field_required));
 			focusView = usernameEdit;
 			cancel = true;
 		}
