@@ -1,7 +1,4 @@
 <resources>
-
-  <!--  <string name="title_activity_login">Sign in</string> --> 
-
     <!-- Login -->
     <string name="prompt_email">Email / Username</string>
     <string name="prompt_password">Password</string>

@@ -10,5 +10,6 @@
     <string name="snapshotInvalid">Snapshot should starts with \'/\'.</string>
     <string name="extPortNotOpen">External port is not opened.</string>
     <string name="Success">Success!</string>
+    <string name="creating_camera">Creating camera&#8230;</string>
 
 </resources>

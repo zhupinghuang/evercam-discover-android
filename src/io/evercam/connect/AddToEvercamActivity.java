@@ -363,7 +363,7 @@ public class AddToEvercamActivity extends Activity
 		protected void onPreExecute()
 		{
 			progressDialog = ProgressDialog.show(AddToEvercamActivity.this, "",
-					"Creating camera...", true);
+					getString(R.string.creating_camera), true);
 			currentLocation = new LocationReader(AddToEvercamActivity.this).getLocation();
 		}
 
@@ -394,9 +394,12 @@ public class AddToEvercamActivity extends Activity
 			try
 			{
 				io.evercam.Camera camera = io.evercam.Camera.create(cameraDetail);
-				if (camera.getId().equals(cameraId))
+				if (camera != null)
 				{
-					return true;
+					if (camera.getId().equals(cameraId))
+					{
+						return true;
+					}
 				}
 				return false;
 			}

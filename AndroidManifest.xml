@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="io.evercam.connect"
-    android:versionCode="24"
-    android:versionName="1.2.3" >
+    android:versionCode="25"
+    android:versionName="1.2.4" >
 
     <!-- Recent Release History -->
     
@@ -15,6 +15,7 @@
     <!-- 10/07/2014  version22 - 1.2.1  Google Analytics -->
     <!-- 16/07/2014  version23 - 1.2.2  New Camera Model -->
     <!-- 21/07/2014  version24 - 1.2.3  Location Data -->
+    <!-- 06/08/2014  version25 - 1.2.4  Sign in with Email -->
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE" />
@@ -39,6 +40,9 @@
         android:icon="@drawable/discover_icon_192x192"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
         <activity
             android:name="io.evercam.connect.DiscoverMainActivity"
             android:icon="@drawable/discover_icon_192x192"
