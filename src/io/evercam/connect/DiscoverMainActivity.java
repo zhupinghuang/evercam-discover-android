@@ -1,7 +1,6 @@
 package io.evercam.connect;
 
 import io.evercam.API;
-import io.evercam.EvercamException;
 import io.evercam.connect.db.Camera;
 import io.evercam.connect.db.CameraOperation;
 import io.evercam.connect.discover.bonjour.JmdnsDiscover;

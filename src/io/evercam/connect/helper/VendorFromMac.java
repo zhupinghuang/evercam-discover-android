@@ -1,5 +1,6 @@
 package io.evercam.connect.helper;
 
+import java.util.ArrayList;
 import java.util.Locale;
 
 import io.evercam.EvercamException;
@@ -74,13 +75,17 @@ public class VendorFromMac
 		String submac = macAddress.substring(0, 8).toLowerCase(Locale.UK);
 		try
 		{
-			Vendor vendor = Vendor.getByMac(submac).get(0);
-			return vendor.getId();
+			ArrayList<Vendor> vendorList = Vendor.getByMac(submac);
+			if(vendorList.size() > 0)
+			{
+				Vendor vendor = vendorList.get(0);
+				return vendor.getId();
+			}
 		}
 		catch (EvercamException e)
 		{
 			Log.e(TAG, e.toString());
-			return "";
 		}
+		return "";
 	}
 }

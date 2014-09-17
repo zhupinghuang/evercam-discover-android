@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import io.evercam.Auth;
+import io.evercam.Defaults;
 import io.evercam.EvercamException;
 import io.evercam.Model;
 import io.evercam.Vendor;
@@ -57,9 +58,10 @@ public class EvercamTask extends AsyncTask<Void, Void, Void>
 	{
 		try
 		{
-			username = vendor.getModel("default").getDefaults().getAuth(Auth.TYPE_BASIC)
+			Defaults defaults = vendor.getDefaultModel().getDefaults();
+			username = defaults.getAuth(Auth.TYPE_BASIC)
 					.getUsername();
-			password = vendor.getModel("default").getDefaults().getAuth(Auth.TYPE_BASIC)
+			password = defaults.getAuth(Auth.TYPE_BASIC)
 					.getPassword();
 			cameraOperation.updateAttributeString(camera.getIP(), camera.getSsid(), "username",
 					username);
@@ -78,8 +80,9 @@ public class EvercamTask extends AsyncTask<Void, Void, Void>
 		try
 		{
 			vendorId = vendor.getId();
-			jpgURL = vendor.getModel(Model.DEFAULT_MODEL).getDefaults().getJpgURL();
-			streamURL = vendor.getModel(Model.DEFAULT_MODEL).getDefaults().getH264URL();
+			Defaults defaults = vendor.getDefaultModel().getDefaults();
+			jpgURL = defaults.getJpgURL();
+			streamURL = defaults.getH264URL();
 			if (!jpgURL.isEmpty())
 			{
 				if (!jpgURL.startsWith("/"))
@@ -109,12 +112,8 @@ public class EvercamTask extends AsyncTask<Void, Void, Void>
 	{
 		try
 		{
-			Vendor vendor = Vendor.getById(vendorId.toLowerCase(Locale.UK));
-			if (vendor != null)
-			{
-				return vendor.getModel(Model.DEFAULT_MODEL).getDefaults().getAuth(Auth.TYPE_BASIC)
+			return Model.getDefaultModelByVendorId(vendorId.toLowerCase(Locale.UK)).getDefaults().getAuth(Auth.TYPE_BASIC)
 						.getUsername();
-			}
 		}
 		catch (EvercamException e)
 		{
@@ -128,12 +127,8 @@ public class EvercamTask extends AsyncTask<Void, Void, Void>
 	{
 		try
 		{
-			Vendor vendor = Vendor.getById(vendorId.toLowerCase(Locale.UK));
-			if (vendor != null)
-			{
-				return vendor.getModel(Model.DEFAULT_MODEL).getDefaults().getAuth(Auth.TYPE_BASIC)
+			return Model.getDefaultModelByVendorId(vendorId.toLowerCase(Locale.UK)).getDefaults().getAuth(Auth.TYPE_BASIC)
 						.getPassword();
-			}
 		}
 		catch (EvercamException e)
 		{

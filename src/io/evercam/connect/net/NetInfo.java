@@ -127,7 +127,6 @@ public class NetInfo
 		httpclient.getParams().setIntParameter(CoreConnectionPNames.CONNECTION_TIMEOUT, 2000);
 		try
 		{
-
 			HttpGet httpget = new HttpGet(Constants.URL_GET_EXTERNAL_ADDR);
 			HttpResponse response;
 			response = httpclient.execute(httpget);

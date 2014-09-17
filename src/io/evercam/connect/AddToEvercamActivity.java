@@ -1,5 +1,6 @@
 package io.evercam.connect;
 
+import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Random;
 import java.util.TimeZone;
@@ -8,7 +9,6 @@ import io.evercam.CameraBuilder;
 import io.evercam.CameraDetail;
 import io.evercam.EvercamException;
 import io.evercam.Model;
-import io.evercam.Vendor;
 import io.evercam.connect.db.Camera;
 import io.evercam.connect.db.CameraOperation;
 import io.evercam.connect.helper.LocationReader;
@@ -419,8 +419,11 @@ public class AddToEvercamActivity extends Activity
 
 			try
 			{
-				Model model = Vendor.getById(cameraVendor).getModel(cameraModel);
-				cameraModel = model.getName();
+				ArrayList<Model> modelList = Model.getAll(null, cameraModel, cameraVendor);
+				if(modelList.size() > 0)
+				{
+					cameraModel = modelList.get(0).getId();
+				}
 			}
 			catch (EvercamException e1)
 			{
