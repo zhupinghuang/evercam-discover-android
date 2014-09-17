@@ -76,7 +76,7 @@ public class VendorFromMac
 		try
 		{
 			ArrayList<Vendor> vendorList = Vendor.getByMac(submac);
-			if(vendorList.size() > 0)
+			if (vendorList.size() > 0)
 			{
 				Vendor vendor = vendorList.get(0);
 				return vendor.getId();

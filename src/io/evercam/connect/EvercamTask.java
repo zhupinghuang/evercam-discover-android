@@ -59,10 +59,8 @@ public class EvercamTask extends AsyncTask<Void, Void, Void>
 		try
 		{
 			Defaults defaults = vendor.getDefaultModel().getDefaults();
-			username = defaults.getAuth(Auth.TYPE_BASIC)
-					.getUsername();
-			password = defaults.getAuth(Auth.TYPE_BASIC)
-					.getPassword();
+			username = defaults.getAuth(Auth.TYPE_BASIC).getUsername();
+			password = defaults.getAuth(Auth.TYPE_BASIC).getPassword();
 			cameraOperation.updateAttributeString(camera.getIP(), camera.getSsid(), "username",
 					username);
 			cameraOperation.updateAttributeString(camera.getIP(), camera.getSsid(), "password",
@@ -112,8 +110,8 @@ public class EvercamTask extends AsyncTask<Void, Void, Void>
 	{
 		try
 		{
-			return Model.getDefaultModelByVendorId(vendorId.toLowerCase(Locale.UK)).getDefaults().getAuth(Auth.TYPE_BASIC)
-						.getUsername();
+			return Model.getDefaultModelByVendorId(vendorId.toLowerCase(Locale.UK)).getDefaults()
+					.getAuth(Auth.TYPE_BASIC).getUsername();
 		}
 		catch (EvercamException e)
 		{
@@ -127,8 +125,8 @@ public class EvercamTask extends AsyncTask<Void, Void, Void>
 	{
 		try
 		{
-			return Model.getDefaultModelByVendorId(vendorId.toLowerCase(Locale.UK)).getDefaults().getAuth(Auth.TYPE_BASIC)
-						.getPassword();
+			return Model.getDefaultModelByVendorId(vendorId.toLowerCase(Locale.UK)).getDefaults()
+					.getAuth(Auth.TYPE_BASIC).getPassword();
 		}
 		catch (EvercamException e)
 		{
