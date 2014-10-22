@@ -10,9 +10,10 @@ import io.evercam.connect.helper.PropertyReader;
 import io.evercam.connect.helper.SharedPrefsManager;
 import io.evercam.connect.helper.VendorFromMac;
 import io.evercam.connect.net.NetInfo;
-import io.evercam.network.ipscan.IpScan;
-import io.evercam.network.ipscan.ScanRange;
-import io.evercam.network.ipscan.ScanResult;
+import io.evercam.network.discovery.IpScan;
+import io.evercam.network.discovery.MacAddress;
+import io.evercam.network.discovery.ScanRange;
+import io.evercam.network.discovery.ScanResult;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -71,7 +72,7 @@ public class IpScanTask extends AsyncTask<Void, Host, Void>
 					{
 						Host host = new Host();
 						host.setIpAddress(ip);
-						host.setHardwareAddress(NetInfo.getHardwareAddress(ip));
+						host.setHardwareAddress(MacAddress.getByIpAndroid(ip));
 
 						publish(host);
 					}
@@ -129,7 +130,7 @@ public class IpScanTask extends AsyncTask<Void, Host, Void>
 				// Mac Addr not already detected
 				if (!host.hardwareAddress.equals(NetInfo.EMPTY_MAC))
 				{
-					host.hardwareAddress = NetInfo.getHardwareAddress(host.ipAddress);
+					host.hardwareAddress = MacAddress.getByIpAndroid(host.ipAddress);
 				}
 
 				// NIC vendor

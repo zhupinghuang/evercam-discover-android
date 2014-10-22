@@ -1,10 +1,8 @@
 package io.evercam.connect.helper;
 
-import java.util.ArrayList;
-import java.util.Locale;
-
 import io.evercam.EvercamException;
 import io.evercam.Vendor;
+import io.evercam.network.query.EvercamQuery;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -72,19 +70,17 @@ public class VendorFromMac
 	 */
 	public static String getCameraVendor(String macAddress)
 	{
-		String submac = macAddress.substring(0, 8).toLowerCase(Locale.UK);
-		try
+		Vendor cameraVendor = EvercamQuery.getCameraVendorByMac(macAddress);
+		if(cameraVendor!= null)
 		{
-			ArrayList<Vendor> vendorList = Vendor.getByMac(submac);
-			if (vendorList.size() > 0)
+			try 
 			{
-				Vendor vendor = vendorList.get(0);
-				return vendor.getId();
+				return cameraVendor.getId();
+			} 
+			catch (EvercamException e) 
+			{
+				Log.e(TAG, e.toString());
 			}
-		}
-		catch (EvercamException e)
-		{
-			Log.e(TAG, e.toString());
 		}
 		return "";
 	}

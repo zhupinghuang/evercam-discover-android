@@ -2,6 +2,7 @@ package io.evercam.connect.helper;
 
 import io.evercam.connect.db.Camera;
 import io.evercam.connect.net.NetInfo;
+import io.evercam.network.discovery.NetworkInfo;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -31,7 +32,7 @@ public class JsonMessage
 			userInfoObject.put("name", name);
 			userInfoObject.put("email", email);
 
-			netInfoObject.put("external ip", NetInfo.getExternalIP());
+			netInfoObject.put("external ip", NetworkInfo.getExternalIP());
 			netInfoObject.put("internal ip", netInfo.getLocalIp());
 			netInfoObject.put("network interface", netInfo.getInterfaceName());
 			netInfoObject.put("mac address", netInfo.getMacAddress());

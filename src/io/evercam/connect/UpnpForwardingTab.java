@@ -14,8 +14,9 @@ import net.sbbi.upnp.messages.ActionResponse;
 import net.sbbi.upnp.messages.UPNPResponseException;
 
 import io.evercam.connect.R;
-import io.evercam.network.upnp.IGDDiscovery;
-import io.evercam.network.upnp.UpnpDiscovery;
+import io.evercam.network.discovery.GatewayDevice;
+import io.evercam.network.discovery.NatMapEntry;
+import io.evercam.network.discovery.UpnpDiscovery;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -65,7 +66,7 @@ public class UpnpForwardingTab extends Fragment
 	private Button removeBtn;
 	private TextView helpMsgTxt;
 	private RadioGroup autoOrManuRadioGroup;
-	private IGDDiscovery igdDiscovery = null;
+	private GatewayDevice gatewayDevice = null;
 	private String cameraIP;
 	private String ssid;
 	private Camera camera;
@@ -73,7 +74,7 @@ public class UpnpForwardingTab extends Fragment
 	private NetInfo netInfo;
 	private boolean httpMapped;
 	private boolean rtspMapped;
-	private ArrayList<ActionResponse> forwardedList;
+	private ArrayList<NatMapEntry> forwardedList;
 	private ArrayList<String> spinnerList = new ArrayList<String>();
 	private Spinner spinnerRemovePort;
 	private ArrayAdapter<String> removePortAdapter;
@@ -84,7 +85,6 @@ public class UpnpForwardingTab extends Fragment
 	private RadioButton udpRadioButton;
 	private UPNPTask upnpTask;
 	private ProgressBar processAnimate;
-	private String natListString;
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState)
@@ -202,7 +202,7 @@ public class UpnpForwardingTab extends Fragment
 				{
 					if (camera.getHttp() != 0)
 					{
-						httpMapped = igdDiscovery.IGD.addPortMapping(
+						httpMapped = gatewayDevice.getIGD().addPortMapping(
 								Constants.UPNP_HTTP_DESCRIPTION, null, camera.getHttp(),
 								Integer.parseInt(httpTxt.getText().toString()), cameraIP, 0,
 								Constants.PROTOCOL_TCP);
@@ -210,7 +210,7 @@ public class UpnpForwardingTab extends Fragment
 
 					if (camera.getRtsp() != 0)
 					{
-						rtspMapped = igdDiscovery.IGD.addPortMapping(
+						rtspMapped = gatewayDevice.getIGD().addPortMapping(
 								Constants.UPNP_RTSP_DESCRIPTION, null, camera.getRtsp(),
 								Integer.parseInt(rtspTxt.getText().toString()), cameraIP, 0,
 								Constants.PROTOCOL_TCP);
@@ -225,7 +225,7 @@ public class UpnpForwardingTab extends Fragment
 							{
 								try
 								{
-									igdDiscovery = new IGDDiscovery(netInfo.getGatewayIp());
+									gatewayDevice = new GatewayDevice(netInfo.getGatewayIp());
 								}
 								catch (Exception e)
 								{
@@ -332,7 +332,7 @@ public class UpnpForwardingTab extends Fragment
 			@Override
 			protected Void doInBackground(Void... params)
 			{
-				forwardedList = igdDiscovery.getMatchedEntries(cameraIP);
+				forwardedList = gatewayDevice.getMatchedEntries(cameraIP);
 				return null;
 			}
 
@@ -345,19 +345,17 @@ public class UpnpForwardingTab extends Fragment
 		}.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 	}
 
-	private void updateForwardPage(ArrayList<ActionResponse> forwardedList)
+	private void updateForwardPage(ArrayList<NatMapEntry> forwardedList)
 	{
 		// get corresponding forwarded ports
-		if (igdDiscovery != null)
+		if (gatewayDevice != null)
 		{
 			if (forwardedList.iterator().hasNext())
 			{
 				for (int i = 0; i < forwardedList.size(); i++)
 				{
-					String internalPort = forwardedList.get(i).getOutActionArgumentValue(
-							UpnpDiscovery.UPNP_KEY_INTERNAL_PORT);
-					String externalPort = forwardedList.get(i).getOutActionArgumentValue(
-							UpnpDiscovery.UPNP_KEY_EXTERNAL_PORT);
+					String internalPort = String.valueOf(forwardedList.get(i).getInternalPort());
+					String externalPort = String.valueOf(forwardedList.get(i).getExternalPort());
 					if (camera.getHttp() != 0
 							&& internalPort.equals(String.valueOf(camera.getHttp())))
 					{
@@ -433,9 +431,9 @@ public class UpnpForwardingTab extends Fragment
 			@Override
 			protected Void doInBackground(Void... params)
 			{
-				if (igdDiscovery != null)
+				if (gatewayDevice != null)
 				{
-					forwardedList = igdDiscovery.getMatchedEntries(cameraIP);
+					forwardedList = gatewayDevice.getMatchedEntries(cameraIP);
 				}
 				return null;
 			}
@@ -444,7 +442,7 @@ public class UpnpForwardingTab extends Fragment
 			protected void onPostExecute(Void result)
 			{
 				String cameraNATListStr = "Camera: " + cameraIP + " forwarded list:" + "\n";
-				if (igdDiscovery != null)
+				if (gatewayDevice != null)
 				{
 					if (forwardedList.iterator().hasNext())
 					{
@@ -452,14 +450,10 @@ public class UpnpForwardingTab extends Fragment
 						for (int i = 0; i < forwardedList.size(); i++)
 						{
 							String number = (i + 1) + "";
-							String description = forwardedList.get(i).getOutActionArgumentValue(
-									UpnpDiscovery.UPNP_KEY_DESCRIPTION);
-							String internalPort = forwardedList.get(i).getOutActionArgumentValue(
-									UpnpDiscovery.UPNP_KEY_INTERNAL_PORT);
-							String externalPort = forwardedList.get(i).getOutActionArgumentValue(
-									UpnpDiscovery.UPNP_KEY_EXTERNAL_PORT);
-							String protocol = forwardedList.get(i).getOutActionArgumentValue(
-									UpnpDiscovery.UPNP_KEY_PROTOCOL);
+							String description = forwardedList.get(i).getDescription();
+							String internalPort = String.valueOf(forwardedList.get(i).getInternalPort());
+							String externalPort = String.valueOf(forwardedList.get(i).getExternalPort());
+							String protocol = forwardedList.get(i).getProtocal();
 							String thisEntry = number + "." + "\n" + "Description: " + description
 									+ "\n" + "Internal Port: " + internalPort + "\n"
 									+ "External Port: " + externalPort + "\n" + "Protocol: "
@@ -557,7 +551,7 @@ public class UpnpForwardingTab extends Fragment
 
 							try
 							{
-								portAdded = igdDiscovery.IGD.addPortMapping(descriptionStr, null,
+								portAdded = gatewayDevice.getIGD().addPortMapping(descriptionStr, null,
 										internalPortInt, externalPortInt, cameraIP, 0, protocolStr);
 							}
 							catch (IOException e)
@@ -578,7 +572,7 @@ public class UpnpForwardingTab extends Fragment
 								publishProgress();
 								try
 								{
-									igdDiscovery = new IGDDiscovery(netInfo.getGatewayIp());
+									gatewayDevice = new GatewayDevice(netInfo.getGatewayIp());
 									return true;
 								}
 								catch (Exception e)
@@ -689,7 +683,7 @@ public class UpnpForwardingTab extends Fragment
 
 						try
 						{
-							unmapped = igdDiscovery.IGD.deletePortMapping(null,
+							unmapped = gatewayDevice.getIGD().deletePortMapping(null,
 									Integer.parseInt(extPort), protocol);
 						}
 						catch (NumberFormatException e)
@@ -710,7 +704,7 @@ public class UpnpForwardingTab extends Fragment
 							this.publishProgress();
 							try
 							{
-								igdDiscovery = new IGDDiscovery(netInfo.getGatewayIp());
+								gatewayDevice = new GatewayDevice(netInfo.getGatewayIp());
 								return true;
 							}
 							catch (Exception e)
@@ -765,14 +759,11 @@ public class UpnpForwardingTab extends Fragment
 		spinnerList.clear();
 		for (int i = 0; i < forwardedList.size(); i++)
 		{
-			spinnerList.add(forwardedList.get(i).getOutActionArgumentValue(
-					UpnpDiscovery.UPNP_KEY_EXTERNAL_PORT)
+			spinnerList.add(forwardedList.get(i).getExternalPort()
 					+ " - "
-					+ forwardedList.get(i).getOutActionArgumentValue(
-							UpnpDiscovery.UPNP_KEY_PROTOCOL)
+					+ forwardedList.get(i).getProtocal()
 					+ " - "
-					+ forwardedList.get(i).getOutActionArgumentValue(
-							UpnpDiscovery.UPNP_KEY_DESCRIPTION));
+					+ forwardedList.get(i).getDescription());
 		}
 
 		return spinnerList;
@@ -789,10 +780,10 @@ public class UpnpForwardingTab extends Fragment
 		@Override
 		protected Void doInBackground(Void... params)
 		{
-			igdDiscovery = null;
+			gatewayDevice = null;
 			try
 			{
-				igdDiscovery = new IGDDiscovery(netInfo.getGatewayIp());
+				gatewayDevice = new GatewayDevice(netInfo.getGatewayIp());
 			}
 			catch (Exception e)
 			{
@@ -806,7 +797,7 @@ public class UpnpForwardingTab extends Fragment
 		protected void onPostExecute(Void result)
 		{
 			processAnimate.setVisibility(View.GONE);
-			if (igdDiscovery.isAvaliable())
+			if (gatewayDevice.isUPnPAvaliable())
 			{
 				isAvaliableTxt.setText(R.string.routerAvaliable);
 				faceImg.setVisibility(View.VISIBLE);

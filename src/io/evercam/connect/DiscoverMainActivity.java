@@ -17,6 +17,8 @@ import io.evercam.connect.helper.SharedPrefsManager;
 import io.evercam.connect.helper.TimeHelper;
 import io.evercam.connect.net.CheckInternetTaskMain;
 import io.evercam.connect.net.NetInfo;
+
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -24,12 +26,17 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Locale;
 
 import com.bugsense.trace.BugSenseHandler;
+import com.mashape.unirest.http.Unirest;
+import com.mashape.unirest.http.exceptions.UnirestException;
 
 import io.evercam.connect.R;
-import io.evercam.network.ipscan.IpTranslator;
-import io.evercam.network.ipscan.ScanRange;
+import io.evercam.network.cambase.CambaseAPI;
+import io.evercam.network.cambase.CambaseException;
+import io.evercam.network.discovery.IpTranslator;
+import io.evercam.network.discovery.ScanRange;
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -38,6 +45,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -99,6 +107,7 @@ public class DiscoverMainActivity extends Activity
 	private boolean isShowCameraOnly;
 	private PropertyReader propertyReader;
 	ScanRange scanRange;
+	private HashMap<String, Drawable> thumbnailMap = new HashMap<String, Drawable>();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -201,7 +210,6 @@ public class DiscoverMainActivity extends Activity
 					makeToast(getString(R.string.msg_device_not_exist));
 				}
 			}
-
 		});
 
 		scanning_text.setClickable(true);
@@ -535,7 +543,6 @@ public class DiscoverMainActivity extends Activity
 
 				addToDeviceList(camera);
 			}
-
 		}
 	}
 
@@ -641,24 +648,7 @@ public class DiscoverMainActivity extends Activity
 
 		deviceMap.put(ADAPTER_KEY_TIMEDIFF,
 				TimeHelper.getTimeDifference(camera.getLastSeen() + ":00"));
-
-		if (camera.getFlag() == Constants.TYPE_ROUTER
-				|| camera.getIP().equals(netInfo.getGatewayIp()))
-		{
-			deviceMap.put(ADAPTER_KEY_IMAGE, R.drawable.tplink_trans);
-		}
-		else if (camera.getFlag() == Constants.TYPE_CAMERA)
-		{
-			ResourceHelper resourceHelper = new ResourceHelper(ctxt);
-			deviceMap.put(ADAPTER_KEY_IMAGE, resourceHelper.getCameraImageId(camera));
-			EvercamTask evercamTask = new EvercamTask(camera, ctxt);
-			evercamTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-		}
-		else
-		{
-			deviceMap.put(ADAPTER_KEY_IMAGE, R.drawable.question_img_trans);
-		}
-
+		
 		// display http/rtsp if not empty
 		if (camera.hasHTTP())
 		{
@@ -679,9 +669,88 @@ public class DiscoverMainActivity extends Activity
 			deviceMap.put(ADAPTER_KEY_ACTIVE, "active");
 		}
 
+		if (camera.getFlag() == Constants.TYPE_ROUTER
+				|| camera.getIP().equals(netInfo.getGatewayIp()))
+		{
+			deviceMap.put(ADAPTER_KEY_IMAGE, R.drawable.tplink_trans);
+		}
+		else if (camera.getFlag() == Constants.TYPE_CAMERA)
+		{
+		//	ResourceHelper resourceHelper = new ResourceHelper(ctxt);
+		//	deviceMap.put(ADAPTER_KEY_IMAGE, resourceHelper.getCameraImageId(camera));
+			EvercamTask evercamTask = new EvercamTask(camera, ctxt);
+			evercamTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+			
+			if(thumbnailMap.containsKey(camera.getIP()))	
+			{
+				Log.d(TAG, "Exists, show thumbnail");
+				Drawable thumbnailDrawable = thumbnailMap.get(camera.getIP());
+				deviceMap.put(ADAPTER_KEY_IMAGE, thumbnailDrawable);
+			}
+			else
+			{
+				Log.d(TAG, "Not exists, request image");
+				new ThumbnailTask(camera).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+			}
+		}
+		else
+		{
+			deviceMap.put(ADAPTER_KEY_IMAGE, R.drawable.question_img_trans);
+		}
+
 		deviceArraylist.add(deviceMap);
 		sortByIp();
 		deviceAdapter.notifyDataSetChanged();
+	}
+	
+	private class ThumbnailTask extends AsyncTask<Void,Void,Drawable>
+	{
+		private Camera camera;
+		
+		public ThumbnailTask(Camera camera)
+		{
+			this.camera = camera;
+		}
+		
+		@Override
+		protected Drawable doInBackground(Void... params) 
+		{
+			try 
+			{
+				String thumbnailUrl = CambaseAPI.getThumbnailUrlFor(camera.getVendor().toLowerCase(Locale.UK), camera.getModel());
+				Drawable drawable = null;
+
+				if(!thumbnailUrl.isEmpty())
+				{
+					try 
+					{
+						InputStream stream = Unirest.get(thumbnailUrl).asBinary().getRawBody();
+						drawable = Drawable.createFromStream(stream, "src");
+					} 
+					catch (UnirestException e) 
+					{
+						Log.e(TAG, e.getStackTrace()[0].toString());
+					}
+				}
+
+				return drawable;
+			} 
+			catch (CambaseException e) 
+			{
+				Log.e(TAG, e.toString());
+			}
+			return null;
+		}
+
+		@Override
+		protected void onPostExecute(Drawable drawable) 
+		{
+			if(drawable != null)
+			{
+				thumbnailMap.put(camera.getIP(), drawable);
+				Log.d(TAG, "Drawable added" + thumbnailMap.size());
+			}
+		}
 	}
 
 	private void startIpScan()
@@ -691,7 +760,6 @@ public class DiscoverMainActivity extends Activity
 			@Override
 			public void run()
 			{
-
 				if (isWifiConnected || isEthernetConnected)
 				{
 					new CheckInternetTaskMain(DiscoverMainActivity.this)

@@ -7,7 +7,7 @@ import io.evercam.connect.helper.SharedPrefsManager;
 import io.evercam.connect.net.NetInfo;
 import io.evercam.connect.signin.LoginActivity;
 import io.evercam.connect.R;
-import io.evercam.network.ipscan.NetworkInfo;
+import io.evercam.network.discovery.NetworkInfo;
 
 import android.app.ActionBar;
 import android.app.Activity;

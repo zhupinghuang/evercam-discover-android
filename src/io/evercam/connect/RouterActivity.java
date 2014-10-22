@@ -9,6 +9,8 @@ import java.util.Locale;
 import com.bugsense.trace.BugSenseHandler;
 
 import io.evercam.connect.R;
+import io.evercam.network.discovery.MacAddress;
+import io.evercam.network.discovery.NetworkInfo;
 
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -60,7 +62,7 @@ public class RouterActivity extends Activity
 		if (!netInfo.getGatewayIp().equals(NetInfo.EMPTY_IP))
 		{
 			router_ip.setText(netInfo.getGatewayIp());
-			router_mac.setText(NetInfo.getHardwareAddress(netInfo.getGatewayIp()).toUpperCase(
+			router_mac.setText(MacAddress.getByIpAndroid(netInfo.getGatewayIp()).toUpperCase(
 					Locale.UK));
 		}
 
@@ -127,7 +129,7 @@ public class RouterActivity extends Activity
 			@Override
 			protected String doInBackground(Void... params)
 			{
-				return NetInfo.getExternalIP();
+				return NetworkInfo.getExternalIP();
 			}
 
 			@Override

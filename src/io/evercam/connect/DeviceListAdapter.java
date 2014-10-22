@@ -5,8 +5,11 @@ import java.util.Map;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
@@ -18,7 +21,9 @@ public class DeviceListAdapter extends SimpleAdapter
 			String[] from, int[] to)
 	{
 		super(context, data, resource, from, to);
+//		setViewBinder(viewBinder);
 	}
+	
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent)
@@ -46,4 +51,22 @@ public class DeviceListAdapter extends SimpleAdapter
 
 		return superView;
 	}
+//	
+//	private final SimpleAdapter.ViewBinder viewBinder =
+//    new SimpleAdapter.ViewBinder() {
+//        @Override
+//        public boolean setViewValue(
+//                final View view,
+//                final Object data,
+//                final String textRepresentation) {
+//Log.d(TAG, "Set view value called");
+//            if (view instanceof ImageView && data instanceof Drawable) 
+//            {
+//                ((ImageView) view).setBackgroundDrawable((Drawable) data);
+//                return true;
+//            }
+//
+//            return false;
+//        }
+//    };
 }

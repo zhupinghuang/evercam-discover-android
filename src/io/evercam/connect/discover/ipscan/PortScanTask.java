@@ -1,8 +1,8 @@
 package io.evercam.connect.discover.ipscan;
 
 import io.evercam.connect.db.CameraOperation;
-import io.evercam.network.ipscan.PortScan;
-import io.evercam.network.ipscan.PortScanResult;
+import io.evercam.network.discovery.PortScan;
+import io.evercam.network.discovery.PortScanResult;
 
 import android.content.Context;
 import android.os.AsyncTask;

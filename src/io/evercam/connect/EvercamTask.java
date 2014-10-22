@@ -13,6 +13,7 @@ import io.evercam.Model;
 import io.evercam.Vendor;
 import io.evercam.connect.db.Camera;
 import io.evercam.connect.db.CameraOperation;
+import io.evercam.network.query.EvercamQuery;
 
 public class EvercamTask extends AsyncTask<Void, Void, Void>
 {
@@ -58,9 +59,8 @@ public class EvercamTask extends AsyncTask<Void, Void, Void>
 	{
 		try
 		{
-			Defaults defaults = vendor.getDefaultModel().getDefaults();
-			username = defaults.getAuth(Auth.TYPE_BASIC).getUsername();
-			password = defaults.getAuth(Auth.TYPE_BASIC).getPassword();
+			username = EvercamQuery.getDefaultUsernameByVendor(vendor);
+			password = EvercamQuery.getDefaultPasswordByVendor(vendor);
 			cameraOperation.updateAttributeString(camera.getIP(), camera.getSsid(), "username",
 					username);
 			cameraOperation.updateAttributeString(camera.getIP(), camera.getSsid(), "password",
@@ -68,7 +68,7 @@ public class EvercamTask extends AsyncTask<Void, Void, Void>
 		}
 		catch (EvercamException e)
 		{
-			Log.e("evercamconnect", e.getMessage());
+			Log.e("evercamdiscover", e.getMessage());
 		}
 	}
 
@@ -77,10 +77,8 @@ public class EvercamTask extends AsyncTask<Void, Void, Void>
 		String vendorId = "";
 		try
 		{
-			vendorId = vendor.getId();
-			Defaults defaults = vendor.getDefaultModel().getDefaults();
-			jpgURL = defaults.getJpgURL();
-			streamURL = defaults.getH264URL();
+			jpgURL = EvercamQuery.getDefaultJpgUrlByVendor(vendor);
+			streamURL = EvercamQuery.getDefaultH264UrlByVendor(vendor);
 			if (!jpgURL.isEmpty())
 			{
 				if (!jpgURL.startsWith("/"))
@@ -102,7 +100,7 @@ public class EvercamTask extends AsyncTask<Void, Void, Void>
 		}
 		catch (EvercamException e)
 		{
-			Log.e("evercamconnect", "Exception with get default url " + vendorId + e.getMessage());
+			Log.e("evercamdiscover", "Exception with get default url " + vendorId + e.getMessage());
 		}
 	}
 

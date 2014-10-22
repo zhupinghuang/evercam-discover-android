@@ -14,7 +14,8 @@ import io.evercam.connect.db.CameraOperation;
 import io.evercam.connect.helper.LocationReader;
 import io.evercam.connect.helper.SharedPrefsManager;
 import io.evercam.connect.net.NetInfo;
-import io.evercam.network.ipscan.PortScan;
+import io.evercam.network.discovery.NetworkInfo;
+import io.evercam.network.discovery.PortScan;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -315,7 +316,7 @@ public class AddToEvercamActivity extends Activity
 			{
 				if (externalIp == null)
 				{
-					externalIp = NetInfo.getExternalIP();
+					externalIp = NetworkInfo.getExternalIP();
 				}
 				if (externalIp != null)
 				{
@@ -414,7 +415,7 @@ public class AddToEvercamActivity extends Activity
 		{
 			while (externalIp == null)
 			{
-				externalIp = NetInfo.getExternalIP();
+				externalIp = NetworkInfo.getExternalIP();
 			}
 
 			try

@@ -3,12 +3,10 @@ package io.evercam.connect.discover.upnp;
 import io.evercam.connect.db.Camera;
 import io.evercam.connect.db.CameraOperation;
 import io.evercam.connect.net.NetInfo;
-import io.evercam.network.upnp.IGDDiscovery;
-import io.evercam.network.upnp.UpnpDiscovery;
+import io.evercam.network.discovery.GatewayDevice;
+import io.evercam.network.discovery.NatMapEntry;
 
 import java.io.IOException;
-
-import net.sbbi.upnp.messages.ActionResponse;
 import net.sbbi.upnp.messages.UPNPResponseException;
 
 import android.content.Context;
@@ -16,15 +14,15 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 /**
- * IGDDiscoveryTask
+ * gatewayDeviceTask
  * 
- * AsyncTask using IGDDiscovery, along with database operations.
+ * AsyncTask using gatewayDevice, along with database operations.
  */
 
 public class IGDDiscoveryTask extends AsyncTask<Void, Void, Void>
 {
-	private final String TAG = "evercamconnect-IGDDiscoveryTask";
-	private IGDDiscovery igdDiscovery;
+	private final String TAG = "evercamconnect-gatewayDeviceTask";
+	private GatewayDevice gatewayDevice;
 	private NetInfo netInfo;
 	private CameraOperation cameraOperation;
 
@@ -39,7 +37,7 @@ public class IGDDiscoveryTask extends AsyncTask<Void, Void, Void>
 	{
 		try
 		{
-			igdDiscovery = new IGDDiscovery(netInfo.getGatewayIp());
+			gatewayDevice = new GatewayDevice(netInfo.getGatewayIp());
 			fillRouter();
 			fillAllEntries();
 		}
@@ -52,7 +50,7 @@ public class IGDDiscoveryTask extends AsyncTask<Void, Void, Void>
 
 	public void fillRouter()
 	{
-		if (igdDiscovery.isRouterIGD)
+		if (gatewayDevice.isRouter())
 		{
 			cameraOperation
 					.updateAttributeInt(netInfo.getGatewayIp(), netInfo.getSsid(), "upnp", 1);
@@ -66,17 +64,14 @@ public class IGDDiscoveryTask extends AsyncTask<Void, Void, Void>
 
 	public void fillAllEntries()
 	{
-		for (int sizeIndex = 0; sizeIndex < igdDiscovery.tableSize; sizeIndex++)
+		for (int sizeIndex = 0; sizeIndex < gatewayDevice.getTableSize(); sizeIndex++)
 		{
 			try
 			{
-				ActionResponse mapEntry = igdDiscovery.IGD.getGenericPortMappingEntry(sizeIndex);
-				String natIP = mapEntry
-						.getOutActionArgumentValue(UpnpDiscovery.UPNP_KEY_INTERNAL_CLIENT);
-				int natInternalPort = Integer.parseInt(mapEntry
-						.getOutActionArgumentValue(UpnpDiscovery.UPNP_KEY_INTERNAL_PORT));
-				int natExternalPort = Integer.parseInt(mapEntry
-						.getOutActionArgumentValue(UpnpDiscovery.UPNP_KEY_EXTERNAL_PORT));
+				NatMapEntry mapEntry = new NatMapEntry(gatewayDevice.getIGD().getGenericPortMappingEntry(sizeIndex));
+				String natIP = mapEntry.getIpAddress();
+				int natInternalPort = mapEntry.getInternalPort();
+				int natExternalPort = mapEntry.getExternalPort();
 				if (cameraOperation.isExisting(natIP, netInfo.getSsid()))
 				{
 					Camera camera = cameraOperation.getCamera(natIP, netInfo.getSsid());
