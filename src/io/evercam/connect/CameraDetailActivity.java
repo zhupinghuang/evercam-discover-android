@@ -391,8 +391,7 @@ public class CameraDetailActivity extends Activity
 		ImageView img = (ImageView) findViewById(R.id.cameradetail_img);
 		if (camera.getFlag() == Constants.TYPE_CAMERA)
 		{
-			ResourceHelper resourceHelper = new ResourceHelper(ctxt);
-			img.setImageResource(resourceHelper.getCameraImageId(camera));
+			img.setImageBitmap(DiscoverMainActivity.thumbnailMap.get(ipstring));
 		}
 		else
 		{

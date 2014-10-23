@@ -34,7 +34,9 @@ public class DeviceListAdapter extends SimpleAdapter
 		TextView macTextView = (TextView) superView.findViewById(R.id.device_mac);
 		TextView vendorTextView = (TextView) superView.findViewById(R.id.device_vendor);
 		TextView activeTextView = (TextView) superView.findViewById(R.id.device_active);
+		ImageView imageView = (ImageView) superView.findViewById(R.id.device_img);
 		String activeText = activeTextView.getText().toString();
+		String cameraIp = ipTextView.getText().toString();
 
 		if (activeText.isEmpty())
 		{
@@ -48,25 +50,11 @@ public class DeviceListAdapter extends SimpleAdapter
 			macTextView.setTextColor(Color.BLACK);
 			vendorTextView.setTextColor(Color.BLACK);
 		}
-
+		
+		if(DiscoverMainActivity.thumbnailMap.containsKey(cameraIp))
+		{
+			imageView.setImageBitmap(DiscoverMainActivity.thumbnailMap.get(cameraIp));
+		}
 		return superView;
 	}
-//	
-//	private final SimpleAdapter.ViewBinder viewBinder =
-//    new SimpleAdapter.ViewBinder() {
-//        @Override
-//        public boolean setViewValue(
-//                final View view,
-//                final Object data,
-//                final String textRepresentation) {
-//Log.d(TAG, "Set view value called");
-//            if (view instanceof ImageView && data instanceof Drawable) 
-//            {
-//                ((ImageView) view).setBackgroundDrawable((Drawable) data);
-//                return true;
-//            }
-//
-//            return false;
-//        }
-//    };
 }

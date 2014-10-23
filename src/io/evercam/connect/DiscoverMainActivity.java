@@ -12,7 +12,6 @@ import io.evercam.connect.discover.upnp.UpnpDiscoveryTask;
 import io.evercam.connect.helper.Constants;
 import io.evercam.connect.helper.CustomedDialog;
 import io.evercam.connect.helper.PropertyReader;
-import io.evercam.connect.helper.ResourceHelper;
 import io.evercam.connect.helper.SharedPrefsManager;
 import io.evercam.connect.helper.TimeHelper;
 import io.evercam.connect.net.CheckInternetTaskMain;
@@ -45,7 +44,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.drawable.Drawable;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -107,7 +107,7 @@ public class DiscoverMainActivity extends Activity
 	private boolean isShowCameraOnly;
 	private PropertyReader propertyReader;
 	ScanRange scanRange;
-	private HashMap<String, Drawable> thumbnailMap = new HashMap<String, Drawable>();
+	public static HashMap<String, Bitmap> thumbnailMap = new HashMap<String, Bitmap>();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -676,20 +676,11 @@ public class DiscoverMainActivity extends Activity
 		}
 		else if (camera.getFlag() == Constants.TYPE_CAMERA)
 		{
-		//	ResourceHelper resourceHelper = new ResourceHelper(ctxt);
-		//	deviceMap.put(ADAPTER_KEY_IMAGE, resourceHelper.getCameraImageId(camera));
 			EvercamTask evercamTask = new EvercamTask(camera, ctxt);
 			evercamTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 			
-			if(thumbnailMap.containsKey(camera.getIP()))	
+			if(!thumbnailMap.containsKey(camera.getIP()))	
 			{
-				Log.d(TAG, "Exists, show thumbnail");
-				Drawable thumbnailDrawable = thumbnailMap.get(camera.getIP());
-				deviceMap.put(ADAPTER_KEY_IMAGE, thumbnailDrawable);
-			}
-			else
-			{
-				Log.d(TAG, "Not exists, request image");
 				new ThumbnailTask(camera).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 			}
 		}
@@ -703,7 +694,7 @@ public class DiscoverMainActivity extends Activity
 		deviceAdapter.notifyDataSetChanged();
 	}
 	
-	private class ThumbnailTask extends AsyncTask<Void,Void,Drawable>
+	private class ThumbnailTask extends AsyncTask<Void,Void,Bitmap>
 	{
 		private Camera camera;
 		
@@ -713,19 +704,19 @@ public class DiscoverMainActivity extends Activity
 		}
 		
 		@Override
-		protected Drawable doInBackground(Void... params) 
+		protected Bitmap doInBackground(Void... params) 
 		{
 			try 
 			{
 				String thumbnailUrl = CambaseAPI.getThumbnailUrlFor(camera.getVendor().toLowerCase(Locale.UK), camera.getModel());
-				Drawable drawable = null;
+				Bitmap bitmap = null;
 
 				if(!thumbnailUrl.isEmpty())
 				{
 					try 
 					{
 						InputStream stream = Unirest.get(thumbnailUrl).asBinary().getRawBody();
-						drawable = Drawable.createFromStream(stream, "src");
+						bitmap = BitmapFactory.decodeStream(stream);
 					} 
 					catch (UnirestException e) 
 					{
@@ -733,7 +724,7 @@ public class DiscoverMainActivity extends Activity
 					}
 				}
 
-				return drawable;
+				return bitmap;
 			} 
 			catch (CambaseException e) 
 			{
@@ -743,12 +734,12 @@ public class DiscoverMainActivity extends Activity
 		}
 
 		@Override
-		protected void onPostExecute(Drawable drawable) 
+		protected void onPostExecute(Bitmap bitmap) 
 		{
-			if(drawable != null)
+			if(bitmap!= null)
 			{
-				thumbnailMap.put(camera.getIP(), drawable);
-				Log.d(TAG, "Drawable added" + thumbnailMap.size());
+				thumbnailMap.put(camera.getIP(), bitmap);
+				deviceAdapter.notifyDataSetChanged();
 			}
 		}
 	}
