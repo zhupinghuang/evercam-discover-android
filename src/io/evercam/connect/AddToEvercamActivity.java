@@ -13,7 +13,6 @@ import io.evercam.connect.db.Camera;
 import io.evercam.connect.db.CameraOperation;
 import io.evercam.connect.helper.LocationReader;
 import io.evercam.connect.helper.SharedPrefsManager;
-import io.evercam.connect.net.NetInfo;
 import io.evercam.network.discovery.NetworkInfo;
 import io.evercam.network.discovery.PortScan;
 import android.location.Location;

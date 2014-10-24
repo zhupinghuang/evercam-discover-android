@@ -1,12 +1,12 @@
 package io.evercam.connect;
 
+import io.evercam.connect.net.NetInfo;
+
 import java.util.List;
 import java.util.Map;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -16,12 +16,13 @@ import android.widget.TextView;
 public class DeviceListAdapter extends SimpleAdapter
 {
 	private final String TAG = "evercamdiscover-DeviceListAdapter";
+	private Context context;
 
 	public DeviceListAdapter(Context context, List<? extends Map<String, ?>> data, int resource,
 			String[] from, int[] to)
 	{
 		super(context, data, resource, from, to);
-//		setViewBinder(viewBinder);
+		this.context = context;
 	}
 	
 
@@ -37,6 +38,7 @@ public class DeviceListAdapter extends SimpleAdapter
 		ImageView imageView = (ImageView) superView.findViewById(R.id.device_img);
 		String activeText = activeTextView.getText().toString();
 		String cameraIp = ipTextView.getText().toString();
+		String routerIp = new NetInfo(context).getGatewayIp();
 
 		if (activeText.isEmpty())
 		{
@@ -54,6 +56,10 @@ public class DeviceListAdapter extends SimpleAdapter
 		if(DiscoverMainActivity.thumbnailMap.containsKey(cameraIp))
 		{
 			imageView.setImageBitmap(DiscoverMainActivity.thumbnailMap.get(cameraIp));
+		}
+		else if(!cameraIp.equals(routerIp))
+		{
+			imageView.setBackgroundResource(R.drawable.question_img_trans);
 		}
 		return superView;
 	}

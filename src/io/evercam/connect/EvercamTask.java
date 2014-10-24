@@ -7,7 +7,6 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import io.evercam.Auth;
-import io.evercam.Defaults;
 import io.evercam.EvercamException;
 import io.evercam.Model;
 import io.evercam.Vendor;

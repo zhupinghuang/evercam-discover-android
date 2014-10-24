@@ -7,6 +7,7 @@
         android:id="@+id/device_img"
         android:layout_width="70dip"
         android:layout_height="70dip"
+        android:src="@drawable/question_img_trans"
         android:layout_alignParentLeft="true"
         android:layout_margin="5dip" />
 

@@ -10,14 +10,11 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Random;
 
-import net.sbbi.upnp.messages.ActionResponse;
 import net.sbbi.upnp.messages.UPNPResponseException;
 
 import io.evercam.connect.R;
 import io.evercam.network.discovery.GatewayDevice;
 import io.evercam.network.discovery.NatMapEntry;
-import io.evercam.network.discovery.UpnpDiscovery;
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Build;

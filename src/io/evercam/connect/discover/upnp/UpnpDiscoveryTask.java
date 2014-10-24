@@ -4,12 +4,12 @@ import io.evercam.connect.DiscoverMainActivity;
 import io.evercam.connect.db.Camera;
 import io.evercam.connect.db.CameraOperation;
 import io.evercam.connect.net.NetInfo;
+import io.evercam.network.discovery.UpnpDevice;
 import io.evercam.network.discovery.UpnpDiscovery;
 import io.evercam.network.discovery.UpnpResult;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import net.sbbi.upnp.devices.UPNPRootDevice;
 
 public class UpnpDiscoveryTask extends AsyncTask<Void, Void, Void>
 {
@@ -35,7 +35,7 @@ public class UpnpDiscoveryTask extends AsyncTask<Void, Void, Void>
 		upnpDiscovery = new UpnpDiscovery(new UpnpResult(){
 
 			@Override
-			public void onUpnpDeviceFound(UPNPRootDevice upnpDevice)
+			public void onUpnpDeviceFound(UpnpDevice upnpDevice)
 			{
 				Camera deviceFromUPNP = getDeviceFromUpnp(upnpDevice);
 				if (deviceFromUPNP != null)
@@ -50,18 +50,17 @@ public class UpnpDiscoveryTask extends AsyncTask<Void, Void, Void>
 					}
 				}
 			}
-
 		});
 		upnpDiscovery.discoverAll();
 	}
 
-	public Camera getDeviceFromUpnp(UPNPRootDevice upnpDevice)
+	public Camera getDeviceFromUpnp(UpnpDevice upnpDevice)
 	{
-		if (UpnpDiscovery.getIPFromUpnp(upnpDevice) != null)
+		if (upnpDevice.getIp()!= null && !upnpDevice.getIp().isEmpty())
 		{
-			Camera camera = new Camera(UpnpDiscovery.getIPFromUpnp(upnpDevice));
-			camera.setModel(UpnpDiscovery.getModelFromUpnp(upnpDevice));
-			camera.setHttp(UpnpDiscovery.getPortFromUpnp(upnpDevice));
+			Camera camera = new Camera(upnpDevice.getIp());
+			camera.setModel(upnpDevice.getModel());
+			camera.setHttp(upnpDevice.getPort());
 			camera.setUpnp(1);
 			camera.setActive(1);
 			camera.setFirstSeen(DiscoverMainActivity.getSystemTime());

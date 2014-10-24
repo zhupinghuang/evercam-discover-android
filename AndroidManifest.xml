@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="io.evercam.connect"
-    android:versionCode="26"
-    android:versionName="1.2.5" >
+    android:versionCode="27"
+    android:versionName="1.2.6" >
 
     <!-- Recent Release History -->
     
@@ -17,6 +17,7 @@
     <!-- 21/07/2014  version24 - 1.2.3  Location Data -->
     <!-- 06/08/2014  version25 - 1.2.4  Sign in with Email -->
     <!-- 17/09/2014  version26 - 1.2.5  Vendor model changes -->
+    <!-- 24/10/2014  version26 - 1.2.6  Network scan library changes, thumbnail from Cambase-->
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE" />
