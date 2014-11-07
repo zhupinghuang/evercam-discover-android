@@ -7,6 +7,7 @@ import java.util.Map;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -17,12 +18,14 @@ public class DeviceListAdapter extends SimpleAdapter
 {
 	private final String TAG = "evercamdiscover-DeviceListAdapter";
 	private Context context;
+	private String routerIp;
 
 	public DeviceListAdapter(Context context, List<? extends Map<String, ?>> data, int resource,
 			String[] from, int[] to)
 	{
 		super(context, data, resource, from, to);
 		this.context = context;
+		routerIp = new NetInfo(context).getGatewayIp();
 	}
 	
 
@@ -38,7 +41,6 @@ public class DeviceListAdapter extends SimpleAdapter
 		ImageView imageView = (ImageView) superView.findViewById(R.id.device_img);
 		String activeText = activeTextView.getText().toString();
 		String cameraIp = ipTextView.getText().toString();
-		String routerIp = new NetInfo(context).getGatewayIp();
 
 		if (activeText.isEmpty())
 		{
@@ -52,12 +54,17 @@ public class DeviceListAdapter extends SimpleAdapter
 			macTextView.setTextColor(Color.BLACK);
 			vendorTextView.setTextColor(Color.BLACK);
 		}
-		
+
 		if(DiscoverMainActivity.thumbnailMap.containsKey(cameraIp))
 		{
+			imageView.setBackgroundResource(android.R.color.transparent); 
 			imageView.setImageBitmap(DiscoverMainActivity.thumbnailMap.get(cameraIp));
 		}
-		else if(!cameraIp.equals(routerIp))
+		else if(cameraIp.equals(routerIp))
+		{
+			imageView.setBackgroundResource(R.drawable.tplink_trans);
+		}
+		else
 		{
 			imageView.setBackgroundResource(R.drawable.question_img_trans);
 		}

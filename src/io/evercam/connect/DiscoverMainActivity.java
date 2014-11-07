@@ -668,13 +668,8 @@ public class DiscoverMainActivity extends Activity
 		{
 			deviceMap.put(ADAPTER_KEY_ACTIVE, "active");
 		}
-
-		if (camera.getFlag() == Constants.TYPE_ROUTER
-				|| camera.getIP().equals(netInfo.getGatewayIp()))
-		{
-			deviceMap.put(ADAPTER_KEY_IMAGE, R.drawable.tplink_trans);
-		}
-		else if (camera.getFlag() == Constants.TYPE_CAMERA)
+		
+		if (camera.getFlag() == Constants.TYPE_CAMERA)
 		{
 			EvercamTask evercamTask = new EvercamTask(camera, ctxt);
 			evercamTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -683,10 +678,6 @@ public class DiscoverMainActivity extends Activity
 			{
 				new ThumbnailTask(camera).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 			}
-		}
-		else
-		{
-			deviceMap.put(ADAPTER_KEY_IMAGE, R.drawable.question_img_trans);
 		}
 
 		deviceArraylist.add(deviceMap);
