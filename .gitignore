@@ -27,3 +27,12 @@ proguard/
 
 # Local property file
 assets/local.properties
+
+#Android Studio
+.gradle/
+build/
+
+#Mac
+.DS_Store
+
+.settings/
