@@ -5,7 +5,7 @@ import io.evercam.Vendor;
 import io.evercam.network.query.EvercamQuery;
 
 import org.json.JSONException;
-import org.json.JSONObject;
+import io.evercam.relocation.JSONObject;
 
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
@@ -38,24 +38,13 @@ public class VendorFromMac
 		{
 			Log.e(TAG, e.getMessage());
 		}
-		catch (JSONException e)
-		{
-			Log.e(TAG, e.getMessage());
-		}
 	}
 
 	public String getCompany()
 	{
 		if (vendorJsonObject != null)
 		{
-			try
-			{
-				return vendorJsonObject.getString(KEY_COMPANY);
-			}
-			catch (JSONException e)
-			{
-				Log.e(TAG, e.getMessage());
-			}
+            return vendorJsonObject.getString(KEY_COMPANY);
 		}
 		return "";
 	}

@@ -135,8 +135,6 @@ public class DiscoverMainActivity extends Activity
 		sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
 		netInfo = new NetInfo(ctxt);
-
-		setEvercamDeveloperApiKey();
 		setEvercamUserApiKey();
 
 		// discovered device list
@@ -930,14 +928,6 @@ public class DiscoverMainActivity extends Activity
 				cameraOperation.updateAttributeInt(camera.getIP(), camera.getSsid(), "evercam", 0);
 			}
 		}
-	}
-
-	private void setEvercamDeveloperApiKey()
-	{
-		PropertyReader propertyReader = new PropertyReader(getApplicationContext());
-		String developerApiKey = propertyReader.getPropertyStr(PropertyReader.KEY_API_KEY);
-		String developerAapiId = propertyReader.getPropertyStr(PropertyReader.KEY_API_ID);
-		API.setDeveloperKeyPair(developerApiKey, developerAapiId);
 	}
 
 	private void setEvercamUserApiKey()

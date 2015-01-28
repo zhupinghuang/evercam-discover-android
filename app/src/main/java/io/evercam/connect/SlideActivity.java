@@ -64,7 +64,6 @@ public class SlideActivity extends Activity implements OnPageChangeListener
 		else
 		{
 			EvercamDiscover.sendScreenAnalytics(this, getString(R.string.screen_welcome_slides));
-			setEvercamDeveloperApiKey();
 			initSlideView();
 			initDots();
 			initLinks();
@@ -201,13 +200,6 @@ public class SlideActivity extends Activity implements OnPageChangeListener
 		}
 		currentIndex = 0;
 		dots[currentIndex].setEnabled(false);
-	}
-
-	private void setEvercamDeveloperApiKey()
-	{
-		String developerApiKey = propertyReader.getPropertyStr(PropertyReader.KEY_API_KEY);
-		String developerAapiId = propertyReader.getPropertyStr(PropertyReader.KEY_API_ID);
-		API.setDeveloperKeyPair(developerApiKey, developerAapiId);
 	}
 
 	private void setCurrentView(int position)

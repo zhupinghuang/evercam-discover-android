@@ -8,6 +8,8 @@ import com.google.android.gms.analytics.Tracker;
 
 import java.util.HashMap;
 
+import io.evercam.API;
+
 public class EvercamDiscover extends Application
 {
 	private static final String PROPERTY_ID = "UA-52483995-2";
@@ -27,13 +29,13 @@ public class EvercamDiscover extends Application
 		super();
 	}
 
-	// @Override
-	// public void onCreate()
-	// {
-	// super.onCreate();
-	// // Redirect URL, just for temporary testing
-	// API.URL = "http://proxy.evr.cm:9292/v1/";
-	// }
+	@Override
+	public void onCreate()
+	{
+        super.onCreate();
+        // Redirect URL, just for temporary testing
+        API.URL = "http://proxy.evr.cm:9292/v1/";
+	}
 
 	synchronized Tracker getTracker(TrackerName trackerId)
 	{

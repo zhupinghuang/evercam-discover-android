@@ -419,7 +419,7 @@ public class AddToEvercamActivity extends Activity
 
 			try
 			{
-				ArrayList<Model> modelList = Model.getAll(null, cameraModel, cameraVendor);
+				ArrayList<Model> modelList = Model.getAll(cameraModel, cameraVendor);
 				if (modelList.size() > 0)
 				{
 					cameraModel = modelList.get(0).getId();
