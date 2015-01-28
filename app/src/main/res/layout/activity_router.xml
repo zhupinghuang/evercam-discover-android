@@ -1,0 +1,256 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/router_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginLeft="5dip"
+            android:layout_marginTop="5dip"
+            android:text="@string/router_title"
+            android:textColor="#778899"
+            android:textSize="15sp" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="0dp"
+            android:background="#778899" />
+
+        <ImageView
+            android:id="@+id/router_img"
+            android:layout_width="120dip"
+            android:layout_height="120dip"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="5dip"
+            android:src="@drawable/tplink_trans" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25sp"
+            android:layout_marginTop="10sp"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/router_ip"
+                android:layout_width="130sp"
+                android:layout_height="wrap_content"
+                android:text="@string/router_ip"
+                android:textColor="#778899"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/routerip_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dip"
+                android:text="@string/notAvaliable"
+                android:textSize="17sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/routermodel_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25sp"
+            android:layout_marginTop="5sp"
+            android:orientation="horizontal"
+            android:visibility="gone" >
+
+            <TextView
+                android:id="@+id/router_model"
+                android:layout_width="130sp"
+                android:layout_height="wrap_content"
+                android:text="@string/model"
+                android:textColor="#778899"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/routermodel_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dip"
+                android:textSize="17sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25sp"
+            android:layout_marginTop="5sp"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/external_ip"
+                android:layout_width="130sp"
+                android:layout_height="wrap_content"
+                android:text="@string/external_ip"
+                android:textColor="#778899"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/externalip_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dip"
+                android:text="@string/notAvaliable"
+                android:textSize="17sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25sp"
+            android:layout_marginTop="5sp"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/router_mac"
+                android:layout_width="130sp"
+                android:layout_height="wrap_content"
+                android:text="@string/router_mac"
+                android:textColor="#778899"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/routermac_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dip"
+                android:text="@string/notAvaliable"
+                android:textSize="17sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25sp"
+            android:layout_marginTop="5sp"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/router_netmask"
+                android:layout_width="130sp"
+                android:layout_height="wrap_content"
+                android:text="@string/router_netmask"
+                android:textColor="#778899"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/netmask_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dip"
+                android:text="@string/notAvaliable"
+                android:textSize="17sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25sp"
+            android:layout_marginTop="5sp"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/router_upnp"
+                android:layout_width="130sp"
+                android:layout_height="wrap_content"
+                android:text="@string/routerUPNP"
+                android:textColor="#778899"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/routerUpnp_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dip"
+                android:text="@string/notAvaliable"
+                android:textSize="17sp" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/button_routerweb"
+            android:layout_width="fill_parent"
+            android:layout_height="35sp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="25sp"
+            android:layout_marginRight="25sp"
+            android:layout_marginTop="20dip"
+            android:background="@drawable/btn_selector"
+            android:text="@string/router_web"
+            android:textColor="#ffffff" >
+        </Button>
+
+        <TextView
+            android:id="@+id/device_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginLeft="5dip"
+            android:layout_marginTop="30dip"
+            android:text="@string/device_title"
+            android:textColor="#778899"
+            android:textSize="15sp" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="0dp"
+            android:background="#778899" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10sp"
+            android:layout_marginTop="10sp"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/device_ip"
+                android:layout_width="165sp"
+                android:layout_height="wrap_content"
+                android:text="@string/device_ip"
+                android:textColor="#778899"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/deviceIP_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dip"
+                android:textSize="17sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10sp"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/device_mac"
+                android:layout_width="165sp"
+                android:layout_height="wrap_content"
+                android:text="@string/device_mac"
+                android:textColor="#778899"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/deviceMAC_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dip"
+                android:textSize="17sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+</ScrollView>

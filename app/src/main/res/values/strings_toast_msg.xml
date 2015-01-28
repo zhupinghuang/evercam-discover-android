@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="idEmpty">Camera ID can NOT be empty!</string>
+    <string name="nameEmpty">Camera name can NOT be empty!</string>
+    <string name="snapshotEmpty">Snapshot path can NOT be empty!</string>
+    <string name="exthttpEmpty">External HTTP can NOT be empty!</string>
+    <string name="usernameEmpty">Camera username can NOT be empty!</string>
+    <string name="passwordEmpty">Camera password can NOT be empty!</string>
+    <string name="snapshotInvalid">Snapshot should starts with \'/\'.</string>
+    <string name="extPortNotOpen">External port is not opened.</string>
+    <string name="Success">Success!</string>
+    <string name="creating_camera">Creating camera&#8230;</string>
+
+</resources>

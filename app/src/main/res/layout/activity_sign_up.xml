@@ -1,0 +1,118 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/pleaseConfirm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Please confirm your information:"
+        android:textColor="#778899"
+        android:textSize="20sp"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/signUpFirstname_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="20sp"
+        android:layout_marginRight="20sp"
+        android:layout_marginTop="50sp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/signUpFirstname_detail"
+            android:layout_width="110sp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dip"
+            android:text="First Name:"
+            android:textColor="#778899"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/signUpFirstnamevalue_detail"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="First Name"
+            android:inputType="text"
+            android:singleLine="true"
+            android:textSize="17sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/signUpLastname_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="20sp"
+        android:layout_marginRight="20sp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/signUpLastname_detail"
+            android:layout_width="110sp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dip"
+            android:text="Last Name:"
+            android:textColor="#778899"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/signUpLastnamevalue_detail"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="Last Name"
+            android:inputType="text"
+            android:singleLine="true"
+            android:textSize="17sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/signUpEmail_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="20sp"
+        android:layout_marginRight="20sp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/signUpEmail_detail"
+            android:layout_width="110sp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dip"
+            android:text="Email:"
+            android:textColor="#778899"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/signUpEmailvalue_detail"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="Email"
+            android:inputType="text"
+            android:singleLine="true"
+            android:textSize="17sp" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/button_next"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="20sp"
+        android:layout_marginRight="20sp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/btn_selector"
+        android:text="Next"
+        android:textColor="#ffffff" />
+
+</LinearLayout>
