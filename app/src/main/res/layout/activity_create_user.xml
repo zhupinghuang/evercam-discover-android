@@ -1,6 +1,6 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".SignUpActivity" >
+       xmlns:tools="http://schemas.android.com/tools"
+       tools:context=".SignUpActivity">
 
     <!-- SignUp progress -->
 
@@ -11,13 +11,13 @@
         android:layout_gravity="center"
         android:gravity="center_horizontal"
         android:orientation="vertical"
-        android:visibility="gone" >
+        android:visibility="gone">
 
         <ProgressBar
             style="?android:attr/progressBarStyleLarge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp" />
+            android:layout_marginBottom="8dp"/>
 
         <TextView
             android:id="@+id/signup_status_message"
@@ -26,7 +26,7 @@
             android:layout_marginBottom="16dp"
             android:fontFamily="sans-serif-light"
             android:text="@string/login_progress_signing_up"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:textAppearance="?android:attr/textAppearanceMedium"/>
     </LinearLayout>
 
     <!-- Sign up form -->
@@ -34,16 +34,16 @@
     <ScrollView
         android:id="@+id/signup_form"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent">
 
         <LinearLayout
             style="@style/SignupFormContainer"
             android:layout_marginTop="20sp"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:id="@+id/firstname_txt"
@@ -52,7 +52,7 @@
                     android:fontFamily="sans-serif-light"
                     android:text="@string/firstname:"
                     android:textColor="#778899"
-                    android:textSize="17sp" />
+                    android:textSize="17sp"/>
 
                 <EditText
                     android:id="@+id/firstname_edit"
@@ -61,12 +61,12 @@
                     android:hint="@string/firstName"
                     android:inputType="text"
                     android:singleLine="true"
-                    android:textSize="17sp" />
+                    android:textSize="17sp"/>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:id="@+id/lastname_txt"
@@ -75,7 +75,7 @@
                     android:fontFamily="sans-serif-light"
                     android:text="@string/lastname:"
                     android:textColor="#778899"
-                    android:textSize="17sp" />
+                    android:textSize="17sp"/>
 
                 <EditText
                     android:id="@+id/lastname_edit"
@@ -84,12 +84,12 @@
                     android:hint="@string/lastName"
                     android:inputType="text"
                     android:singleLine="true"
-                    android:textSize="17sp" />
+                    android:textSize="17sp"/>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:id="@+id/country_txt"
@@ -98,18 +98,18 @@
                     android:fontFamily="sans-serif-light"
                     android:text="@string/country:"
                     android:textColor="#778899"
-                    android:textSize="17sp" />
+                    android:textSize="17sp"/>
 
                 <Spinner
                     android:id="@+id/country_spinner"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif" />
+                    android:fontFamily="sans-serif"/>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:id="@+id/username_txt"
@@ -118,7 +118,7 @@
                     android:fontFamily="sans-serif-light"
                     android:text="@string/username:"
                     android:textColor="#778899"
-                    android:textSize="17sp" />
+                    android:textSize="17sp"/>
 
                 <EditText
                     android:id="@+id/username_edit"
@@ -127,12 +127,12 @@
                     android:hint="@string/username"
                     android:inputType="text"
                     android:singleLine="true"
-                    android:textSize="17sp" />
+                    android:textSize="17sp"/>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:id="@+id/email_txt"
@@ -141,7 +141,7 @@
                     android:fontFamily="sans-serif-light"
                     android:text="@string/email:"
                     android:textColor="#778899"
-                    android:textSize="17sp" />
+                    android:textSize="17sp"/>
 
                 <EditText
                     android:id="@+id/email_edit"
@@ -150,12 +150,12 @@
                     android:hint="@string/email"
                     android:inputType="textEmailAddress"
                     android:singleLine="true"
-                    android:textSize="17sp" />
+                    android:textSize="17sp"/>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:id="@+id/password_txt"
@@ -164,7 +164,7 @@
                     android:fontFamily="sans-serif-light"
                     android:text="@string/password:"
                     android:textColor="#778899"
-                    android:textSize="17sp" />
+                    android:textSize="17sp"/>
 
                 <EditText
                     android:id="@+id/password_edit"
@@ -174,7 +174,7 @@
                     android:hint="@string/password"
                     android:inputType="textPassword"
                     android:singleLine="true"
-                    android:textSize="17sp" />
+                    android:textSize="17sp"/>
             </LinearLayout>
 
             <EditText
@@ -186,7 +186,7 @@
                 android:hint="@string/re_password"
                 android:inputType="textPassword"
                 android:singleLine="true"
-                android:textSize="17sp" />
+                android:textSize="17sp"/>
 
             <Button
                 android:id="@+id/sign_up_button"
@@ -196,7 +196,7 @@
                 android:layout_marginTop="40dp"
                 android:background="@drawable/btn_selector"
                 android:text="@string/create_account"
-                android:textColor="#ffffff" />
+                android:textColor="#ffffff"/>
         </LinearLayout>
     </ScrollView>
 

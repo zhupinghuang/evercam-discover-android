@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical" >
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -11,7 +11,7 @@
         android:layout_marginRight="20sp"
         android:layout_marginTop="5sp"
         android:orientation="horizontal"
-        android:visibility="gone" >
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/portType_txt"
@@ -19,12 +19,12 @@
             android:layout_height="20sp"
             android:text="Port Type:"
             android:textColor="#000000"
-            android:textSize="14sp" />
+            android:textSize="14sp"/>
 
         <Spinner
             android:id="@+id/portType_spinner"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content">
         </Spinner>
     </LinearLayout>
 
@@ -34,7 +34,7 @@
         android:layout_marginLeft="20sp"
         android:layout_marginRight="20sp"
         android:layout_marginTop="5sp"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/cameraip_txt"
@@ -42,14 +42,14 @@
             android:layout_height="20sp"
             android:text="@string/cameraIp"
             android:textColor="#000000"
-            android:textSize="14sp" />
+            android:textSize="14sp"/>
 
         <TextView
             android:id="@+id/cameraip_value"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:textColor="#778899"
-            android:textSize="15sp" />
+            android:textSize="15sp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -57,7 +57,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20sp"
         android:layout_marginRight="20sp"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/internal_txt"
@@ -65,7 +65,7 @@
             android:layout_height="20sp"
             android:text="@string/internalPort:"
             android:textColor="#000000"
-            android:textSize="14sp" />
+            android:textSize="14sp"/>
 
         <EditText
             android:id="@+id/internal_edit"
@@ -75,7 +75,7 @@
             android:inputType="number"
             android:singleLine="true"
             android:textColor="#778899"
-            android:textSize="15sp" />
+            android:textSize="15sp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -83,7 +83,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20sp"
         android:layout_marginRight="20sp"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/external_txt"
@@ -91,7 +91,7 @@
             android:layout_height="20sp"
             android:text="@string/externalPort:"
             android:textColor="#000000"
-            android:textSize="14sp" />
+            android:textSize="14sp"/>
 
         <EditText
             android:id="@+id/external_edit"
@@ -101,7 +101,7 @@
             android:inputType="number"
             android:singleLine="true"
             android:textColor="#778899"
-            android:textSize="15sp" />
+            android:textSize="15sp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -109,7 +109,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20sp"
         android:layout_marginRight="20sp"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/portProtocol_txt"
@@ -118,14 +118,14 @@
             android:layout_marginTop="6sp"
             android:text="@string/protocol:"
             android:textColor="#000000"
-            android:textSize="14sp" />
+            android:textSize="14sp"/>
 
         <RadioGroup
             android:id="@+id/radioGroup_protocol"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:contentDescription="forwardProtocol"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <RadioButton
                 android:id="@+id/radio_tcp"
@@ -133,7 +133,7 @@
                 android:layout_height="wrap_content"
                 android:checked="true"
                 android:text="@string/tcp"
-                android:textColor="#778899" >
+                android:textColor="#778899">
             </RadioButton>
 
             <RadioButton
@@ -141,7 +141,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/udp"
-                android:textColor="#778899" >
+                android:textColor="#778899">
             </RadioButton>
         </RadioGroup>
     </LinearLayout>
@@ -151,7 +151,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20sp"
         android:layout_marginRight="20sp"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/portDescription_txt"
@@ -159,7 +159,7 @@
             android:layout_height="20sp"
             android:text="@string/description:"
             android:textColor="#000000"
-            android:textSize="14sp" />
+            android:textSize="14sp"/>
 
         <EditText
             android:id="@+id/portDiscription_edit"
@@ -169,7 +169,7 @@
             android:inputType="text"
             android:singleLine="true"
             android:textColor="#778899"
-            android:textSize="15sp" />
+            android:textSize="15sp"/>
     </LinearLayout>
 
 </LinearLayout>

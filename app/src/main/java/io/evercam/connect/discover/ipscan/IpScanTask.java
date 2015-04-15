@@ -27,206 +27,204 @@ import io.evercam.network.discovery.ScanResult;
 
 public class IpScanTask extends AsyncTask<Void, Host, Void>
 {
-	private final String TAG = "evercamdiscover-IpScanTask";
-	private ExecutorService pool;
-	final protected WeakReference<DiscoverMainActivity> mainDiscover;
-	ScanRange scanRange;
+    private final String TAG = "evercamdiscover-IpScanTask";
+    private ExecutorService pool;
+    final protected WeakReference<DiscoverMainActivity> mainDiscover;
+    ScanRange scanRange;
 
-	public IpScanTask(DiscoverMainActivity ipmainDiscover, ScanRange scanRange)
-	{
-		mainDiscover = new WeakReference<DiscoverMainActivity>(ipmainDiscover);
-		this.scanRange = scanRange;
-	}
+    public IpScanTask(DiscoverMainActivity ipmainDiscover, ScanRange scanRange)
+    {
+        mainDiscover = new WeakReference<DiscoverMainActivity>(ipmainDiscover);
+        this.scanRange = scanRange;
+    }
 
-	@Override
-	protected void onProgressUpdate(Host... host)
-	{
-		if (mainDiscover != null)
-		{
-			final DiscoverMainActivity discover = mainDiscover.get();
-			if (discover != null)
-			{
-				if (!isCancelled())
-				{
-					if (host[0] != null)
-					{
-						discover.addHost(host[0]);
-					}
-				}
-			}
-		}
-	}
+    @Override
+    protected void onProgressUpdate(Host... host)
+    {
+        if(mainDiscover != null)
+        {
+            final DiscoverMainActivity discover = mainDiscover.get();
+            if(discover != null)
+            {
+                if(!isCancelled())
+                {
+                    if(host[0] != null)
+                    {
+                        discover.addHost(host[0]);
+                    }
+                }
+            }
+        }
+    }
 
-	@Override
-	protected Void doInBackground(Void... params)
-	{
-		if (mainDiscover != null)
-		{
-			final DiscoverMainActivity discover = mainDiscover.get();
-			if (discover != null)
-			{
-				IpScan ipScan = new IpScan(new ScanResult(){
+    @Override
+    protected Void doInBackground(Void... params)
+    {
+        if(mainDiscover != null)
+        {
+            final DiscoverMainActivity discover = mainDiscover.get();
+            if(discover != null)
+            {
+                IpScan ipScan = new IpScan(new ScanResult()
+                {
 
-					@Override
-					public void onActiveIp(String ip)
-					{
-						Host host = new Host();
-						host.setIpAddress(ip);
-						host.setHardwareAddress(MacAddress.getByIpAndroid(ip));
+                    @Override
+                    public void onActiveIp(String ip)
+                    {
+                        Host host = new Host();
+                        host.setIpAddress(ip);
+                        host.setHardwareAddress(MacAddress.getByIpAndroid(ip));
 
-						publish(host);
-					}
-				});
-				this.pool = ipScan.pool;
-				ipScan.scanAll(scanRange);
-			}
-		}
-		return null;
-	}
+                        publish(host);
+                    }
+                });
+                this.pool = ipScan.pool;
+                ipScan.scanAll(scanRange);
+            }
+        }
+        return null;
+    }
 
-	@Override
-	protected void onPostExecute(Void unused)
-	{
-		if (mainDiscover != null)
-		{
-			final DiscoverMainActivity discover = mainDiscover.get();
-			if (discover != null)
-			{
-				discover.stopDiscovery();
+    @Override
+    protected void onPostExecute(Void unused)
+    {
+        if(mainDiscover != null)
+        {
+            final DiscoverMainActivity discover = mainDiscover.get();
+            if(discover != null)
+            {
+                discover.stopDiscovery();
 
-				// Evercam data collection, only enabled if property
-				// 'EnableDataCollection' exists in property file.
-				startEvercamDataCollection();
-			}
-		}
-	}
+                // Evercam data collection, only enabled if property
+                // 'EnableDataCollection' exists in property file.
+                startEvercamDataCollection();
+            }
+        }
+    }
 
-	@Override
-	protected void onCancelled()
-	{
-		if (pool != null)
-		{
-			synchronized (pool)
-			{
-				pool.shutdownNow();
-			}
-		}
-		super.onCancelled();
-	}
+    @Override
+    protected void onCancelled()
+    {
+        if(pool != null)
+        {
+            synchronized(pool)
+            {
+                pool.shutdownNow();
+            }
+        }
+        super.onCancelled();
+    }
 
-	private void publish(final Host host)
-	{
-		if (host == null)
-		{
-			publishProgress((Host) null);
-			return;
-		}
+    private void publish(final Host host)
+    {
+        if(host == null)
+        {
+            publishProgress((Host) null);
+            return;
+        }
 
-		if (mainDiscover != null)
-		{
-			final DiscoverMainActivity discover = mainDiscover.get();
-			if (discover != null)
-			{
-				// Mac Addr not already detected
-				if (!host.hardwareAddress.equals(NetInfo.EMPTY_MAC))
-				{
-					host.hardwareAddress = MacAddress.getByIpAndroid(host.ipAddress);
-				}
+        if(mainDiscover != null)
+        {
+            final DiscoverMainActivity discover = mainDiscover.get();
+            if(discover != null)
+            {
+                // Mac Addr not already detected
+                if(!host.hardwareAddress.equals(NetInfo.EMPTY_MAC))
+                {
+                    host.hardwareAddress = MacAddress.getByIpAndroid(host.ipAddress);
+                }
 
-				// NIC vendor
-				VendorFromMac vendorFromMac = new VendorFromMac(host.hardwareAddress);
-				host.vendor = vendorFromMac.getCompany();
+                // NIC vendor
+                VendorFromMac vendorFromMac = new VendorFromMac(host.hardwareAddress);
+                host.vendor = vendorFromMac.getCompany();
 
-				// Is camera
-				String cameraVendorName = VendorFromMac.getCameraVendor(host.hardwareAddress);
-				if (!cameraVendorName.isEmpty())
-				{
-					host.vendor = cameraVendorName.toUpperCase();
-					host.deviceType = Constants.TYPE_CAMERA;
-				}
+                // Is camera
+                String cameraVendorName = VendorFromMac.getCameraVendor(host.hardwareAddress);
+                if(!cameraVendorName.isEmpty())
+                {
+                    host.vendor = cameraVendorName.toUpperCase();
+                    host.deviceType = Constants.TYPE_CAMERA;
+                }
 
-				// Is gateway
-				if (discover.netInfo.getGatewayIp().equals(host.ipAddress))
-				{
-					host.deviceType = Constants.TYPE_ROUTER;
-				}
-			}
-		}
+                // Is gateway
+                if(discover.netInfo.getGatewayIp().equals(host.ipAddress))
+                {
+                    host.deviceType = Constants.TYPE_ROUTER;
+                }
+            }
+        }
 
-		publishProgress(host);
-	}
+        publishProgress(host);
+    }
 
-	private void sendFeedBack()
-	{
-		new SendFeedBackTask().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-	}
+    private void sendFeedBack()
+    {
+        new SendFeedBackTask().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+    }
 
-	private void startEvercamDataCollection()
-	{
-		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(mainDiscover
-				.get().getApplicationContext());
-		boolean isDataCollectionAllowed = sharedPrefs.getBoolean(Constants.KEY_USER_DATA, true);
-		PropertyReader propertyReader = new PropertyReader(mainDiscover.get()
-				.getApplicationContext());
-		if (isDataCollectionAllowed
-				&& propertyReader.isPropertyExist(PropertyReader.KEY_DATA_COLLECTION))
-		{
-			sendFeedBack();
-		}
-	}
+    private void startEvercamDataCollection()
+    {
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences
+                (mainDiscover.get().getApplicationContext());
+        boolean isDataCollectionAllowed = sharedPrefs.getBoolean(Constants.KEY_USER_DATA, true);
+        PropertyReader propertyReader = new PropertyReader(mainDiscover.get()
+                .getApplicationContext());
+        if(isDataCollectionAllowed && propertyReader.isPropertyExist(PropertyReader
+                .KEY_DATA_COLLECTION))
+        {
+            sendFeedBack();
+        }
+    }
 
-	private class SendFeedBackTask extends AsyncTask<Void, Void, String>
-	{
-		String userName = "";
-		String userEmail = "";
-		String userCountry = "";
+    private class SendFeedBackTask extends AsyncTask<Void, Void, String>
+    {
+        String userName = "";
+        String userEmail = "";
+        String userCountry = "";
 
-		@Override
-		protected String doInBackground(Void... params)
-		{
-			try
-			{
-				SharedPreferences sharedPrefs;
-				NetInfo netInfo = new NetInfo(mainDiscover.get().getApplicationContext());
-				sharedPrefs = PreferenceManager.getDefaultSharedPreferences(mainDiscover.get()
-						.getApplicationContext());
+        @Override
+        protected String doInBackground(Void... params)
+        {
+            try
+            {
+                SharedPreferences sharedPrefs;
+                NetInfo netInfo = new NetInfo(mainDiscover.get().getApplicationContext());
+                sharedPrefs = PreferenceManager.getDefaultSharedPreferences(mainDiscover.get()
+                        .getApplicationContext());
 
-				if (SharedPrefsManager.isSignedWithEvercam(sharedPrefs))
-				{
-					userEmail = SharedPrefsManager.getEvercamEmail(sharedPrefs);
-					userName = SharedPrefsManager.getEvercamName(sharedPrefs);
-				}
-				else if (sharedPrefs.getString(Constants.KEY_USER_EMAIL, null) != null)
-				{
-					userEmail = sharedPrefs.getString(Constants.KEY_USER_EMAIL, null);
-					userName = sharedPrefs.getString(Constants.KEY_USER_FIRST_NAME, null)
-							+ sharedPrefs.getString(Constants.KEY_USER_LAST_NAME, null);
-				}
+                if(SharedPrefsManager.isSignedWithEvercam(sharedPrefs))
+                {
+                    userEmail = SharedPrefsManager.getEvercamEmail(sharedPrefs);
+                    userName = SharedPrefsManager.getEvercamName(sharedPrefs);
+                }
+                else if(sharedPrefs.getString(Constants.KEY_USER_EMAIL, null) != null)
+                {
+                    userEmail = sharedPrefs.getString(Constants.KEY_USER_EMAIL, null);
+                    userName = sharedPrefs.getString(Constants.KEY_USER_FIRST_NAME, null) + sharedPrefs.getString(Constants.KEY_USER_LAST_NAME, null);
+                }
 
-				CameraOperation cameraOperation = new CameraOperation(mainDiscover.get()
-						.getApplicationContext());
-				ArrayList<Camera> list = cameraOperation.selectAllIP(netInfo.getSsid());
+                CameraOperation cameraOperation = new CameraOperation(mainDiscover.get().getApplicationContext());
+                ArrayList<Camera> list = cameraOperation.selectAllIP(netInfo.getSsid());
 
-				JsonMessage jsonMessage = new JsonMessage();
-				return jsonMessage.getAllDataJsonMsg(list, userName, userEmail, netInfo);
-			}
-			catch (Exception e)
-			{
-				Log.e(TAG, e.toString());
-			}
-			return "";
-		}
+                JsonMessage jsonMessage = new JsonMessage();
+                return jsonMessage.getAllDataJsonMsg(list, userName, userEmail, netInfo);
+            }
+            catch(Exception e)
+            {
+                Log.e(TAG, e.toString());
+            }
+            return "";
+        }
 
-		@Override
-		protected void onPostExecute(String uploadContent)
-		{
-			if (!uploadContent.isEmpty())
-			{
-				Date date = new Date(System.currentTimeMillis());
-				String uploadTitle = userEmail + " " + date;
-				new AwsS3Uploader(uploadTitle, uploadContent, mainDiscover.get()
-						.getApplicationContext());
-			}
-		}
-	}
+        @Override
+        protected void onPostExecute(String uploadContent)
+        {
+            if(!uploadContent.isEmpty())
+            {
+                Date date = new Date(System.currentTimeMillis());
+                String uploadTitle = userEmail + " " + date;
+                new AwsS3Uploader(uploadTitle, uploadContent, mainDiscover.get().getApplicationContext());
+            }
+        }
+    }
 }

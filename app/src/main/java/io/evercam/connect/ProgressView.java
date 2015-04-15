@@ -13,44 +13,44 @@ import java.io.InputStream;
 //The progress spinner for loading image
 public class ProgressView extends ProgressBar
 {
-	static String TAG = "evercamdiscover-ProgressView";
-	Movie movie;
-	InputStream inputStream = null;
+    static String TAG = "evercamdiscover-ProgressView";
+    Movie movie;
+    InputStream inputStream = null;
 
-	long moviestart = 0;
-	Handler handler1 = new Handler();
+    long moviestart = 0;
+    Handler handler1 = new Handler();
 
-	public int canvasColor = Color.WHITE;
+    public int canvasColor = Color.WHITE;
 
-	public ProgressView(Context context, AttributeSet attrs)
-	{
-		super(context, attrs);
-		constructorToDo(context);
-	}
+    public ProgressView(Context context, AttributeSet attrs)
+    {
+        super(context, attrs);
+        constructorToDo(context);
+    }
 
-	public ProgressView(Context context, AttributeSet attrs, int defStyle)
-	{
-		super(context, attrs, defStyle);
-		constructorToDo(context);
-	}
+    public ProgressView(Context context, AttributeSet attrs, int defStyle)
+    {
+        super(context, attrs, defStyle);
+        constructorToDo(context);
+    }
 
-	public ProgressView(Context context)
-	{
-		super(context);
-		constructorToDo(context);
-	}
+    public ProgressView(Context context)
+    {
+        super(context);
+        constructorToDo(context);
+    }
 
-	private void constructorToDo(Context context)
-	{
-		try
-		{
-			this.setIndeterminate(true);
-		}
-		catch (Exception e)
-		{
-			Log.e(TAG, e.toString() + "::" + Log.getStackTraceString(e));
-		}
+    private void constructorToDo(Context context)
+    {
+        try
+        {
+            this.setIndeterminate(true);
+        }
+        catch(Exception e)
+        {
+            Log.e(TAG, e.toString() + "::" + Log.getStackTraceString(e));
+        }
 
-	}
+    }
 
 }

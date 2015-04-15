@@ -18,71 +18,71 @@ import java.io.OutputStream;
 
 /**
  * AwsS3Uploader
- * 
+ * <p/>
  * Upload user data to AWS s3
  */
 
 public class AwsS3Uploader
 {
-	private AmazonS3Client s3Client;
-	private PutObjectRequest putObjectRequest;
-	private final static String SUFFIX_TXT = ".txt";
+    private AmazonS3Client s3Client;
+    private PutObjectRequest putObjectRequest;
+    private final static String SUFFIX_TXT = ".txt";
 
-	public AwsS3Uploader(String title, String content, Context ctxt)
-	{
-		String accessKey = new PropertyReader(ctxt).getPropertyStr(PropertyReader.KEY_ACCESS_KEY);
-		String secretKey = new PropertyReader(ctxt).getPropertyStr(PropertyReader.KEY_SECRET_KEY);
-		s3Client = new AmazonS3Client(new BasicAWSCredentials(accessKey, secretKey));
+    public AwsS3Uploader(String title, String content, Context ctxt)
+    {
+        String accessKey = new PropertyReader(ctxt).getPropertyStr(PropertyReader.KEY_ACCESS_KEY);
+        String secretKey = new PropertyReader(ctxt).getPropertyStr(PropertyReader.KEY_SECRET_KEY);
+        s3Client = new AmazonS3Client(new BasicAWSCredentials(accessKey, secretKey));
 
-		s3Client.setRegion(Region.getRegion(Regions.EU_WEST_1));
+        s3Client.setRegion(Region.getRegion(Regions.EU_WEST_1));
 
-		S3PutObjectTask task = new S3PutObjectTask();
-		task.title = title;
-		task.content = content;
+        S3PutObjectTask task = new S3PutObjectTask();
+        task.title = title;
+        task.content = content;
 
-		task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
-	}
+    }
 
-	private class S3PutObjectTask extends AsyncTask<Void, Void, Void>
-	{
+    private class S3PutObjectTask extends AsyncTask<Void, Void, Void>
+    {
 
-		String title = null;
-		String content = null;
+        String title = null;
+        String content = null;
 
-		@Override
-		protected Void doInBackground(Void... params)
-		{
-			File file = new File(Environment.getExternalStorageDirectory() + File.separator + title
-					+ SUFFIX_TXT);
-			try
-			{
-				file.createNewFile();
-				if (file.exists())
-				{
-					OutputStream outputStream = new FileOutputStream(file);
-					outputStream.write(content.getBytes());
-					outputStream.close();
-					try
-					{
-						putObjectRequest = new PutObjectRequest("evercamconnect-userdata", title
-								+ SUFFIX_TXT, file);
-						s3Client.putObject(putObjectRequest);
-					}
-					catch (Exception e)
-					{
-						Log.e("evercamconnect", "Error while upload to S3" + e.toString());
-					}
-				}
-			}
-			catch (IOException e)
-			{
-				e.printStackTrace();
-			}
+        @Override
+        protected Void doInBackground(Void... params)
+        {
+            File file = new File(Environment.getExternalStorageDirectory() + File.separator +
+                    title + SUFFIX_TXT);
+            try
+            {
+                file.createNewFile();
+                if(file.exists())
+                {
+                    OutputStream outputStream = new FileOutputStream(file);
+                    outputStream.write(content.getBytes());
+                    outputStream.close();
+                    try
+                    {
+                        putObjectRequest = new PutObjectRequest("evercamconnect-userdata", title
+                                + SUFFIX_TXT, file);
+                        s3Client.putObject(putObjectRequest);
+                    }
+                    catch(Exception e)
+                    {
+                        Log.e("evercamconnect", "Error while upload to S3" + e.toString());
+                    }
+                }
+            }
+            catch(IOException e)
+            {
+                e.printStackTrace();
+            }
 
-			file.delete();
-			return null;
-		}
+            file.delete();
+            return null;
+        }
 
-	}
+    }
 }

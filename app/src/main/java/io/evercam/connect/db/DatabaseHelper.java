@@ -10,50 +10,50 @@ import io.evercam.connect.helper.PropertyReader;
 public class DatabaseHelper extends SQLiteOpenHelper
 {
 
-	private static final String dbName = "evercamdb";
-	private static final int dbVersion = 10;// version 10: update demo camera
-	private Context ctxt;
+    private static final String dbName = "evercamdb";
+    private static final int dbVersion = 10;// version 10: update demo camera
+    private Context ctxt;
 
-	public DatabaseHelper(Context context)
-	{
-		super(context, dbName, null, dbVersion);
-		this.ctxt = context;
-	}
+    public DatabaseHelper(Context context)
+    {
+        super(context, dbName, null, dbVersion);
+        this.ctxt = context;
+    }
 
-	@Override
-	public void onCreate(SQLiteDatabase db)
-	{
-		db.execSQL("CREATE TABLE IF NOT EXISTS cameralist("
-				+ "cameraid INTEGER PRIMARY KEY AUTOINCREMENT	NOT NULL, " + "ip	 TEXT	 NOT NULL,"
-				+ "mac	TEXT," + "vendor		CHAR(50)," + "model	TEXT," + "upnp		INT," + "onvif	INT,"
-				+ "bonjour	INT," + "http	INT," + "https INT," + "rtsp INT," + "ftp INT,"
-				+ "ssh INT," + "portforwarded	INT," + "evercam INT," + "exthttp	INT,"
-				+ "exthttps	INT," + "extftp	INT," + "extrtsp	INT," + "extssh	INT," + "flag INT,"
-				+ "firstseen TEXT," + "lastseen TEXT," + "username TEXT," + "password TEXT,"
-				+ "jpg TEXT," + "h264 TEXT," + "active INT," + "ssid TEXT NOT NULL);");
+    @Override
+    public void onCreate(SQLiteDatabase db)
+    {
+        db.execSQL("CREATE TABLE IF NOT EXISTS cameralist(" + "cameraid INTEGER PRIMARY KEY " +
+				"AUTOINCREMENT	NOT NULL, " + "ip	 TEXT	 NOT NULL," + "mac	TEXT," +
+				"vendor		CHAR(50)," + "model	TEXT," + "upnp		INT," + "onvif	INT," +
+				"bonjour	INT," + "http	INT," + "https INT," + "rtsp INT," + "ftp INT," + "ssh" +
+				" INT," + "portforwarded	INT," + "evercam INT," + "exthttp	INT," +
+				"exthttps	INT," + "extftp	INT," + "extrtsp	INT," + "extssh	INT," + "flag INT," +
+				"" + "firstseen TEXT," + "lastseen TEXT," + "username TEXT," + "password TEXT," +
+				"jpg TEXT," + "h264 TEXT," + "active INT," + "ssid TEXT NOT NULL);");
 
-		// add sample camera
-		PropertyReader propertyReader = new PropertyReader(ctxt);
-		String sampleIP = propertyReader.getPropertyStr(PropertyReader.KEY_SAMPLE_IP);
-		String sampleMAC = propertyReader.getPropertyStr(PropertyReader.KEY_SAMPLE_MAC);
-		String sampleVendor = propertyReader.getPropertyStr(PropertyReader.KEY_SAMPLE_VENDOR);
-		String sampleModel = propertyReader.getPropertyStr(PropertyReader.KEY_SAMPLE_MODEL);
-		String sampleUsername = propertyReader.getPropertyStr(PropertyReader.KEY_SAMPLE_USERNAME);
-		String samplePassword = propertyReader.getPropertyStr(PropertyReader.KEY_SAMPLE_PASSWORD);
-		db.execSQL(
-				"insert into cameralist(ip,mac,vendor,model,upnp,onvif,bonjour,portforwarded,flag,http,rtsp,exthttp,extrtsp, firstseen,lastseen,ssid,jpg,h264,username,password)values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
-				new Object[] { sampleIP, sampleMAC, sampleVendor, sampleModel, 1, 1, 0, 1, 1, 80,
-						90, 80, 90, DiscoverMainActivity.getSystemTime(),
-						DiscoverMainActivity.getSystemTime(), "sample",
-						"/Streaming/Channels/1/picture", "/h264/ch1/main/av_stream",
-						sampleUsername, samplePassword });
-	}
+        // add sample camera
+        PropertyReader propertyReader = new PropertyReader(ctxt);
+        String sampleIP = propertyReader.getPropertyStr(PropertyReader.KEY_SAMPLE_IP);
+        String sampleMAC = propertyReader.getPropertyStr(PropertyReader.KEY_SAMPLE_MAC);
+        String sampleVendor = propertyReader.getPropertyStr(PropertyReader.KEY_SAMPLE_VENDOR);
+        String sampleModel = propertyReader.getPropertyStr(PropertyReader.KEY_SAMPLE_MODEL);
+        String sampleUsername = propertyReader.getPropertyStr(PropertyReader.KEY_SAMPLE_USERNAME);
+        String samplePassword = propertyReader.getPropertyStr(PropertyReader.KEY_SAMPLE_PASSWORD);
+        db.execSQL("insert into cameralist(ip,mac,vendor,model,upnp,onvif,bonjour,portforwarded," +
+				"flag,http,rtsp,exthttp,extrtsp, firstseen,lastseen,ssid,jpg,h264,username," +
+				"password)values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", new Object[]{sampleIP,
+				sampleMAC, sampleVendor, sampleModel, 1, 1, 0, 1, 1, 80, 90, 80, 90,
+				DiscoverMainActivity.getSystemTime(), DiscoverMainActivity.getSystemTime(),
+				"sample", "/Streaming/Channels/1/picture", "/h264/ch1/main/av_stream",
+				sampleUsername, samplePassword});
+    }
 
-	@Override
-	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
-	{
-		db.execSQL("DROP TABLE IF EXISTS cameralist");
-		onCreate(db);
-	}
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
+    {
+        db.execSQL("DROP TABLE IF EXISTS cameralist");
+        onCreate(db);
+    }
 
 }

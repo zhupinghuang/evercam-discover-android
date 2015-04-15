@@ -5,25 +5,24 @@ import io.evercam.connect.R;
 
 public class CheckInternetTaskMain extends CheckInternetTask
 {
-	DiscoverMainActivity mainActivity;
+    DiscoverMainActivity mainActivity;
 
-	public CheckInternetTaskMain(DiscoverMainActivity mainActivity)
-	{
-		super(mainActivity);
-		this.mainActivity = mainActivity;
-	}
+    public CheckInternetTaskMain(DiscoverMainActivity mainActivity)
+    {
+        super(mainActivity);
+        this.mainActivity = mainActivity;
+    }
 
-	@Override
-	protected void onPostExecute(Boolean hasNetwork)
-	{
-		if (hasNetwork)
-		{
-			mainActivity.startDiscovery();
-		}
-		else
-		{
-			mainActivity.makeToast(mainActivity.getResources().getString(
-					R.string.checkInternetConnection));
-		}
-	}
+    @Override
+    protected void onPostExecute(Boolean hasNetwork)
+    {
+        if(hasNetwork)
+        {
+            mainActivity.startDiscovery();
+        }
+        else
+        {
+            mainActivity.makeToast(mainActivity.getResources().getString(R.string.checkInternetConnection));
+        }
+    }
 }

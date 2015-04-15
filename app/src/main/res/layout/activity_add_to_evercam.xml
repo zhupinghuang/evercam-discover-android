@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content" >
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -14,7 +14,7 @@
             android:layout_marginLeft="10sp"
             android:layout_marginRight="10sp"
             android:layout_marginTop="10sp"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/addCameraId_txt"
@@ -22,7 +22,7 @@
                 android:layout_height="20sp"
                 android:text="@string/cameraId:"
                 android:textColor="#778899"
-                android:textSize="16sp" />
+                android:textSize="16sp"/>
 
             <EditText
                 android:id="@+id/addCameraId_edit"
@@ -32,7 +32,7 @@
                 android:inputType="text"
                 android:singleLine="true"
                 android:textColor="#000000"
-                android:textSize="16sp" />
+                android:textSize="16sp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -40,7 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10sp"
             android:layout_marginRight="10sp"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/addCameraName_txt"
@@ -48,7 +48,7 @@
                 android:layout_height="20sp"
                 android:text="@string/cameraName:"
                 android:textColor="#778899"
-                android:textSize="16sp" />
+                android:textSize="16sp"/>
 
             <EditText
                 android:id="@+id/addCameraName_edit"
@@ -58,7 +58,7 @@
                 android:inputType="text"
                 android:singleLine="true"
                 android:textColor="#000000"
-                android:textSize="16sp" />
+                android:textSize="16sp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -66,7 +66,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10sp"
             android:layout_marginRight="10sp"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/isPublic_txt"
@@ -75,20 +75,20 @@
                 android:layout_gravity="center"
                 android:text="@string/isPublic"
                 android:textColor="#778899"
-                android:textSize="16sp" />
+                android:textSize="16sp"/>
 
             <RadioGroup
                 android:id="@+id/radioGroup_isPublic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal" >
+                android:orientation="horizontal">
 
                 <RadioButton
                     android:id="@+id/publicRadio"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/Public"
-                    android:textColor="#000000" >
+                    android:textColor="#000000">
                 </RadioButton>
 
                 <RadioButton
@@ -97,7 +97,7 @@
                     android:layout_height="wrap_content"
                     android:checked="true"
                     android:text="@string/Private"
-                    android:textColor="#000000" >
+                    android:textColor="#000000">
                 </RadioButton>
             </RadioGroup>
         </LinearLayout>
@@ -107,7 +107,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10sp"
             android:layout_marginRight="10sp"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/addCameraJpg_txt"
@@ -115,7 +115,7 @@
                 android:layout_height="20sp"
                 android:text="@string/snapshotJpgPath:"
                 android:textColor="#778899"
-                android:textSize="16sp" />
+                android:textSize="16sp"/>
 
             <EditText
                 android:id="@+id/addCameraJpg_edit"
@@ -125,7 +125,7 @@
                 android:inputType="text"
                 android:singleLine="true"
                 android:textColor="#000000"
-                android:textSize="16sp" />
+                android:textSize="16sp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -133,7 +133,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10sp"
             android:layout_marginRight="10sp"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/addExtHttp_txt"
@@ -141,7 +141,7 @@
                 android:layout_height="20sp"
                 android:text="@string/externalhttp"
                 android:textColor="#778899"
-                android:textSize="16sp" />
+                android:textSize="16sp"/>
 
             <EditText
                 android:id="@+id/addExtHttp_edit"
@@ -151,7 +151,7 @@
                 android:inputType="number"
                 android:singleLine="true"
                 android:textColor="#000000"
-                android:textSize="16sp" />
+                android:textSize="16sp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -159,7 +159,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10sp"
             android:layout_marginRight="10sp"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/addUsername_txt"
@@ -167,7 +167,7 @@
                 android:layout_height="20sp"
                 android:text="@string/username"
                 android:textColor="#778899"
-                android:textSize="16sp" />
+                android:textSize="16sp"/>
 
             <EditText
                 android:id="@+id/addUsername_edit"
@@ -177,7 +177,7 @@
                 android:inputType="text"
                 android:singleLine="true"
                 android:textColor="#000000"
-                android:textSize="16sp" />
+                android:textSize="16sp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -185,7 +185,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10sp"
             android:layout_marginRight="10sp"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/addPassword_txt"
@@ -193,7 +193,7 @@
                 android:layout_height="20sp"
                 android:text="@string/password"
                 android:textColor="#778899"
-                android:textSize="16sp" />
+                android:textSize="16sp"/>
 
             <EditText
                 android:id="@+id/addPassword_edit"
@@ -203,7 +203,7 @@
                 android:inputType="text"
                 android:singleLine="true"
                 android:textColor="#000000"
-                android:textSize="16sp" />
+                android:textSize="16sp"/>
         </LinearLayout>
 
         <TextView
@@ -215,13 +215,13 @@
             android:layout_marginTop="15dip"
             android:text="@string/optional:"
             android:textColor="#808080"
-            android:textSize="14sp" />
+            android:textSize="14sp"/>
 
         <View
             android:layout_width="fill_parent"
             android:layout_height="1dp"
             android:layout_marginTop="1dp"
-            android:background="#808080" />
+            android:background="#808080"/>
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -229,7 +229,7 @@
             android:layout_marginLeft="10sp"
             android:layout_marginRight="10sp"
             android:layout_marginTop="10sp"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/addModel_txt"
@@ -237,7 +237,7 @@
                 android:layout_height="20sp"
                 android:text="@string/model"
                 android:textColor="#778899"
-                android:textSize="16sp" />
+                android:textSize="16sp"/>
 
             <EditText
                 android:id="@+id/addModel_value"
@@ -247,7 +247,7 @@
                 android:inputType="text"
                 android:singleLine="true"
                 android:textColor="#000000"
-                android:textSize="16sp" />
+                android:textSize="16sp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -255,7 +255,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10sp"
             android:layout_marginRight="10sp"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/addVendor_txt"
@@ -263,7 +263,7 @@
                 android:layout_height="20sp"
                 android:text="@string/vendor"
                 android:textColor="#778899"
-                android:textSize="16sp" />
+                android:textSize="16sp"/>
 
             <EditText
                 android:id="@+id/addVendor_value"
@@ -273,7 +273,7 @@
                 android:inputType="text"
                 android:singleLine="true"
                 android:textColor="#000000"
-                android:textSize="16sp" />
+                android:textSize="16sp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -281,7 +281,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10sp"
             android:layout_marginRight="10sp"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/addMac_txt"
@@ -289,7 +289,7 @@
                 android:layout_height="20sp"
                 android:text="@string/mac"
                 android:textColor="#778899"
-                android:textSize="16sp" />
+                android:textSize="16sp"/>
 
             <EditText
                 android:id="@+id/addMac_value"
@@ -299,7 +299,7 @@
                 android:inputType="text"
                 android:singleLine="true"
                 android:textColor="#000000"
-                android:textSize="16sp" />
+                android:textSize="16sp"/>
         </LinearLayout>
 
         <Button
@@ -313,7 +313,7 @@
             android:layout_marginTop="30dp"
             android:background="@drawable/btn_selector"
             android:text="@string/addToEvercam"
-            android:textColor="#ffffff" />
+            android:textColor="#ffffff"/>
     </LinearLayout>
 
 </ScrollView>

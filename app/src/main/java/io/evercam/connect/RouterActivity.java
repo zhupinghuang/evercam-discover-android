@@ -26,118 +26,120 @@ import io.evercam.network.discovery.NetworkInfo;
 public class RouterActivity extends Activity
 {
 
-	private NetInfo netInfo;
-	private Context ctxt;
-	private CameraOperation cameraOperation;
-	private TextView external_ip;
+    private NetInfo netInfo;
+    private Context ctxt;
+    private CameraOperation cameraOperation;
+    private TextView external_ip;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState)
-	{
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_router);
+    @Override
+    protected void onCreate(Bundle savedInstanceState)
+    {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_router);
 
-		EvercamDiscover.sendScreenAnalytics(this, getString(R.string.screen_router));
+        EvercamDiscover.sendScreenAnalytics(this, getString(R.string.screen_router));
 
-		TextView router_ip = (TextView) findViewById(R.id.routerip_detail);
-		TextView router_model = (TextView) findViewById(R.id.routermodel_detail);
-		external_ip = (TextView) findViewById(R.id.externalip_detail);
-		TextView router_mac = (TextView) findViewById(R.id.routermac_detail);
-		TextView router_netmask = (TextView) findViewById(R.id.netmask_detail);
-		TextView router_upnp = (TextView) findViewById(R.id.routerUpnp_detail);
+        TextView router_ip = (TextView) findViewById(R.id.routerip_detail);
+        TextView router_model = (TextView) findViewById(R.id.routermodel_detail);
+        external_ip = (TextView) findViewById(R.id.externalip_detail);
+        TextView router_mac = (TextView) findViewById(R.id.routermac_detail);
+        TextView router_netmask = (TextView) findViewById(R.id.netmask_detail);
+        TextView router_upnp = (TextView) findViewById(R.id.routerUpnp_detail);
 
-		TextView device_title = (TextView) findViewById(R.id.device_title);
-		TextView device_ip = (TextView) findViewById(R.id.deviceIP_detail);
-		TextView device_mac = (TextView) findViewById(R.id.deviceMAC_detail);
+        TextView device_title = (TextView) findViewById(R.id.device_title);
+        TextView device_ip = (TextView) findViewById(R.id.deviceIP_detail);
+        TextView device_mac = (TextView) findViewById(R.id.deviceMAC_detail);
 
-		LinearLayout routerModelLayout = (LinearLayout) findViewById(R.id.routermodel_layout);
+        LinearLayout routerModelLayout = (LinearLayout) findViewById(R.id.routermodel_layout);
 
-		ctxt = getApplicationContext();
-		netInfo = new NetInfo(ctxt);
+        ctxt = getApplicationContext();
+        netInfo = new NetInfo(ctxt);
 
-		cameraOperation = new CameraOperation(ctxt);
+        cameraOperation = new CameraOperation(ctxt);
 
-		if (!netInfo.getGatewayIp().equals(NetInfo.EMPTY_IP))
-		{
-			router_ip.setText(netInfo.getGatewayIp());
-			router_mac.setText(MacAddress.getByIpAndroid(netInfo.getGatewayIp()).toUpperCase(
-					Locale.UK));
-		}
+        if(!netInfo.getGatewayIp().equals(NetInfo.EMPTY_IP))
+        {
+            router_ip.setText(netInfo.getGatewayIp());
+            router_mac.setText(MacAddress.getByIpAndroid(netInfo.getGatewayIp()).toUpperCase
+                    (Locale.UK));
+        }
 
-		try
-		{
-			displayExternalIP();
+        try
+        {
+            displayExternalIP();
 
-			router_netmask.setText(netInfo.getNetmaskIp());
-			Camera camera = cameraOperation.getCamera(netInfo.getGatewayIp(), netInfo.getSsid());
+            router_netmask.setText(netInfo.getNetmaskIp());
+            Camera camera = cameraOperation.getCamera(netInfo.getGatewayIp(), netInfo.getSsid());
 
-			// show model if exists
-			if (camera.getModel() != null && camera.getModel() != "")
-			{
-				routerModelLayout.setVisibility(View.VISIBLE);
-				router_model.setText(camera.getModel());
-			}
+            // show model if exists
+            if(camera.getModel() != null && camera.getModel() != "")
+            {
+                routerModelLayout.setVisibility(View.VISIBLE);
+                router_model.setText(camera.getModel());
+            }
 
-			// upnp status
-			if (camera.getUpnp() == 1)
-			{
-				router_upnp.setText(R.string.enabled);
-			}
-			else
-			{
-				router_upnp.setText(R.string.disabled);
-			}
+            // upnp status
+            if(camera.getUpnp() == 1)
+            {
+                router_upnp.setText(R.string.enabled);
+            }
+            else
+            {
+                router_upnp.setText(R.string.disabled);
+            }
 
-			device_title.setText(this.getResources().getString(R.string.networkInterface)
-					+ netInfo.getInterfaceName());
+            device_title.setText(this.getResources().getString(R.string.networkInterface) +
+                    netInfo.getInterfaceName());
 
-			device_ip.setText(netInfo.getLocalIp());
-			device_mac.setText(netInfo.getMacAddress().toUpperCase(Locale.UK));
-		}
-		catch (Exception e)
-		{
-			BugSenseHandler.sendException(e);
-		}
-		Button b = (Button) findViewById(R.id.button_routerweb);
-		b.setOnClickListener(new OnClickListener(){
+            device_ip.setText(netInfo.getLocalIp());
+            device_mac.setText(netInfo.getMacAddress().toUpperCase(Locale.UK));
+        }
+        catch(Exception e)
+        {
+            BugSenseHandler.sendException(e);
+        }
+        Button b = (Button) findViewById(R.id.button_routerweb);
+        b.setOnClickListener(new OnClickListener()
+        {
 
-			@Override
-			public void onClick(View arg0)
-			{
-				if (!netInfo.getGatewayIp().equals(NetInfo.EMPTY_IP))
-				{
-					String url = "http://" + netInfo.getGatewayIp() + "/";
-					Intent intent = new Intent();
-					intent.setAction("android.intent.action.VIEW");
-					Uri content_url = Uri.parse(url);
-					intent.setData(content_url);
-					startActivity(intent);
-				}
-				else
-				{
-					Toast.makeText(ctxt, "Router is not avaliable.", Toast.LENGTH_SHORT).show();
-				}
-			}
-		});
-	}
+            @Override
+            public void onClick(View arg0)
+            {
+                if(!netInfo.getGatewayIp().equals(NetInfo.EMPTY_IP))
+                {
+                    String url = "http://" + netInfo.getGatewayIp() + "/";
+                    Intent intent = new Intent();
+                    intent.setAction("android.intent.action.VIEW");
+                    Uri content_url = Uri.parse(url);
+                    intent.setData(content_url);
+                    startActivity(intent);
+                }
+                else
+                {
+                    Toast.makeText(ctxt, "Router is not avaliable.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
 
-	private void displayExternalIP()
-	{
-		new AsyncTask<Void, Void, String>(){
-			@Override
-			protected String doInBackground(Void... params)
-			{
-				return NetworkInfo.getExternalIP();
-			}
+    private void displayExternalIP()
+    {
+        new AsyncTask<Void, Void, String>()
+        {
+            @Override
+            protected String doInBackground(Void... params)
+            {
+                return NetworkInfo.getExternalIP();
+            }
 
-			@Override
-			protected void onPostExecute(String externalIp)
-			{
-				if (externalIp != null)
-				{
-					external_ip.setText(externalIp);
-				}
-			}
-		}.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-	}
+            @Override
+            protected void onPostExecute(String externalIp)
+            {
+                if(externalIp != null)
+                {
+                    external_ip.setText(externalIp);
+                }
+            }
+        }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+    }
 }

@@ -1,24 +1,24 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content" >
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <ImageView
             android:id="@+id/cameradetail_img"
             android:layout_width="150dip"
             android:layout_height="150dip"
             android:layout_gravity="center_horizontal"
-            android:layout_margin="5dip" />
+            android:layout_margin="5dip"/>
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="25sp"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/ip_detail"
@@ -27,21 +27,21 @@
                 android:layout_gravity="left"
                 android:text="@string/ip"
                 android:textColor="#778899"
-                android:textSize="18sp" />
+                android:textSize="18sp"/>
 
             <TextView
                 android:id="@+id/ipvalue_detail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dip"
-                android:textSize="17sp" />
+                android:textSize="17sp"/>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="25sp"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/mac_detail"
@@ -50,21 +50,21 @@
                 android:layout_gravity="left"
                 android:text="@string/mac"
                 android:textColor="#778899"
-                android:textSize="18sp" />
+                android:textSize="18sp"/>
 
             <TextView
                 android:id="@+id/macvalue_detail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dip"
-                android:textSize="17sp" />
+                android:textSize="17sp"/>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="25sp"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/vendor_detail"
@@ -73,14 +73,14 @@
                 android:layout_gravity="left"
                 android:text="@string/vendor"
                 android:textColor="#778899"
-                android:textSize="18sp" />
+                android:textSize="18sp"/>
 
             <TextView
                 android:id="@+id/vendorvalue_detail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dip"
-                android:textSize="17sp" />
+                android:textSize="17sp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -88,7 +88,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="25sp"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/model_detail"
@@ -97,14 +97,14 @@
                 android:layout_gravity="left"
                 android:text="@string/model"
                 android:textColor="#778899"
-                android:textSize="18sp" />
+                android:textSize="18sp"/>
 
             <TextView
                 android:id="@+id/modelvalue_detail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dip"
-                android:textSize="17sp" />
+                android:textSize="17sp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -112,7 +112,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="25sp"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/iscamera_detail"
@@ -121,14 +121,14 @@
                 android:layout_gravity="left"
                 android:text="@string/iscamera"
                 android:textColor="#778899"
-                android:textSize="18sp" />
+                android:textSize="18sp"/>
 
             <TextView
                 android:id="@+id/iscameravalue_detail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dip"
-                android:textSize="17sp" />
+                android:textSize="17sp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -137,7 +137,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="25sp"
             android:orientation="horizontal"
-            android:visibility="gone" >
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/bonjour_detail"
@@ -146,14 +146,14 @@
                 android:layout_gravity="left"
                 android:text="@string/isBonjour"
                 android:textColor="#778899"
-                android:textSize="18sp" />
+                android:textSize="18sp"/>
 
             <TextView
                 android:id="@+id/isbonjourvalue_detail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dip"
-                android:textSize="17sp" />
+                android:textSize="17sp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -161,7 +161,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="25sp"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/upnp_detail"
@@ -170,14 +170,14 @@
                 android:layout_gravity="left"
                 android:text="@string/isUpnp"
                 android:textColor="#778899"
-                android:textSize="18sp" />
+                android:textSize="18sp"/>
 
             <TextView
                 android:id="@+id/isupnpvalue_detail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dip"
-                android:textSize="17sp" />
+                android:textSize="17sp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -186,7 +186,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="25sp"
             android:orientation="horizontal"
-            android:visibility="gone" >
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/onvif_detail"
@@ -195,14 +195,14 @@
                 android:layout_gravity="left"
                 android:text="@string/isOnvif"
                 android:textColor="#778899"
-                android:textSize="18sp" />
+                android:textSize="18sp"/>
 
             <TextView
                 android:id="@+id/isonvifvalue_detail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dip"
-                android:textSize="17sp" />
+                android:textSize="17sp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -210,7 +210,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="25sp"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/http_detail"
@@ -219,14 +219,14 @@
                 android:layout_gravity="left"
                 android:text="@string/http"
                 android:textColor="#778899"
-                android:textSize="18sp" />
+                android:textSize="18sp"/>
 
             <TextView
                 android:id="@+id/httpvalue_detail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dip"
-                android:textSize="17sp" />
+                android:textSize="17sp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -234,7 +234,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="25sp"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/rtsp_detail"
@@ -243,14 +243,14 @@
                 android:layout_gravity="left"
                 android:text="@string/rtsp"
                 android:textColor="#778899"
-                android:textSize="18sp" />
+                android:textSize="18sp"/>
 
             <TextView
                 android:id="@+id/rtspvalue_detail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dip"
-                android:textSize="17sp" />
+                android:textSize="17sp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -259,7 +259,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="25sp"
             android:orientation="horizontal"
-            android:visibility="gone" >
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/https_detail"
@@ -268,14 +268,14 @@
                 android:layout_gravity="left"
                 android:text="@string/https"
                 android:textColor="#778899"
-                android:textSize="18sp" />
+                android:textSize="18sp"/>
 
             <TextView
                 android:id="@+id/httpsvalue_detail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dip"
-                android:textSize="17sp" />
+                android:textSize="17sp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -284,7 +284,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="25sp"
             android:orientation="horizontal"
-            android:visibility="gone" >
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/ftp_detail"
@@ -293,14 +293,14 @@
                 android:layout_gravity="left"
                 android:text="@string/ftp"
                 android:textColor="#778899"
-                android:textSize="18sp" />
+                android:textSize="18sp"/>
 
             <TextView
                 android:id="@+id/ftpvalue_detail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dip"
-                android:textSize="17sp" />
+                android:textSize="17sp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -309,7 +309,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="25sp"
             android:orientation="horizontal"
-            android:visibility="gone" >
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/ssh_detail"
@@ -318,14 +318,14 @@
                 android:layout_gravity="left"
                 android:text="@string/ssh"
                 android:textColor="#778899"
-                android:textSize="18sp" />
+                android:textSize="18sp"/>
 
             <TextView
                 android:id="@+id/sshvalue_detail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dip"
-                android:textSize="17sp" />
+                android:textSize="17sp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -334,7 +334,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="25sp"
             android:orientation="horizontal"
-            android:visibility="gone" >
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/portforward_detail"
@@ -343,7 +343,7 @@
                 android:layout_gravity="left"
                 android:text="@string/forwarded"
                 android:textColor="#778899"
-                android:textSize="18sp" />
+                android:textSize="18sp"/>
 
             <TextView
                 android:id="@+id/isportforwardvalue_detail"
@@ -351,7 +351,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dip"
                 android:text="@string/yes"
-                android:textSize="17sp" />
+                android:textSize="17sp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -360,7 +360,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="25sp"
             android:orientation="horizontal"
-            android:visibility="gone" >
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/exthttp_detail"
@@ -369,14 +369,14 @@
                 android:layout_gravity="left"
                 android:text="@string/externalhttp"
                 android:textColor="#778899"
-                android:textSize="18sp" />
+                android:textSize="18sp"/>
 
             <TextView
                 android:id="@+id/exthttpvalue_detail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dip"
-                android:textSize="17sp" />
+                android:textSize="17sp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -385,7 +385,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="25sp"
             android:orientation="horizontal"
-            android:visibility="gone" >
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/extrtsp_detail"
@@ -394,21 +394,21 @@
                 android:layout_gravity="left"
                 android:text="@string/externalrtsp"
                 android:textColor="#778899"
-                android:textSize="18sp" />
+                android:textSize="18sp"/>
 
             <TextView
                 android:id="@+id/extrtspvalue_detail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dip"
-                android:textSize="17sp" />
+                android:textSize="17sp"/>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="25sp"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/firstseen_detail"
@@ -417,21 +417,21 @@
                 android:layout_gravity="left"
                 android:text="@string/first_seen"
                 android:textColor="#778899"
-                android:textSize="18sp" />
+                android:textSize="18sp"/>
 
             <TextView
                 android:id="@+id/firstseenvalue_detail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dip"
-                android:textSize="17sp" />
+                android:textSize="17sp"/>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="25sp"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/lastseen_detail"
@@ -440,14 +440,14 @@
                 android:layout_gravity="left"
                 android:text="@string/last_seen"
                 android:textColor="#778899"
-                android:textSize="18sp" />
+                android:textSize="18sp"/>
 
             <TextView
                 android:id="@+id/lastseenvalue_detail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dip"
-                android:textSize="17sp" />
+                android:textSize="17sp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -456,7 +456,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="25sp"
             android:orientation="horizontal"
-            android:visibility="gone" >
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/isevercam_detail"
@@ -465,14 +465,14 @@
                 android:layout_gravity="left"
                 android:text="@string/isEvercam"
                 android:textColor="#778899"
-                android:textSize="18sp" />
+                android:textSize="18sp"/>
 
             <TextView
                 android:id="@+id/isevercamvalue_detail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dip"
-                android:textSize="17sp" />
+                android:textSize="17sp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -482,7 +482,7 @@
             android:layout_marginLeft="25sp"
             android:focusable="true"
             android:focusableInTouchMode="true"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/username_detail"
@@ -491,14 +491,14 @@
                 android:layout_marginTop="3dip"
                 android:text="@string/username"
                 android:textColor="#778899"
-                android:textSize="18sp" />
+                android:textSize="18sp"/>
 
             <TextView
                 android:id="@+id/usernamevalue_detail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dip"
-                android:textSize="17sp" />
+                android:textSize="17sp"/>
 
             <ImageView
                 android:id="@+id/username_img"
@@ -508,7 +508,7 @@
                 android:layout_marginLeft="2sp"
                 android:layout_marginTop="2sp"
                 android:src="@drawable/cross"
-                android:visibility="gone" />
+                android:visibility="gone"/>
         </LinearLayout>
 
         <LinearLayout
@@ -518,7 +518,7 @@
             android:layout_marginLeft="25sp"
             android:focusable="true"
             android:focusableInTouchMode="true"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/password_detail"
@@ -527,14 +527,14 @@
                 android:layout_marginTop="3dip"
                 android:text="@string/password"
                 android:textColor="#778899"
-                android:textSize="18sp" />
+                android:textSize="18sp"/>
 
             <TextView
                 android:id="@+id/passwordvalue_detail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dip"
-                android:textSize="17sp" />
+                android:textSize="17sp"/>
 
             <ImageView
                 android:id="@+id/password_img"
@@ -544,7 +544,7 @@
                 android:layout_marginLeft="2sp"
                 android:layout_marginTop="2sp"
                 android:src="@drawable/cross"
-                android:visibility="gone" />
+                android:visibility="gone"/>
         </LinearLayout>
 
         <ImageView
@@ -555,7 +555,7 @@
             android:layout_marginLeft="15sp"
             android:layout_marginRight="15sp"
             android:layout_marginTop="15dip"
-            android:visibility="gone" />
+            android:visibility="gone"/>
 
         <LinearLayout
             android:id="@+id/buttons_layout"
@@ -565,7 +565,7 @@
             android:layout_marginLeft="15sp"
             android:layout_marginRight="15sp"
             android:layout_marginTop="15dip"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <Button
                 android:id="@+id/camerabutton_http"
@@ -574,7 +574,7 @@
                 android:background="@drawable/detail_btn_selector"
                 android:text="@string/viewWebsite"
                 android:textColor="@drawable/detail_btn_txt_selector"
-                android:visibility="gone" >
+                android:visibility="gone">
             </Button>
 
             <Button
@@ -585,7 +585,7 @@
                 android:background="@drawable/detail_btn_selector"
                 android:text="@string/viewRtspStream"
                 android:textColor="@drawable/detail_btn_txt_selector"
-                android:visibility="gone" >
+                android:visibility="gone">
             </Button>
 
             <Button
@@ -595,7 +595,7 @@
                 android:layout_marginTop="5dip"
                 android:background="@drawable/detail_btn_selector"
                 android:text="@string/editDetails"
-                android:textColor="@drawable/detail_btn_txt_selector" >
+                android:textColor="@drawable/detail_btn_txt_selector">
             </Button>
 
             <Button
@@ -605,7 +605,7 @@
                 android:layout_marginTop="5dip"
                 android:background="@drawable/detail_btn_selector"
                 android:text="@string/portForwarding"
-                android:textColor="@drawable/detail_btn_txt_selector" >
+                android:textColor="@drawable/detail_btn_txt_selector">
             </Button>
 
             <Button
@@ -619,7 +619,7 @@
                 android:gravity="left|center"
                 android:paddingLeft="35dip"
                 android:text="@string/addToEvercam"
-                android:textColor="@drawable/detail_btn_txt_selector" >
+                android:textColor="@drawable/detail_btn_txt_selector">
             </Button>
 
             <Button
@@ -630,7 +630,7 @@
                 android:background="@drawable/detail_btn_selector"
                 android:text="@string/thisisNotcamera"
                 android:textColor="@drawable/detail_btn_txt_selector"
-                android:visibility="gone" >
+                android:visibility="gone">
             </Button>
 
             <Button
@@ -641,7 +641,7 @@
                 android:background="@drawable/detail_btn_selector"
                 android:text="@string/thisiscamera"
                 android:textColor="@drawable/detail_btn_txt_selector"
-                android:visibility="gone" >
+                android:visibility="gone">
             </Button>
         </LinearLayout>
     </LinearLayout>

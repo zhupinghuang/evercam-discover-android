@@ -1,44 +1,44 @@
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <PreferenceCategory android:title="Account" >
+    <PreferenceCategory android:title="Account">
         <Preference
             android:key="accountname_preference"
             android:summary="Click to sign in with Evercam"
-            android:title="Not Signed In" />
+            android:title="Not Signed In"/>
     </PreferenceCategory>
-    <PreferenceCategory android:title="Network" >
+    <PreferenceCategory android:title="Network">
         <ListPreference
             android:dialogTitle="Choose the network interface for discovery"
             android:key="listInterface_preference"
             android:summary="Choose the network interface for discovery"
-            android:title="Network Interface" />
+            android:title="Network Interface"/>
 
         <Preference
             android:key="networkpage_preference"
             android:summary="View network details"
-            android:title="Network Infomation" />
+            android:title="Network Infomation"/>
     </PreferenceCategory>
-    <PreferenceCategory android:title="Options" >
+    <PreferenceCategory android:title="Options">
         <CheckBoxPreference
             android:defaultValue="checked"
             android:key="checkbox_showcameraonly"
             android:summary="Display discovered cameras only."
-            android:title="Show Cameras Only" />
+            android:title="Show Cameras Only"/>
     </PreferenceCategory>
-    <PreferenceCategory android:title="About" >
+    <PreferenceCategory android:title="About">
         <Preference
             android:key="version_preference"
-            android:title="App version" />
+            android:title="App version"/>
         <Preference
             android:key="contact_preference"
             android:summary="support@evercam.io"
-            android:title="Contact" />
+            android:title="Contact"/>
 
         <CheckBoxPreference
             android:defaultValue="true"
             android:key="checkbox_userdata_preference"
             android:summary="Help improve Evercam Connect."
-            android:title="Send user data to Evercam" />
+            android:title="Send user data to Evercam"/>
     </PreferenceCategory>
 
 </PreferenceScreen>

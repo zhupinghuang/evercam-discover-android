@@ -1,6 +1,6 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".LoginActivity" >
+       xmlns:tools="http://schemas.android.com/tools"
+       tools:context=".LoginActivity">
 
     <!-- Login progress -->
 
@@ -11,13 +11,13 @@
         android:layout_gravity="center"
         android:gravity="center_horizontal"
         android:orientation="vertical"
-        android:visibility="gone" >
+        android:visibility="gone">
 
         <ProgressBar
             style="?android:attr/progressBarStyleLarge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp" />
+            android:layout_marginBottom="8dp"/>
 
         <TextView
             android:id="@+id/login_status_message"
@@ -26,7 +26,7 @@
             android:layout_marginBottom="16dp"
             android:fontFamily="sans-serif-light"
             android:text="@string/login_progress_signing_in"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:textAppearance="?android:attr/textAppearanceMedium"/>
     </LinearLayout>
 
     <!-- Login form -->
@@ -35,13 +35,13 @@
         android:id="@+id/login_form_relativelayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10sp" >
+        android:layout_marginBottom="10sp">
 
         <LinearLayout
             android:id="@+id/login_form_linearlayout"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/logo_img"
@@ -51,7 +51,7 @@
                 android:layout_marginLeft="30sp"
                 android:layout_marginRight="30sp"
                 android:layout_marginTop="40dip"
-                android:src="@drawable/evercamdiscover" />
+                android:src="@drawable/evercamdiscover"/>
 
             <LinearLayout
                 android:id="@+id/login_layout"
@@ -59,7 +59,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20sp"
                 android:layout_marginRight="20sp"
-                android:orientation="vertical" >
+                android:orientation="vertical">
 
                 <EditText
                     android:id="@+id/loginUsername"
@@ -69,7 +69,7 @@
                     android:hint="@string/prompt_email"
                     android:inputType="text"
                     android:singleLine="true"
-                    android:textSize="17sp" />
+                    android:textSize="17sp"/>
 
                 <EditText
                     android:id="@+id/loginPassword"
@@ -79,7 +79,7 @@
                     android:hint="@string/prompt_password"
                     android:inputType="textPassword"
                     android:singleLine="true"
-                    android:textSize="17sp" />
+                    android:textSize="17sp"/>
 
                 <Button
                     android:id="@+id/signInEvercamBtn"
@@ -91,7 +91,7 @@
                     android:layout_marginTop="60dp"
                     android:background="@drawable/btn_selector"
                     android:text="@string/action_sign_in_with_evercam"
-                    android:textColor="#ffffff" />
+                    android:textColor="#ffffff"/>
             </LinearLayout>
 
             <LinearLayout
@@ -99,7 +99,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:visibility="gone" >
+                android:visibility="gone">
 
                 <LinearLayout
                     android:id="@+id/signUpFirstname_layout"
@@ -111,7 +111,7 @@
                     android:layout_marginTop="50sp"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
-                    android:orientation="horizontal" >
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/signUpFirstname_detail"
@@ -120,7 +120,7 @@
                         android:layout_marginTop="3dip"
                         android:text="@string/firstname:"
                         android:textColor="#778899"
-                        android:textSize="18sp" />
+                        android:textSize="18sp"/>
 
                     <EditText
                         android:id="@+id/signUpFirstnamevalue_detail"
@@ -129,7 +129,7 @@
                         android:hint="@string/firstName"
                         android:inputType="text"
                         android:singleLine="true"
-                        android:textSize="17sp" />
+                        android:textSize="17sp"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -141,7 +141,7 @@
                     android:layout_marginRight="20sp"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
-                    android:orientation="horizontal" >
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/signUpLastname_detail"
@@ -150,7 +150,7 @@
                         android:layout_marginTop="3dip"
                         android:text="@string/lastname:"
                         android:textColor="#778899"
-                        android:textSize="18sp" />
+                        android:textSize="18sp"/>
 
                     <EditText
                         android:id="@+id/signUpLastnamevalue_detail"
@@ -159,7 +159,7 @@
                         android:hint="@string/lastName"
                         android:inputType="text"
                         android:singleLine="true"
-                        android:textSize="17sp" />
+                        android:textSize="17sp"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -171,7 +171,7 @@
                     android:layout_marginRight="20sp"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
-                    android:orientation="horizontal" >
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/signUpEmail_detail"
@@ -180,7 +180,7 @@
                         android:layout_marginTop="3dip"
                         android:text="@string/email:"
                         android:textColor="#778899"
-                        android:textSize="18sp" />
+                        android:textSize="18sp"/>
 
                     <EditText
                         android:id="@+id/signUpEmailvalue_detail"
@@ -189,7 +189,7 @@
                         android:hint="@string/email"
                         android:inputType="text"
                         android:singleLine="true"
-                        android:textSize="17sp" />
+                        android:textSize="17sp"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -201,7 +201,7 @@
                     android:layout_marginRight="20sp"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
-                    android:orientation="horizontal" >
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/signUpCountry_detail"
@@ -210,7 +210,7 @@
                         android:layout_marginTop="3dip"
                         android:text="@string/country:"
                         android:textColor="#778899"
-                        android:textSize="18sp" />
+                        android:textSize="18sp"/>
 
                     <EditText
                         android:id="@+id/signUpCountryvalue_detail"
@@ -219,7 +219,7 @@
                         android:hint="Country"
                         android:inputType="text"
                         android:singleLine="true"
-                        android:textSize="17sp" />
+                        android:textSize="17sp"/>
                 </LinearLayout>
 
                 <Button
@@ -232,7 +232,7 @@
                     android:layout_marginTop="30dp"
                     android:background="@drawable/btn_selector"
                     android:text="@string/confirm"
-                    android:textColor="#ffffff" />
+                    android:textColor="#ffffff"/>
             </LinearLayout>
         </LinearLayout>
 
@@ -244,7 +244,7 @@
             android:layout_centerHorizontal="true"
             android:text="@string/create_account"
             android:textColor="@drawable/text_color_selector"
-            android:textSize="16sp" />
+            android:textSize="16sp"/>
     </RelativeLayout>
 
 </merge>

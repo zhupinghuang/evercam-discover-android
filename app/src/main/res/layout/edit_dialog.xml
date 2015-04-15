@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical" >
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -10,7 +10,7 @@
         android:layout_marginLeft="20sp"
         android:layout_marginRight="20sp"
         android:layout_marginTop="5sp"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/editModel_txt"
@@ -18,7 +18,7 @@
             android:layout_height="20sp"
             android:text="@string/model"
             android:textColor="#000000"
-            android:textSize="16sp" />
+            android:textSize="16sp"/>
 
         <EditText
             android:id="@+id/editModel_value"
@@ -28,7 +28,7 @@
             android:inputType="text"
             android:singleLine="true"
             android:textColor="#778899"
-            android:textSize="15sp" />
+            android:textSize="15sp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20sp"
         android:layout_marginRight="20sp"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/editHttp_txt"
@@ -44,7 +44,7 @@
             android:layout_height="20sp"
             android:text="@string/http"
             android:textColor="#000000"
-            android:textSize="16sp" />
+            android:textSize="16sp"/>
 
         <EditText
             android:id="@+id/editHttp_edit"
@@ -54,7 +54,7 @@
             android:inputType="number"
             android:singleLine="true"
             android:textColor="#778899"
-            android:textSize="15sp" />
+            android:textSize="15sp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -62,7 +62,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20sp"
         android:layout_marginRight="20sp"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/editRtsp_txt"
@@ -70,7 +70,7 @@
             android:layout_height="20sp"
             android:text="@string/rtsp"
             android:textColor="#000000"
-            android:textSize="16sp" />
+            android:textSize="16sp"/>
 
         <EditText
             android:id="@+id/editRtsp_edit"
@@ -80,7 +80,7 @@
             android:inputType="number"
             android:singleLine="true"
             android:textColor="#778899"
-            android:textSize="15sp" />
+            android:textSize="15sp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -88,7 +88,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20sp"
         android:layout_marginRight="20sp"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/editHttps_txt"
@@ -96,7 +96,7 @@
             android:layout_height="20sp"
             android:text="@string/https"
             android:textColor="#000000"
-            android:textSize="16sp" />
+            android:textSize="16sp"/>
 
         <EditText
             android:id="@+id/editHttps_edit"
@@ -106,7 +106,7 @@
             android:inputType="number"
             android:singleLine="true"
             android:textColor="#778899"
-            android:textSize="15sp" />
+            android:textSize="15sp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -114,7 +114,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20sp"
         android:layout_marginRight="20sp"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/editFtp_txt"
@@ -122,7 +122,7 @@
             android:layout_height="20sp"
             android:text="@string/ftp"
             android:textColor="#000000"
-            android:textSize="16sp" />
+            android:textSize="16sp"/>
 
         <EditText
             android:id="@+id/editFtp_edit"
@@ -132,7 +132,7 @@
             android:inputType="number"
             android:singleLine="true"
             android:textColor="#778899"
-            android:textSize="15sp" />
+            android:textSize="15sp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -140,7 +140,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20sp"
         android:layout_marginRight="20sp"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/editSsh_txt"
@@ -148,7 +148,7 @@
             android:layout_height="20sp"
             android:text="@string/ssh"
             android:textColor="#000000"
-            android:textSize="16sp" />
+            android:textSize="16sp"/>
 
         <EditText
             android:id="@+id/editSsh_edit"
@@ -158,7 +158,7 @@
             android:inputType="number"
             android:singleLine="true"
             android:textColor="#778899"
-            android:textSize="15sp" />
+            android:textSize="15sp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -166,7 +166,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20sp"
         android:layout_marginRight="20sp"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/editUsername_txt"
@@ -174,7 +174,7 @@
             android:layout_height="20sp"
             android:text="@string/username"
             android:textColor="#000000"
-            android:textSize="16sp" />
+            android:textSize="16sp"/>
 
         <EditText
             android:id="@+id/editUsername_edit"
@@ -184,7 +184,7 @@
             android:inputType="text"
             android:singleLine="true"
             android:textColor="#778899"
-            android:textSize="15sp" />
+            android:textSize="15sp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -192,7 +192,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20sp"
         android:layout_marginRight="20sp"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/editPassword_txt"
@@ -200,7 +200,7 @@
             android:layout_height="20sp"
             android:text="@string/password"
             android:textColor="#000000"
-            android:textSize="16sp" />
+            android:textSize="16sp"/>
 
         <EditText
             android:id="@+id/editPassword_edit"
@@ -210,7 +210,7 @@
             android:inputType="text"
             android:singleLine="true"
             android:textColor="#778899"
-            android:textSize="15sp" />
+            android:textSize="15sp"/>
     </LinearLayout>
 
 </LinearLayout>

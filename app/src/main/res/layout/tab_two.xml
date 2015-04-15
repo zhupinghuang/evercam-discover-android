@@ -1,17 +1,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginLeft="10sp"
-    android:layout_marginRight="10sp"
-    android:layout_marginTop="10sp"
-    android:orientation="vertical" >
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginLeft="10sp"
+              android:layout_marginRight="10sp"
+              android:layout_marginTop="10sp"
+              android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/warningLayout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:visibility="gone" >
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/pleaseFillIn_txt"
@@ -22,13 +22,13 @@
             android:layout_marginTop="2sp"
             android:text="@string/noInternalPortExists"
             android:textColor="#778899"
-            android:textSize="18sp" />
+            android:textSize="18sp"/>
 
         <View
             android:layout_width="fill_parent"
             android:layout_height="1dp"
             android:layout_marginTop="5dp"
-            android:background="#778899" />
+            android:background="#778899"/>
     </LinearLayout>
 
     <LinearLayout
@@ -36,7 +36,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:visibility="gone" >
+        android:visibility="gone">
 
         <RelativeLayout
             android:id="@+id/title_layout"
@@ -47,7 +47,7 @@
             android:layout_marginTop="25sp"
             android:focusable="true"
             android:focusableInTouchMode="true"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/titlePort"
@@ -56,7 +56,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_marginTop="3sp"
                 android:textColor="#778899"
-                android:textSize="14sp" />
+                android:textSize="14sp"/>
 
             <TextView
                 android:id="@+id/titleInternal"
@@ -66,7 +66,7 @@
                 android:layout_marginTop="3sp"
                 android:text="@string/internalCapital"
                 android:textColor="#778899"
-                android:textSize="14sp" />
+                android:textSize="14sp"/>
 
             <TextView
                 android:id="@+id/titleExternal"
@@ -77,14 +77,14 @@
                 android:paddingLeft="5sp"
                 android:text="@string/externalCapital"
                 android:textColor="#778899"
-                android:textSize="14sp" />
+                android:textSize="14sp"/>
         </RelativeLayout>
 
         <View
             android:layout_width="fill_parent"
             android:layout_height="1dp"
             android:layout_marginTop="1dp"
-            android:background="#778899" />
+            android:background="#778899"/>
     </LinearLayout>
 
     <RelativeLayout
@@ -97,7 +97,7 @@
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:orientation="horizontal"
-        android:visibility="gone" >
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/httpPort"
@@ -107,7 +107,7 @@
             android:layout_marginTop="5sp"
             android:text="@string/http"
             android:textColor="#778899"
-            android:textSize="16sp" />
+            android:textSize="16sp"/>
 
         <TextView
             android:id="@+id/httpInternal"
@@ -116,7 +116,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="5sp"
             android:gravity="center"
-            android:textSize="16sp" />
+            android:textSize="16sp"/>
 
         <EditText
             android:id="@+id/httpExternal"
@@ -127,7 +127,7 @@
             android:hint="@string/unknown"
             android:inputType="number"
             android:singleLine="true"
-            android:textSize="16sp" />
+            android:textSize="16sp"/>
     </RelativeLayout>
 
     <RelativeLayout
@@ -140,7 +140,7 @@
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:orientation="horizontal"
-        android:visibility="gone" >
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/rtspPort"
@@ -150,7 +150,7 @@
             android:layout_marginTop="5sp"
             android:text="@string/rtsp"
             android:textColor="#778899"
-            android:textSize="16sp" />
+            android:textSize="16sp"/>
 
         <TextView
             android:id="@+id/rtspInternal"
@@ -159,7 +159,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="5sp"
             android:gravity="center"
-            android:textSize="16sp" />
+            android:textSize="16sp"/>
 
         <EditText
             android:id="@+id/rtspExternal"
@@ -170,7 +170,7 @@
             android:hint="@string/unknown"
             android:inputType="number"
             android:singleLine="true"
-            android:textSize="16sp" />
+            android:textSize="16sp"/>
     </RelativeLayout>
 
     <RelativeLayout
@@ -183,7 +183,7 @@
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:orientation="horizontal"
-        android:visibility="gone" >
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/httpsPort"
@@ -193,7 +193,7 @@
             android:layout_marginTop="5sp"
             android:text="@string/https"
             android:textColor="#778899"
-            android:textSize="16sp" />
+            android:textSize="16sp"/>
 
         <TextView
             android:id="@+id/httpsInternal"
@@ -202,7 +202,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="5sp"
             android:gravity="center"
-            android:textSize="16sp" />
+            android:textSize="16sp"/>
 
         <EditText
             android:id="@+id/httpsExternal"
@@ -213,7 +213,7 @@
             android:hint="@string/unknown"
             android:inputType="number"
             android:singleLine="true"
-            android:textSize="16sp" />
+            android:textSize="16sp"/>
     </RelativeLayout>
 
     <RelativeLayout
@@ -226,7 +226,7 @@
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:orientation="horizontal"
-        android:visibility="gone" >
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/ftpPort"
@@ -236,7 +236,7 @@
             android:layout_marginTop="5sp"
             android:text="@string/ftp"
             android:textColor="#778899"
-            android:textSize="16sp" />
+            android:textSize="16sp"/>
 
         <TextView
             android:id="@+id/ftpInternal"
@@ -245,7 +245,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="5sp"
             android:gravity="center"
-            android:textSize="16sp" />
+            android:textSize="16sp"/>
 
         <EditText
             android:id="@+id/ftpExternal"
@@ -256,7 +256,7 @@
             android:hint="@string/unknown"
             android:inputType="number"
             android:singleLine="true"
-            android:textSize="16sp" />
+            android:textSize="16sp"/>
     </RelativeLayout>
 
     <RelativeLayout
@@ -269,7 +269,7 @@
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:orientation="horizontal"
-        android:visibility="gone" >
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/sshPort"
@@ -279,7 +279,7 @@
             android:layout_marginTop="5sp"
             android:text="@string/ssh"
             android:textColor="#778899"
-            android:textSize="16sp" />
+            android:textSize="16sp"/>
 
         <TextView
             android:id="@+id/sshInternal"
@@ -288,7 +288,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="5sp"
             android:gravity="center"
-            android:textSize="16sp" />
+            android:textSize="16sp"/>
 
         <EditText
             android:id="@+id/sshExternal"
@@ -299,7 +299,7 @@
             android:hint="@string/unknown"
             android:inputType="number"
             android:singleLine="true"
-            android:textSize="16sp" />
+            android:textSize="16sp"/>
     </RelativeLayout>
 
     <Button
@@ -311,13 +311,13 @@
         android:layout_marginTop="5dp"
         android:background="@drawable/detail_btn_selector"
         android:text="@string/addPort"
-        android:textColor="@drawable/detail_btn_txt_selector" />
+        android:textColor="@drawable/detail_btn_txt_selector"/>
 
     <View
         android:layout_width="fill_parent"
         android:layout_height="1dp"
         android:layout_marginTop="10dp"
-        android:background="#778899" />
+        android:background="#778899"/>
 
     <Button
         android:id="@+id/buttonSave"
@@ -328,6 +328,6 @@
         android:layout_marginTop="35dp"
         android:background="@drawable/btn_selector"
         android:text="@string/save"
-        android:textColor="#ffffff" />
+        android:textColor="#ffffff"/>
 
 </LinearLayout>

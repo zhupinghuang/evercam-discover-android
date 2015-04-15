@@ -1,12 +1,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical" >
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:orientation="vertical">
 
     <ListView
         android:id="@+id/device_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content">
     </ListView>
 
     <TextView
@@ -18,6 +18,6 @@
         android:layout_marginTop="10dip"
         android:text="@string/no_camera"
         android:textSize="14sp"
-        android:visibility="gone" />
+        android:visibility="gone"/>
 
 </LinearLayout>
