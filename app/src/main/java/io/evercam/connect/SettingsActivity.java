@@ -1,14 +1,5 @@
 package io.evercam.connect;
 
-import java.util.ArrayList;
-
-import io.evercam.connect.helper.Constants;
-import io.evercam.connect.helper.SharedPrefsManager;
-import io.evercam.connect.net.NetInfo;
-import io.evercam.connect.signin.LoginActivity;
-import io.evercam.connect.R;
-import io.evercam.network.discovery.NetworkInfo;
-
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -21,11 +12,19 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
-import android.preference.PreferenceManager;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceFragment;
+import android.preference.PreferenceManager;
 import android.provider.Settings;
+
+import java.util.ArrayList;
+
+import io.evercam.connect.helper.Constants;
+import io.evercam.connect.helper.SharedPrefsManager;
+import io.evercam.connect.net.NetInfo;
+import io.evercam.connect.signin.LoginActivity;
+import io.evercam.network.discovery.NetworkInfo;
 
 public class SettingsActivity extends Activity
 {

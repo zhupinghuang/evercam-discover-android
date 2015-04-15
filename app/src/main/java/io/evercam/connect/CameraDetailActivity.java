@@ -1,33 +1,5 @@
 package io.evercam.connect;
 
-import io.evercam.connect.R;
-import io.evercam.connect.db.Camera;
-import io.evercam.connect.db.CameraOperation;
-import io.evercam.connect.helper.Constants;
-import io.evercam.connect.helper.ResourceHelper;
-import io.evercam.connect.helper.SharedPrefsManager;
-import io.evercam.connect.net.NetInfo;
-import io.evercam.connect.signin.LoginActivity;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.lang.reflect.Field;
-import java.util.Locale;
-
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.auth.AuthScope;
-import org.apache.http.auth.UsernamePasswordCredentials;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-
-import com.mashape.unirest.http.utils.Base64Coder;
-
-import android.net.Uri;
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -37,6 +9,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -48,6 +24,29 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.mashape.unirest.http.utils.Base64Coder;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.auth.AuthScope;
+import org.apache.http.auth.UsernamePasswordCredentials;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.lang.reflect.Field;
+import java.util.Locale;
+
+import io.evercam.connect.db.Camera;
+import io.evercam.connect.db.CameraOperation;
+import io.evercam.connect.helper.Constants;
+import io.evercam.connect.helper.ResourceHelper;
+import io.evercam.connect.helper.SharedPrefsManager;
+import io.evercam.connect.net.NetInfo;
+import io.evercam.connect.signin.LoginActivity;
 
 /**
  * CameraDetailActivity

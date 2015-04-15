@@ -1,12 +1,5 @@
 package io.evercam.connect;
 
-import io.evercam.connect.db.Camera;
-import io.evercam.connect.db.CameraOperation;
-
-import java.util.ArrayList;
-
-import io.evercam.connect.R;
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -24,6 +17,11 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+
+import io.evercam.connect.db.Camera;
+import io.evercam.connect.db.CameraOperation;
 
 public class ManuallyForwardingTab extends Fragment
 {

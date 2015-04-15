@@ -1,17 +1,5 @@
 package io.evercam.connect;
 
-import java.io.InputStream;
-import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.RejectedExecutionException;
-
-import org.videolan.libvlc.EventHandler;
-import org.videolan.libvlc.IVideoPlayer;
-import org.videolan.libvlc.LibVLC;
-import org.videolan.libvlc.Media;
-import org.videolan.libvlc.MediaList;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -30,9 +18,9 @@ import android.view.Gravity;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
-import android.view.Window;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
+import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -45,7 +33,18 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
-import io.evercam.connect.R;
+import org.videolan.libvlc.EventHandler;
+import org.videolan.libvlc.IVideoPlayer;
+import org.videolan.libvlc.LibVLC;
+import org.videolan.libvlc.Media;
+import org.videolan.libvlc.MediaList;
+
+import java.io.InputStream;
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.RejectedExecutionException;
+
 import io.evercam.connect.db.Camera;
 import io.evercam.connect.db.CameraOperation;
 import io.evercam.connect.helper.Constants;

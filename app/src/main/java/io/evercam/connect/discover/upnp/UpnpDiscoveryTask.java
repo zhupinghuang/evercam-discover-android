@@ -1,5 +1,8 @@
 package io.evercam.connect.discover.upnp;
 
+import android.content.Context;
+import android.os.AsyncTask;
+
 import io.evercam.connect.DiscoverMainActivity;
 import io.evercam.connect.db.Camera;
 import io.evercam.connect.db.CameraOperation;
@@ -7,9 +10,6 @@ import io.evercam.connect.net.NetInfo;
 import io.evercam.network.discovery.UpnpDevice;
 import io.evercam.network.discovery.UpnpDiscovery;
 import io.evercam.network.discovery.UpnpResult;
-
-import android.content.Context;
-import android.os.AsyncTask;
 
 public class UpnpDiscoveryTask extends AsyncTask<Void, Void, Void>
 {

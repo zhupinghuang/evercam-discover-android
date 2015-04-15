@@ -1,12 +1,12 @@
 package io.evercam.connect.db;
 
-import java.util.ArrayList;
-
-import com.bugsense.trace.BugSenseHandler;
-
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+
+import com.bugsense.trace.BugSenseHandler;
+
+import java.util.ArrayList;
 
 /**
  * CameraOperation

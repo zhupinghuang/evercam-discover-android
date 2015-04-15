@@ -1,9 +1,9 @@
 package io.evercam.connect.helper.account;
 
+import android.net.Uri;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import android.net.Uri;
 
 public class UserProfile
 {

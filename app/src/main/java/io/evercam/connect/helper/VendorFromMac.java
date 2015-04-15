@@ -1,18 +1,16 @@
 package io.evercam.connect.helper;
 
-import io.evercam.EvercamException;
-import io.evercam.Vendor;
-import io.evercam.network.query.EvercamQuery;
-
-import org.json.JSONException;
-import io.evercam.relocation.JSONObject;
+import android.util.Log;
 
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
-import android.util.Log;
+import io.evercam.EvercamException;
+import io.evercam.Vendor;
+import io.evercam.network.query.EvercamQuery;
+import io.evercam.relocation.JSONObject;
 
 public class VendorFromMac
 {

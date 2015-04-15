@@ -1,42 +1,5 @@
 package io.evercam.connect;
 
-import io.evercam.API;
-import io.evercam.connect.db.Camera;
-import io.evercam.connect.db.CameraOperation;
-import io.evercam.connect.discover.bonjour.JmdnsDiscover;
-import io.evercam.connect.discover.ipscan.Host;
-import io.evercam.connect.discover.ipscan.IpScanTask;
-import io.evercam.connect.discover.ipscan.PortScanTask;
-import io.evercam.connect.discover.upnp.IGDDiscoveryTask;
-import io.evercam.connect.discover.upnp.UpnpDiscoveryTask;
-import io.evercam.connect.helper.Constants;
-import io.evercam.connect.helper.CustomedDialog;
-import io.evercam.connect.helper.PropertyReader;
-import io.evercam.connect.helper.SharedPrefsManager;
-import io.evercam.connect.helper.TimeHelper;
-import io.evercam.connect.net.CheckInternetTaskMain;
-import io.evercam.connect.net.NetInfo;
-
-import java.io.InputStream;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Locale;
-
-import com.bugsense.trace.BugSenseHandler;
-import com.mashape.unirest.http.Unirest;
-import com.mashape.unirest.http.exceptions.UnirestException;
-
-import io.evercam.connect.R;
-import io.evercam.network.cambase.CambaseAPI;
-import io.evercam.network.cambase.CambaseException;
-import io.evercam.network.discovery.IpTranslator;
-import io.evercam.network.discovery.ScanRange;
-
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -65,6 +28,41 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bugsense.trace.BugSenseHandler;
+import com.mashape.unirest.http.Unirest;
+import com.mashape.unirest.http.exceptions.UnirestException;
+
+import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Locale;
+
+import io.evercam.API;
+import io.evercam.connect.db.Camera;
+import io.evercam.connect.db.CameraOperation;
+import io.evercam.connect.discover.bonjour.JmdnsDiscover;
+import io.evercam.connect.discover.ipscan.Host;
+import io.evercam.connect.discover.ipscan.IpScanTask;
+import io.evercam.connect.discover.ipscan.PortScanTask;
+import io.evercam.connect.discover.upnp.IGDDiscoveryTask;
+import io.evercam.connect.discover.upnp.UpnpDiscoveryTask;
+import io.evercam.connect.helper.Constants;
+import io.evercam.connect.helper.CustomedDialog;
+import io.evercam.connect.helper.PropertyReader;
+import io.evercam.connect.helper.SharedPrefsManager;
+import io.evercam.connect.helper.TimeHelper;
+import io.evercam.connect.net.CheckInternetTaskMain;
+import io.evercam.connect.net.NetInfo;
+import io.evercam.network.cambase.CambaseAPI;
+import io.evercam.network.cambase.CambaseException;
+import io.evercam.network.discovery.IpTranslator;
+import io.evercam.network.discovery.ScanRange;
+
 /**
  * MainActivity
  * 
@@ -73,7 +71,7 @@ import android.widget.Toast;
 
 public class DiscoverMainActivity extends Activity
 {
-	public final String TAG = "evercamdiscover-MainActivity";
+	public final String TAG = "DiscoverMainActivity";
 	public final String ADAPTER_KEY_IMAGE = "device_img";
 	public final String ADAPTER_KEY_NAME = "device_name";
 	public final String ADAPTER_KEY_MAC = "device_mac";
@@ -290,7 +288,7 @@ public class DiscoverMainActivity extends Activity
 	@Override
 	public void onBackPressed()
 	{
-		// Not allowed to go back.
+		//TODO: Back button to exit app
 	}
 
 	private void setUp()

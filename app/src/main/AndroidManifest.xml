@@ -60,11 +60,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="io.evercam.connect.CameraDetails"
-            android:icon="@drawable/discover_icon_192x192"
-            android:label="@string/title_activity_camera_details" >
-        </activity>
                 <activity
             android:name="io.evercam.connect.VideoActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -74,13 +69,12 @@
         <activity
             android:name="io.evercam.connect.RouterActivity"
             android:icon="@drawable/discover_icon_192x192"
-            android:label="@string/title_activity_router"
-            android:parentActivityName="io.evercam.connect.SettingsActivity" >
+            android:label="@string/title_activity_router">
 
             <!-- Parent activity meta-data to support API level 7+ -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.evercamconnect.discover.SettingsActivity" />
+                android:value="io.evercam.connect.SettingsActivity" />
         </activity>
         <activity
             android:name="io.evercam.connect.CameraDetailActivity"

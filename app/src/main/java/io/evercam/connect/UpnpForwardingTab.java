@@ -1,36 +1,23 @@
 package io.evercam.connect;
 
-import io.evercam.connect.db.Camera;
-import io.evercam.connect.db.CameraOperation;
-import io.evercam.connect.helper.Constants;
-import io.evercam.connect.net.NetInfo;
-
-import java.io.IOException;
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Random;
-
-import net.sbbi.upnp.messages.UPNPResponseException;
-
-import io.evercam.connect.R;
-import io.evercam.network.discovery.GatewayDevice;
-import io.evercam.network.discovery.NatMapEntry;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -40,12 +27,24 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.os.AsyncTask;
-import android.view.Gravity;
+
+import net.sbbi.upnp.messages.UPNPResponseException;
+
+import java.io.IOException;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.Random;
+
+import io.evercam.connect.db.Camera;
+import io.evercam.connect.db.CameraOperation;
+import io.evercam.connect.helper.Constants;
+import io.evercam.connect.net.NetInfo;
+import io.evercam.network.discovery.GatewayDevice;
+import io.evercam.network.discovery.NatMapEntry;
 
 public class UpnpForwardingTab extends Fragment
 {
-	private final String TAG = "evercamdiscover-UpnpForwardingTab";
+	private final String TAG = "UpnpForwardingTab";
 	private Handler handler = new Handler();
 	private CheckBox useUpnpCheckbox;
 	private TextView isAvaliableTxt;

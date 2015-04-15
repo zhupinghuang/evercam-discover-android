@@ -1,12 +1,12 @@
 package io.evercam.connect.db;
 
-import io.evercam.connect.helper.PropertyReader;
-
 import android.content.Context;
 
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.simpledb.AmazonSimpleDBClient;
+
+import io.evercam.connect.helper.PropertyReader;
 
 public class SimpleDBConnect
 {

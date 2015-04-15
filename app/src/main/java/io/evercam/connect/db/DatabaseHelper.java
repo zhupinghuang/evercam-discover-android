@@ -1,11 +1,11 @@
 package io.evercam.connect.db;
 
-import io.evercam.connect.DiscoverMainActivity;
-import io.evercam.connect.helper.PropertyReader;
-
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import io.evercam.connect.DiscoverMainActivity;
+import io.evercam.connect.helper.PropertyReader;
 
 public class DatabaseHelper extends SQLiteOpenHelper
 {

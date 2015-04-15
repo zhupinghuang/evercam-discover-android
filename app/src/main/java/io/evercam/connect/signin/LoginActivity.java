@@ -1,32 +1,17 @@
 package io.evercam.connect.signin;
 
-import io.evercam.API;
-import io.evercam.ApiKeyPair;
-import io.evercam.EvercamException;
-import io.evercam.User;
-import io.evercam.connect.EvercamDiscover;
-import io.evercam.connect.R;
-import io.evercam.connect.helper.Constants;
-import io.evercam.connect.helper.SharedPrefsManager;
-
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesUtil;
-import com.google.android.gms.common.SignInButton;
-
-import android.os.AsyncTask;
-import android.os.Build;
-import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.ProgressDialog;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.IntentSender.SendIntentException;
+import android.os.AsyncTask;
+import android.os.Build;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.SpannableString;
 import android.text.TextUtils;
 import android.text.style.UnderlineSpan;
@@ -38,6 +23,17 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.common.ConnectionResult;
+
+import io.evercam.API;
+import io.evercam.ApiKeyPair;
+import io.evercam.EvercamException;
+import io.evercam.User;
+import io.evercam.connect.EvercamDiscover;
+import io.evercam.connect.R;
+import io.evercam.connect.helper.Constants;
+import io.evercam.connect.helper.SharedPrefsManager;
 
 public class LoginActivity extends Activity
 {

@@ -1,29 +1,27 @@
 package io.evercam.connect;
 
-import io.evercam.connect.db.Camera;
-import io.evercam.connect.db.CameraOperation;
-import io.evercam.connect.net.NetInfo;
-
-import java.util.Locale;
-
-import com.bugsense.trace.BugSenseHandler;
-
-import io.evercam.connect.R;
-import io.evercam.network.discovery.MacAddress;
-import io.evercam.network.discovery.NetworkInfo;
-
-import android.net.Uri;
-import android.os.AsyncTask;
-import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
+import android.os.AsyncTask;
+import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.bugsense.trace.BugSenseHandler;
+
+import java.util.Locale;
+
+import io.evercam.connect.db.Camera;
+import io.evercam.connect.db.CameraOperation;
+import io.evercam.connect.net.NetInfo;
+import io.evercam.network.discovery.MacAddress;
+import io.evercam.network.discovery.NetworkInfo;
 
 public class RouterActivity extends Activity
 {

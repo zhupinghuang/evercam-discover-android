@@ -1,9 +1,5 @@
 package io.evercam.connect.helper.account;
 
-import java.util.regex.Matcher;
-
-import com.google.android.gms.auth.GoogleAuthUtil;
-
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.annotation.TargetApi;
@@ -15,6 +11,10 @@ import android.os.Build;
 import android.provider.ContactsContract;
 import android.telephony.TelephonyManager;
 import android.util.Patterns;
+
+import com.google.android.gms.auth.GoogleAuthUtil;
+
+import java.util.regex.Matcher;
 
 public class AccountUtils
 {

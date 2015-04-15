@@ -1,19 +1,18 @@
 package io.evercam.connect;
 
-import io.evercam.Camera;
-import io.evercam.EvercamException;
-import io.evercam.User;
-import io.evercam.connect.db.CameraOperation;
-import io.evercam.connect.helper.SharedPrefsManager;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.util.Log;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import io.evercam.Camera;
+import io.evercam.EvercamException;
+import io.evercam.connect.db.CameraOperation;
+import io.evercam.connect.helper.SharedPrefsManager;
 
 public class GetAllCameraTask extends AsyncTask<Void, HashMap<String, Object>, ArrayList<Camera>>
 {

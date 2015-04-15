@@ -2,13 +2,12 @@ package io.evercam.connect;
 
 import android.app.Activity;
 import android.app.Application;
+
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 
 import java.util.HashMap;
-
-import io.evercam.API;
 
 public class EvercamDiscover extends Application
 {

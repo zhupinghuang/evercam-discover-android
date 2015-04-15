@@ -1,20 +1,7 @@
 package io.evercam.connect.signin;
 
-import io.evercam.API;
-import io.evercam.ApiKeyPair;
-import io.evercam.EvercamException;
-import io.evercam.User;
-import io.evercam.UserDetail;
-import io.evercam.connect.EvercamDiscover;
-import io.evercam.connect.R;
-import io.evercam.connect.helper.SharedPrefsManager;
-import io.evercam.connect.helper.account.AccountUtils;
-import io.evercam.connect.helper.account.UserProfile;
-
-import java.util.Locale;
-import java.util.Set;
-import java.util.TreeMap;
-
+import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -27,8 +14,21 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
-import android.app.Activity;
-import android.content.SharedPreferences;
+
+import java.util.Locale;
+import java.util.Set;
+import java.util.TreeMap;
+
+import io.evercam.API;
+import io.evercam.ApiKeyPair;
+import io.evercam.EvercamException;
+import io.evercam.User;
+import io.evercam.UserDetail;
+import io.evercam.connect.EvercamDiscover;
+import io.evercam.connect.R;
+import io.evercam.connect.helper.SharedPrefsManager;
+import io.evercam.connect.helper.account.AccountUtils;
+import io.evercam.connect.helper.account.UserProfile;
 
 public class SignUpActivity extends Activity
 {

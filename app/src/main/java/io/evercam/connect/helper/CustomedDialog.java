@@ -1,11 +1,12 @@
 package io.evercam.connect.helper;
 
-import io.evercam.connect.R;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.provider.Settings;
+
+import io.evercam.connect.R;
 
 public class CustomedDialog
 {

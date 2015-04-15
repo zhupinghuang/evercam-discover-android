@@ -1,8 +1,9 @@
 package io.evercam.connect.helper;
 
+import android.content.SharedPreferences;
+
 import io.evercam.EvercamException;
 import io.evercam.User;
-import android.content.SharedPreferences;
 
 public class SharedPrefsManager
 {

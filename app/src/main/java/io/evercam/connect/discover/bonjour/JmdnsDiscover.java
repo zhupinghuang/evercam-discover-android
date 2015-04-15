@@ -1,9 +1,7 @@
 package io.evercam.connect.discover.bonjour;
 
-import io.evercam.connect.DiscoverMainActivity;
-import io.evercam.connect.db.Camera;
-import io.evercam.connect.db.CameraOperation;
-import io.evercam.connect.net.NetInfo;
+import android.content.Context;
+import android.os.AsyncTask;
 
 import java.io.IOException;
 import java.util.Enumeration;
@@ -13,8 +11,10 @@ import javax.jmdns.ServiceEvent;
 import javax.jmdns.ServiceInfo;
 import javax.jmdns.ServiceListener;
 
-import android.content.Context;
-import android.os.AsyncTask;
+import io.evercam.connect.DiscoverMainActivity;
+import io.evercam.connect.db.Camera;
+import io.evercam.connect.db.CameraOperation;
+import io.evercam.connect.net.NetInfo;
 
 public class JmdnsDiscover
 {

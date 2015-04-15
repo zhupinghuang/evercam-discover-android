@@ -1,15 +1,15 @@
 package io.evercam.connect.helper;
 
-import io.evercam.connect.db.Camera;
-import io.evercam.connect.net.NetInfo;
-import io.evercam.network.discovery.NetworkInfo;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import io.evercam.connect.db.Camera;
+import io.evercam.connect.net.NetInfo;
+import io.evercam.network.discovery.NetworkInfo;
 
 /**
  * JsonMessage

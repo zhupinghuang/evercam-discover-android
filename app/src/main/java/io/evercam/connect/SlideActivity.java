@@ -1,15 +1,5 @@
 package io.evercam.connect;
 
-import io.evercam.API;
-import io.evercam.connect.helper.PropertyReader;
-import io.evercam.connect.signin.LoginActivity;
-import io.evercam.connect.signin.SignUpActivity;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import com.bugsense.trace.BugSenseHandler;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -25,6 +15,15 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.bugsense.trace.BugSenseHandler;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import io.evercam.connect.helper.PropertyReader;
+import io.evercam.connect.signin.LoginActivity;
+import io.evercam.connect.signin.SignUpActivity;
 
 public class SlideActivity extends Activity implements OnPageChangeListener
 {

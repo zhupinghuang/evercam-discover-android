@@ -1,7 +1,5 @@
 package io.evercam.connect;
 
-import java.io.InputStream;
-
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Movie;
@@ -9,6 +7,8 @@ import android.os.Handler;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.widget.ProgressBar;
+
+import java.io.InputStream;
 
 //The progress spinner for loading image
 public class ProgressView extends ProgressBar

@@ -1,5 +1,25 @@
 package io.evercam.connect;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.location.Location;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.View.OnFocusChangeListener;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.Toast;
+
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Random;
@@ -15,25 +35,6 @@ import io.evercam.connect.helper.LocationReader;
 import io.evercam.connect.helper.SharedPrefsManager;
 import io.evercam.network.discovery.NetworkInfo;
 import io.evercam.network.discovery.PortScan;
-import android.location.Location;
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.View.OnFocusChangeListener;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.Toast;
-import android.app.Activity;
-import android.app.ProgressDialog;
-import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 
 public class AddToEvercamActivity extends Activity
 {

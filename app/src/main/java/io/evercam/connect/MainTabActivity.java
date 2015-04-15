@@ -1,7 +1,5 @@
 package io.evercam.connect;
 
-import io.evercam.connect.R;
-
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.Activity;

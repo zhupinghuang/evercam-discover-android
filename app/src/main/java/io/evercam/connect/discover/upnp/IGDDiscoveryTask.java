@@ -1,17 +1,18 @@
 package io.evercam.connect.discover.upnp;
 
+import android.content.Context;
+import android.os.AsyncTask;
+import android.util.Log;
+
+import net.sbbi.upnp.messages.UPNPResponseException;
+
+import java.io.IOException;
+
 import io.evercam.connect.db.Camera;
 import io.evercam.connect.db.CameraOperation;
 import io.evercam.connect.net.NetInfo;
 import io.evercam.network.discovery.GatewayDevice;
 import io.evercam.network.discovery.NatMapEntry;
-
-import java.io.IOException;
-import net.sbbi.upnp.messages.UPNPResponseException;
-
-import android.content.Context;
-import android.os.AsyncTask;
-import android.util.Log;
 
 /**
  * gatewayDeviceTask

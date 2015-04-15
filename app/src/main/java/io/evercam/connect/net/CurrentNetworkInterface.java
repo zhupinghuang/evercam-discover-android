@@ -1,6 +1,11 @@
 package io.evercam.connect.net;
 
-import io.evercam.connect.helper.Constants;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
+import android.preference.PreferenceManager;
+import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -13,12 +18,7 @@ import java.util.Enumeration;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.net.wifi.WifiInfo;
-import android.net.wifi.WifiManager;
-import android.preference.PreferenceManager;
-import android.util.Log;
+import io.evercam.connect.helper.Constants;
 
 public class CurrentNetworkInterface
 {

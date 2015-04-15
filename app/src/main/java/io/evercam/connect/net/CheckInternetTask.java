@@ -1,12 +1,12 @@
 package io.evercam.connect.net;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.util.Log;
+
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 public class CheckInternetTask extends AsyncTask<Void, Void, Boolean>
 {

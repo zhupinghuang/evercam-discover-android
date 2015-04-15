@@ -1,10 +1,10 @@
 package io.evercam.connect.helper;
 
+import android.util.Log;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import android.util.Log;
 
 public class TimeHelper
 {
