@@ -16,9 +16,9 @@
     <string name="action_signIn">Sign In</string>
     <string name="action_signOut">Sign Out</string>
     <string name="demoCamera">Demo Camera</string>
-    <string name="sampleCamera">Sample Camera in Dublin</string>
+    <string name="sampleCamera">Sample Camera</string>
     <string name="scanning">Scanning…</string>
-    <string name="sampleHikvisionModel">Hikvision DS-2CD7164-E</string>
+    <string name="sampleHikvisionModel">Hikvision</string>
     <string name="title_activity_router">Network</string>
     <string name="router_title">Router Information:</string>
     <string name="device_title">Device Information:</string>

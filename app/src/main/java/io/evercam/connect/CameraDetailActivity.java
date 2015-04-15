@@ -419,6 +419,7 @@ public class CameraDetailActivity extends Activity
 		// If is demo camera
 		if (camera.isDemoCamera())
 		{
+			img.setImageResource(R.drawable.ds_2cd7164_e);
 			snapshot.setVisibility(View.VISIBLE);
 			setDeviceBtn.setVisibility(View.VISIBLE);
 			setCameraBtn.setVisibility(View.GONE);
