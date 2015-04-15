@@ -26,13 +26,14 @@ import io.evercam.User;
 import io.evercam.UserDetail;
 import io.evercam.connect.EvercamDiscover;
 import io.evercam.connect.R;
+import io.evercam.connect.helper.Constants;
 import io.evercam.connect.helper.SharedPrefsManager;
 import io.evercam.connect.helper.account.AccountUtils;
 import io.evercam.connect.helper.account.UserProfile;
 
 public class SignUpActivity extends Activity
 {
-	private final String TAG = "evercamdiscover-SignUpActivity";
+	private final String TAG = "SignUpActivity";
 
 	// Auto filled profiles
 	private String filledFirstname = "";
@@ -278,7 +279,9 @@ public class SignUpActivity extends Activity
 		{
 			if (message == null)
 			{
-				showConfirmSignUp();
+				makeShortToast(R.string.confirmSignUp);
+				setResult(Constants.RESULT_TRUE);
+				finish();
 			}
 			else
 			{
@@ -365,11 +368,5 @@ public class SignUpActivity extends Activity
 	{
 		signUpStatusView.setVisibility(show ? View.VISIBLE : View.GONE);
 		signUpFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-	}
-
-	private void showConfirmSignUp()
-	{
-		makeShortToast(R.string.confirmSignUp);
-		finish();
 	}
 }

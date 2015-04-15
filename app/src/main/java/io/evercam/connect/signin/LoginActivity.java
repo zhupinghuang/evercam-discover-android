@@ -5,7 +5,6 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.ActionBar;
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -15,6 +14,7 @@ import android.preference.PreferenceManager;
 import android.text.SpannableString;
 import android.text.TextUtils;
 import android.text.style.UnderlineSpan;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -23,8 +23,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.android.gms.common.ConnectionResult;
 
 import io.evercam.API;
 import io.evercam.ApiKeyPair;
@@ -37,8 +35,7 @@ import io.evercam.connect.helper.SharedPrefsManager;
 
 public class LoginActivity extends Activity
 {
-	protected ProgressDialog mConnectionProgressDialog;
-	protected ConnectionResult mConnectionResult;
+	private final String TAG = "LoginActivity";
 	private View loginFormView;
 	private View loginStatusView;
 	private EditText usernameEdit;
@@ -87,9 +84,8 @@ public class LoginActivity extends Activity
 			@Override
 			public void onClick(View v)
 			{
-				Intent signUpIntent = new Intent();
-				signUpIntent.setClass(LoginActivity.this, SignUpActivity.class);
-				startActivity(signUpIntent);
+				Intent signUpIntent = new Intent(LoginActivity.this, SignUpActivity.class);
+				startActivityForResult(signUpIntent, Constants.REQUEST_CODE_SIGN_UP);
 			}
 		});
 
@@ -104,12 +100,15 @@ public class LoginActivity extends Activity
 	}
 
 	@Override
-	protected void onRestart()
+	protected void onActivityResult(int requestCode, int resultCode, Intent data)
 	{
-		super.onRestart();
-		if (isUserLogged(sharedPrefs))
+		if(requestCode == Constants.REQUEST_CODE_SIGN_UP)
 		{
-			finish();
+			if(resultCode == Constants.RESULT_TRUE)
+			{
+				setResult(Constants.RESULT_TRUE);
+				finish();
+			}
 		}
 	}
 
@@ -201,38 +200,6 @@ public class LoginActivity extends Activity
 		}
 	}
 
-	protected void launchConfirmPage()
-	{
-
-		loginLayout.setVisibility(View.GONE);
-		confirmLayout.setVisibility(View.VISIBLE);
-
-		SharedPreferences sharedPrefs = PreferenceManager
-				.getDefaultSharedPreferences(LoginActivity.this);
-		String email = sharedPrefs.getString(Constants.KEY_USER_EMAIL, null);
-		String firstName = sharedPrefs.getString(Constants.KEY_USER_FIRST_NAME, null);
-		String lastName = sharedPrefs.getString(Constants.KEY_USER_LAST_NAME, null);
-
-		EditText firstNameEditTxt = (EditText) findViewById(R.id.signUpFirstnamevalue_detail);
-		EditText lastNameEditTxt = (EditText) findViewById(R.id.signUpLastnamevalue_detail);
-		EditText emailEditTxt = (EditText) findViewById(R.id.signUpEmailvalue_detail);
-		EditText countryEditTxt = (EditText) findViewById(R.id.signUpCountryvalue_detail);
-		Button nextBtn = (Button) findViewById(R.id.button_next);
-
-		firstNameEditTxt.setText(firstName);
-		lastNameEditTxt.setText(lastName);
-		emailEditTxt.setText(email);
-
-		nextBtn.setOnClickListener(new OnClickListener(){
-
-			@Override
-			public void onClick(View v)
-			{
-				LoginActivity.this.finish();
-			}
-		});
-	}
-
 	@Override
 	public Intent getParentActivityIntent()
 	{
@@ -273,6 +240,7 @@ public class LoginActivity extends Activity
 
 			if (success)
 			{
+				setResult(Constants.RESULT_TRUE);
 				finish();
 			}
 			else

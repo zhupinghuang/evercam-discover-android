@@ -21,6 +21,7 @@ import com.bugsense.trace.BugSenseHandler;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.evercam.connect.helper.Constants;
 import io.evercam.connect.helper.PropertyReader;
 import io.evercam.connect.signin.LoginActivity;
 import io.evercam.connect.signin.SignUpActivity;
@@ -59,6 +60,7 @@ public class SlideActivity extends Activity implements OnPageChangeListener
 		{
 			Intent intentMain = new Intent(SlideActivity.this, DiscoverMainActivity.class);
 			startActivity(intentMain);
+			finish();
 		}
 		else
 		{
@@ -81,21 +83,6 @@ public class SlideActivity extends Activity implements OnPageChangeListener
 	}
 
 	@Override
-	protected void onRestart()
-	{
-		super.onRestart();
-		if (LoginActivity.isUserLogged(sharedPrefs))
-		{
-			Intent intentMain = new Intent(SlideActivity.this, DiscoverMainActivity.class);
-			startActivity(intentMain);
-		}
-		else
-		{
-			EvercamDiscover.sendScreenAnalytics(this, getString(R.string.screen_welcome_slides));
-		}
-	}
-
-	@Override
 	protected void onStop()
 	{
 		super.onStop();
@@ -103,6 +90,20 @@ public class SlideActivity extends Activity implements OnPageChangeListener
 		if (propertyReader.isPropertyExist(PropertyReader.KEY_BUG_SENSE))
 		{
 			BugSenseHandler.closeSession(this);
+		}
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data)
+	{
+		if(requestCode == Constants.REQUEST_CODE_SIGN_IN || requestCode == Constants.REQUEST_CODE_SIGN_UP)
+		{
+			if(resultCode == Constants.RESULT_TRUE)
+			{
+				Intent intentMain = new Intent(SlideActivity.this, DiscoverMainActivity.class);
+				startActivity(intentMain);
+				finish();
+			}
 		}
 	}
 
@@ -137,12 +138,12 @@ public class SlideActivity extends Activity implements OnPageChangeListener
 			@Override
 			public void onClick(View v)
 			{
-				EvercamDiscover.sendEventAnalytics(SlideActivity.this,
-						R.string.category_welcome_slides, R.string.action_welcome_sign_in_out,
-						R.string.label_welcome_login);
+				EvercamDiscover.sendEventAnalytics(SlideActivity.this, R.string
+						.category_welcome_slides, R.string.action_welcome_sign_in_out, R.string
+						.label_welcome_login);
 
 				Intent login = new Intent(SlideActivity.this, LoginActivity.class);
-				startActivity(login);
+				startActivityForResult(login, Constants.REQUEST_CODE_SIGN_IN);
 			}
 		});
 
@@ -156,7 +157,7 @@ public class SlideActivity extends Activity implements OnPageChangeListener
 						R.string.label_welcome_sign_up);
 
 				Intent signup = new Intent(SlideActivity.this, SignUpActivity.class);
-				startActivity(signup);
+				startActivityForResult(signup, Constants.REQUEST_CODE_SIGN_UP);
 			}
 		});
 
@@ -171,6 +172,7 @@ public class SlideActivity extends Activity implements OnPageChangeListener
 
 				Intent skip = new Intent(SlideActivity.this, DiscoverMainActivity.class);
 				startActivity(skip);
+				finish();
 			}
 		});
 	}
@@ -219,12 +221,6 @@ public class SlideActivity extends Activity implements OnPageChangeListener
 		dots[positon].setEnabled(false);
 		dots[currentIndex].setEnabled(true);
 		currentIndex = positon;
-	}
-
-	@Override
-	public void onBackPressed()
-	{
-		// Not allowed to go back.
 	}
 
 	@Override

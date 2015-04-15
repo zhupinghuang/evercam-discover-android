@@ -288,7 +288,7 @@ public class DiscoverMainActivity extends Activity
 	@Override
 	public void onBackPressed()
 	{
-		//TODO: Back button to exit app
+		finish();
 	}
 
 	private void setUp()

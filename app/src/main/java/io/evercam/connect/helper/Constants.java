@@ -2,11 +2,6 @@ package io.evercam.connect.helper;
 
 public final class Constants
 {
-	// collect user data
-	public static final boolean IsDataCollectionEnabled = true;
-
-	public static final String URL_GET_EXTERNAL_ADDR = "http://ipinfo.io/ip";
-
 	// device types
 	public static final int TYPE_CAMERA = 1;
 	public static final int TYPE_ROUTER = 2;
@@ -54,5 +49,11 @@ public final class Constants
 	public static final String BUNDLE_KEY_IP = "IP";
 	public static final String BUNDLE_KEY_SSID = "SSID";
 	public static final String SAMPLE = "sample";
+
+	//Intent results
+	public static final int REQUEST_CODE_SIGN_IN = 1;
+	public static final int REQUEST_CODE_SIGN_UP = 2;
+	public static final int RESULT_TRUE = 1;
+	public static final int RESULT_FALSE = 0;
 
 }
