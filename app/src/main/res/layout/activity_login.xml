@@ -92,14 +92,6 @@
                     android:background="@drawable/btn_selector"
                     android:text="@string/action_sign_in_with_evercam"
                     android:textColor="#ffffff" />
-
-                <com.google.android.gms.common.SignInButton
-                    android:id="@+id/sign_in_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="60sp"
-                    android:visibility="gone" />
             </LinearLayout>
 
             <LinearLayout

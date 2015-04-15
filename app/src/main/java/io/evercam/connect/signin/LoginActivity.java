@@ -12,7 +12,6 @@ import io.evercam.connect.helper.SharedPrefsManager;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.SignInButton;
-import com.google.android.gms.plus.PlusClient;
 
 import android.os.AsyncTask;
 import android.os.Build;
@@ -43,7 +42,6 @@ import android.widget.Toast;
 public class LoginActivity extends Activity
 {
 	protected ProgressDialog mConnectionProgressDialog;
-	protected PlusClient mPlusClient;
 	protected ConnectionResult mConnectionResult;
 	private View loginFormView;
 	private View loginStatusView;
@@ -51,9 +49,6 @@ public class LoginActivity extends Activity
 	private EditText passwordEdit;
 	private String username;
 	private String password;
-	private Button btnEvercamSignIn;
-	SignInButton signInButton;
-	TextView alreadySigned;
 	LinearLayout loginLayout;
 	LinearLayout confirmLayout;
 	private UserLoginTask loginTask = null;
@@ -83,14 +78,15 @@ public class LoginActivity extends Activity
 		usernameEdit = (EditText) findViewById(R.id.loginUsername);
 		passwordEdit = (EditText) findViewById(R.id.loginPassword);
 
-		btnEvercamSignIn = (Button) findViewById(R.id.signInEvercamBtn);
+		Button btnEvercamSignIn = (Button) findViewById(R.id.signInEvercamBtn);
 		TextView signUpLink = (TextView) findViewById(R.id.signupLink);
 		SpannableString spanString = new SpannableString(this.getResources().getString(
 				R.string.create_account));
 		spanString.setSpan(new UnderlineSpan(), 0, spanString.length(), 0);
 		signUpLink.setText(spanString);
 
-		signUpLink.setOnClickListener(new OnClickListener(){
+		signUpLink.setOnClickListener(new OnClickListener()
+		{
 
 			@Override
 			public void onClick(View v)
@@ -107,50 +103,6 @@ public class LoginActivity extends Activity
 			public void onClick(View v)
 			{
 				attemptLogin();
-			}
-		});
-
-		signInButton = (SignInButton) findViewById(R.id.sign_in_button);
-		signInButton.setStyle(SignInButton.SIZE_WIDE, SignInButton.COLOR_LIGHT);
-
-		signInButton.setOnClickListener(new OnClickListener(){
-
-			@Override
-			public void onClick(View v)
-			{
-				int errorCode = GooglePlayServicesUtil
-						.isGooglePlayServicesAvailable(getApplicationContext());
-				if (errorCode != ConnectionResult.SUCCESS)
-				{
-					GooglePlayServicesUtil.getErrorDialog(errorCode, LoginActivity.this, 0).show();
-					Toast.makeText(LoginActivity.this, "Google+ is not installed!",
-							Toast.LENGTH_LONG).show();
-				}
-				else
-				{
-					new GoogleSignIn(LoginActivity.this);
-					if (!mPlusClient.isConnected())
-					{
-						if (mConnectionResult == null)
-						{
-							mConnectionProgressDialog.show();
-						}
-						else
-						{
-							try
-							{
-								mConnectionResult.startResolutionForResult(LoginActivity.this,
-										GoogleSignIn.REQUEST_CODE_RESOLVE_ERR);
-							}
-							catch (SendIntentException e)
-							{
-								// Try connecting again.
-								mConnectionResult = null;
-								mPlusClient.connect();
-							}
-						}
-					}
-				}
 			}
 		});
 	}
