@@ -352,6 +352,10 @@ public class SignUpActivity extends Activity
             // Just catch it to avoid crashing.
             Log.e(TAG, e.toString());
         }
+        catch(NoClassDefFoundError e)
+        {
+            //Temporarily catching this error because it crashes on a 4.4 device
+        }
     }
 
     private void fillDefaultProfile()
