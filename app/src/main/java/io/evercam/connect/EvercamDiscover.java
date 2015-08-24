@@ -1,7 +1,7 @@
 package io.evercam.connect;
 
 import android.app.Activity;
-import android.app.Application;
+import android.support.multidex.MultiDexApplication;
 
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.HitBuilders;
@@ -9,11 +9,11 @@ import com.google.android.gms.analytics.Tracker;
 
 import java.util.HashMap;
 
-public class EvercamDiscover extends Application
+public class EvercamDiscover extends MultiDexApplication
 {
     private static final String PROPERTY_ID = "UA-52483995-2";
 
-    private static final String TAG = "evercamdiscover-EvercamDiscover";
+    private static final String TAG = "EvercamDiscoverApplication";
 
     public enum TrackerName
     {

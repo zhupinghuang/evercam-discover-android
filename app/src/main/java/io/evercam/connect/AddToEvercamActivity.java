@@ -34,13 +34,13 @@ import io.evercam.connect.db.CameraOperation;
 import io.evercam.connect.helper.LocationReader;
 import io.evercam.connect.helper.SharedPrefsManager;
 import io.evercam.network.discovery.NetworkInfo;
+import io.evercam.network.discovery.Port;
 import io.evercam.network.discovery.PortScan;
 
 public class AddToEvercamActivity extends Activity
 {
     private final String TAG = "evercamdiscover-AddToEvercamActivity";
     private Camera camera;
-    private EditText idEdit;
     private EditText nameEdit;
     private EditText snapshotEdit;
     private EditText usernameEdit;
@@ -53,7 +53,6 @@ public class AddToEvercamActivity extends Activity
     private Button addBtn;
     private CreateCameraTask createCameraTask;
     private SharedPreferences sharedPrefs;
-    private String cameraId;
     private String cameraName;
     private String snapshotPath;
     private boolean isPublic;
@@ -142,7 +141,6 @@ public class AddToEvercamActivity extends Activity
 
     private void initPage()
     {
-        idEdit = (EditText) findViewById(R.id.addCameraId_edit);
         nameEdit = (EditText) findViewById(R.id.addCameraName_edit);
         snapshotEdit = (EditText) findViewById(R.id.addCameraJpg_edit);
         usernameEdit = (EditText) findViewById(R.id.addUsername_edit);
@@ -186,7 +184,6 @@ public class AddToEvercamActivity extends Activity
             vendorEdit.setEnabled(false);
             vendorEdit.setTextColor(Color.parseColor("#808080"));
         }
-        idEdit.setText(SharedPrefsManager.getEvercamUsername(sharedPrefs) + random());
         nameEdit.setText(R.string.myCamera);
     }
 
@@ -202,7 +199,6 @@ public class AddToEvercamActivity extends Activity
 
     private boolean detailsChecked()
     {
-        String idStr = idEdit.getText().toString();
         String nameStr = nameEdit.getText().toString();
         String snapshotStr = snapshotEdit.getText().toString();
         String exthttpStr = exthttpEdit.getText().toString();
@@ -211,12 +207,7 @@ public class AddToEvercamActivity extends Activity
 
         if(extHttpChecked())
         {
-            if(idStr.length() == 0)
-            {
-                showShortToast(R.string.idEmpty);
-                idEdit.requestFocus();
-            }
-            else if(nameStr.length() == 0)
+            if(nameStr.length() == 0)
             {
                 showShortToast(R.string.nameEmpty);
                 nameEdit.requestFocus();
@@ -247,7 +238,6 @@ public class AddToEvercamActivity extends Activity
             }
             else
             {
-                cameraId = idStr;
                 cameraName = nameStr;
                 snapshotPath = snapshotStr;
                 isPublic = publicRadioBtn.isChecked();
@@ -326,7 +316,7 @@ public class AddToEvercamActivity extends Activity
                 {
                     try
                     {
-                        if(PortScan.isPortReachable(externalIp, port))
+                        if(Port.isReachable(externalIp, port))
                         {
                             return true;
                         }
@@ -399,12 +389,10 @@ public class AddToEvercamActivity extends Activity
             try
             {
                 io.evercam.Camera camera = io.evercam.Camera.create(cameraDetail);
+
                 if(camera != null)
                 {
-                    if(camera.getId().equals(cameraId))
-                    {
-                        return true;
-                    }
+                    return true;
                 }
                 return false;
             }
@@ -438,7 +426,7 @@ public class AddToEvercamActivity extends Activity
             CameraBuilder cameraBuilder;
             try
             {
-                cameraBuilder = new CameraBuilder(cameraId, cameraName, isPublic).setExternalHost(externalIp).setExternalHttpPort(exthttp).setTimeZone(TimeZone.getDefault().getID()).setCameraUsername(cameraUsername).setCameraPassword(cameraPassword).setJpgUrl(snapshotPath);
+                cameraBuilder = new CameraBuilder(cameraName, isPublic).setExternalHost(externalIp).setExternalHttpPort(exthttp).setTimeZone(TimeZone.getDefault().getID()).setCameraUsername(cameraUsername).setCameraPassword(cameraPassword).setJpgUrl(snapshotPath);
                 if(camera.hasHTTP())
                 {
                     cameraBuilder.setInternalHost(camera.getIP()).setInternalHttpPort(camera.getHttp());

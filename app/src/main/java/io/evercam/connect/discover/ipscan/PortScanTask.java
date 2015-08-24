@@ -5,8 +5,9 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import io.evercam.connect.db.CameraOperation;
+import io.evercam.network.discovery.Port;
 import io.evercam.network.discovery.PortScan;
-import io.evercam.network.discovery.PortScanResult;
+import io.evercam.network.discovery.PortScanCallback;
 
 public class PortScanTask extends AsyncTask<Void, Void, Void>
 {
@@ -27,35 +28,21 @@ public class PortScanTask extends AsyncTask<Void, Void, Void>
     {
         try
         {
-            PortScan portScan = new PortScan(new PortScanResult()
+            PortScan portScan = new PortScan(new PortScanCallback()
             {
                 @Override
-                public void onPortActive(int port, int type)
+                public void onActivePort(Port port)
                 {
-                    String port_s = String.valueOf(port);
-                    switch(type)
-                    {
-                        case PortScan.TYPE_STANDARD:
-                            if(port == 80)
-                            {
-                                cameraOperation.updateAttributeInt(ip, ssid, "http", port);
-                            }
-                            if(port == 554)
-                            {
-                                cameraOperation.updateAttributeInt(ip, ssid, "rtsp", port);
-                            }
-                            break;
-                        case PortScan.TYPE_COMMON:
-                            if(port_s.startsWith("8"))
-                            {
-                                cameraOperation.updateAttributeInt(ip, ssid, "http", port);
+                    int portInt = port.getValue();
+                    String portType = port.getType();
 
-                            }
-                            else if(port_s.startsWith("9"))
-                            {
-                                cameraOperation.updateAttributeInt(ip, ssid, "rtsp", port);
-                            }
-                            break;
+                    if(portType.equals(Port.TYPE_HTTP))
+                    {
+                        cameraOperation.updateAttributeInt(ip, ssid, "http", portInt);
+                    }
+                    if(portType.equals(Port.TYPE_RTSP))
+                    {
+                        cameraOperation.updateAttributeInt(ip, ssid, "rtsp", portInt);
                     }
                 }
             });

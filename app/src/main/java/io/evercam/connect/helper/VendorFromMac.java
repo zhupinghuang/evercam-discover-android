@@ -7,10 +7,12 @@ import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import io.evercam.EvercamException;
 import io.evercam.Vendor;
 import io.evercam.network.query.EvercamQuery;
-import io.evercam.relocation.JSONObject;
 
 public class VendorFromMac
 {
@@ -27,12 +29,16 @@ public class VendorFromMac
         {
             HttpResponse<JsonNode> response = Unirest.get(URL + macAddress).header("accept",
                     "application/json").asJson();
-            if(response.getCode() == CODE_OK)
+            if(response.getStatus() == CODE_OK)
             {
                 vendorJsonObject = response.getBody().getArray().getJSONObject(0);
             }
         }
         catch(UnirestException e)
+        {
+            Log.e(TAG, e.getMessage());
+        }
+        catch(JSONException e)
         {
             Log.e(TAG, e.getMessage());
         }
@@ -42,7 +48,14 @@ public class VendorFromMac
     {
         if(vendorJsonObject != null)
         {
-            return vendorJsonObject.getString(KEY_COMPANY);
+            try
+            {
+                return vendorJsonObject.getString(KEY_COMPANY);
+            }
+            catch(JSONException e)
+            {
+                e.printStackTrace();
+            }
         }
         return "";
     }

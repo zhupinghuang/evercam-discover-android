@@ -43,6 +43,7 @@ import java.util.Iterator;
 import java.util.Locale;
 
 import io.evercam.API;
+import io.evercam.EvercamException;
 import io.evercam.connect.db.Camera;
 import io.evercam.connect.db.CameraOperation;
 import io.evercam.connect.discover.bonjour.JmdnsDiscover;
@@ -58,10 +59,9 @@ import io.evercam.connect.helper.SharedPrefsManager;
 import io.evercam.connect.helper.TimeHelper;
 import io.evercam.connect.net.CheckInternetTaskMain;
 import io.evercam.connect.net.NetInfo;
-import io.evercam.network.cambase.CambaseAPI;
-import io.evercam.network.cambase.CambaseException;
 import io.evercam.network.discovery.IpTranslator;
 import io.evercam.network.discovery.ScanRange;
+import io.evercam.network.query.EvercamQuery;
 
 /**
  * MainActivity
@@ -701,32 +701,24 @@ public class DiscoverMainActivity extends Activity
         @Override
         protected Bitmap doInBackground(Void... params)
         {
-            try
-            {
-                String thumbnailUrl = CambaseAPI.getThumbnailUrlFor(camera.getVendor()
-                        .toLowerCase(Locale.UK), camera.getModel());
-                Bitmap bitmap = null;
+            String thumbnailUrl = EvercamQuery.getThumbnailUrlFor(camera.getVendor()
+                    .toLowerCase(Locale.UK), camera.getModel());
+            Bitmap bitmap = null;
 
-                if(!thumbnailUrl.isEmpty())
+            if(!thumbnailUrl.isEmpty())
+            {
+                try
                 {
-                    try
-                    {
-                        InputStream stream = Unirest.get(thumbnailUrl).asBinary().getRawBody();
-                        bitmap = BitmapFactory.decodeStream(stream);
-                    }
-                    catch(UnirestException e)
-                    {
-                        Log.e(TAG, e.getStackTrace()[0].toString());
-                    }
+                    InputStream stream = Unirest.get(thumbnailUrl).asBinary().getRawBody();
+                    bitmap = BitmapFactory.decodeStream(stream);
                 }
+                catch(UnirestException e)
+                {
+                    Log.e(TAG, e.getStackTrace()[0].toString());
+                }
+            }
 
-                return bitmap;
-            }
-            catch(CambaseException e)
-            {
-                Log.e(TAG, e.toString());
-            }
-            return null;
+            return bitmap;
         }
 
         @Override

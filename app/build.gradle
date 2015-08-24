@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 22
-    buildToolsVersion "21.1.2"
+    buildToolsVersion "22.0.1"
 
     defaultConfig {
         applicationId "io.evercam.connect"
@@ -17,8 +17,11 @@ android {
         }
     }
 
-    dexOptions {
-        javaMaxHeapSize "4g"
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+        }
     }
 
     sourceSets.main {
@@ -30,18 +33,12 @@ android {
         exclude 'META-INF/LICENSE'
         exclude 'META-INF/NOTICE'
     }
-
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
-        }
-    }
 }
 
 dependencies {
-    compile 'com.android.support:support-v4:22.0.0'
-    compile 'com.google.android.gms:play-services:7.0.0'
-    compile 'com.android.support:multidex:1.0.0'
+    compile 'com.android.support:support-v4:22.0.1'
+    compile 'com.google.android.gms:play-services:7.8.0'
+    compile 'com.android.support:multidex:1.0.1'
+    compile 'org.json:json:20141113'
     compile fileTree(dir: 'libs', include: ['*.jar'])
 }

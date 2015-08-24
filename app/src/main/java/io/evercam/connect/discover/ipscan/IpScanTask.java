@@ -65,19 +65,24 @@ public class IpScanTask extends AsyncTask<Void, Host, Void>
             final DiscoverMainActivity discover = mainDiscover.get();
             if(discover != null)
             {
-                IpScan ipScan = new IpScan(new ScanResult()
-                {
-
+                IpScan ipScan = new IpScan(new ScanResult() {
                     @Override
                     public void onActiveIp(String ip)
                     {
                         Host host = new Host();
                         host.setIpAddress(ip);
-                        host.setHardwareAddress(MacAddress.getByIpAndroid(ip));
+                        host.setHardwareAddress(MacAddress.getByIpLinux(ip));
 
                         publish(host);
                     }
+
+                    @Override
+                    public void onIpScanned(String ip)
+                    {
+
+                    }
                 });
+
                 this.pool = ipScan.pool;
                 ipScan.scanAll(scanRange);
             }
@@ -131,7 +136,7 @@ public class IpScanTask extends AsyncTask<Void, Host, Void>
                 // Mac Addr not already detected
                 if(!host.hardwareAddress.equals(NetInfo.EMPTY_MAC))
                 {
-                    host.hardwareAddress = MacAddress.getByIpAndroid(host.ipAddress);
+                    host.hardwareAddress = MacAddress.getByIpLinux(host.ipAddress);
                 }
 
                 // NIC vendor

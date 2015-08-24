@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="io.evercam.connect"
-          android:versionCode="32"
-          android:versionName="1.3.1">
+          android:versionCode="33"
+          android:versionName="1.3.2">
 
     <!-- Recent Release History -->
 
@@ -23,6 +23,7 @@
     <!--  version30 - 1.2.9  API Naming changes update-->
     <!-- 20/02/2015  version31 - 1.3.0  fix null auth crash-->
     <!-- 15/04/2015  version32 - 1.3.1  back button to close, update demo camera-->
+    <!-- 24/08/2015  version33 - 1.3.2  Upgrade dependencies, fix Multidex error-->
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE"/>

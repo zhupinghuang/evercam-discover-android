@@ -2,6 +2,7 @@ package io.evercam.connect.discover.upnp;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import io.evercam.connect.DiscoverMainActivity;
 import io.evercam.connect.db.Camera;

@@ -60,7 +60,7 @@ public class RouterActivity extends Activity
         if(!netInfo.getGatewayIp().equals(NetInfo.EMPTY_IP))
         {
             router_ip.setText(netInfo.getGatewayIp());
-            router_mac.setText(MacAddress.getByIpAndroid(netInfo.getGatewayIp()).toUpperCase
+            router_mac.setText(MacAddress.getByIpLinux(netInfo.getGatewayIp()).toUpperCase
                     (Locale.UK));
         }
 
@@ -72,7 +72,7 @@ public class RouterActivity extends Activity
             Camera camera = cameraOperation.getCamera(netInfo.getGatewayIp(), netInfo.getSsid());
 
             // show model if exists
-            if(camera.getModel() != null && camera.getModel() != "")
+            if(camera.getModel() != null && !camera.getModel().isEmpty())
             {
                 routerModelLayout.setVisibility(View.VISIBLE);
                 router_model.setText(camera.getModel());
